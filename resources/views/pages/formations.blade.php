@@ -53,10 +53,10 @@
                         @if($f->image && file_exists(public_path('storage/'.$f->image)))
                             <img src="{{ asset('storage/'.$f->image) }}" alt="{{ $f->titre }}" style="width:100%;height:100%;object-fit:cover;">
                         @else
-                            <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(224,112,48,0.1),transparent);"></div>
-                            <div style="text-align:center;position:relative;z-index:1;">
-                                <div style="font-size:3rem;">🎨</div>
-                            </div>
+                            @php $fPhotos = ['4.jpg','5.jpg','6.jpg','7.jpg','9.jpg','1.png','2.jpg','3.jpg']; @endphp
+                            <img src="{{ asset('images/' . $fPhotos[$loop->index % count($fPhotos)]) }}"
+                                 alt="{{ $f->titre }}"
+                                 style="width:100%;height:100%;object-fit:cover;">
                         @endif
                         @if($f->niveau)
                         <div style="position:absolute;bottom:12px;left:12px;">

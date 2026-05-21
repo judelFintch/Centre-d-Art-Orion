@@ -95,6 +95,82 @@ function initCounters() {
     observer.observe(section);
 }
 
+// ─── Hero Slider ───────────────────────────────────────────────
+function initHeroSlider() {
+    const container = document.getElementById('hero-slides-container');
+    if (!container) return;
+
+    const slides = container.querySelectorAll('.hero-slide');
+    const dots = document.querySelectorAll('.hero-dot');
+    const prevBtn = document.getElementById('hero-prev');
+    const nextBtn = document.getElementById('hero-next');
+
+    if (slides.length < 2) return;
+
+    let current = 0;
+    let timer = null;
+    const INTERVAL = 6000;
+
+    function goTo(index) {
+        slides[current].style.opacity = '0';
+        dots[current].style.width = '12px';
+        dots[current].style.background = 'rgba(255,255,255,0.25)';
+        const prevProgress = dots[current].querySelector('.dot-progress');
+        if (prevProgress) {
+            prevProgress.style.transition = 'none';
+            prevProgress.style.transform = 'scaleX(0)';
+        }
+
+        current = (index + slides.length) % slides.length;
+
+        slides[current].style.opacity = '1';
+        dots[current].style.width = '28px';
+        dots[current].style.background = '#4caf7d';
+
+        const activeProgress = dots[current].querySelector('.dot-progress');
+        if (activeProgress) {
+            activeProgress.style.transition = 'none';
+            activeProgress.style.transform = 'scaleX(0)';
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    activeProgress.style.transition = `transform ${INTERVAL}ms linear`;
+                    activeProgress.style.transform = 'scaleX(1)';
+                });
+            });
+        }
+    }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), INTERVAL);
+    }
+
+    dots.forEach((dot) => {
+        dot.addEventListener('click', () => {
+            goTo(parseInt(dot.dataset.index, 10));
+            startAuto();
+        });
+    });
+
+    prevBtn?.addEventListener('click', () => { goTo(current - 1); startAuto(); });
+    nextBtn?.addEventListener('click', () => { goTo(current + 1); startAuto(); });
+
+    // Pause on hover
+    container.closest('section')?.addEventListener('mouseenter', () => clearInterval(timer));
+    container.closest('section')?.addEventListener('mouseleave', startAuto);
+
+    // Swipe support
+    let touchStartX = 0;
+    container.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    container.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
+    });
+
+    goTo(0);
+    startAuto();
+}
+
 // ─── Gallery Lightbox ──────────────────────────────────────────
 function initLightbox() {
     const lightbox = document.getElementById('lightbox');
@@ -107,15 +183,21 @@ function initLightbox() {
         el.addEventListener('click', () => {
             img.src = el.dataset.src || el.src;
             if (caption) caption.textContent = el.dataset.caption || '';
+            lightbox.style.display = 'flex';
             lightbox.classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         });
     });
 
+    function closeLightbox() {
+        lightbox.classList.add('hidden');
+        lightbox.style.display = '';
+        document.body.style.overflow = '';
+    }
+
     lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target.closest('#lightbox-close')) {
-            lightbox.classList.add('hidden');
-            document.body.style.overflow = '';
+            closeLightbox();
         }
     });
 }
@@ -184,6 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNav();
     initStickyHeader();
     initCounters();
+    initHeroSlider();
     initLightbox();
     initActiveNav();
     initContactForm();

@@ -26,7 +26,7 @@
 
     @stack('head')
 </head>
-<body class="bg-orion-black text-orion-white antialiased">
+<body class="antialiased" style="background:#faf8f4;color:#1c1510;">
 
     {{-- Navigation --}}
     @include('components.navbar')

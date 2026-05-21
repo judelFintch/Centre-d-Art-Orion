@@ -68,9 +68,10 @@ foreach($membres as $role => $group) {
                      alt="{{ $membre->nom_complet }}"
                      style="width:88px;height:88px;border-radius:50%;object-fit:cover;margin:0 auto 20px;display:block;border:3px solid {{ $color }}44;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
                 @else
-                <div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,{{ $color }},{{ $color }}88);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#0a0a0a;margin:0 auto 20px;box-shadow:0 8px 30px {{ $color }}44;">
-                    {{ $initials }}
-                </div>
+                @php $mPhotos = ['4.jpg','9.jpg','5.jpg','7.jpg','3.jpg','6.jpg','2.jpg','1.png']; @endphp
+                <img src="{{ asset('images/' . $mPhotos[$loop->index % count($mPhotos)]) }}"
+                     alt="{{ $membre->nom_complet }}"
+                     style="width:88px;height:88px;border-radius:50%;object-fit:cover;margin:0 auto 20px;display:block;border:3px solid {{ $color }}44;box-shadow:0 8px 30px {{ $color }}44;">
                 @endif
 
                 <span class="tag {{ $badge }}" style="margin-bottom:12px;display:inline-block;">{{ $membre->poste }}</span>

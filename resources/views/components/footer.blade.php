@@ -7,12 +7,8 @@
 
             {{-- Brand --}}
             <div>
-                <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-                    <div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.2rem;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;">O</div>
-                    <div>
-                        <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;color:#f5f5f0;line-height:1.2;">Centre d'Art</div>
-                        <div style="font-family:'Playfair Display',Georgia,serif;font-weight:900;font-size:1.2rem;background:linear-gradient(90deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.2;">ORION</div>
-                    </div>
+                <div style="margin-bottom:20px;">
+                    <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:44px;width:auto;object-fit:contain;display:block;filter:brightness(0) invert(1);opacity:0.85;">
                 </div>
                 <p style="color:#666;font-size:0.88rem;line-height:1.8;margin-bottom:24px;">
                     Production · Création · Formation.<br>

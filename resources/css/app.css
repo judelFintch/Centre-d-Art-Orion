@@ -10,68 +10,41 @@
 
 /* ─── Orion Design Tokens ───────────────────────────────────── */
 @theme {
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-sans:    'Inter', ui-sans-serif, system-ui, sans-serif;
     --font-display: 'Playfair Display', Georgia, serif;
     --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
 
-    --color-orion-black:   #0a0a0a;
-    --color-orion-dark:    #111111;
-    --color-orion-darker:  #0d0d0d;
-    --color-orion-card:    #161616;
-    --color-orion-border:  #222222;
-    --color-orion-muted:   #3a3a3a;
-    --color-orion-white:   #f5f5f0;
-    --color-orion-green:   #4caf7d;
-    --color-orion-green2:  #2d7a52;
-    --color-orion-gold:    #d4a030;
-    --color-orion-yellow:  #f0c040;
-    --color-orion-orange:  #e07030;
-    --color-orion-orange2: #c05020;
+    --color-orion-page:   #faf8f4;
+    --color-orion-cream:  #f2ece0;
+    --color-orion-text:   #1c1510;
+    --color-orion-muted:  #78706a;
+    --color-orion-border: #e0d8cc;
+    --color-orion-card:   #ffffff;
+    --color-orion-black:  #0a0a0a;
+    --color-orion-dark:   #111111;
+    --color-orion-green:  #4caf7d;
+    --color-orion-green2: #2d7a52;
+    --color-orion-gold:   #d4a030;
+    --color-orion-orange: #e07030;
 }
 
-/* ─── Base Resets ───────────────────────────────────────────── */
+/* ─── Base ──────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
-    background-color: var(--color-orion-black);
-    color: var(--color-orion-white);
+    background-color: var(--color-orion-page);
+    color: var(--color-orion-text);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Typography Helpers ────────────────────────────────────── */
-.font-display   { font-family: var(--font-display); }
-.font-heading   { font-family: var(--font-heading); }
+/* ─── Typographie ───────────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-heading { font-family: var(--font-heading); }
 
-/* ─── Gradient Accents ──────────────────────────────────────── */
-.gradient-orion {
-    background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-gold), var(--color-orion-orange));
-}
-.gradient-text {
-    background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-.gradient-text-warm {
-    background: linear-gradient(135deg, var(--color-orion-gold), var(--color-orion-orange));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* ─── Card / Section Backgrounds ───────────────────────────── */
-.bg-orion-card    { background-color: var(--color-orion-card); }
-.bg-orion-dark    { background-color: var(--color-orion-dark); }
-.border-orion     { border-color: var(--color-orion-border); }
-
-/* ─── Glow Effects ──────────────────────────────────────────── */
-.glow-green  { box-shadow: 0 0 40px rgba(76,175,125,0.15); }
-.glow-gold   { box-shadow: 0 0 40px rgba(212,160,48,0.15); }
-.glow-orange { box-shadow: 0 0 40px rgba(224,112,48,0.15); }
+/* ─── Glow ──────────────────────────────────────────────────── */
+.glow-green  { box-shadow: 0 0 40px rgba(76,175,125,0.20); }
+.glow-gold   { box-shadow: 0 0 40px rgba(212,160,48,0.20); }
 
 /* ─── Accent Line ───────────────────────────────────────────── */
 .accent-line::after {
@@ -83,194 +56,449 @@ body {
     background: linear-gradient(90deg, var(--color-orion-green), var(--color-orion-gold));
     border-radius: 2px;
 }
-.accent-line-center::after {
-    margin-left: auto;
-    margin-right: auto;
-}
+.accent-line-center::after { margin-left: auto; margin-right: auto; }
 
 /* ─── Hover Lift ────────────────────────────────────────────── */
-.hover-lift {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+.hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
 .hover-lift:hover {
     transform: translateY(-6px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 16px 48px rgba(30,20,10,0.12);
 }
 
-/* ─── Scroll Reveal Animation ───────────────────────────────── */
+/* ─── Scroll Reveal ─────────────────────────────────────────── */
 .reveal {
     opacity: 0;
     transform: translateY(30px);
     transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
+.reveal.visible { opacity: 1; transform: translateY(0); }
 
-/* ─── Custom Scrollbar ──────────────────────────────────────── */
+/* ─── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-orion-dark); }
-::-webkit-scrollbar-thumb {
-    background: var(--color-orion-green);
-    border-radius: 3px;
-}
+::-webkit-scrollbar-track { background: var(--color-orion-cream); }
+::-webkit-scrollbar-thumb { background: var(--color-orion-green); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--color-orion-gold); }
 
-/* ─── Prose Dark Override ───────────────────────────────────── */
-.prose-dark {
-    color: #c5c5bf;
-    line-height: 1.8;
-}
+/* ─── Prose ─────────────────────────────────────────────────── */
+.prose-dark { color: #78706a; line-height: 1.8; }
 .prose-dark p { margin-bottom: 1.2em; }
 
-/* ─── Hero Noise Overlay ────────────────────────────────────── */
-.hero-noise::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1;
-}
-
-/* ─── Navigation active state ───────────────────────────────── */
-.nav-link {
-    position: relative;
-    transition: color 0.2s ease;
-}
+/* ─── Nav link ──────────────────────────────────────────────── */
+.nav-link { position: relative; transition: color 0.2s ease; }
 .nav-link::after {
     content: '';
     position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
+    bottom: -4px; left: 0; width: 0; height: 2px;
     background: linear-gradient(90deg, var(--color-orion-green), var(--color-orion-gold));
     transition: width 0.3s ease;
 }
-.nav-link:hover::after,
-.nav-link.active::after { width: 100%; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
 
-/* ─── Button Styles ─────────────────────────────────────────── */
+/* ─── Boutons ───────────────────────────────────────────────── */
 .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 12px 28px;
     background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-green2));
     color: #fff;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border-radius: 4px; border: none; cursor: pointer;
+    transition: all 0.3s ease; text-decoration: none;
 }
 .btn-primary:hover {
-    background: linear-gradient(135deg, var(--color-orion-green2), var(--color-orion-green));
-    box-shadow: 0 8px 30px rgba(76,175,125,0.35);
+    box-shadow: 0 8px 28px rgba(76,175,125,0.30);
     transform: translateY(-2px);
 }
-
 .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 11px 28px;
     background: transparent;
-    color: var(--color-orion-white);
-    font-family: var(--font-heading);
-    font-weight: 600;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 4px;
-    border: 1px solid var(--color-orion-muted);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
+    color: var(--color-orion-text);
+    font-family: var(--font-heading); font-weight: 600; font-size: 0.9rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border-radius: 4px; border: 1px solid #c8c0b4; cursor: pointer;
+    transition: all 0.3s ease; text-decoration: none;
 }
 .btn-outline:hover {
     border-color: var(--color-orion-gold);
     color: var(--color-orion-gold);
-    box-shadow: 0 8px 30px rgba(212,160,48,0.15);
+    box-shadow: 0 8px 28px rgba(212,160,48,0.15);
     transform: translateY(-2px);
 }
-
 .btn-gold {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 12px 28px;
     background: linear-gradient(135deg, var(--color-orion-gold), var(--color-orion-orange));
-    color: #0a0a0a;
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    border-radius: 4px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
+    color: #fff;
+    font-family: var(--font-heading); font-weight: 700; font-size: 0.9rem;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    border-radius: 4px; border: none; cursor: pointer;
+    transition: all 0.3s ease; text-decoration: none;
 }
 .btn-gold:hover {
-    box-shadow: 0 8px 30px rgba(212,160,48,0.4);
+    box-shadow: 0 8px 28px rgba(212,160,48,0.35);
     transform: translateY(-2px);
 }
 
-/* ─── Section Separator ─────────────────────────────────────── */
-.section-sep {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-orion-border), transparent);
-}
-
-/* ─── Tag / Badge ───────────────────────────────────────────── */
+/* ─── Tags ──────────────────────────────────────────────────── */
 .tag {
-    display: inline-block;
-    padding: 4px 12px;
-    font-size: 0.75rem;
-    font-family: var(--font-heading);
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    display: inline-block; padding: 4px 12px;
+    font-size: 0.75rem; font-family: var(--font-heading);
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
     border-radius: 2px;
 }
-.tag-green  { background: rgba(76,175,125,0.15);  color: var(--color-orion-green); }
-.tag-gold   { background: rgba(212,160,48,0.15);  color: var(--color-orion-gold); }
-.tag-orange { background: rgba(224,112,48,0.15);  color: var(--color-orion-orange); }
-.tag-white  { background: rgba(245,245,240,0.08); color: var(--color-orion-white); }
+.tag-green  { background: rgba(76,175,125,0.12);  color: #2a7a50; }
+.tag-gold   { background: rgba(212,160,48,0.12);  color: #9a7018; }
+.tag-orange { background: rgba(224,112,48,0.12);  color: #b85820; }
+.tag-white  { background: rgba(28,21,16,0.06);    color: var(--color-orion-text); }
 
-/* ─── Form Controls ─────────────────────────────────────────── */
+/* ─── Formulaires ───────────────────────────────────────────── */
 .orion-input {
-    width: 100%;
-    padding: 14px 18px;
-    background: var(--color-orion-card);
-    border: 1px solid var(--color-orion-border);
-    border-radius: 4px;
-    color: var(--color-orion-white);
-    font-family: var(--font-sans);
-    font-size: 0.95rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-    outline: none;
+    width: 100%; padding: 14px 18px;
+    background: #ffffff; border: 1px solid var(--color-orion-border); border-radius: 4px;
+    color: var(--color-orion-text); font-family: var(--font-sans); font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease; outline: none;
 }
-.orion-input::placeholder { color: #666; }
+.orion-input::placeholder { color: #a89a8e; }
 .orion-input:focus {
     border-color: var(--color-orion-green);
     box-shadow: 0 0 0 3px rgba(76,175,125,0.12);
 }
 
-/* ─── Map Overlay ───────────────────────────────────────────── */
+/* ─── Map ───────────────────────────────────────────────────── */
 .map-container {
     border: 1px solid var(--color-orion-border);
+    border-radius: 8px; overflow: hidden;
+    filter: grayscale(0.2) contrast(1.05);
+}
+
+/* ════════════════════════════════════════════════════════════
+   MARQUES ARTISTIQUES
+════════════════════════════════════════════════════════════ */
+
+/* Peinture éclaboussée — blob organique */
+.art-blob {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+}
+.art-blob-green  { background: #4caf7d; }
+.art-blob-gold   { background: #d4a030; }
+.art-blob-orange { background: #e07030; }
+
+/* Trait de pinceau sous les titres de section */
+.art-brush::after {
+    content: '';
+    display: block; width: 100%; max-width: 180px; height: 7px; margin-top: 5px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 10' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C20 3,50 9,85 6 C115 3,145 9,168 5 C172 4,177 7,179 6' stroke='%234caf7d' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat center;
+    background-size: 100% 100%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   HEADER — Fond blanc artistique
+════════════════════════════════════════════════════════════ */
+#main-header {
+    background: rgba(250,248,244,0.95) !important;
+    border-bottom: 1px solid rgba(30,20,10,0.08) !important;
+    backdrop-filter: blur(14px) !important;
+}
+#main-header nav { gap: 2px !important; }
+#main-header .nav-link {
+    color: rgba(28,21,16,0.65) !important;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.08em !important;
+}
+#main-header .nav-link::after { bottom: -8px; background: var(--color-orion-green); }
+#main-header .nav-link:hover  { color: #1c1510 !important; }
+#main-header .nav-link.active { color: var(--color-orion-green) !important; }
+#main-header.scrolled {
+    background: rgba(250,248,244,0.99) !important;
+    box-shadow: 0 2px 20px rgba(30,20,10,0.09);
+}
+
+/* ════════════════════════════════════════════════════════════
+   HERO — Slider photo sombre (inchangé)
+════════════════════════════════════════════════════════════ */
+.biasasa-inspired.hero-orion {
+    background: #050505 !important;
+    min-height: calc(100vh - 72px) !important;
+}
+.biasasa-inspired.hero-orion::before {
+    content: 'ORION';
+    position: absolute; right: -0.06em; bottom: -0.22em;
+    color: rgba(245,245,240,0.03);
+    font-family: var(--font-heading);
+    font-size: clamp(8rem,22vw,21rem); font-weight: 700; line-height: 1;
+    pointer-events: none;
+}
+.hero-orion-grid {
+    grid-template-columns: minmax(0,1.05fr) minmax(300px,0.65fr) !important;
+    gap: clamp(40px,7vw,96px) !important;
+}
+.hero-orion-kicker {
+    border: 0 !important; border-radius: 0 !important;
+    background: transparent !important; padding: 0 !important; margin-bottom: 28px !important;
+}
+.hero-orion-kicker span:last-child { color: #f06a2a !important; letter-spacing: 0.18em !important; }
+.hero-orion-title {
+    font-family: var(--font-heading) !important;
+    font-size: clamp(3.8rem,10vw,9rem) !important;
+    letter-spacing: 0 !important; line-height: 0.88 !important;
+    text-transform: uppercase;
+    color: #f5f5f0 !important;
+}
+.hero-orion-title span {
+    background: none !important;
+    -webkit-text-fill-color: #f5f5f0 !important;
+    color: #f5f5f0 !important;
+}
+.hero-orion-lead {
+    max-width: 640px !important;
+    color: rgba(245,245,240,0.72) !important;
+    font-size: clamp(1rem,1.6vw,1.25rem) !important; line-height: 1.75 !important;
+}
+.hero-orion .btn-gold,
+.hero-orion .btn-primary,
+.hero-orion .btn-outline {
+    background: transparent !important;
+    border: 1px solid rgba(245,245,240,0.28) !important;
+    color: #f5f5f0 !important;
+    box-shadow: none !important; border-radius: 0 !important; padding: 13px 22px !important;
+}
+.hero-orion .btn-gold:hover,
+.hero-orion .btn-primary:hover,
+.hero-orion .btn-outline:hover {
+    border-color: #f06a2a !important; color: #f06a2a !important; transform: translateY(-2px);
+}
+.hero-orion-stats {
+    max-width: none !important; align-self: stretch;
+    grid-template-columns: 1fr !important;
+    border-left: 1px solid rgba(245,245,240,0.18);
+    padding-left: clamp(24px,4vw,52px);
+}
+.hero-orion-stats > div {
+    background: transparent !important; border: 0 !important;
+    border-bottom: 1px solid rgba(245,245,240,0.14) !important;
+    border-radius: 0 !important; padding: 26px 0 !important; text-align: left !important;
+}
+.hero-orion-stats > div > div:first-child {
+    color: #f5f5f0 !important;
+    font-family: var(--font-heading) !important;
+    font-size: clamp(2.8rem,6vw,5.4rem) !important;
+}
+.hero-orion-stats > div > div:last-child {
+    color: rgba(245,245,240,0.58) !important;
+    letter-spacing: 0.16em !important; text-transform: uppercase;
+}
+
+/* ════════════════════════════════════════════════════════════
+   HOME — Wrapper page blanche
+════════════════════════════════════════════════════════════ */
+.home-biasasa {
+    background: #fafaf6;
+    color: #1c1510;
+}
+
+/* Sections : alternance blanc / crème */
+.home-biasasa section:not(.hero-orion) {
+    position: relative;
+}
+.home-biasasa section.hero-orion {
+    background: #050505 !important;
+}
+
+/* Typographie unifiée */
+.home-biasasa h2, .home-biasasa h3 {
+    font-family: var(--font-heading) !important;
+}
+.home-biasasa h2 {
+    font-size: clamp(2.4rem,6vw,5rem) !important;
+    line-height: 0.95 !important;
+    text-transform: uppercase;
+}
+.home-biasasa h3 {
+    text-transform: uppercase;
+    letter-spacing: 0.04em !important;
+}
+
+/* Accent line plus visible sur fond clair */
+.home-biasasa .accent-line::after {
+    width: 80px; height: 2px;
+    background: linear-gradient(90deg, var(--color-orion-green), var(--color-orion-gold)) !important;
+}
+.home-biasasa .accent-line-center::after { margin-left: auto; margin-right: auto; }
+
+/* Tags sobres sur fond blanc */
+.home-biasasa section:not(.hero-orion) .tag,
+.home-biasasa section:not(.hero-orion) .tag-green,
+.home-biasasa section:not(.hero-orion) .tag-gold,
+.home-biasasa section:not(.hero-orion) .tag-orange {
+    background: transparent !important;
+    color: var(--color-orion-orange) !important;
+    padding: 0 !important;
+    letter-spacing: 0.18em !important;
+    font-size: 0.72rem !important;
+}
+
+/* ── Services : liste éditoriale ── */
+.home-biasasa section:nth-of-type(3) [style*="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"] {
+    display: block !important;
+    counter-reset: service-counter;
+}
+.home-biasasa section:nth-of-type(3) .hover-lift {
+    border-width: 0 0 1px 0 !important;
+    border-color: #e0d8cc !important;
+    padding: 32px 0 !important;
+    display: grid;
+    grid-template-columns: 70px 1fr 1fr;
+    gap: clamp(16px,4vw,48px);
+    align-items: start;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+}
+.home-biasasa section:nth-of-type(3) .hover-lift:hover {
+    background: rgba(76,175,125,0.03) !important;
+    box-shadow: none !important;
+}
+.home-biasasa section:nth-of-type(3) .hover-lift::before {
+    content: counter(service-counter, decimal-leading-zero);
+    counter-increment: service-counter;
+    color: var(--color-orion-orange);
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem,4vw,3.5rem);
+    line-height: 1;
+    font-weight: 700;
+}
+.home-biasasa section:nth-of-type(3) .hover-lift > div:first-child,
+.home-biasasa section:nth-of-type(3) .hover-lift > div:nth-child(2) { display: none !important; }
+.home-biasasa section:nth-of-type(3) .hover-lift p:first-of-type { display: none !important; }
+.home-biasasa section:nth-of-type(3) .hover-lift a { color: var(--color-orion-orange) !important; }
+
+/* ── Galerie : grille jointive ── */
+.home-biasasa section:nth-of-type(7) [style*="grid-template-columns:repeat(3,1fr)"] {
+    gap: 0 !important;
+    border: 1px solid #e0d8cc;
     border-radius: 8px;
     overflow: hidden;
-    filter: grayscale(0.3) contrast(1.1);
+}
+.home-biasasa section:nth-of-type(7) [style*="cursor:pointer"] {
+    border: 0 !important;
+    border-right: 1px solid #e0d8cc !important;
+    border-bottom: 1px solid #e0d8cc !important;
+}
+
+/* ── CTA : fond crème avec gradient ── */
+.home-biasasa section:nth-of-type(8) {
+    background: #f4f0e8 !important;
+}
+.home-biasasa section:nth-of-type(8) h2 span {
+    background: linear-gradient(135deg, #4caf7d, #d4a030) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* ════════════════════════════════════════════════════════════
+   BLOBS ARTISTIQUES — traces de peinture par section
+════════════════════════════════════════════════════════════ */
+.home-biasasa section:not(.hero-orion)::before,
+.home-biasasa section:not(.hero-orion)::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Présentation — blob vert haut-droite */
+.home-biasasa section:nth-of-type(2)::before {
+    top: -50px; right: -70px;
+    width: 320px; height: 240px;
+    background: #4caf7d; opacity: 0.05;
+    border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+    transform: rotate(-18deg);
+}
+.home-biasasa section:nth-of-type(2)::after {
+    bottom: -30px; left: -60px;
+    width: 220px; height: 170px;
+    background: #d4a030; opacity: 0.05;
+    border-radius: 42% 58% 35% 65% / 60% 44% 56% 40%;
+    transform: rotate(14deg);
+}
+
+/* Services — tache orange */
+.home-biasasa section:nth-of-type(3)::before {
+    top: 80px; right: -40px;
+    width: 180px; height: 140px;
+    background: #e07030; opacity: 0.05;
+    border-radius: 55% 45% 40% 60% / 47% 53% 47% 53%;
+    transform: rotate(10deg);
+}
+.home-biasasa section:nth-of-type(3)::after { display: none; }
+
+/* Formations — éclaboussure verte */
+.home-biasasa section:nth-of-type(4)::before {
+    bottom: 40px; left: -50px;
+    width: 260px; height: 200px;
+    background: #4caf7d; opacity: 0.04;
+    border-radius: 38% 62% 50% 50% / 43% 43% 57% 57%;
+}
+.home-biasasa section:nth-of-type(4)::after { display: none; }
+
+/* Témoignages — éclaboussure dorée centrée */
+.home-biasasa section:nth-of-type(6)::before {
+    top: -20px; left: 50%;
+    transform: translateX(-50%) rotate(-4deg);
+    width: 400px; height: 160px;
+    background: #d4a030; opacity: 0.04;
+    border-radius: 50% 50% 60% 40% / 40% 40% 60% 60%;
+}
+.home-biasasa section:nth-of-type(6)::after {
+    bottom: 20px; right: -30px;
+    width: 180px; height: 140px;
+    background: #4caf7d; opacity: 0.04;
+    border-radius: 55% 45% 65% 35% / 47% 53%;
+}
+
+/* Galerie — trace orange */
+.home-biasasa section:nth-of-type(7)::before {
+    bottom: -30px; right: -40px;
+    width: 200px; height: 160px;
+    background: #e07030; opacity: 0.05;
+    border-radius: 55% 45% 65% 35% / 47% 53% 47% 53%;
+    transform: rotate(-8deg);
+}
+.home-biasasa section:nth-of-type(7)::after { display: none; }
+
+/* CTA — double blob */
+.home-biasasa section:nth-of-type(8)::before {
+    bottom: -50px; right: -50px;
+    width: 300px; height: 300px;
+    background: #e07030; opacity: 0.07;
+    border-radius: 40% 60% 55% 45% / 50% 45% 55% 50%;
+}
+.home-biasasa section:nth-of-type(8)::after {
+    top: -30px; left: -30px;
+    width: 180px; height: 180px;
+    background: #4caf7d; opacity: 0.06;
+    border-radius: 63% 37% 54% 46% / 55% 48%;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+    .hero-orion-grid  { grid-template-columns: 1fr !important; }
+    .hero-orion-stats { border-left: 0; padding-left: 0; }
+    .home-biasasa section:nth-of-type(3) .hover-lift {
+        grid-template-columns: 1fr; gap: 12px;
+    }
+}
+@media (max-width: 640px) {
+    .hero-orion-title { font-size: clamp(3.1rem,17vw,5rem) !important; }
+    .hero-orion .btn-gold, .hero-orion .btn-primary, .hero-orion .btn-outline {
+        width: 100%; justify-content: center;
+    }
+    .home-biasasa h2 { font-size: clamp(2rem,10vw,3.5rem) !important; }
 }

@@ -48,8 +48,10 @@
                     @if($ev->image && file_exists(public_path('storage/'.$ev->image)))
                         <img src="{{ asset('storage/'.$ev->image) }}" alt="{{ $ev->titre }}" style="width:100%;height:100%;object-fit:cover;">
                     @else
-                        <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(224,112,48,0.12),transparent);"></div>
-                        <div style="font-size:3.5rem;position:relative;z-index:1;">🎪</div>
+                        @php $evPhotos = ['11.jpg','22.jpg','5.jpg','7.jpg','3.jpg','6.jpg','9.jpg','2.jpg']; @endphp
+                        <img src="{{ asset('images/' . $evPhotos[$loop->index % count($evPhotos)]) }}"
+                             alt="{{ $ev->titre }}"
+                             style="width:100%;height:100%;object-fit:cover;">
                     @endif
 
                     {{-- Date badge --}}

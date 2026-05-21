@@ -72,53 +72,84 @@ $services = [
 ];
 @endphp
 
-@foreach($services as $i => $s)
-<section style="padding:80px 0;background:{{ $i % 2 === 0 ? '#0d0d0d' : '#0a0a0a' }};border-top:1px solid #161616;">
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;{{ $i % 2 !== 0 ? 'direction:rtl;' : '' }}">
+{{-- Bento grid --}}
+<section style="padding:80px 0 100px;background:#0a0a0a;">
+    <div style="max-width:1400px;margin:0 auto;padding:0 32px;">
 
-            <div class="reveal" style="{{ $i % 2 !== 0 ? 'direction:ltr;' : '' }}">
-                <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#333;">{{ $s['numero'] }}</span>
-                    <div style="height:1px;width:40px;background:#333;"></div>
-                </div>
-                <div class="tag" style="background:{{ $s['couleur'] }}1a;color:{{ $s['couleur'] }};margin-bottom:20px;">{{ $s['titre'] }}</div>
-                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.2;margin:0 0 20px;" class="accent-line">
-                    {{ $s['titre'] }}
+        {{-- Header --}}
+        <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px;gap:24px;flex-wrap:wrap;">
+            <div>
+                <div class="tag tag-gold" style="margin-bottom:16px;">Nos expertises</div>
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#f5f5f0;margin:0;line-height:1.1;" class="accent-line">
+                    Six piliers<br>artistiques
                 </h2>
-                <p style="color:#888;font-size:0.95rem;line-height:1.8;margin:0 0 32px;">{{ $s['description'] }}</p>
-                <div style="display:flex;flex-direction:column;gap:12px;">
-                    @foreach($s['points'] as $pt)
-                    <div style="display:flex;align-items:center;gap:12px;">
-                        <div style="width:28px;height:28px;background:{{ $s['couleur'] }}1a;border:1px solid {{ $s['couleur'] }}33;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="{{ $s['couleur'] }}" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <span style="color:rgba(245,245,240,0.7);font-size:0.9rem;">{{ $pt }}</span>
-                    </div>
-                    @endforeach
-                </div>
-                <div style="margin-top:36px;">
-                    <a href="{{ route('contact.index') }}" class="btn-primary" style="background:linear-gradient(135deg,{{ $s['couleur'] }},{{ $s['couleur'] }}cc);">
+            </div>
+            <p style="color:#555;font-size:0.88rem;max-width:340px;line-height:1.8;margin:0;">
+                De la création à la scène, un écosystème complet pour accompagner chaque artiste.
+            </p>
+        </div>
+
+        {{-- Grille bento --}}
+        @php
+        $sPhotos = ['11.jpg','22.jpg','5.jpg','7.jpg','3.jpg','9.jpg'];
+        $gridPos = [
+            'grid-column:1/3;grid-row:1',
+            'grid-column:3;grid-row:1',
+            'grid-column:4;grid-row:1',
+            'grid-column:1;grid-row:2',
+            'grid-column:2/4;grid-row:2',
+            'grid-column:4;grid-row:2',
+        ];
+        @endphp
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:380px 300px;gap:14px;">
+
+            @foreach($services as $i => $s)
+            @php $isLarge = in_array($i, [0, 4]); @endphp
+
+            <div class="bento-cell reveal"
+                 style="{{ $gridPos[$i] }};position:relative;overflow:hidden;border-radius:10px;cursor:pointer;"
+                 onmouseover="this.querySelector('.bento-bar').style.transform='scaleX(1)';this.querySelector('.bento-img').style.transform='scale(1.06)'"
+                 onmouseout="this.querySelector('.bento-bar').style.transform='scaleX(0)';this.querySelector('.bento-img').style.transform='scale(1)'">
+
+                {{-- Photo --}}
+                <img class="bento-img"
+                     src="{{ asset('images/' . $sPhotos[$i]) }}"
+                     alt="{{ $s['titre'] }}"
+                     style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.7s ease;">
+
+                {{-- Gradient overlay --}}
+                <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.35) 50%,rgba(0,0,0,0.1) 100%);"></div>
+
+                {{-- Barre colorée (hover) --}}
+                <div class="bento-bar" style="position:absolute;top:0;left:0;right:0;height:3px;background:{{ $s['couleur'] }};transform:scaleX(0);transform-origin:left;transition:transform 0.4s ease;"></div>
+
+                {{-- Icône --}}
+                <div style="position:absolute;top:18px;left:20px;font-size:{{ $isLarge ? '1.8rem' : '1.3rem' }};opacity:0.85;">{{ $s['icon'] }}</div>
+
+                {{-- Numéro filigrane --}}
+                <div style="position:absolute;top:10px;right:16px;font-family:'Playfair Display',Georgia,serif;font-size:{{ $isLarge ? '6rem' : '4rem' }};font-weight:900;color:rgba(255,255,255,0.06);line-height:1;user-select:none;">{{ $s['numero'] }}</div>
+
+                {{-- Contenu bas --}}
+                <div style="position:absolute;bottom:0;left:0;right:0;padding:{{ $isLarge ? '28px' : '18px 20px' }};">
+                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:{{ $s['couleur'] }};display:block;margin-bottom:6px;">{{ $s['numero'] }}</span>
+                    <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:{{ $isLarge ? '1.45rem' : '0.95rem' }};color:#f5f5f0;margin:0 0 {{ $isLarge ? '10px' : '0' }};line-height:1.25;">{{ $s['titre'] }}</h3>
+                    @if($isLarge)
+                    <p style="color:rgba(245,245,240,0.62);font-size:0.82rem;line-height:1.7;margin:0 0 16px;">{{ Str::limit($s['description'], 110) }}</p>
+                    <a href="{{ route('contact.index') }}"
+                       style="display:inline-flex;align-items:center;gap:6px;color:{{ $s['couleur'] }};font-size:0.75rem;font-weight:700;text-decoration:none;font-family:'Space Grotesk',sans-serif;letter-spacing:0.08em;text-transform:uppercase;">
                         En savoir plus →
                     </a>
+                    @endif
                 </div>
-            </div>
 
-            <div class="reveal {{ $i % 2 !== 0 ? 'order-first' : '' }}" style="{{ $i % 2 !== 0 ? 'direction:ltr;' : '' }}">
-                <div style="background:linear-gradient(135deg,#161616,#111);border:1px solid {{ $s['couleur'] }}22;border-radius:12px;height:320px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
-                    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,{{ $s['couleur'] }}0d,transparent 70%);"></div>
-                    <div style="text-align:center;position:relative;z-index:1;">
-                        <div style="font-size:5rem;margin-bottom:16px;">{{ $s['icon'] }}</div>
-                        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:{{ $s['couleur'] }};">{{ $s['titre'] }}</div>
-                    </div>
-                    <div style="position:absolute;top:16px;right:16px;font-family:'Playfair Display',Georgia,serif;font-size:4rem;font-weight:900;color:{{ $s['couleur'] }}0d;line-height:1;">{{ $s['numero'] }}</div>
-                </div>
             </div>
+            @endforeach
 
         </div>
+
     </div>
 </section>
-@endforeach
 
 {{-- CTA --}}
 <section style="padding:100px 0;background:#0a0a0a;border-top:1px solid #161616;position:relative;overflow:hidden;">
@@ -137,11 +168,20 @@ $services = [
 </section>
 
 <style>
-@media(max-width:768px) {
-    section > div > div[style*="grid-template-columns:1fr 1fr"] {
-        grid-template-columns: 1fr !important;
-        direction: ltr !important;
+@media(max-width:900px) {
+    .bento-cell[style*="grid-column:1/3"] { grid-column: 1 / -1 !important; }
+    .bento-cell[style*="grid-column:2/4"] { grid-column: 1 / -1 !important; }
+    section > div > div[style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: repeat(2, 1fr) !important;
+        grid-template-rows: unset !important;
     }
+    .bento-cell { grid-column: unset !important; grid-row: unset !important; height: 260px; }
+}
+@media(max-width:520px) {
+    section > div > div[style*="grid-template-columns:repeat(4"] {
+        grid-template-columns: 1fr !important;
+    }
+    .bento-cell { height: 240px; }
 }
 </style>
 

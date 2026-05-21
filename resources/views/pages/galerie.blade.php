@@ -84,12 +84,10 @@
                      alt="{{ $item->titre }}"
                      style="width:100%;height:100%;object-fit:cover;">
                 @else
-                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(76,175,125,0.06),rgba(212,160,48,0.04));">
-                    <div style="text-align:center;">
-                        <div style="font-size:2.5rem;margin-bottom:8px;">🖼</div>
-                        <p style="color:#555;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;">{{ $item->titre }}</p>
-                    </div>
-                </div>
+                @php $gFallback = ['2.jpg','5.jpg','7.jpg','3.jpg','6.jpg','9.jpg','4.jpg','1.png','22.jpg','11.jpg']; @endphp
+                <img src="{{ asset('images/' . $gFallback[$loop->index % count($gFallback)]) }}"
+                     alt="{{ $item->titre }}"
+                     style="width:100%;height:100%;object-fit:cover;">
                 @endif
 
                 {{-- Overlay --}}
