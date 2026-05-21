@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Admin — @yield('title', 'Centre d\'Art Orion')</title>
+    <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body style="background:#080808;color:#f5f5f0;font-family:'Inter',sans-serif;display:flex;min-height:100vh;">
+
+{{-- Sidebar --}}
+<aside style="width:240px;background:#0d0d0d;border-right:1px solid #1a1a1a;display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:0;z-index:40;overflow-y:auto;flex-shrink:0;">
+
+    {{-- Logo --}}
+    <div style="padding:24px 20px;border-bottom:1px solid #1a1a1a;">
+        <a href="{{ route('home') }}" target="_blank" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+            <div style="width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.9rem;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;flex-shrink:0;">O</div>
+            <div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#f5f5f0;line-height:1.1;">Admin</div>
+                <div style="font-family:'Playfair Display',serif;font-weight:900;font-size:0.9rem;background:linear-gradient(90deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;">ORION</div>
+            </div>
+        </a>
+    </div>
+
+    {{-- Navigation --}}
+    <nav style="padding:16px 12px;flex:1;">
+        @php
+        $navItems = [
+            ['route' => 'admin.dashboard', 'icon' => '◈', 'label' => 'Tableau de bord', 'color' => '#4caf7d'],
+            ['route' => 'admin.formations.index', 'icon' => '◉', 'label' => 'Formations', 'color' => '#e07030'],
+            ['route' => 'admin.evenements.index', 'icon' => '◎', 'label' => 'Événements', 'color' => '#d4a030'],
+            ['route' => 'admin.galerie.index', 'icon' => '◧', 'label' => 'Galerie', 'color' => '#4caf7d'],
+            ['route' => 'admin.equipe.index', 'icon' => '◈', 'label' => 'Équipe', 'color' => '#d4a030'],
+            ['route' => 'admin.messages.index', 'icon' => '✉', 'label' => 'Messages', 'color' => '#e07030'],
+        ];
+        @endphp
+
+        @foreach($navItems as $item)
+        @php $isActive = request()->routeIs($item['route']) @endphp
+        <a href="{{ route($item['route']) }}"
+           style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;margin-bottom:2px;transition:all 0.2s;{{ $isActive ? 'background:rgba(76,175,125,0.1);color:'.$item['color'].';border-left:2px solid '.$item['color'].';padding-left:10px;' : 'color:#666;border-left:2px solid transparent;' }}"
+           onmouseover="{{ !$isActive ? 'this.style.color=\"'.$item['color'].'\";this.style.background=\"rgba(255,255,255,0.04)\"' : '' }}"
+           onmouseout="{{ !$isActive ? 'this.style.color=\"#666\";this.style.background=\"\"' : '' }}">
+            <span style="font-size:0.7rem;flex-shrink:0;{{ $isActive ? 'color:'.$item['color'] : 'color:#444' }}">{{ $item['icon'] }}</span>
+            {{ $item['label'] }}
+        </a>
+        @endforeach
+    </nav>
+
+    {{-- Bottom --}}
+    <div style="padding:16px 12px;border-top:1px solid #1a1a1a;">
+        <a href="{{ route('home') }}" target="_blank"
+           style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:6px;color:#555;font-size:0.8rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:color 0.2s;"
+           onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#555'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+            Voir le site
+        </a>
+    </div>
+</aside>
+
+{{-- Main --}}
+<div style="margin-left:240px;flex:1;display:flex;flex-direction:column;min-height:100vh;">
+
+    {{-- Top bar --}}
+    <header style="background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;">
+        <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;color:#f5f5f0;margin:0;">@yield('title', 'Tableau de bord')</h1>
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#0a0a0a;">A</div>
+            <span style="color:#888;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;">Admin Orion</span>
+        </div>
+    </header>
+
+    {{-- Content --}}
+    <main style="padding:32px 28px;flex:1;">
+        @if(session('success'))
+        <div style="background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.3);border-radius:6px;padding:14px 18px;margin-bottom:24px;color:#4caf7d;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;display:flex;align-items:center;gap:8px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            {{ session('success') }}
+        </div>
+        @endif
+        @if(session('error'))
+        <div style="background:rgba(224,112,48,0.1);border:1px solid rgba(224,112,48,0.3);border-radius:6px;padding:14px 18px;margin-bottom:24px;color:#e07030;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;">
+            {{ session('error') }}
+        </div>
+        @endif
+        @yield('content')
+    </main>
+</div>
+
+</body>
+</html>

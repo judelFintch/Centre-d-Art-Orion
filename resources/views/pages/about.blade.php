@@ -1,0 +1,180 @@
+@extends('layouts.app')
+
+@section('title', 'À Propos — Centre d\'Art Orion')
+@section('meta_description', 'Découvrez l\'histoire, la vision, la mission et les valeurs du Centre d\'Art Orion. Rencontrez notre équipe de direction.')
+
+@section('content')
+
+{{-- Page Hero --}}
+<section style="padding:100px 0 80px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(76,175,125,0.07),transparent 60%);pointer-events:none;"></div>
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
+        <div class="tag tag-green" style="margin-bottom:16px;">À Propos</div>
+        <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.1;margin:0 0 20px;">
+            Notre Histoire,<br>
+            <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Notre Passion</span>
+        </h1>
+        <p style="color:#777;font-size:1rem;max-width:560px;line-height:1.8;">
+            Découvrez l'histoire et les valeurs qui font du Centre d'Art Orion un espace unique dédié à l'excellence artistique.
+        </p>
+    </div>
+</section>
+
+{{-- Histoire --}}
+<section style="padding:100px 0;background:#0d0d0d;">
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+
+            <div class="reveal">
+                <div class="tag tag-gold" style="margin-bottom:20px;">Notre genèse</div>
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.2;margin:0 0 24px;" class="accent-line">
+                    L'Histoire du Centre d'Art Orion
+                </h2>
+                <div class="prose-dark">
+                    <p>Né de la vision de son fondateur <strong style="color:#f5f5f0;">Aras M. NGONGO</strong>, le Centre d'Art Orion a été créé avec une ambition claire : offrir aux artistes congolais un espace professionnel, structuré et inspirant pour développer leur art.</p>
+                    <p>Implanté au cœur du Quartier Gambela, au 380, Avenue Changalele — derrière le nouveau bâtiment de l'INPP — le centre s'est rapidement imposé comme un pilier incontournable de la scène artistique locale.</p>
+                    <p>Sous la direction opérationnelle de <strong style="color:#f5f5f0;">Magellan KAHOZI</strong>, Chef de Centre, Orion a su construire des programmes de formation rigoureux, accueillir des artistes en résidence et organiser des événements culturels qui ont marqué la communauté.</p>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                    @foreach([
+                        ['📅','Fondation','Une vision née de la passion pour l\'art et les artistes congolais'],
+                        ['📍','Localisation','380, Av. Changalele, Q. Gambela — au cœur de la ville'],
+                        ['🎯','Mission','Former, produire, créer et accompagner les talents artistiques'],
+                        ['🌟','Vision','Faire d\'Orion le centre de référence artistique en Afrique centrale'],
+                    ] as $item)
+                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;transition:border-color 0.3s;"
+                         onmouseover="this.style.borderColor='#4caf7d33'" onmouseout="this.style.borderColor='#1a1a1a'">
+                        <div style="font-size:1.8rem;margin-bottom:12px;">{{ $item[0] }}</div>
+                        <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;color:#f5f5f0;margin:0 0 8px;">{{ $item[1] }}</h4>
+                        <p style="color:#666;font-size:0.82rem;line-height:1.6;margin:0;">{{ $item[2] }}</p>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- Vision / Mission / Valeurs --}}
+<section style="padding:100px 0;background:#0a0a0a;border-top:1px solid #161616;">
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+
+        <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
+            <div class="tag tag-orange" style="margin-bottom:20px;">Ce qui nous guide</div>
+            <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line accent-line-center">
+                Vision, Mission & Valeurs
+            </h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+
+            {{-- Vision --}}
+            <div class="reveal" style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#4caf7d,#2d7a52);"></div>
+                <div style="width:48px;height:48px;background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px;">🔭</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:#4caf7d;margin:0 0 16px;letter-spacing:0.04em;text-transform:uppercase;font-size:0.85rem;">Notre Vision</h3>
+                <p style="color:#888;font-size:0.92rem;line-height:1.8;margin:0;">
+                    Devenir le centre artistique de référence en Afrique centrale, reconnu pour l'excellence de ses formations, la qualité de ses productions et son rôle de catalyseur culturel dans la région.
+                </p>
+            </div>
+
+            {{-- Mission --}}
+            <div class="reveal" style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#d4a030,#e07030);"></div>
+                <div style="width:48px;height:48px;background:rgba(212,160,48,0.1);border:1px solid rgba(212,160,48,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px;">🎯</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;color:#d4a030;margin:0 0 16px;letter-spacing:0.04em;text-transform:uppercase;">Notre Mission</h3>
+                <p style="color:#888;font-size:0.92rem;line-height:1.8;margin:0;">
+                    Former, accompagner et promouvoir les artistes à travers des programmes de qualité, un environnement créatif stimulant et un réseau de partenaires engagés dans le développement des arts et de la culture.
+                </p>
+            </div>
+
+            {{-- Valeurs --}}
+            <div class="reveal" style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;position:relative;overflow:hidden;">
+                <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#e07030,#c05020);"></div>
+                <div style="width:48px;height:48px;background:rgba(224,112,48,0.1);border:1px solid rgba(224,112,48,0.2);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:20px;">💎</div>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;color:#e07030;margin:0 0 16px;letter-spacing:0.04em;text-transform:uppercase;">Nos Valeurs</h3>
+                <div style="display:flex;flex-direction:column;gap:10px;">
+                    @foreach(['Excellence — Qualité sans compromis','Créativité — Encourager l\'expression unique','Inclusion — Art pour tous, sans distinction','Intégrité — Éthique professionnelle constante','Communauté — Tisser des liens durables'] as $v)
+                    <div style="display:flex;align-items:flex-start;gap:10px;">
+                        <span style="color:#e07030;font-size:0.7rem;margin-top:4px;flex-shrink:0;">◆</span>
+                        <span style="color:#888;font-size:0.88rem;line-height:1.5;">{{ $v }}</span>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- Direction --}}
+<section style="padding:100px 0;background:#0d0d0d;border-top:1px solid #161616;">
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+
+        <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
+            <div class="tag tag-green" style="margin-bottom:20px;">Direction</div>
+            <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line accent-line-center">
+                La Direction du Centre
+            </h2>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;max-width:800px;margin:0 auto;">
+
+            {{-- CEO --}}
+            <div class="reveal hover-lift"
+                 style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
+                 onmouseover="this.style.borderColor='#4caf7d44'" onmouseout="this.style.borderColor='#1a1a1a'">
+                <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#0a0a0a;margin:0 auto 20px;box-shadow:0 8px 30px rgba(76,175,125,0.3);">
+                    AN
+                </div>
+                <span class="tag tag-gold" style="margin-bottom:16px;display:inline-block;">CEO & Fondateur</span>
+                <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.4rem;color:#f5f5f0;margin:0 0 6px;">Aras M. NGONGO</h3>
+                <p style="color:#777;font-size:0.85rem;margin:0 0 20px;font-family:'Space Grotesk',sans-serif;">Visionnaire — Fondateur</p>
+                <p style="color:#666;font-size:0.88rem;line-height:1.8;">
+                    Visionnaire et fondateur du Centre d'Art Orion, Aras M. NGONGO a consacré sa vie à la promotion des arts et des talents émergents en RDC. Sa vision : faire d'Orion un pilier de la culture africaine contemporaine.
+                </p>
+            </div>
+
+            {{-- Chef de Centre --}}
+            <div class="reveal hover-lift"
+                 style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
+                 onmouseover="this.style.borderColor='#d4a03044'" onmouseout="this.style.borderColor='#1a1a1a'">
+                <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#d4a030,#e07030);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#0a0a0a;margin:0 auto 20px;box-shadow:0 8px 30px rgba(212,160,48,0.3);">
+                    MK
+                </div>
+                <span class="tag tag-green" style="margin-bottom:16px;display:inline-block;">Chef de Centre</span>
+                <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.4rem;color:#f5f5f0;margin:0 0 6px;">Magellan KAHOZI</h3>
+                <p style="color:#777;font-size:0.85rem;margin:0 0 20px;font-family:'Space Grotesk',sans-serif;">Direction opérationnelle</p>
+                <p style="color:#666;font-size:0.88rem;line-height:1.8;">
+                    Magellan KAHOZI dirige les opérations quotidiennes du Centre d'Art Orion avec passion et rigueur. Fort d'une expérience solide dans la gestion culturelle, il veille à l'excellence de chaque programme.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="reveal" style="text-align:center;margin-top:48px;">
+            <a href="{{ route('equipe') }}" class="btn-outline">Voir toute l'équipe →</a>
+        </div>
+
+    </div>
+</section>
+
+{{-- CTA --}}
+<section style="padding:80px 0;background:#0a0a0a;border-top:1px solid #161616;">
+    <div style="max-width:700px;margin:0 auto;padding:0 24px;text-align:center;" class="reveal">
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#f5f5f0;margin:0 0 20px;">
+            Rejoignez l'aventure <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Orion</span>
+        </h2>
+        <p style="color:#777;font-size:0.95rem;line-height:1.8;margin:0 0 36px;">Découvrez nos formations, participez à nos événements ou rejoignez notre équipe de passionnés.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
+            <a href="{{ route('formations.index') }}" class="btn-primary">Voir les formations</a>
+            <a href="{{ route('contact.index') }}" class="btn-outline">Nous contacter</a>
+        </div>
+    </div>
+</section>
+
+@endsection

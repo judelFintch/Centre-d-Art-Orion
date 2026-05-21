@@ -1,0 +1,276 @@
+/* ─── Google Fonts — doit être en premier ──────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/* ─── Orion Design Tokens ───────────────────────────────────── */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-heading: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    --color-orion-black:   #0a0a0a;
+    --color-orion-dark:    #111111;
+    --color-orion-darker:  #0d0d0d;
+    --color-orion-card:    #161616;
+    --color-orion-border:  #222222;
+    --color-orion-muted:   #3a3a3a;
+    --color-orion-white:   #f5f5f0;
+    --color-orion-green:   #4caf7d;
+    --color-orion-green2:  #2d7a52;
+    --color-orion-gold:    #d4a030;
+    --color-orion-yellow:  #f0c040;
+    --color-orion-orange:  #e07030;
+    --color-orion-orange2: #c05020;
+}
+
+/* ─── Base Resets ───────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    background-color: var(--color-orion-black);
+    color: var(--color-orion-white);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Typography Helpers ────────────────────────────────────── */
+.font-display   { font-family: var(--font-display); }
+.font-heading   { font-family: var(--font-heading); }
+
+/* ─── Gradient Accents ──────────────────────────────────────── */
+.gradient-orion {
+    background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-gold), var(--color-orion-orange));
+}
+.gradient-text {
+    background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.gradient-text-warm {
+    background: linear-gradient(135deg, var(--color-orion-gold), var(--color-orion-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ─── Card / Section Backgrounds ───────────────────────────── */
+.bg-orion-card    { background-color: var(--color-orion-card); }
+.bg-orion-dark    { background-color: var(--color-orion-dark); }
+.border-orion     { border-color: var(--color-orion-border); }
+
+/* ─── Glow Effects ──────────────────────────────────────────── */
+.glow-green  { box-shadow: 0 0 40px rgba(76,175,125,0.15); }
+.glow-gold   { box-shadow: 0 0 40px rgba(212,160,48,0.15); }
+.glow-orange { box-shadow: 0 0 40px rgba(224,112,48,0.15); }
+
+/* ─── Accent Line ───────────────────────────────────────────── */
+.accent-line::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    margin-top: 12px;
+    background: linear-gradient(90deg, var(--color-orion-green), var(--color-orion-gold));
+    border-radius: 2px;
+}
+.accent-line-center::after {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ─── Hover Lift ────────────────────────────────────────────── */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+/* ─── Scroll Reveal Animation ───────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-orion-dark); }
+::-webkit-scrollbar-thumb {
+    background: var(--color-orion-green);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-orion-gold); }
+
+/* ─── Prose Dark Override ───────────────────────────────────── */
+.prose-dark {
+    color: #c5c5bf;
+    line-height: 1.8;
+}
+.prose-dark p { margin-bottom: 1.2em; }
+
+/* ─── Hero Noise Overlay ────────────────────────────────────── */
+.hero-noise::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* ─── Navigation active state ───────────────────────────────── */
+.nav-link {
+    position: relative;
+    transition: color 0.2s ease;
+}
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-orion-green), var(--color-orion-gold));
+    transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+
+/* ─── Button Styles ─────────────────────────────────────────── */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--color-orion-green), var(--color-orion-green2));
+    color: #fff;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--color-orion-green2), var(--color-orion-green));
+    box-shadow: 0 8px 30px rgba(76,175,125,0.35);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 28px;
+    background: transparent;
+    color: var(--color-orion-white);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: 1px solid var(--color-orion-muted);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.btn-outline:hover {
+    border-color: var(--color-orion-gold);
+    color: var(--color-orion-gold);
+    box-shadow: 0 8px 30px rgba(212,160,48,0.15);
+    transform: translateY(-2px);
+}
+
+.btn-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    background: linear-gradient(135deg, var(--color-orion-gold), var(--color-orion-orange));
+    color: #0a0a0a;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+.btn-gold:hover {
+    box-shadow: 0 8px 30px rgba(212,160,48,0.4);
+    transform: translateY(-2px);
+}
+
+/* ─── Section Separator ─────────────────────────────────────── */
+.section-sep {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-orion-border), transparent);
+}
+
+/* ─── Tag / Badge ───────────────────────────────────────────── */
+.tag {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+}
+.tag-green  { background: rgba(76,175,125,0.15);  color: var(--color-orion-green); }
+.tag-gold   { background: rgba(212,160,48,0.15);  color: var(--color-orion-gold); }
+.tag-orange { background: rgba(224,112,48,0.15);  color: var(--color-orion-orange); }
+.tag-white  { background: rgba(245,245,240,0.08); color: var(--color-orion-white); }
+
+/* ─── Form Controls ─────────────────────────────────────────── */
+.orion-input {
+    width: 100%;
+    padding: 14px 18px;
+    background: var(--color-orion-card);
+    border: 1px solid var(--color-orion-border);
+    border-radius: 4px;
+    color: var(--color-orion-white);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    outline: none;
+}
+.orion-input::placeholder { color: #666; }
+.orion-input:focus {
+    border-color: var(--color-orion-green);
+    box-shadow: 0 0 0 3px rgba(76,175,125,0.12);
+}
+
+/* ─── Map Overlay ───────────────────────────────────────────── */
+.map-container {
+    border: 1px solid var(--color-orion-border);
+    border-radius: 8px;
+    overflow: hidden;
+    filter: grayscale(0.3) contrast(1.1);
+}
