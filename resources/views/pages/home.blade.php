@@ -433,50 +433,62 @@
             <a href="{{ route('galerie.index') }}" class="btn-outline">Voir la galerie complète →</a>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,200px);gap:12px;">
-            @foreach($galerie->take(6) as $i => $item)
+        {{--
+            Mosaic 3 colonnes × 3 rangées :
+            Rangée 1-2 : [  BIG  ][BIG] | [sm1]
+                         [  BIG  ][BIG] | [sm2]
+            Rangée 3   : [sm3]   | [sm4] | [sm5]
+            → 6 items, grille parfaitement remplie
+        --}}
+        @php
+            $galerieItems = $galerie->take(6);
+            $total = $galerieItems->count();
+        @endphp
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:200px 200px 180px;gap:12px;">
+
+            @foreach($galerieItems as $i => $item)
             @php
-                $spans = [
-                    0 => 'grid-column:span 2;grid-row:span 2;',
-                    1 => '', 2 => '', 3 => '', 4 => '', 5 => '',
-                ];
-                $style = $spans[$i] ?? '';
+                $isFirst = ($i === 0);
+                $spanStyle = $isFirst ? 'grid-column:span 2;grid-row:span 2;' : '';
+                $iconSize  = $isFirst ? '3.5rem' : '2.2rem';
             @endphp
             <div class="reveal"
-                 style="background:linear-gradient(135deg,#161616,#111);border:1px solid #1e1e1e;border-radius:8px;overflow:hidden;position:relative;cursor:pointer;{{ $style }}transition:all 0.3s;"
-                 onmouseover="this.querySelector('.galerie-overlay').style.opacity='1'"
-                 onmouseout="this.querySelector('.galerie-overlay').style.opacity='0'">
+                 style="background:linear-gradient(135deg,#161616,#111);border:1px solid #1e1e1e;border-radius:8px;overflow:hidden;position:relative;cursor:pointer;{{ $spanStyle }}transition:transform 0.3s,box-shadow 0.3s;"
+                 onmouseover="var o=this.querySelector('.galerie-overlay');if(o)o.style.opacity='1';this.style.transform='scale(1.015)';this.style.boxShadow='0 16px 40px rgba(0,0,0,0.5)'"
+                 onmouseout="var o=this.querySelector('.galerie-overlay');if(o)o.style.opacity='0';this.style.transform='scale(1)';this.style.boxShadow='none'">
 
                 @if($item->fichier && file_exists(public_path('storage/'.$item->fichier)))
                 <img src="{{ asset('storage/'.$item->fichier) }}"
                      alt="{{ $item->titre }}"
-                     style="width:100%;height:100%;object-fit:cover;">
+                     style="width:100%;height:100%;object-fit:cover;display:block;">
                 @else
-                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(76,175,125,0.05),rgba(212,160,48,0.05));">
-                    <span style="font-size:2.5rem;">🖼</span>
+                <div style="width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,rgba(76,175,125,0.05),rgba(212,160,48,0.04));">
+                    <span style="font-size:{{ $iconSize }};">🖼</span>
+                    @if($isFirst)
+                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#333;">{{ $item->categorie ?? 'Galerie' }}</span>
+                    @endif
                 </div>
                 @endif
 
                 <div class="galerie-overlay"
-                     style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:20px;">
+                     style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82) 0%,rgba(0,0,0,0.2) 50%,transparent 100%);opacity:0;transition:opacity 0.3s;display:flex;align-items:flex-end;padding:16px;">
                     <div>
-                        <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.88rem;color:#f5f5f0;margin:0;">{{ $item->titre }}</p>
+                        <p style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.85rem;color:#f5f5f0;margin:0 0 4px;">{{ $item->titre }}</p>
                         @if($item->categorie)
-                        <span class="tag tag-green" style="margin-top:6px;display:inline-block;">{{ $item->categorie }}</span>
+                        <span class="tag tag-green">{{ $item->categorie }}</span>
                         @endif
                     </div>
                 </div>
             </div>
             @endforeach
 
-            {{-- Placeholder si galerie vide --}}
-            @if($galerie->isEmpty())
-            @foreach(range(1,6) as $i)
-            <div style="background:linear-gradient(135deg,#161616,#111);border:1px solid #1e1e1e;border-radius:8px;display:flex;align-items:center;justify-content:center;{{ $i===1?'grid-column:span 2;grid-row:span 2;':'' }}">
-                <span style="font-size:{{ $i===1?'3rem':'2rem' }};">🖼</span>
+            {{-- Remplir les cellules manquantes si moins de 6 items --}}
+            @for($p = $total; $p < 6; $p++)
+            <div style="background:linear-gradient(135deg,#0f0f0f,#0a0a0a);border:1px dashed #1a1a1a;border-radius:8px;display:flex;align-items:center;justify-content:center;opacity:0.4;">
+                <span style="font-size:1.5rem;">🖼</span>
             </div>
-            @endforeach
-            @endif
+            @endfor
+
         </div>
 
     </div>
