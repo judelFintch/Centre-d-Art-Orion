@@ -19,28 +19,35 @@ function initNav() {
     const burger = document.getElementById('burger-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const overlay = document.getElementById('mobile-overlay');
+    const closeButton = document.getElementById('mobile-close');
 
     if (!burger || !mobileMenu) return;
 
     function open() {
         mobileMenu.classList.remove('-translate-x-full');
         mobileMenu.classList.add('translate-x-0');
-        overlay.classList.remove('opacity-0', 'pointer-events-none');
-        overlay.classList.add('opacity-100');
+        overlay?.classList.remove('opacity-0', 'pointer-events-none');
+        overlay?.classList.add('opacity-100');
         document.body.style.overflow = 'hidden';
+        burger.setAttribute('aria-expanded', 'true');
     }
     function close() {
         mobileMenu.classList.add('-translate-x-full');
         mobileMenu.classList.remove('translate-x-0');
-        overlay.classList.add('opacity-0', 'pointer-events-none');
-        overlay.classList.remove('opacity-100');
+        overlay?.classList.add('opacity-0', 'pointer-events-none');
+        overlay?.classList.remove('opacity-100');
         document.body.style.overflow = '';
+        burger.setAttribute('aria-expanded', 'false');
     }
 
     burger.addEventListener('click', () => {
         mobileMenu.classList.contains('-translate-x-full') ? open() : close();
     });
+    closeButton?.addEventListener('click', close);
     overlay?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+    });
     document.querySelectorAll('.mobile-nav-link').forEach((l) => l.addEventListener('click', close));
 }
 

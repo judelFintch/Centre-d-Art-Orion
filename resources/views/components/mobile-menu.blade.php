@@ -12,7 +12,8 @@ $links = [
 @endphp
 
 <aside id="mobile-menu"
-       style="position:fixed;top:0;left:0;bottom:0;width:300px;background:#111;z-index:50;transform:translateX(-100%);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;border-right:1px solid #222;">
+       class="-translate-x-full"
+       style="position:fixed;top:0;left:0;bottom:0;width:300px;background:#111;z-index:50;transition:transform 0.35s cubic-bezier(0.4,0,0.2,1);overflow-y:auto;border-right:1px solid #222;">
 
     {{-- Header --}}
     <div style="padding:20px 24px;border-bottom:1px solid #222;display:flex;align-items:center;justify-content:space-between;">
@@ -20,7 +21,7 @@ $links = [
             <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:0.95rem;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;">O</div>
             <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;color:#f5f5f0;">Centre d'Art Orion</span>
         </div>
-        <button id="mobile-close" onclick="document.getElementById('burger-btn').click()"
+        <button id="mobile-close" type="button" aria-label="Fermer le menu"
                 style="width:32px;height:32px;background:rgba(255,255,255,0.06);border:none;border-radius:4px;color:#f5f5f0;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;">✕</button>
     </div>
 
