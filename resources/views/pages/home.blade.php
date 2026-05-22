@@ -16,9 +16,9 @@
             ['image' => '11.jpg', 'accent' => '#4caf7d', 'label' => 'Arts Visuels'],
             ['image' => '22.jpg', 'accent' => '#d4a030', 'label' => 'Musique & Scène'],
             ['image' => '5.jpg',  'accent' => '#e07030', 'label' => 'Formation'],
-            ['image' => '10.jpg', 'accent' => '#4caf7d', 'label' => 'Studio'],
-            ['image' => '13',     'accent' => '#d4a030', 'label' => 'Création'],
-            ['image' => '15',     'accent' => '#e07030', 'label' => 'Ateliers'],
+            ['image' => '10.jpg', 'accent' => '#4caf7d', 'label' => 'Studio Créatif'],
+            ['image' => '13',     'accent' => '#d4a030', 'label' => 'Création Collective'],
+            ['image' => '15',     'accent' => '#e07030', 'label' => 'Ateliers Vivants'],
         ];
     @endphp
 
@@ -55,6 +55,10 @@
     {{-- ─── Corps centré ─── --}}
     <div class="hc-body">
         <div class="hc-center">
+            <div class="hc-signature">
+                <span class="hc-art-mark" aria-hidden="true"></span>
+                <span>Centre d'Art Orion</span>
+            </div>
             {{-- Kicker symétrique ──── label ──── --}}
             <div class="hc-kicker">
                 <span class="hc-kicker-line"></span>
@@ -62,12 +66,12 @@
                 <span class="hc-kicker-line"></span>
             </div>
             <h1 class="hc-title">
-                <span class="hc-title-wrap"><span class="hc-title-line">L'Art au cœur</span></span>
-                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">de votre vie</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line">L'ART PREND VIE</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">SUR SCÈNE</span></span>
             </h1>
-            <p class="hc-lead">Production · Création · Formation</p>
+            <p class="hc-lead">Production artistique · Création · Formation · Événements culturels</p>
             <a href="{{ route('about') }}" class="hc-cta">
-                Découvrir l'univers
+                Découvrir l'univers Orion
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -76,7 +80,7 @@
     {{-- ─── Barre inférieure : stats + dots ─── --}}
     <div class="hc-bottom-bar">
         <div class="hc-stats">
-            @foreach([['100+','Artistes'],['50+','Événements'],['6','Disciplines']] as $st)
+            @foreach([['100+','Artistes accompagnés'],['50+','Événements'],['6','Disciplines']] as $st)
             <div class="hc-stat">
                 <div class="hc-stat-val">{{ $st[0] }}</div>
                 <div class="hc-stat-lbl">{{ $st[1] }}</div>
