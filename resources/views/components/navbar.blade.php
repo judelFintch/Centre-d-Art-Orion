@@ -7,18 +7,22 @@ $links = [
     ['url' => route('galerie.index'),    'label' => 'Galerie'],
     ['url' => route('evenements.index'), 'label' => 'Événements'],
     ['url' => route('equipe'),           'label' => 'Équipe'],
-    ['url' => route('contact.index'),    'label' => 'Contact'],
 ];
 @endphp
 
 <header id="main-header"
         style="position:fixed;top:0;left:0;right:0;z-index:50;transition:background 0.3s,box-shadow 0.3s;">
 
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:72px;">
+    <div class="header-inner" style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:76px;">
 
         {{-- Logo --}}
-        <a href="{{ route('home') }}" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
-            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:38px;width:auto;object-fit:contain;display:block;">
+        <a href="{{ route('home') }}" class="orion-brand" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
+            <span class="brand-art-mark" aria-hidden="true"></span>
+            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:34px;width:auto;object-fit:contain;display:block;">
+            <span class="brand-wordmark" aria-hidden="true">
+                <span>Art Center</span>
+                <strong>Orion</strong>
+            </span>
         </a>
 
         {{-- Desktop nav --}}
@@ -36,7 +40,7 @@ $links = [
         <div style="display:flex;align-items:center;gap:12px;">
             <a href="{{ route('contact.index') }}"
                style="display:none;padding:9px 20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 14px rgba(76,175,125,0.20);"
-               class="lg:inline-flex"
+               class="header-cta lg:inline-flex"
                onmouseover="this.style.boxShadow='0 6px 20px rgba(76,175,125,0.35)'"
                onmouseout="this.style.boxShadow='0 4px 14px rgba(76,175,125,0.20)'">
                 Nous contacter
@@ -58,7 +62,7 @@ $links = [
 </header>
 
 {{-- Spacer --}}
-<div style="height:72px;"></div>
+<div style="height:76px;"></div>
 
 <style>
 @media(min-width:1024px){
