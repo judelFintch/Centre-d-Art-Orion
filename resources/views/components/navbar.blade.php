@@ -13,15 +13,15 @@ $links = [
 <header id="main-header"
         style="position:fixed;top:0;left:0;right:0;z-index:50;transition:background 0.3s,box-shadow 0.3s;">
 
-    <div class="header-inner" style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;align-items:center;justify-content:space-between;height:76px;">
+    <div class="header-inner" style="max-width:1280px;margin:0 auto;padding:0 24px 0 0;display:flex;align-items:center;justify-content:space-between;height:76px;">
 
         {{-- Logo --}}
         <a href="{{ route('home') }}" class="orion-brand" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
             <span class="brand-art-mark" aria-hidden="true"></span>
             <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:34px;width:auto;object-fit:contain;display:block;">
             <span class="brand-wordmark" aria-hidden="true">
-                <span>Art Center</span>
                 <strong>Orion</strong>
+                <span>Centre d'Art</span>
             </span>
         </a>
 
