@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(composer create-project *)",
+      "Bash(mv tmp_laravel/* .)",
+      "Bash(mv tmp_laravel/.* .)",
+      "Bash(rm -rf tmp_laravel)",
+      "Bash(npm install *)",
+      "Bash(file *)",
+      "Bash(npm run *)",
+      "Bash(npm --version)",
+      "Bash(python3 -c ' *)"
+    ]
+  }
+}
