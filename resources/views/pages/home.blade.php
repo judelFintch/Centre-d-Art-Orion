@@ -101,6 +101,18 @@
     {{-- ─── Barre de progression plein écran (bas) ─── --}}
     <div class="hc-progress"><div class="hc-progress-fill"></div></div>
 
+    {{-- ─── Aperçus synchronisés des prochaines photos ─── --}}
+    <div class="hc-sidebar" aria-hidden="true">
+        @foreach([1, 2] as $offset)
+            @php $preview = $heroSlides[$offset % count($heroSlides)]; @endphp
+            <div class="hc-sidebar-photo">
+                <img src="{{ asset('images/' . $preview['image']) }}" alt="" class="hc-sidebar-img">
+                <span class="hc-sidebar-label">{{ $preview['label'] }}</span>
+                <div class="hc-sidebar-overlay"></div>
+            </div>
+        @endforeach
+    </div>
+
 </section>
 
 {{-- ════════════════════════════════════════════════════════════

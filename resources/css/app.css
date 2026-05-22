@@ -837,13 +837,30 @@ body, body * {
     transition: transform 9s ease;
     filter: brightness(0.70) saturate(0.80);
 }
-.hc-sidebar:hover .hc-sidebar-img {
-    transform: scale(1.12);
+.hc-sidebar-label {
+    position: absolute;
+    left: 12px;
+    bottom: 14px;
+    z-index: 2;
+    color: rgba(255,255,255,0.76);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.35;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    transition: color 0.9s ease;
+}
+.hc-sidebar-photo:first-child .hc-sidebar-img {
+    transform: scale(1.10);
 }
 .hc-sidebar-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to right, rgba(5,5,5,0.60) 0%, transparent 60%);
+    background:
+        linear-gradient(to right, rgba(5,5,5,0.68) 0%, transparent 70%),
+        linear-gradient(to top, rgba(5,5,5,0.70) 0%, transparent 48%);
     z-index: 1;
 }
 @media (max-width: 768px) {

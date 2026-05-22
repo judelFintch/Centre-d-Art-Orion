@@ -276,6 +276,7 @@ function initHeroCine() {
     const counterCur   = section.querySelector('.hc-counter-cur');
     const progressFill = section.querySelector('.hc-progress-fill');
     const scrollArrow  = section.querySelector('.hc-scroll-arrow');
+    const sidebarItems = section.querySelectorAll('.hc-sidebar-photo');
 
     const INTERVAL = 7000;
     let current   = 0;
@@ -305,6 +306,23 @@ function initHeroCine() {
         ctaEl  && setTimeout(() => ctaEl.classList.add('visible'),  520);
     }
 
+    function getSlideImage(slide) {
+        const photo = slide.querySelector('.hc-photo');
+        const match = photo?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
+        return match?.[1] || '';
+    }
+
+    function updateSidebar(index) {
+        sidebarItems.forEach((item, i) => {
+            const slide = slides[(index + i + 1) % slides.length];
+            const img = item.querySelector('.hc-sidebar-img');
+            const label = item.querySelector('.hc-sidebar-label');
+
+            if (img) img.src = getSlideImage(slide);
+            if (label) label.textContent = slide.dataset.label || '';
+        });
+    }
+
     function goTo(index) {
         if (animating || index === current) return;
         animating = true;
@@ -331,6 +349,7 @@ function initHeroCine() {
             d.classList.toggle('active', i === index);
             d.setAttribute('aria-selected', i === index ? 'true' : 'false');
         });
+        updateSidebar(index);
 
         if (progressFill) {
             progressFill.style.transition = 'none';
@@ -390,6 +409,7 @@ function initHeroCine() {
     });
 
     setAccent(slides[0].dataset.accent || '#4caf7d');
+    updateSidebar(0);
     setTimeout(revealText, 150);
     startProgress();
     startAuto();
