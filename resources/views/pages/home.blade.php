@@ -11,27 +11,29 @@
      HERO CINÉMATOGRAPHIQUE — Diagonal Wipe
 ════════════════════════════════════════════════════════════ --}}
 <section class="hc-section hero-orion" id="hc-section">
+    @php
+        $heroSlides = [
+            ['image' => '11.jpg', 'accent' => '#4caf7d', 'label' => 'Arts Visuels'],
+            ['image' => '22.jpg', 'accent' => '#d4a030', 'label' => 'Musique & Scène'],
+            ['image' => '5.jpg',  'accent' => '#e07030', 'label' => 'Formation'],
+            ['image' => '10.jpg', 'accent' => '#4caf7d', 'label' => 'Studio'],
+            ['image' => '13',     'accent' => '#d4a030', 'label' => 'Création'],
+            ['image' => '15',     'accent' => '#e07030', 'label' => 'Ateliers'],
+        ];
+    @endphp
 
     {{-- Barre colorée top (3 px) --}}
     <div class="hc-accent-bar"></div>
 
-    {{-- ─── 3 Slides ─── --}}
+    {{-- ─── Slides ─── --}}
     <div class="hc-slides">
-        <div class="hc-slide active" data-accent="#4caf7d" data-label="Arts Visuels">
-            <div class="hc-photo" style="background-image:url('{{ asset('images/11.jpg') }}')"></div>
+        @foreach($heroSlides as $slide)
+        <div class="hc-slide {{ $loop->first ? 'active' : '' }}" data-accent="{{ $slide['accent'] }}" data-label="{{ $slide['label'] }}">
+            <div class="hc-photo" style="background-image:url('{{ asset('images/' . $slide['image']) }}')"></div>
             <div class="hc-overlay"></div>
-            <div class="hc-tint" style="background-color:#4caf7d"></div>
+            <div class="hc-tint" style="background-color:{{ $slide['accent'] }}"></div>
         </div>
-        <div class="hc-slide" data-accent="#d4a030" data-label="Musique &amp; Scène">
-            <div class="hc-photo" style="background-image:url('{{ asset('images/22.jpg') }}')"></div>
-            <div class="hc-overlay"></div>
-            <div class="hc-tint" style="background-color:#d4a030"></div>
-        </div>
-        <div class="hc-slide" data-accent="#e07030" data-label="Formation">
-            <div class="hc-photo" style="background-image:url('{{ asset('images/5.jpg') }}')"></div>
-            <div class="hc-overlay"></div>
-            <div class="hc-tint" style="background-color:#e07030"></div>
-        </div>
+        @endforeach
     </div>
 
     {{-- ─── Lignes diagonales décoratives ─── --}}
@@ -45,7 +47,7 @@
         <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="hc-logo">
         <div class="hc-counter" aria-live="polite">
             <span class="hc-counter-cur">01</span>
-            <span class="hc-counter-sep"> / 03</span>
+            <span class="hc-counter-sep"> / {{ str_pad(count($heroSlides), 2, '0', STR_PAD_LEFT) }}</span>
         </div>
         <span class="hc-location">Kinshasa — Congo RDC</span>
     </div>
@@ -83,9 +85,9 @@
             @endforeach
         </div>
         <div class="hc-dots" role="tablist" aria-label="Navigation slides">
-            <button class="hc-dot active" data-i="0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
-            <button class="hc-dot" data-i="1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
-            <button class="hc-dot" data-i="2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
+            @foreach($heroSlides as $slide)
+            <button class="hc-dot {{ $loop->first ? 'active' : '' }}" data-i="{{ $loop->index }}" aria-label="Slide {{ $loop->iteration }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}"></button>
+            @endforeach
         </div>
     </div>
 
