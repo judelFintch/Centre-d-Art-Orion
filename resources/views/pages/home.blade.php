@@ -171,14 +171,63 @@
     {{-- Watermark numéro --}}
     <span class="ni-watermark" aria-hidden="true">02</span>
 
-    {{-- Typographie stratifiée --}}
-    <div class="ni-typo-bg" aria-hidden="true">
-        <span class="ni-typo-1">ORION</span>
-        <span class="ni-typo-2">ORION</span>
-        <span class="ni-typo-3">O · R · I · O · N</span>
-        <span class="ni-typo-4">ORION</span>
-        <span class="ni-typo-5">ORION</span>
-    </div>
+    {{-- Mandala géométrique Art Déco --}}
+    <svg class="ni-mandala" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+        {{-- Anneau extérieur pointillé --}}
+        <circle cx="250" cy="250" r="238" stroke="rgba(255,255,255,0.05)" stroke-width="0.6" stroke-dasharray="3 11.5"/>
+
+        {{-- Cercles concentriques alternés blanc / or --}}
+        <circle cx="250" cy="250" r="218" stroke="rgba(212,160,48,0.16)"  stroke-width="1.2"/>
+        <circle cx="250" cy="250" r="175" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"/>
+        <circle cx="250" cy="250" r="132" stroke="rgba(212,160,48,0.18)"  stroke-width="1.0"/>
+        <circle cx="250" cy="250" r="90"  stroke="rgba(255,255,255,0.09)" stroke-width="0.6"/>
+        <circle cx="250" cy="250" r="50"  stroke="rgba(212,160,48,0.24)"  stroke-width="0.9"/>
+        <circle cx="250" cy="250" r="22"  stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+
+        {{-- 6 diamètres complets = 12 rayons --}}
+        <g stroke="rgba(255,255,255,0.07)" stroke-width="0.7">
+            <line x1="32" y1="250" x2="468" y2="250"/>
+            <line x1="32" y1="250" x2="468" y2="250" transform="rotate(30,250,250)"/>
+            <line x1="32" y1="250" x2="468" y2="250" transform="rotate(60,250,250)"/>
+            <line x1="32" y1="250" x2="468" y2="250" transform="rotate(90,250,250)"/>
+            <line x1="32" y1="250" x2="468" y2="250" transform="rotate(120,250,250)"/>
+            <line x1="32" y1="250" x2="468" y2="250" transform="rotate(150,250,250)"/>
+        </g>
+
+        {{-- Diamants aux 4 points cardinaux sur r=218 --}}
+        <g fill="rgba(212,160,48,0.34)">
+            <polygon points="250,24 258,32 250,40 242,32"/>
+            <polygon points="460,250 468,242 476,250 468,258"/>
+            <polygon points="250,460 258,468 250,476 242,468"/>
+            <polygon points="24,250 32,242 40,250 32,258"/>
+        </g>
+
+        {{-- Petits cercles aux 4 points intermédiaires (45°) --}}
+        <g fill="rgba(255,255,255,0.22)">
+            <circle cx="404.1" cy="404.1" r="3"/>
+            <circle cx="95.9"  cy="404.1" r="3"/>
+            <circle cx="95.9"  cy="95.9"  r="3"/>
+            <circle cx="404.1" cy="95.9"  r="3"/>
+        </g>
+
+        {{-- Arcs décoratifs Art Déco sur r=132 (alternés) --}}
+        <g stroke="rgba(212,160,48,0.13)" stroke-width="1.2" fill="none">
+            <path d="M 382,250 A 132,132 0 0,1 316.1,366.1"/>
+            <path d="M 183.9,366.1 A 132,132 0 0,1 118,250"/>
+            <path d="M 183.9,133.9 A 132,132 0 0,1 316.1,133.9"/>
+        </g>
+
+        {{-- Étoile centrale à 8 branches --}}
+        <polygon
+            points="250,228 252.8,247.2 272,250 252.8,252.8 250,272 247.2,252.8 228,250 247.2,247.2"
+            fill="rgba(212,160,48,0.32)"/>
+
+        {{-- Point central --}}
+        <circle cx="250" cy="250" r="5" fill="rgba(212,160,48,0.60)"/>
+        <circle cx="250" cy="250" r="2" fill="rgba(255,255,255,0.80)"/>
+
+    </svg>
 
     {{-- Lignes diagonales déco --}}
     <div class="ni-deco" aria-hidden="true"></div>

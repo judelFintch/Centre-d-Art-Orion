@@ -1149,81 +1149,17 @@ body, body * {
 .ni-deco::before { left: 36%; transform: rotate(10deg); }
 .ni-deco::after  { left: 64%; transform: rotate(10deg); }
 
-/* Typographie stratifiée */
-.ni-typo-bg {
+/* Mandala Art Déco */
+.ni-mandala {
     position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-    user-select: none;
-}
-/* Couche 1 — colossal, haut gauche, légèrement incliné, blanc */
-.ni-typo-1 {
-    position: absolute;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(9rem, 24vw, 20rem);
-    font-weight: 900;
-    letter-spacing: 0.04em;
-    color: rgba(255,255,255,0.022);
-    top: -10%;
-    left: -4%;
-    transform: rotate(-7deg);
-    line-height: 1;
-    white-space: nowrap;
-}
-/* Couche 2 — vertical côté droit, teinte or */
-.ni-typo-2 {
-    position: absolute;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(4rem, 10vw, 9rem);
-    font-weight: 900;
-    letter-spacing: 0.18em;
-    color: rgba(212,160,48,0.045);
-    right: -1%;
     top: 50%;
-    transform: translateY(-50%) rotate(90deg);
-    line-height: 1;
-    white-space: nowrap;
-}
-/* Couche 3 — lettres très espacées, oblique centre-gauche */
-.ni-typo-3 {
-    position: absolute;
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: clamp(1.4rem, 3.5vw, 3rem);
-    font-weight: 700;
-    letter-spacing: 0.55em;
-    color: rgba(255,255,255,0.038);
-    top: 58%;
-    left: 8%;
-    transform: rotate(-13deg);
-    white-space: nowrap;
-}
-/* Couche 4 — petit, bas droite, teinte verte */
-.ni-typo-4 {
-    position: absolute;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(2rem, 4.5vw, 3.8rem);
-    font-weight: 900;
-    letter-spacing: 0.32em;
-    color: rgba(76,175,125,0.048);
-    bottom: 6%;
-    right: 4%;
-    transform: rotate(11deg);
-    white-space: nowrap;
-}
-/* Couche 5 — italique médium, centre, très incliné */
-.ni-typo-5 {
-    position: absolute;
-    font-family: 'Playfair Display', Georgia, serif;
-    font-size: clamp(3rem, 6.5vw, 5.5rem);
-    font-weight: 900;
-    font-style: italic;
-    letter-spacing: 0.10em;
-    color: rgba(255,255,255,0.018);
-    top: 28%;
-    left: 42%;
-    transform: rotate(-22deg);
-    white-space: nowrap;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(380px, 70vw, 800px);
+    height: auto;
+    opacity: 0.42;
+    pointer-events: none;
+    user-select: none;
 }
 
 .ni-inner {
