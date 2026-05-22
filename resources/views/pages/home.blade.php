@@ -7,78 +7,91 @@
 
 <div class="home-biasasa">
 
-{{-- ════════════════════════════════════════════════════
-     HERO
-════════════════════════════════════════════════════ --}}
-<section id="hero-slider-section" class="biasasa-inspired hero-orion" style="position:relative;height:100vh;min-height:600px;overflow:hidden;background:#000;">
+{{-- ════════════════════════════════════════════════════════════
+     HERO CINÉMATOGRAPHIQUE — Diagonal Wipe
+════════════════════════════════════════════════════════════ --}}
+<section class="hc-section hero-orion" id="hc-section">
 
-    {{-- ─── Photos (plein écran, sous les barres) ─── --}}
-    <div id="hero-slides-container" style="position:absolute;inset:0;z-index:1;">
-        <div class="hero-slide" style="position:absolute;inset:0;background-image:url('{{ asset('images/11.jpg') }}');background-size:cover;background-position:center;opacity:1;transition:opacity 1.4s ease-in-out;will-change:opacity;"></div>
-        <div class="hero-slide" style="position:absolute;inset:0;background-image:url('{{ asset('images/22.jpg') }}');background-size:cover;background-position:center;opacity:0;transition:opacity 1.4s ease-in-out;will-change:opacity;"></div>
-        {{-- Léger assombrissement global --}}
-        <div style="position:absolute;inset:0;background:rgba(0,0,0,0.22);"></div>
-        {{-- Fondu vers les barres noires --}}
-        <div style="position:absolute;top:0;left:0;right:0;height:26vh;background:linear-gradient(to bottom,rgba(0,0,0,0.8),transparent);"></div>
-        <div style="position:absolute;bottom:0;left:0;right:0;height:30vh;background:linear-gradient(to top,rgba(0,0,0,0.9),transparent);"></div>
-    </div>
+    {{-- Barre colorée top (3 px) --}}
+    <div class="hc-accent-bar"></div>
 
-    {{-- ─── BARRE SUPÉRIEURE ─── --}}
-    <div style="position:absolute;top:0;left:0;right:0;height:18vh;min-height:90px;z-index:3;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(24px,5vw,72px);">
-        {{-- Logo + séparateur + claim --}}
-        <div style="display:flex;align-items:center;gap:20px;">
-            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion"
-                 style="height:32px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9;">
-            <div style="width:1px;height:26px;background:rgba(255,255,255,0.12);"></div>
-            <span style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.35);">Production · Création · Formation</span>
+    {{-- ─── 3 Slides ─── --}}
+    <div class="hc-slides">
+        <div class="hc-slide active" data-accent="#4caf7d" data-label="Arts Visuels">
+            <div class="hc-photo" style="background-image:url('{{ asset('images/11.jpg') }}')"></div>
+            <div class="hc-overlay"></div>
+            <div class="hc-tint" style="background-color:#4caf7d"></div>
         </div>
-        {{-- Localisation --}}
-        <span style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.25);">Kinshasa — Congo RDC</span>
+        <div class="hc-slide" data-accent="#d4a030" data-label="Musique &amp; Scène">
+            <div class="hc-photo" style="background-image:url('{{ asset('images/22.jpg') }}')"></div>
+            <div class="hc-overlay"></div>
+            <div class="hc-tint" style="background-color:#d4a030"></div>
+        </div>
+        <div class="hc-slide" data-accent="#e07030" data-label="Formation">
+            <div class="hc-photo" style="background-image:url('{{ asset('images/5.jpg') }}')"></div>
+            <div class="hc-overlay"></div>
+            <div class="hc-tint" style="background-color:#e07030"></div>
+        </div>
     </div>
 
-    {{-- ─── BARRE INFÉRIEURE ─── --}}
-    <div style="position:absolute;bottom:0;left:0;right:0;height:24vh;min-height:120px;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:0 clamp(24px,5vw,72px);flex-wrap:wrap;">
+    {{-- ─── Lignes diagonales décoratives ─── --}}
+    <div class="hc-deco" aria-hidden="true"></div>
 
-        {{-- Titre + dots --}}
-        <div>
-            <h1 class="hero-orion-title" style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.7rem,3.8vw,3rem);font-weight:900;color:#f5f5f0;margin:0 0 14px;line-height:1.1;">
-                L'Art au cœur<br>
-                <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">de votre vie</span>
+    {{-- ─── Filigrane numéro ─── --}}
+    <div class="hc-watermark" aria-hidden="true">01</div>
+
+    {{-- ─── Barre supérieure ─── --}}
+    <div class="hc-top">
+        <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="hc-logo">
+        <span class="hc-location">Kinshasa — Congo RDC</span>
+    </div>
+
+    {{-- ─── Corps principal ─── --}}
+    <div class="hc-body">
+
+        {{-- Gauche : contenu éditorial --}}
+        <div class="hc-left">
+            <div class="hc-kicker">
+                <span class="hc-kicker-line"></span>
+                <span class="hc-kicker-label">Arts Visuels</span>
+            </div>
+            <h1 class="hc-title">
+                <span class="hc-title-wrap"><span class="hc-title-line">L'Art au cœur</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">de votre vie</span></span>
             </h1>
-            {{-- Dots slider --}}
-            <div id="hero-dots" style="display:flex;gap:8px;align-items:center;">
-                <button class="hero-dot active" data-index="0" aria-label="Slide 1"
-                        style="width:32px;height:3px;border-radius:2px;background:#4caf7d;border:none;cursor:pointer;transition:all 0.3s;padding:0;position:relative;overflow:hidden;">
-                    <span class="dot-progress" style="position:absolute;inset:0;background:rgba(255,255,255,0.5);transform:scaleX(0);transform-origin:left;transition:transform 6s linear;border-radius:2px;"></span>
-                </button>
-                <button class="hero-dot" data-index="1" aria-label="Slide 2"
-                        style="width:12px;height:3px;border-radius:2px;background:rgba(255,255,255,0.18);border:none;cursor:pointer;transition:all 0.3s;padding:0;position:relative;overflow:hidden;">
-                    <span class="dot-progress" style="position:absolute;inset:0;background:rgba(255,255,255,0.5);transform:scaleX(0);transform-origin:left;transition:transform 6s linear;border-radius:2px;"></span>
-                </button>
-            </div>
-        </div>
-
-        {{-- Stats + CTA --}}
-        <div style="display:flex;align-items:center;gap:32px;flex-shrink:0;">
-            {{-- Stats --}}
-            <div style="display:flex;align-items:center;gap:24px;">
-                @foreach([['100+','Artistes','#4caf7d'],['50+','Événements','#d4a030'],['6','Disciplines','#e07030']] as $st)
-                <div style="text-align:center;">
-                    <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:900;color:{{ $st[2] }};line-height:1;">{{ $st[0] }}</div>
-                    <div style="font-family:'Space Grotesk',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-top:3px;">{{ $st[1] }}</div>
-                </div>
-                @if(!$loop->last)<div style="width:1px;height:28px;background:rgba(255,255,255,0.1);"></div>@endif
-                @endforeach
-            </div>
-            {{-- Séparateur vertical --}}
-            <div style="width:1px;height:44px;background:rgba(255,255,255,0.1);"></div>
-            {{-- CTA --}}
-            <a href="{{ route('about') }}" class="btn-gold">
-                Découvrir →
+            <p class="hc-lead">Production · Création · Formation</p>
+            <a href="{{ route('about') }}" class="hc-cta">
+                Découvrir l'univers
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
 
+        {{-- Droite : compteur + stats + navigation --}}
+        <div class="hc-right">
+            <div class="hc-counter" aria-live="polite">
+                <span class="hc-counter-cur">01</span>
+                <span class="hc-counter-sep"> / </span>
+                <span class="hc-counter-total">03</span>
+            </div>
+            <div class="hc-stats">
+                @foreach([['100+','Artistes'],['50+','Événements'],['6','Disciplines']] as $st)
+                <div class="hc-stat">
+                    <div class="hc-stat-val">{{ $st[0] }}</div>
+                    <div class="hc-stat-lbl">{{ $st[1] }}</div>
+                </div>
+                @endforeach
+            </div>
+            <div class="hc-dots" role="tablist" aria-label="Navigation slides">
+                <button class="hc-dot active" data-i="0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
+                <button class="hc-dot" data-i="1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
+                <button class="hc-dot" data-i="2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
+            </div>
+        </div>
+
     </div>
+
+    {{-- ─── Barre de progression plein écran (bas) ─── --}}
+    <div class="hc-progress"><div class="hc-progress-fill"></div></div>
 
 </section>
 

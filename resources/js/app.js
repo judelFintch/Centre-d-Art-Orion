@@ -260,6 +260,135 @@ function showAlert(type, msg) {
     setTimeout(() => el.classList.add('hidden'), 6000);
 }
 
+// ─── Hero Cinématographique ────────────────────────────────────
+function initHeroCine() {
+    const section = document.getElementById('hc-section');
+    if (!section) return;
+
+    const slides       = section.querySelectorAll('.hc-slide');
+    const dots         = section.querySelectorAll('.hc-dot');
+    const watermark    = section.querySelector('.hc-watermark');
+    const kickerLabel  = section.querySelector('.hc-kicker-label');
+    const kickerLine   = section.querySelector('.hc-kicker-line');
+    const titleLines   = section.querySelectorAll('.hc-title-line');
+    const leadEl       = section.querySelector('.hc-lead');
+    const ctaEl        = section.querySelector('.hc-cta');
+    const counterCur   = section.querySelector('.hc-counter-cur');
+    const progressFill = section.querySelector('.hc-progress-fill');
+
+    const INTERVAL = 7000;
+    let current   = 0;
+    let timer     = null;
+    let animating = false;
+
+    function setAccent(color) {
+        section.style.setProperty('--hc-accent', color);
+    }
+
+    function resetText() {
+        titleLines.forEach(l => l.classList.remove('visible'));
+        leadEl?.classList.remove('visible');
+        ctaEl?.classList.remove('visible');
+        kickerLine?.classList.remove('visible');
+    }
+
+    function revealText() {
+        kickerLine && setTimeout(() => kickerLine.classList.add('visible'), 40);
+        titleLines.forEach((l, i) => setTimeout(() => l.classList.add('visible'), 100 + i * 130));
+        leadEl && setTimeout(() => leadEl.classList.add('visible'), 380);
+        ctaEl  && setTimeout(() => ctaEl.classList.add('visible'),  520);
+    }
+
+    function goTo(index) {
+        if (animating || index === current) return;
+        animating = true;
+
+        const outSlide = slides[current];
+        const inSlide  = slides[index];
+        const accent   = inSlide.dataset.accent || '#4caf7d';
+        const label    = inSlide.dataset.label  || '';
+
+        setAccent(accent);
+
+        if (kickerLabel) kickerLabel.textContent = label;
+        if (counterCur)  counterCur.textContent  = String(index + 1).padStart(2, '0');
+
+        if (watermark) {
+            watermark.style.opacity = '0';
+            setTimeout(() => {
+                watermark.textContent   = String(index + 1).padStart(2, '0');
+                watermark.style.opacity = '1';
+            }, 350);
+        }
+
+        dots.forEach((d, i) => {
+            d.classList.toggle('active', i === index);
+            d.setAttribute('aria-selected', i === index ? 'true' : 'false');
+        });
+
+        if (progressFill) {
+            progressFill.style.transition = 'none';
+            progressFill.style.width = '0%';
+        }
+
+        resetText();
+        setTimeout(revealText, 280);
+
+        const photo = inSlide.querySelector('.hc-photo');
+        if (photo) {
+            photo.style.animation = 'none';
+            void photo.offsetWidth;
+            photo.style.animation = '';
+        }
+
+        inSlide.style.zIndex = '3';
+        inSlide.classList.add('entering');
+
+        // setTimeout garanti — indépendant de animationend (plus fiable)
+        setTimeout(() => {
+            inSlide.classList.add('active');
+            inSlide.classList.remove('entering');
+            inSlide.style.zIndex = '';
+            outSlide.classList.remove('active');
+            current   = index;
+            animating = false;
+            startProgress();
+        }, 1200);
+    }
+
+    function startProgress() {
+        if (!progressFill) return;
+        void progressFill.offsetWidth;
+        progressFill.style.transition = `width ${INTERVAL}ms linear`;
+        progressFill.style.width = '100%';
+    }
+
+    function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo((current + 1) % slides.length), INTERVAL);
+    }
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => { goTo(i); clearInterval(timer); startAuto(); });
+    });
+
+    let touchX = 0;
+    section.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    section.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchX;
+        if (Math.abs(dx) > 50) {
+            goTo((current + (dx < 0 ? 1 : -1) + slides.length) % slides.length);
+            clearInterval(timer);
+            startAuto();
+        }
+    });
+
+    setAccent(slides[0].dataset.accent || '#4caf7d');
+    setTimeout(revealText, 150);
+    startProgress();
+    startAuto();
+}
+
 // ─── Bootstrap ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     initReveal();
@@ -267,6 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initStickyHeader();
     initCounters();
     initHeroSlider();
+    initHeroCine();
     initLightbox();
     initActiveNav();
     initContactForm();
