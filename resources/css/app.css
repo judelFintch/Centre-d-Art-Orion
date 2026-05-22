@@ -301,7 +301,7 @@ body, body * {
 .brand-wordmark {
     display: flex;
     flex-direction: column;
-    gap: 1px;
+    gap: 0;
     color: #1c1510;
     line-height: 1;
     text-transform: uppercase;
@@ -313,10 +313,32 @@ body, body * {
     letter-spacing: 0.18em;
 }
 .brand-wordmark strong {
-    color: #1c1510;
-    font-size: 0.82rem;
+    font-size: 0.86rem;
     font-weight: 900;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.28em;
+    background: linear-gradient(90deg,
+        #d4601a 0%,
+        #d4a030 38%,
+        #f5f0e0 60%,
+        #a8c8e8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    position: relative;
+    padding-bottom: 8px;
+}
+.brand-wordmark strong::after {
+    content: '·  ·  ·';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.55rem;
+    letter-spacing: 0.08em;
+    -webkit-text-fill-color: #d4a030;
+    color: #d4a030;
+    opacity: 0.75;
+    font-weight: 400;
 }
 #main-header .header-cta {
     border: 1px solid rgba(76,175,125,0.32) !important;
