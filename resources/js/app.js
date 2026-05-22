@@ -323,6 +323,13 @@ function initHeroCine() {
         });
     }
 
+    function updateText(slide) {
+        if (kickerLabel) kickerLabel.textContent = slide.dataset.label || '';
+        if (titleLines[0]) titleLines[0].textContent = slide.dataset.titleOne || '';
+        if (titleLines[1]) titleLines[1].textContent = slide.dataset.titleTwo || '';
+        if (leadEl) leadEl.textContent = slide.dataset.lead || '';
+    }
+
     function goTo(index) {
         if (animating || index === current) return;
         animating = true;
@@ -330,11 +337,9 @@ function initHeroCine() {
         const outSlide = slides[current];
         const inSlide  = slides[index];
         const accent   = inSlide.dataset.accent || '#4caf7d';
-        const label    = inSlide.dataset.label  || '';
 
         setAccent(accent);
 
-        if (kickerLabel) kickerLabel.textContent = label;
         if (counterCur)  counterCur.textContent  = String(index + 1).padStart(2, '0');
 
         if (watermark) {
@@ -357,6 +362,7 @@ function initHeroCine() {
         }
 
         resetText();
+        setTimeout(() => updateText(inSlide), 160);
         setTimeout(revealText, 280);
 
         const photo = inSlide.querySelector('.hc-photo');
@@ -409,6 +415,7 @@ function initHeroCine() {
     });
 
     setAccent(slides[0].dataset.accent || '#4caf7d');
+    updateText(slides[0]);
     updateSidebar(0);
     setTimeout(revealText, 150);
     startProgress();

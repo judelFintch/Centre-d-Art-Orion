@@ -13,12 +13,48 @@
 <section class="hc-section hero-orion" id="hc-section">
     @php
         $heroSlides = [
-            ['image' => '11.jpg', 'accent' => '#4caf7d', 'label' => 'Arts Visuels'],
-            ['image' => '22.jpg', 'accent' => '#d4a030', 'label' => 'Musique & Scène'],
-            ['image' => '5.jpg',  'accent' => '#e07030', 'label' => 'Formation'],
-            ['image' => '10.jpg', 'accent' => '#4caf7d', 'label' => 'Studio Créatif'],
-            ['image' => '13',     'accent' => '#d4a030', 'label' => 'Création Collective'],
-            ['image' => '15',     'accent' => '#e07030', 'label' => 'Ateliers Vivants'],
+            [
+                'image' => '11.jpg',
+                'accent' => '#4caf7d',
+                'label' => 'Arts Visuels',
+                'title' => ["L'ART PREND VIE", 'EN COULEURS'],
+                'lead' => 'Peinture, image et expression visuelle pour révéler les talents.',
+            ],
+            [
+                'image' => '22.jpg',
+                'accent' => '#d4a030',
+                'label' => 'Musique & Scène',
+                'title' => ['LA SCÈNE APPELLE', 'VOTRE VOIX'],
+                'lead' => 'Musique, présence scénique et performance au service de l’émotion.',
+            ],
+            [
+                'image' => '5.jpg',
+                'accent' => '#e07030',
+                'label' => 'Formation',
+                'title' => ['APPRENDRE L’ART', 'PAR LA PRATIQUE'],
+                'lead' => 'Des formations concrètes pour grandir, créer et professionnaliser son talent.',
+            ],
+            [
+                'image' => '10.jpg',
+                'accent' => '#4caf7d',
+                'label' => 'Studio Créatif',
+                'title' => ['DU STUDIO NAÎT', 'L’OEUVRE'],
+                'lead' => 'Un espace de production pour transformer les idées en créations abouties.',
+            ],
+            [
+                'image' => '13',
+                'accent' => '#d4a030',
+                'label' => 'Création Collective',
+                'title' => ['CRÉER ENSEMBLE', 'ALLER PLUS LOIN'],
+                'lead' => 'Rencontres, collaborations et projets pour faire rayonner chaque artiste.',
+            ],
+            [
+                'image' => '15',
+                'accent' => '#e07030',
+                'label' => 'Ateliers Vivants',
+                'title' => ['ENTREZ DANS', 'L’ATELIER'],
+                'lead' => 'Des ateliers ouverts pour explorer, pratiquer et oser une nouvelle discipline.',
+            ],
         ];
     @endphp
 
@@ -28,7 +64,12 @@
     {{-- ─── Slides ─── --}}
     <div class="hc-slides">
         @foreach($heroSlides as $slide)
-        <div class="hc-slide {{ $loop->first ? 'active' : '' }}" data-accent="{{ $slide['accent'] }}" data-label="{{ $slide['label'] }}">
+        <div class="hc-slide {{ $loop->first ? 'active' : '' }}"
+             data-accent="{{ $slide['accent'] }}"
+             data-label="{{ $slide['label'] }}"
+             data-title-one="{{ $slide['title'][0] }}"
+             data-title-two="{{ $slide['title'][1] }}"
+             data-lead="{{ $slide['lead'] }}">
             <div class="hc-photo" style="background-image:url('{{ asset('images/' . $slide['image']) }}')"></div>
             <div class="hc-overlay"></div>
             <div class="hc-tint" style="background-color:{{ $slide['accent'] }}"></div>
@@ -66,10 +107,10 @@
                 <span class="hc-kicker-line"></span>
             </div>
             <h1 class="hc-title">
-                <span class="hc-title-wrap"><span class="hc-title-line">L'ART PREND VIE</span></span>
-                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">SUR SCÈNE</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line">{{ $heroSlides[0]['title'][0] }}</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $heroSlides[0]['title'][1] }}</span></span>
             </h1>
-            <p class="hc-lead">Production artistique · Création · Formation · Événements culturels</p>
+            <p class="hc-lead">{{ $heroSlides[0]['lead'] }}</p>
             <a href="{{ route('about') }}" class="hc-cta">
                 Découvrir l'univers Orion
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
