@@ -21,7 +21,7 @@
                 'lead' => 'Peinture, image et expression visuelle pour révéler les talents.',
             ],
             [
-                'image' => '22.jpg',
+                'image' => '16.jpg',
                 'accent' => '#d4a030',
                 'label' => 'Musique & Scène',
                 'title' => ['LA SCÈNE APPELLE', 'VOTRE VOIX'],
@@ -161,21 +161,38 @@
 </section>
 
 {{-- ════════════════════════════════════════════════════════════
-     NOTRE IDENTITÉ — Manifesto éditorial
+     NOTRE IDENTITÉ — Cinématique
 ════════════════════════════════════════════════════════════ --}}
 <section class="ni-section">
+
+    {{-- Barre d'accent top --}}
+    <div class="ni-accent-bar"></div>
+
+    {{-- Watermark numéro --}}
+    <span class="ni-watermark" aria-hidden="true">02</span>
+
+    {{-- Typographie stratifiée --}}
+    <div class="ni-typo-bg" aria-hidden="true">
+        <span class="ni-typo-1">ORION</span>
+        <span class="ni-typo-2">ORION</span>
+        <span class="ni-typo-3">O · R · I · O · N</span>
+        <span class="ni-typo-4">ORION</span>
+        <span class="ni-typo-5">ORION</span>
+    </div>
+
+    {{-- Lignes diagonales déco --}}
+    <div class="ni-deco" aria-hidden="true"></div>
+
     <div class="ni-inner">
 
         {{-- ── Côté texte ── --}}
         <div class="ni-text reveal">
 
-            {{-- Mot décoratif de fond --}}
-            <span class="ni-bg-word" aria-hidden="true">ORION</span>
-
-            {{-- Kicker --}}
+            {{-- Kicker symétrique --}}
             <div class="ni-kicker">
-                <span class="ni-kicker-bar"></span>
+                <span class="ni-kicker-line"></span>
                 <span class="ni-kicker-label">Notre identité</span>
+                <span class="ni-kicker-line"></span>
             </div>
 
             {{-- Titre — italic vert + normal sombre --}}
