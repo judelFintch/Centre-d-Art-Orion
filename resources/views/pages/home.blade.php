@@ -40,20 +40,24 @@
     {{-- ─── Filigrane numéro ─── --}}
     <div class="hc-watermark" aria-hidden="true">01</div>
 
-    {{-- ─── Barre supérieure ─── --}}
+    {{-- ─── Barre supérieure : logo | compteur | localisation ─── --}}
     <div class="hc-top">
         <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="hc-logo">
+        <div class="hc-counter" aria-live="polite">
+            <span class="hc-counter-cur">01</span>
+            <span class="hc-counter-sep"> / 03</span>
+        </div>
         <span class="hc-location">Kinshasa — Congo RDC</span>
     </div>
 
-    {{-- ─── Corps principal ─── --}}
+    {{-- ─── Corps centré ─── --}}
     <div class="hc-body">
-
-        {{-- Gauche : contenu éditorial --}}
-        <div class="hc-left">
+        <div class="hc-center">
+            {{-- Kicker symétrique ──── label ──── --}}
             <div class="hc-kicker">
                 <span class="hc-kicker-line"></span>
                 <span class="hc-kicker-label">Arts Visuels</span>
+                <span class="hc-kicker-line"></span>
             </div>
             <h1 class="hc-title">
                 <span class="hc-title-wrap"><span class="hc-title-line">L'Art au cœur</span></span>
@@ -65,127 +69,132 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
-
-        {{-- Droite : compteur + stats + navigation --}}
-        <div class="hc-right">
-            <div class="hc-counter" aria-live="polite">
-                <span class="hc-counter-cur">01</span>
-                <span class="hc-counter-sep"> / </span>
-                <span class="hc-counter-total">03</span>
-            </div>
-            <div class="hc-stats">
-                @foreach([['100+','Artistes'],['50+','Événements'],['6','Disciplines']] as $st)
-                <div class="hc-stat">
-                    <div class="hc-stat-val">{{ $st[0] }}</div>
-                    <div class="hc-stat-lbl">{{ $st[1] }}</div>
-                </div>
-                @endforeach
-            </div>
-            <div class="hc-dots" role="tablist" aria-label="Navigation slides">
-                <button class="hc-dot active" data-i="0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
-                <button class="hc-dot" data-i="1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
-                <button class="hc-dot" data-i="2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
-            </div>
-        </div>
-
     </div>
+
+    {{-- ─── Barre inférieure : stats + dots ─── --}}
+    <div class="hc-bottom-bar">
+        <div class="hc-stats">
+            @foreach([['100+','Artistes'],['50+','Événements'],['6','Disciplines']] as $st)
+            <div class="hc-stat">
+                <div class="hc-stat-val">{{ $st[0] }}</div>
+                <div class="hc-stat-lbl">{{ $st[1] }}</div>
+            </div>
+            @if(!$loop->last)<span class="hc-stat-sep"></span>@endif
+            @endforeach
+        </div>
+        <div class="hc-dots" role="tablist" aria-label="Navigation slides">
+            <button class="hc-dot active" data-i="0" aria-label="Slide 1" role="tab" aria-selected="true"></button>
+            <button class="hc-dot" data-i="1" aria-label="Slide 2" role="tab" aria-selected="false"></button>
+            <button class="hc-dot" data-i="2" aria-label="Slide 3" role="tab" aria-selected="false"></button>
+        </div>
+    </div>
+
+    {{-- ─── Flèche scroll vers le bas ─── --}}
+    <button class="hc-scroll-arrow" aria-label="Défiler vers le bas">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+        </svg>
+    </button>
 
     {{-- ─── Barre de progression plein écran (bas) ─── --}}
     <div class="hc-progress"><div class="hc-progress-fill"></div></div>
 
 </section>
 
-{{-- ════════════════════════════════════════════════════
-     PRÉSENTATION — Ce que nous faisons
-════════════════════════════════════════════════════ --}}
-<section style="padding:120px 0;background:#f4f0e8;">
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+{{-- ════════════════════════════════════════════════════════════
+     NOTRE IDENTITÉ — Manifesto éditorial
+════════════════════════════════════════════════════════════ --}}
+<section class="ni-section">
+    <div class="ni-inner">
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+        {{-- ── Côté texte ── --}}
+        <div class="ni-text reveal">
 
-            {{-- Left: text --}}
-            <div class="reveal">
-                <div class="tag tag-green" style="margin-bottom:20px;">Notre identité</div>
-                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#1c1510;line-height:1.15;margin:0 0 24px;" class="accent-line">
-                    Un espace dédié à<br>l'excellence artistique
-                </h2>
-                <p class="prose-dark" style="margin-bottom:20px;">
-                    Fondé par <strong style="color:#1c1510;">Aras M. NGONGO</strong>, le Centre d'Art Orion est bien plus qu'un espace de formation — c'est un écosystème artistique complet où les talents émergent, se développent et rayonnent.
-                </p>
-                <p class="prose-dark">
-                    Situé au 380, Avenue Changalele dans le Quartier Gambela, le centre accueille chaque année des dizaines d'artistes de tous horizons dans un cadre professionnel, inspirant et bienveillant.
-                </p>
+            {{-- Mot décoratif de fond --}}
+            <span class="ni-bg-word" aria-hidden="true">ORION</span>
 
-                <div style="margin-top:40px;display:flex;flex-direction:column;gap:16px;">
-                    @foreach([
-                        ['#4caf7d','Accompagnement personnalisé de chaque artiste'],
-                        ['#d4a030','Équipements professionnels de pointe'],
-                        ['#e07030','Réseau actif de partenaires culturels'],
-                    ] as $pt)
-                    <div style="display:flex;align-items:center;gap:14px;">
-                        <div style="width:32px;height:32px;border-radius:4px;background:{{ $pt[0] }}1a;border:1px solid {{ $pt[0] }}33;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="{{ $pt[0] }}" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                        </div>
-                        <span style="color:rgba(28,21,16,0.70);font-size:0.92rem;">{{ $pt[1] }}</span>
-                    </div>
-                    @endforeach
+            {{-- Kicker --}}
+            <div class="ni-kicker">
+                <span class="ni-kicker-bar"></span>
+                <span class="ni-kicker-label">Notre identité</span>
+            </div>
+
+            {{-- Titre — italic vert + normal sombre --}}
+            <h2 class="ni-title">
+                <em>Un espace dédié à</em><br>
+                l'excellence artistique
+            </h2>
+
+            {{-- Métriques éditoriales --}}
+            <div class="ni-strip">
+                @foreach([['5+','#4caf7d','Années'],['100+','#d4a030','Artistes'],['6','#e07030','Disciplines']] as $s)
+                <div class="ni-strip-item">
+                    <span class="ni-strip-val" style="color:{{ $s[1] }}">{{ $s[0] }}</span>
+                    <span class="ni-strip-lbl">{{ $s[2] }}</span>
                 </div>
+                @if(!$loop->last)<span class="ni-strip-dot">·</span>@endif
+                @endforeach
+            </div>
 
-                <div style="margin-top:40px;">
-                    <a href="{{ route('about') }}" class="btn-primary">
-                        Notre histoire complète
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                    </a>
+            {{-- Corps --}}
+            <p class="ni-prose">
+                Fondé par <strong>Aras M. NGONGO</strong>, le Centre d'Art Orion est bien plus qu'un espace de formation — c'est un écosystème artistique complet où les talents émergent, se développent et rayonnent.
+            </p>
+
+            {{-- Points-clés numérotés --}}
+            <div class="ni-features">
+                @foreach([
+                    ['01','#4caf7d','Accompagnement personnalisé de chaque artiste'],
+                    ['02','#d4a030','Équipements professionnels de pointe'],
+                    ['03','#e07030','Réseau actif de partenaires culturels'],
+                ] as $f)
+                <div class="ni-feature">
+                    <span class="ni-feat-num" style="color:{{ $f[1] }}">{{ $f[0] }}</span>
+                    <span class="ni-feat-bar" style="background:{{ $f[1] }}"></span>
+                    <span class="ni-feat-text">{{ $f[2] }}</span>
+                </div>
+                @endforeach
+            </div>
+
+            {{-- CTA --}}
+            <a href="{{ route('about') }}" class="ni-cta">
+                Notre histoire complète
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        {{-- ── Côté images ── --}}
+        <div class="ni-images reveal">
+
+            {{-- Image principale avec cadre décalé --}}
+            <div class="ni-img-main">
+                <div class="ni-img-frame"></div>
+                <div class="ni-img-clip">
+                    <img src="{{ asset('images/1.png') }}" alt="Arts Visuels — Centre d'Art Orion" class="ni-img-photo">
+                    <div class="ni-img-gradient"></div>
+                    <span class="ni-img-label" style="color:#4caf7d">Arts Visuels</span>
                 </div>
             </div>
 
-            {{-- Right: image mosaic --}}
-            <div class="reveal" style="position:relative;">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-
-                    {{-- Photo principale — portrait 853×1280 --}}
-                    <div style="grid-row:span 2;border-radius:8px;height:320px;overflow:hidden;position:relative;background:#ffffff;">
-                        <img src="{{ asset('images/1.png') }}"
-                             alt="Centre d'Art Orion — arts visuels"
-                             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
-                             onmouseover="this.style.transform='scale(1.04)'"
-                             onmouseout="this.style.transform='scale(1)'">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);"></div>
-                        <div style="position:absolute;bottom:14px;left:14px;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#4caf7d;">Arts Visuels</div>
-                    </div>
-
-                    {{-- Photo secondaire --}}
-                    <div style="border-radius:8px;height:150px;overflow:hidden;position:relative;background:#ffffff;">
-                        <img src="{{ asset('images/2.jpg') }}"
-                             alt="Centre d'Art Orion — musique"
-                             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
-                             onmouseover="this.style.transform='scale(1.06)'"
-                             onmouseout="this.style.transform='scale(1)'">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);"></div>
-                        <div style="position:absolute;bottom:10px;left:12px;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#d4a030;">Musique</div>
-                    </div>
-
-                    {{-- Photo tertiaire --}}
-                    <div style="border-radius:8px;height:150px;overflow:hidden;position:relative;background:#ffffff;">
-                        <img src="{{ asset('images/3.jpg') }}"
-                             alt="Centre d'Art Orion — danse"
-                             style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;"
-                             onmouseover="this.style.transform='scale(1.06)'"
-                             onmouseout="this.style.transform='scale(1)'">
-                        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 60%);"></div>
-                        <div style="position:absolute;bottom:10px;left:12px;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#e07030;">Danse</div>
-                    </div>
-
+            {{-- Deux petites images --}}
+            <div class="ni-img-row">
+                <div class="ni-img-sm">
+                    <img src="{{ asset('images/2.jpg') }}" alt="Musique" class="ni-img-photo">
+                    <div class="ni-img-gradient"></div>
+                    <span class="ni-img-label" style="color:#d4a030">Musique</span>
                 </div>
-
-                {{-- Floating badge --}}
-                <div style="position:absolute;bottom:-20px;left:-20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);padding:16px 20px;border-radius:8px;box-shadow:0 20px 40px rgba(76,175,125,0.3);">
-                    <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.8rem;font-weight:900;color:#fff;line-height:1;">5+</div>
-                    <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.8);">Années d'art</div>
+                <div class="ni-img-sm">
+                    <img src="{{ asset('images/3.jpg') }}" alt="Danse" class="ni-img-photo">
+                    <div class="ni-img-gradient"></div>
+                    <span class="ni-img-label" style="color:#e07030">Danse</span>
                 </div>
             </div>
+
+            {{-- Label vertical --}}
+            <span class="ni-year" aria-hidden="true">Depuis 2019</span>
 
         </div>
+
     </div>
 </section>
 

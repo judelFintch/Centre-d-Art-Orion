@@ -269,17 +269,23 @@ function initHeroCine() {
     const dots         = section.querySelectorAll('.hc-dot');
     const watermark    = section.querySelector('.hc-watermark');
     const kickerLabel  = section.querySelector('.hc-kicker-label');
-    const kickerLine   = section.querySelector('.hc-kicker-line');
+    const kickerLines  = section.querySelectorAll('.hc-kicker-line');
     const titleLines   = section.querySelectorAll('.hc-title-line');
     const leadEl       = section.querySelector('.hc-lead');
     const ctaEl        = section.querySelector('.hc-cta');
     const counterCur   = section.querySelector('.hc-counter-cur');
     const progressFill = section.querySelector('.hc-progress-fill');
+    const scrollArrow  = section.querySelector('.hc-scroll-arrow');
 
     const INTERVAL = 7000;
     let current   = 0;
     let timer     = null;
     let animating = false;
+
+    // Flèche scroll : descend d'une hauteur d'écran
+    scrollArrow?.addEventListener('click', () => {
+        window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
+    });
 
     function setAccent(color) {
         section.style.setProperty('--hc-accent', color);
@@ -289,11 +295,11 @@ function initHeroCine() {
         titleLines.forEach(l => l.classList.remove('visible'));
         leadEl?.classList.remove('visible');
         ctaEl?.classList.remove('visible');
-        kickerLine?.classList.remove('visible');
+        kickerLines.forEach(l => l.classList.remove('visible'));
     }
 
     function revealText() {
-        kickerLine && setTimeout(() => kickerLine.classList.add('visible'), 40);
+        kickerLines.forEach(l => setTimeout(() => l.classList.add('visible'), 40));
         titleLines.forEach((l, i) => setTimeout(() => l.classList.add('visible'), 100 + i * 130));
         leadEl && setTimeout(() => leadEl.classList.add('visible'), 380);
         ctaEl  && setTimeout(() => ctaEl.classList.add('visible'),  520);
