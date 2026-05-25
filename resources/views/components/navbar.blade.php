@@ -17,8 +17,7 @@ $links = [
 
         {{-- Logo --}}
         <a href="{{ route('home') }}" class="orion-brand" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-            <span class="brand-art-mark" aria-hidden="true"></span>
-            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:34px;width:auto;object-fit:contain;display:block;">
+            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="brand-logo" style="height:34px;width:auto;object-fit:contain;display:block;">
             <span class="brand-wordmark" aria-hidden="true">
                 <strong>Orion</strong>
                 <span>Centre d'Art</span>
