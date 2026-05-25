@@ -12,11 +12,17 @@
 ════════════════════════════════════════════════════════════ --}}
 <section class="hc-section hero-orion" id="hc-section">
     @php
+        $heroCtaUrls = [
+            route('services'),
+            route('formations.index'),
+            route('galerie.index'),
+            route('about'),
+        ];
         $heroSlides = [
-            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie.","cta_label"=>"Voir nos services","cta_url"=>route(‘services’)],
-            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique.","cta_label"=>"Voir nos formations","cta_url"=>route(‘formations.index’)],
-            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses.","cta_label"=>"Voir la galerie","cta_url"=>route(‘galerie.index’)],
-            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres.","cta_label"=>"Notre histoire","cta_url"=>route(‘about’)],
+            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie.","cta_label"=>"Voir nos services","cta_url"=>$heroCtaUrls[0]],
+            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique.","cta_label"=>"Voir nos formations","cta_url"=>$heroCtaUrls[1]],
+            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses.","cta_label"=>"Voir la galerie","cta_url"=>$heroCtaUrls[2]],
+            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres.","cta_label"=>"Notre histoire","cta_url"=>$heroCtaUrls[3]],
         ];
     @endphp
 
