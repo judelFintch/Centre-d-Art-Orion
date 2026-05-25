@@ -122,18 +122,18 @@
     <svg class="ni-mandala" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 
         {{-- Anneau extérieur pointillé --}}
-        <circle cx="250" cy="250" r="238" stroke="rgba(255,255,255,0.05)" stroke-width="0.6" stroke-dasharray="3 11.5"/>
+        <circle cx="250" cy="250" r="238" stroke="rgba(28,21,16,0.05)" stroke-width="0.6" stroke-dasharray="3 11.5"/>
 
-        {{-- Cercles concentriques alternés blanc / or --}}
+        {{-- Cercles concentriques alternés sombre / or --}}
         <circle cx="250" cy="250" r="218" stroke="rgba(212,160,48,0.16)"  stroke-width="1.2"/>
-        <circle cx="250" cy="250" r="175" stroke="rgba(255,255,255,0.08)" stroke-width="0.6"/>
+        <circle cx="250" cy="250" r="175" stroke="rgba(28,21,16,0.06)"    stroke-width="0.6"/>
         <circle cx="250" cy="250" r="132" stroke="rgba(212,160,48,0.18)"  stroke-width="1.0"/>
-        <circle cx="250" cy="250" r="90"  stroke="rgba(255,255,255,0.09)" stroke-width="0.6"/>
+        <circle cx="250" cy="250" r="90"  stroke="rgba(28,21,16,0.06)"    stroke-width="0.6"/>
         <circle cx="250" cy="250" r="50"  stroke="rgba(212,160,48,0.24)"  stroke-width="0.9"/>
-        <circle cx="250" cy="250" r="22"  stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+        <circle cx="250" cy="250" r="22"  stroke="rgba(28,21,16,0.09)"    stroke-width="0.8"/>
 
         {{-- 6 diamètres complets = 12 rayons --}}
-        <g stroke="rgba(255,255,255,0.07)" stroke-width="0.7">
+        <g stroke="rgba(28,21,16,0.05)" stroke-width="0.7">
             <line x1="32" y1="250" x2="468" y2="250"/>
             <line x1="32" y1="250" x2="468" y2="250" transform="rotate(30,250,250)"/>
             <line x1="32" y1="250" x2="468" y2="250" transform="rotate(60,250,250)"/>
@@ -151,7 +151,7 @@
         </g>
 
         {{-- Petits cercles aux 4 points intermédiaires (45°) --}}
-        <g fill="rgba(255,255,255,0.22)">
+        <g fill="rgba(28,21,16,0.12)">
             <circle cx="404.1" cy="404.1" r="3"/>
             <circle cx="95.9"  cy="404.1" r="3"/>
             <circle cx="95.9"  cy="95.9"  r="3"/>
@@ -172,7 +172,7 @@
 
         {{-- Point central --}}
         <circle cx="250" cy="250" r="5" fill="rgba(212,160,48,0.60)"/>
-        <circle cx="250" cy="250" r="2" fill="rgba(255,255,255,0.80)"/>
+        <circle cx="250" cy="250" r="2" fill="rgba(28,21,16,0.35)"/>
 
     </svg>
 
@@ -273,7 +273,7 @@
 {{-- ════════════════════════════════════════════════════
      SERVICES — Cards photo
 ════════════════════════════════════════════════════ --}}
-<section style="padding:120px 0;background:#faf8f4;border-top:1px solid #ede6da;">
+<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
@@ -348,7 +348,7 @@
      FORMATIONS — Aperçu
 ════════════════════════════════════════════════════ --}}
 @if($formations->count())
-<section style="padding:120px 0;background:#f4f0e8;border-top:1px solid #e0d8cc;">
+<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
@@ -367,10 +367,10 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
             @foreach($formations as $f)
             <div class="reveal hover-lift"
-                 style="background:#ffffff;border:1px solid #e0d8cc;border-radius:10px;overflow:hidden;transition:all 0.3s;">
+                 style="background:#ffffff;border:1px solid rgba(28,21,16,0.08);border-radius:10px;overflow:hidden;transition:all 0.3s;">
 
                 {{-- Photo --}}
-                <div style="height:180px;overflow:hidden;position:relative;background:#f0ebe0;">
+                <div style="height:180px;overflow:hidden;position:relative;background:#f0eeec;">
                     <img src="{{ asset('images/' . $fPhotos[$loop->index % count($fPhotos)]) }}"
                          alt="{{ $f->titre }}"
                          style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;"
@@ -425,7 +425,7 @@
 ════════════════════════════════════════════════════ --}}
 @if($evenements->count())
 @php $evPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg','13','11.jpg']; @endphp
-<section style="padding:120px 0;background:#0d0d0d;">
+<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
@@ -502,7 +502,7 @@
      TÉMOIGNAGES
 ════════════════════════════════════════════════════ --}}
 @if($temoignages->count())
-<section style="padding:120px 0;background:#f4f0e8;border-top:1px solid #e0d8cc;">
+<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
@@ -515,7 +515,7 @@
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
             @foreach($temoignages as $t)
             <div class="reveal"
-                 style="background:#ffffff;border:1px solid #e0d8cc;border-radius:10px;padding:32px;position:relative;overflow:hidden;transition:border-color 0.3s;"
+                 style="background:#ffffff;border:1px solid rgba(28,21,16,0.08);border-radius:10px;padding:32px;position:relative;overflow:hidden;transition:border-color 0.3s;"
                  onmouseover="this.style.borderColor='#d4a03033'" onmouseout="this.style.borderColor='#e0d8cc'">
 
                 <div style="position:absolute;top:20px;right:24px;font-size:3rem;color:#1a1a1a;font-family:'Playfair Display',serif;line-height:1;">"</div>
@@ -551,7 +551,7 @@
 {{-- ════════════════════════════════════════════════════
      GALERIE — Aperçu
 ════════════════════════════════════════════════════ --}}
-<section style="padding:120px 0;background:#fafaf6;border-top:1px solid #e0d8cc;">
+<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
@@ -588,7 +588,7 @@
                     : asset('images/' . $gPhotos[$i % count($gPhotos)]);
             @endphp
             <div class="reveal"
-                 style="background:#f0ebe0;border:0;border-radius:0;overflow:hidden;position:relative;cursor:pointer;{{ $spanStyle }}transition:transform 0.3s,box-shadow 0.3s;"
+                 style="background:#f0eeec;border:0;border-radius:0;overflow:hidden;position:relative;cursor:pointer;{{ $spanStyle }}transition:transform 0.3s,box-shadow 0.3s;"
                  data-lightbox data-src="{{ $gSrc }}" data-caption="{{ $item->titre }}"
                  onmouseover="var o=this.querySelector('.galerie-overlay');if(o)o.style.opacity='1';this.style.transform='scale(1.02)'"
                  onmouseout="var o=this.querySelector('.galerie-overlay');if(o)o.style.opacity='0';this.style.transform='scale(1)'">
@@ -624,28 +624,72 @@
 </section>
 
 {{-- ════════════════════════════════════════════════════
-     CTA FINAL
+     CTA FINAL — Rejoignez-nous
 ════════════════════════════════════════════════════ --}}
-<section style="padding:100px 0;background:#f4f0e8;border-top:1px solid #e0d8cc;position:relative;overflow:hidden;">
+<section class="rj-section">
 
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(76,175,125,0.06) 0%,transparent 70%);pointer-events:none;"></div>
+    {{-- Filigrane mot --}}
+    <span class="rj-bgword" aria-hidden="true">ORION</span>
 
-    <div style="max-width:800px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;">
-        <div class="reveal">
-            <div class="tag tag-gold" style="margin-bottom:24px;">Rejoignez-nous</div>
-            <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:900;color:#1c1510;line-height:1.1;margin:0 0 20px;">
-                Prêt à révéler votre
-                <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">talent ?</span>
-            </h2>
-            <p style="color:#6b6258;font-size:1rem;line-height:1.8;margin:0 0 44px;max-width:500px;margin-left:auto;margin-right:auto;">
-                Rejoignez une communauté d'artistes passionnés et bénéficiez d'un accompagnement professionnel pour concrétiser vos projets artistiques.
-            </p>
-            <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
-                <a href="{{ route('formations.index') }}" class="btn-gold">S'inscrire à une formation</a>
-                <a href="{{ route('contact.index') }}" class="btn-outline">Nous contacter</a>
-            </div>
+    {{-- Ornements SVG --}}
+    <svg class="rj-ornament rj-orn-tl" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+        <g stroke="rgba(212,160,48,0.18)" stroke-width="0.8">
+            <line x1="0" y1="0" x2="90" y2="90"/>
+            <line x1="0" y1="20" x2="70" y2="90"/>
+            <line x1="0" y1="40" x2="50" y2="90"/>
+            <line x1="20" y1="0" x2="90" y2="70"/>
+            <line x1="40" y1="0" x2="90" y2="50"/>
+        </g>
+        <path d="M 0,52 L 0,0 L 52,0" stroke="rgba(28,21,16,0.12)" stroke-width="1.2" fill="none"/>
+        <circle cx="0" cy="0" r="5" fill="rgba(212,160,48,0.35)"/>
+        <circle cx="0" cy="0" r="2.5" fill="rgba(212,160,48,0.65)"/>
+    </svg>
+
+    <svg class="rj-ornament rj-orn-br" viewBox="0 0 160 160" fill="none" aria-hidden="true">
+        <g stroke="rgba(212,160,48,0.14)" stroke-width="0.8">
+            <line x1="70" y1="70" x2="160" y2="160"/>
+            <line x1="90" y1="70" x2="160" y2="140"/>
+            <line x1="110" y1="70" x2="160" y2="120"/>
+            <line x1="70" y1="90" x2="140" y2="160"/>
+            <line x1="70" y1="110" x2="120" y2="160"/>
+        </g>
+        <path d="M 160,108 L 160,160 L 108,160" stroke="rgba(28,21,16,0.12)" stroke-width="1.2" fill="none"/>
+        <circle cx="160" cy="160" r="5" fill="rgba(212,160,48,0.30)"/>
+        <circle cx="160" cy="160" r="2.5" fill="rgba(212,160,48,0.55)"/>
+    </svg>
+
+    {{-- Contenu centré --}}
+    <div class="rj-inner reveal">
+
+        {{-- Filet + kicker --}}
+        <div class="rj-kicker">
+            <span class="rj-kicker-line"></span>
+            <span class="ni-kicker-label">Rejoignez-nous</span>
+            <span class="rj-kicker-line"></span>
         </div>
+
+        {{-- Titre --}}
+        <h2 class="rj-title">
+            Prêt à révéler<br>
+            <em>votre talent ?</em>
+        </h2>
+
+        {{-- Filet doré --}}
+        <div class="rj-rule"></div>
+
+        {{-- Prose --}}
+        <p class="rj-prose">
+            Rejoignez une communauté d'artistes passionnés et bénéficiez d'un accompagnement professionnel pour concrétiser vos projets artistiques.
+        </p>
+
+        {{-- Boutons --}}
+        <div class="rj-actions">
+            <a href="{{ route('formations.index') }}" class="btn-gold">S'inscrire à une formation</a>
+            <a href="{{ route('contact.index') }}" class="btn-outline">Nous contacter</a>
+        </div>
+
     </div>
+
 </section>
 
 </div>
