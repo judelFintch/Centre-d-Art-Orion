@@ -577,11 +577,11 @@
         <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:56px;">
             <div>
                 <div class="tag tag-orange" style="margin-bottom:16px;">À venir</div>
-                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#f5f5f0;line-height:1.08;margin:0;" class="accent-line">
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#1c1510;line-height:1.08;margin:0;" class="accent-line">
                     Prochains<br>Événements
                 </h2>
             </div>
-            <a href="{{ route('evenements.index') }}" class="btn-outline" style="border-color:#333;color:#888;" onmouseover="this.style.borderColor='#e07030';this.style.color='#e07030'" onmouseout="this.style.borderColor='#333';this.style.color='#888'">
+            <a href="{{ route('evenements.index') }}" class="btn-outline">
                 Voir tous les événements →
             </a>
         </div>
