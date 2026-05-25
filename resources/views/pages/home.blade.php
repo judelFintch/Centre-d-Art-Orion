@@ -13,48 +13,10 @@
 <section class="hc-section hero-orion" id="hc-section">
     @php
         $heroSlides = [
-            [
-                'image' => '11.jpg',
-                'accent' => '#4caf7d',
-                'label' => 'Arts Visuels',
-                'title' => ["L'ART PREND VIE", 'EN COULEURS'],
-                'lead' => 'Peinture, image et expression visuelle pour révéler les talents.',
-            ],
-            [
-                'image' => '16.jpg',
-                'accent' => '#d4a030',
-                'label' => 'Musique & Scène',
-                'title' => ['LA SCÈNE APPELLE', 'VOTRE VOIX'],
-                'lead' => 'Musique, présence scénique et performance au service de l’émotion.',
-            ],
-            [
-                'image' => '5.jpg',
-                'accent' => '#e07030',
-                'label' => 'Formation',
-                'title' => ['APPRENDRE L’ART', 'PAR LA PRATIQUE'],
-                'lead' => 'Des formations concrètes pour grandir, créer et professionnaliser son talent.',
-            ],
-            [
-                'image' => '10.jpg',
-                'accent' => '#4caf7d',
-                'label' => 'Studio Créatif',
-                'title' => ['DU STUDIO NAÎT', 'L’OEUVRE'],
-                'lead' => 'Un espace de production pour transformer les idées en créations abouties.',
-            ],
-            [
-                'image' => '13',
-                'accent' => '#d4a030',
-                'label' => 'Création Collective',
-                'title' => ['CRÉER ENSEMBLE', 'ALLER PLUS LOIN'],
-                'lead' => 'Rencontres, collaborations et projets pour faire rayonner chaque artiste.',
-            ],
-            [
-                'image' => '15',
-                'accent' => '#e07030',
-                'label' => 'Ateliers Vivants',
-                'title' => ['ENTREZ DANS', 'L’ATELIER'],
-                'lead' => 'Des ateliers ouverts pour explorer, pratiquer et oser une nouvelle discipline.',
-            ],
+            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie."],
+            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique."],
+            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses."],
+            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres."],
         ];
     @endphp
 
@@ -146,17 +108,6 @@
     {{-- ─── Barre de progression plein écran (bas) ─── --}}
     <div class="hc-progress"><div class="hc-progress-fill"></div></div>
 
-    {{-- ─── Aperçus synchronisés des prochaines photos ─── --}}
-    <div class="hc-sidebar" aria-hidden="true">
-        @foreach([1, 2] as $offset)
-            @php $preview = $heroSlides[$offset % count($heroSlides)]; @endphp
-            <div class="hc-sidebar-photo">
-                <img src="{{ asset('images/' . $preview['image']) }}" alt="" class="hc-sidebar-img">
-                <span class="hc-sidebar-label">{{ $preview['label'] }}</span>
-                <div class="hc-sidebar-overlay"></div>
-            </div>
-        @endforeach
-    </div>
 
 </section>
 
@@ -295,7 +246,7 @@
             <div class="ni-img-main">
                 <div class="ni-img-frame"></div>
                 <div class="ni-img-clip">
-                    <img src="{{ asset('images/1.png') }}" alt="Arts Visuels — Centre d'Art Orion" class="ni-img-photo">
+                    <img src="{{ asset('images/10.jpg') }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#4caf7d">Arts Visuels</span>
                 </div>
@@ -304,12 +255,12 @@
             {{-- Deux petites images --}}
             <div class="ni-img-row">
                 <div class="ni-img-sm">
-                    <img src="{{ asset('images/2.jpg') }}" alt="Musique" class="ni-img-photo">
+                    <img src="{{ asset('images/5.jpg') }}" alt="Formation" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#d4a030">Musique</span>
                 </div>
                 <div class="ni-img-sm">
-                    <img src="{{ asset('images/3.jpg') }}" alt="Danse" class="ni-img-photo">
+                    <img src="{{ asset('images/11.jpg') }}" alt="Inspiration" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#e07030">Danse</span>
                 </div>
@@ -347,7 +298,7 @@
 
         {{-- Grille cards --}}
         @php
-        $hSPhotos = ['11.jpg','22.jpg','5.jpg','7.jpg','3.jpg','9.jpg'];
+        $hSPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg'];
         $hServices = [
             ['🎬','Production Artistique','#4caf7d','Studios, accompagnement technique et distribution des œuvres.',route('services')],
             ['✨','Création Artistique','#d4a030','Résidences, ateliers ouverts et collaborations inter-disciplines.',route('services')],
@@ -416,7 +367,7 @@
             </a>
         </div>
 
-        @php $fPhotos = ['4.jpg','5.jpg','6.jpg','7.jpg','9.jpg','1.png','2.jpg','3.jpg']; @endphp
+        @php $fPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg','13','11.jpg']; @endphp
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
             @foreach($formations as $f)
             <div class="reveal hover-lift"
@@ -477,7 +428,7 @@
      ÉVÉNEMENTS — Aperçu
 ════════════════════════════════════════════════════ --}}
 @if($evenements->count())
-@php $evPhotos = ['11.jpg','22.jpg','5.jpg','7.jpg','3.jpg','9.jpg','2.jpg','4.jpg']; @endphp
+@php $evPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg','13','11.jpg']; @endphp
 <section style="padding:120px 0;background:#0d0d0d;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
@@ -627,8 +578,8 @@
         @php
             $galerieItems = $galerie->take(6);
             $total = $galerieItems->count();
-            $gPhotos = ['2.jpg','5.jpg','7.jpg','3.jpg','6.jpg','9.jpg'];
-            $gExtraPhotos = ['4.jpg','1.png','22.jpg','11.jpg','2.jpg','7.jpg'];
+            $gPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg'];
+            $gExtraPhotos = ['13','11.jpg','10.jpg','5.jpg','13','11.jpg'];
         @endphp
         <div style="display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:200px 200px 180px;gap:12px;">
 

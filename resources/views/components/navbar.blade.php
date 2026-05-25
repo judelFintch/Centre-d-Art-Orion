@@ -61,8 +61,6 @@ $links = [
     </div>
 </header>
 
-{{-- Spacer --}}
-<div style="height:76px;"></div>
 
 <style>
 @media(min-width:1024px){

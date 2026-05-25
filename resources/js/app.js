@@ -276,7 +276,6 @@ function initHeroCine() {
     const counterCur   = section.querySelector('.hc-counter-cur');
     const progressFill = section.querySelector('.hc-progress-fill');
     const scrollArrow  = section.querySelector('.hc-scroll-arrow');
-    const sidebarItems = section.querySelectorAll('.hc-sidebar-photo');
 
     const INTERVAL = 7000;
     let current   = 0;
@@ -304,23 +303,6 @@ function initHeroCine() {
         titleLines.forEach((l, i) => setTimeout(() => l.classList.add('visible'), 100 + i * 130));
         leadEl && setTimeout(() => leadEl.classList.add('visible'), 380);
         ctaEl  && setTimeout(() => ctaEl.classList.add('visible'),  520);
-    }
-
-    function getSlideImage(slide) {
-        const photo = slide.querySelector('.hc-photo');
-        const match = photo?.style.backgroundImage.match(/url\(["']?(.*?)["']?\)/);
-        return match?.[1] || '';
-    }
-
-    function updateSidebar(index) {
-        sidebarItems.forEach((item, i) => {
-            const slide = slides[(index + i + 1) % slides.length];
-            const img = item.querySelector('.hc-sidebar-img');
-            const label = item.querySelector('.hc-sidebar-label');
-
-            if (img) img.src = getSlideImage(slide);
-            if (label) label.textContent = slide.dataset.label || '';
-        });
     }
 
     function updateText(slide) {
@@ -354,8 +336,6 @@ function initHeroCine() {
             d.classList.toggle('active', i === index);
             d.setAttribute('aria-selected', i === index ? 'true' : 'false');
         });
-        updateSidebar(index);
-
         if (progressFill) {
             progressFill.style.transition = 'none';
             progressFill.style.width = '0%';
