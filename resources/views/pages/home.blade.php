@@ -50,6 +50,44 @@
     {{-- ─── Lignes diagonales décoratives ─── --}}
     <div class="hc-deco" aria-hidden="true"></div>
 
+    {{-- ─── Constellation Orion — Hero : figure complète, étoiles blanches ─── --}}
+    <div class="orion-c orion-c--hero" aria-hidden="true">
+        <svg viewBox="0 0 320 450" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+            <defs>
+                <filter id="ocGH" x="-120%" y="-120%" width="340%" height="340%">
+                    <feGaussianBlur stdDeviation="3.5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+                <filter id="ocGLH" x="-160%" y="-160%" width="420%" height="420%">
+                    <feGaussianBlur stdDeviation="6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+            </defs>
+            <g class="oc-lines" stroke="white" stroke-linecap="round" stroke-width="0.7">
+                <line x1="160" y1="48"  x2="96"  y2="132"/><line x1="160" y1="48"  x2="222" y2="118"/>
+                <line x1="96"  y1="132" x2="126" y2="232"/><line x1="222" y1="118" x2="193" y2="230"/>
+                <line x1="126" y1="232" x2="160" y2="238"/><line x1="160" y1="238" x2="193" y2="230"/>
+                <line x1="126" y1="232" x2="102" y2="360"/><line x1="193" y1="230" x2="208" y2="365"/>
+            </g>
+            <line class="oc-sword" x1="160" y1="245" x2="156" y2="322" stroke="white" stroke-width="0.55" stroke-linecap="round" stroke-dasharray="4 5"/>
+            <g class="oc-faint" fill="white">
+                <circle cx="78" cy="82" r="1.1"/><circle cx="248" cy="66" r="0.9"/>
+                <circle cx="58" cy="215" r="1.1"/><circle cx="68" cy="318" r="1.3"/>
+                <circle cx="132" cy="176" r="1.1"/><circle cx="196" cy="166" r="0.9"/>
+                <circle cx="86" cy="260" r="0.9"/><circle cx="236" cy="272" r="1.1"/>
+            </g>
+            <g class="oc-sword-stars" fill="white">
+                <circle cx="160" cy="266" r="1.8"/><circle cx="158" cy="292" r="2.8"/><circle cx="156" cy="318" r="1.5"/>
+            </g>
+            <g class="oc-belt" fill="white">
+                <circle cx="126" cy="232" r="3.2"/><circle cx="160" cy="238" r="3.6"/><circle cx="193" cy="230" r="3.0"/>
+            </g>
+            <g class="oc-med" fill="white">
+                <circle cx="160" cy="48" r="2.8"/><circle cx="222" cy="118" r="3.2"/><circle cx="102" cy="360" r="3.5"/>
+            </g>
+            <g class="oc-betel-anim" filter="url(#ocGH)"><circle cx="96" cy="132" r="5" fill="#ffe0a0"/></g>
+            <g class="oc-rigel-anim" filter="url(#ocGLH)"><circle cx="208" cy="365" r="6" fill="white"/></g>
+        </svg>
+    </div>
+
     {{-- ─── Filigrane numéro ─── --}}
     <div class="hc-watermark" aria-hidden="true">01</div>
 
@@ -104,13 +142,32 @@
     {{-- ─── Barre de progression plein écran (bas) ─── --}}
     <div class="hc-progress"><div class="hc-progress-fill"></div></div>
 
-
 </section>
 
 {{-- ════════════════════════════════════════════════════════════
      NOTRE IDENTITÉ — Cinématique
 ════════════════════════════════════════════════════════════ --}}
 <section class="ni-section">
+
+    {{-- ─── Constellation Orion — Identité : couronne (Meissa + épaules) ─── --}}
+    {{-- Symbolise l'identité, la tête, le sommet de soi --}}
+    <div class="orion-c orion-c--ni" aria-hidden="true">
+        <svg viewBox="0 0 220 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.8">
+                <line x1="110" y1="22" x2="22" y2="148"/>
+                <line x1="110" y1="22" x2="198" y2="136"/>
+                <line x1="22" y1="148" x2="198" y2="136" stroke-dasharray="5 7"/>
+            </g>
+            <g class="oc-faint" fill="#1e4d2f">
+                <circle cx="55" cy="70" r="1.2"/><circle cx="172" cy="58" r="1.0"/>
+                <circle cx="85" cy="128" r="1.0"/><circle cx="148" cy="118" r="0.9"/>
+                <circle cx="38" cy="108" r="0.8"/><circle cx="185" cy="96" r="0.8"/>
+            </g>
+            <circle cx="110" cy="22" r="3.2" fill="#1e4d2f" class="oc-med"/>
+            <circle cx="198" cy="136" r="4.2" fill="#1e4d2f" class="oc-med"/>
+            <circle cx="22" cy="148" r="5.5" fill="#1e4d2f" class="oc-betel"/>
+        </svg>
+    </div>
 
     {{-- Barre d'accent top --}}
     <div class="ni-accent-bar"></div>
@@ -273,7 +330,28 @@
 {{-- ════════════════════════════════════════════════════
      SERVICES — Cards photo
 ════════════════════════════════════════════════════ --}}
-<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+<section style="position:relative;overflow:hidden;padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+    {{-- ─── Constellation Orion — Services : ceinture + épée ─── --}}
+    {{-- La ceinture = les 3 piliers (Production / Création / Formation). L'épée pointe vers les services --}}
+    <div class="orion-c orion-c--services" aria-hidden="true">
+        <svg viewBox="0 0 320 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.9">
+                <line x1="55" y1="78" x2="160" y2="86"/><line x1="160" y1="86" x2="265" y2="76"/>
+            </g>
+            <line class="oc-sword" x1="160" y1="86" x2="155" y2="248" stroke="#1e4d2f" stroke-width="0.6" stroke-linecap="round" stroke-dasharray="4 5"/>
+            <g class="oc-faint" fill="#1e4d2f">
+                <circle cx="95" cy="38" r="1.2"/><circle cx="228" cy="32" r="1.0"/>
+                <circle cx="108" cy="168" r="1.1"/><circle cx="212" cy="162" r="0.9"/>
+                <circle cx="22" cy="55" r="0.9"/><circle cx="298" cy="48" r="0.8"/>
+            </g>
+            <g class="oc-sword-stars" fill="#1e4d2f">
+                <circle cx="158" cy="140" r="2.5"/><circle cx="156" cy="188" r="3.2"/><circle cx="155" cy="242" r="2.0"/>
+            </g>
+            <g class="oc-belt" fill="#1e4d2f">
+                <circle cx="55" cy="78" r="3.8"/><circle cx="160" cy="86" r="4.5"/><circle cx="265" cy="76" r="3.6"/>
+            </g>
+        </svg>
+    </div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
@@ -348,7 +426,44 @@
      FORMATIONS — Aperçu
 ════════════════════════════════════════════════════ --}}
 @if($formations->count())
-<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+<section style="position:relative;overflow:hidden;padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+    {{-- ─── Constellation Orion — Formations : Orion inversé, ascension ─── --}}
+    {{-- Rigel monte au sommet = le but à atteindre. L'épée pointe vers le haut = progression --}}
+    <div class="orion-c orion-c--formations" aria-hidden="true">
+        <svg viewBox="0 0 320 450" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+            <defs>
+                <filter id="ocGF" x="-120%" y="-120%" width="340%" height="340%">
+                    <feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+            </defs>
+            {{-- scale(1,-1) translate(0,-450) = y → 450-y (Rigel monte, Meissa descend) --}}
+            <g transform="translate(0,450) scale(1,-1)">
+                <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.7">
+                    <line x1="160" y1="48"  x2="96"  y2="132"/><line x1="160" y1="48"  x2="222" y2="118"/>
+                    <line x1="96"  y1="132" x2="126" y2="232"/><line x1="222" y1="118" x2="193" y2="230"/>
+                    <line x1="126" y1="232" x2="160" y2="238"/><line x1="160" y1="238" x2="193" y2="230"/>
+                    <line x1="126" y1="232" x2="102" y2="360"/><line x1="193" y1="230" x2="208" y2="365"/>
+                </g>
+                <line class="oc-sword" x1="160" y1="245" x2="156" y2="322" stroke="#1e4d2f" stroke-width="0.55" stroke-linecap="round" stroke-dasharray="4 5"/>
+                <g class="oc-faint" fill="#1e4d2f">
+                    <circle cx="78" cy="82" r="1.0"/><circle cx="248" cy="66" r="0.9"/>
+                    <circle cx="132" cy="176" r="1.0"/><circle cx="196" cy="168" r="0.8"/>
+                    <circle cx="68" cy="318" r="1.1"/><circle cx="252" cy="305" r="0.9"/>
+                </g>
+                <g class="oc-sword-stars" fill="#1e4d2f">
+                    <circle cx="160" cy="266" r="1.8"/><circle cx="158" cy="292" r="2.8"/><circle cx="156" cy="318" r="1.5"/>
+                </g>
+                <g class="oc-belt" fill="#1e4d2f">
+                    <circle cx="126" cy="232" r="3.2"/><circle cx="160" cy="238" r="3.6"/><circle cx="193" cy="230" r="3.0"/>
+                </g>
+                <g class="oc-med" fill="#1e4d2f">
+                    <circle cx="160" cy="48" r="2.8"/><circle cx="222" cy="118" r="3.2"/><circle cx="102" cy="360" r="3.5"/>
+                </g>
+                <circle cx="96" cy="132" r="5" fill="#1e4d2f" class="oc-betel"/>
+                <g filter="url(#ocGF)" class="oc-rigel"><circle cx="208" cy="365" r="6.5" fill="#1e4d2f"/></g>
+            </g>
+        </svg>
+    </div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
@@ -425,7 +540,37 @@
 ════════════════════════════════════════════════════ --}}
 @if($evenements->count())
 @php $evPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg','13','11.jpg']; @endphp
-<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+<section style="position:relative;overflow:hidden;padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+    {{-- ─── Constellation Orion — Événements : incliné -22°, énergie de scène ─── --}}
+    {{-- Orion en mouvement, comme un artiste en pleine performance --}}
+    <div class="orion-c orion-c--events" aria-hidden="true">
+        <svg viewBox="0 0 380 480" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+            <g transform="rotate(-22, 190, 240)">
+                <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.7">
+                    <line x1="190" y1="68"  x2="126" y2="152"/><line x1="190" y1="68"  x2="252" y2="138"/>
+                    <line x1="126" y1="152" x2="156" y2="252"/><line x1="252" y1="138" x2="223" y2="250"/>
+                    <line x1="156" y1="252" x2="190" y2="258"/><line x1="190" y1="258" x2="223" y2="250"/>
+                    <line x1="156" y1="252" x2="132" y2="380"/><line x1="223" y1="250" x2="238" y2="385"/>
+                </g>
+                <line class="oc-sword" x1="190" y1="265" x2="186" y2="342" stroke="#1e4d2f" stroke-width="0.55" stroke-dasharray="4 5"/>
+                <g class="oc-faint" fill="#1e4d2f">
+                    <circle cx="108" cy="102" r="1.0"/><circle cx="278" cy="88" r="0.9"/>
+                    <circle cx="162" cy="196" r="1.0"/><circle cx="226" cy="188" r="0.9"/>
+                </g>
+                <g class="oc-sword-stars" fill="#1e4d2f">
+                    <circle cx="189" cy="288" r="2.0"/><circle cx="188" cy="312" r="2.8"/><circle cx="186" cy="338" r="1.5"/>
+                </g>
+                <g class="oc-belt" fill="#1e4d2f">
+                    <circle cx="156" cy="252" r="3.2"/><circle cx="190" cy="258" r="3.6"/><circle cx="223" cy="250" r="3.0"/>
+                </g>
+                <g class="oc-med" fill="#1e4d2f">
+                    <circle cx="190" cy="68" r="2.8"/><circle cx="252" cy="138" r="3.2"/><circle cx="132" cy="380" r="3.5"/>
+                </g>
+                <circle cx="126" cy="152" r="5" fill="#1e4d2f" class="oc-betel"/>
+                <circle cx="238" cy="385" r="6" fill="#1e4d2f" class="oc-rigel"/>
+            </g>
+        </svg>
+    </div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
@@ -502,7 +647,26 @@
      TÉMOIGNAGES
 ════════════════════════════════════════════════════ --}}
 @if($temoignages->count())
-<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+<section style="position:relative;overflow:hidden;padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+    {{-- ─── Constellation Orion — Témoignages : étoiles éparses, sans lignes ─── --}}
+    {{-- Chaque étoile = une voix, une histoire. Pas de connexion : autonomie de chaque témoignage --}}
+    <div class="orion-c orion-c--temoignages" aria-hidden="true">
+        <svg viewBox="0 0 1200 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g class="oc-faint" fill="#1e4d2f">
+                <circle cx="175" cy="42" r="1.0"/><circle cx="338" cy="72" r="0.8"/>
+                <circle cx="580" cy="28" r="0.9"/><circle cx="755" cy="65" r="1.0"/>
+                <circle cx="918" cy="35" r="0.8"/><circle cx="1058" cy="58" r="0.9"/>
+            </g>
+            <g class="oc-med" fill="#1e4d2f">
+                <circle cx="450" cy="55" r="3.5"/><circle cx="820" cy="40" r="3.2"/>
+            </g>
+            <g class="oc-belt" fill="#1e4d2f">
+                <circle cx="248" cy="60" r="3.8"/><circle cx="600" cy="48" r="4.2"/><circle cx="950" cy="58" r="3.6"/>
+            </g>
+            <circle cx="68" cy="55" r="6" fill="#1e4d2f" class="oc-rigel"/>
+            <circle cx="1135" cy="45" r="5" fill="#1e4d2f" class="oc-betel"/>
+        </svg>
+    </div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
@@ -551,7 +715,27 @@
 {{-- ════════════════════════════════════════════════════
      GALERIE — Aperçu
 ════════════════════════════════════════════════════ --}}
-<section style="padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+<section style="position:relative;overflow:hidden;padding:120px 0;background:#ffffff;border-top:1px solid rgba(28,21,16,0.08);">
+    {{-- ─── Constellation Orion — Galerie : ceinture verticale + épée ─── --}}
+    {{-- La ceinture pivotée à 90° = un pinceau ou un objectif photo, l'outil créateur --}}
+    <div class="orion-c orion-c--galerie" aria-hidden="true">
+        <svg viewBox="0 0 80 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.9">
+                <line x1="40" y1="40" x2="40" y2="120"/><line x1="40" y1="120" x2="40" y2="200"/>
+            </g>
+            <line class="oc-sword" x1="40" y1="200" x2="40" y2="348" stroke="#1e4d2f" stroke-width="0.6" stroke-linecap="round" stroke-dasharray="4 5"/>
+            <g class="oc-faint" fill="#1e4d2f">
+                <circle cx="18" cy="80" r="1.1"/><circle cx="62" cy="62" r="0.9"/>
+                <circle cx="20" cy="162" r="1.0"/><circle cx="60" cy="148" r="0.9"/>
+            </g>
+            <g class="oc-sword-stars" fill="#1e4d2f">
+                <circle cx="40" cy="250" r="2.5"/><circle cx="40" cy="295" r="3.2"/><circle cx="40" cy="342" r="2.0"/>
+            </g>
+            <g class="oc-belt" fill="#1e4d2f">
+                <circle cx="40" cy="40" r="4.2"/><circle cx="40" cy="120" r="4.6"/><circle cx="40" cy="200" r="4.0"/>
+            </g>
+        </svg>
+    </div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
@@ -627,6 +811,33 @@
      CTA FINAL — Rejoignez-nous
 ════════════════════════════════════════════════════ --}}
 <section class="rj-section">
+
+    {{-- ─── Constellation Orion — CTA : diagonale Betelgeuse ↔ Rigel ─── --}}
+    {{-- Deux étoiles brillantes en coins opposés, reliées via la ceinture = invitation à traverser --}}
+    <div class="orion-c orion-c--cta" aria-hidden="true">
+        <svg viewBox="0 0 600 380" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <defs>
+                <filter id="ocGC" x="-100%" y="-100%" width="300%" height="300%">
+                    <feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+            </defs>
+            <g class="oc-lines" stroke="#1e4d2f" stroke-linecap="round" stroke-width="0.7" stroke-dasharray="3 9">
+                <line x1="62" y1="58" x2="185" y2="148"/>
+                <line x1="185" y1="148" x2="300" y2="192"/>
+                <line x1="300" y1="192" x2="415" y2="232"/>
+                <line x1="415" y1="232" x2="538" y2="322"/>
+            </g>
+            <g class="oc-faint" fill="#1e4d2f">
+                <circle cx="125" cy="35" r="1.0"/><circle cx="478" cy="290" r="1.0"/>
+                <circle cx="240" cy="118" r="0.9"/><circle cx="365" cy="210" r="0.9"/>
+            </g>
+            <g class="oc-belt" fill="#1e4d2f">
+                <circle cx="185" cy="148" r="4.0"/><circle cx="300" cy="192" r="4.5"/><circle cx="415" cy="232" r="4.0"/>
+            </g>
+            <g class="oc-betel" filter="url(#ocGC)"><circle cx="62" cy="58" r="6.5" fill="#1e4d2f"/></g>
+            <g class="oc-rigel" filter="url(#ocGC)"><circle cx="538" cy="322" r="9" fill="#1e4d2f"/></g>
+        </svg>
+    </div>
 
     {{-- Filigrane mot --}}
     <span class="rj-bgword" aria-hidden="true">ORION</span>

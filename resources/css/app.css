@@ -488,7 +488,7 @@ body, body * {
 .home-biasasa h2 {
     font-size: clamp(1.5rem,2.8vw,2.2rem) !important;
     line-height: 1.12 !important;
-    text-transform: uppercase;
+    text-transform: none;
 }
 .home-biasasa h3 {
     text-transform: uppercase;
@@ -1032,6 +1032,96 @@ body, body * {
     transition: background 0.9s ease;
 }
 
+/* ════════════════════════════════════════════════════════════
+   CONSTELLATIONS ORION — Une par section, thématiques
+════════════════════════════════════════════════════════════ */
+
+/* Base */
+.orion-c {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+}
+.orion-c svg { overflow: visible; }
+
+/* Opacités partagées (white pour screen, #1e4d2f pour multiply) */
+.oc-lines       { opacity: 0.13; }
+.oc-sword       { opacity: 0.09; }
+.oc-faint       { opacity: 0.16; }
+.oc-sword-stars { opacity: 0.28; }
+.oc-med         { opacity: 0.32; }
+.oc-belt        { opacity: 0.42; }
+.oc-betel       { opacity: 0.58; }
+.oc-rigel       { opacity: 0.66; }
+
+@keyframes ocTwinkle  { 0%,100% { opacity: 0.66; } 45% { opacity: 0.20; } }
+@keyframes ocTwinkleO { 0%,100% { opacity: 0.58; } 55% { opacity: 0.16; } }
+.oc-rigel-anim { animation: ocTwinkle  4.4s ease-in-out infinite; opacity: 0.66; }
+.oc-betel-anim { animation: ocTwinkleO 6.2s ease-in-out infinite 1.9s; opacity: 0.58; }
+
+/* ── 1. Hero — figure complète, centré, screen (fond sombre) ── */
+.orion-c--hero {
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(280px, 38vw, 500px);
+    mix-blend-mode: screen;
+    z-index: 9;
+}
+
+/* ── 2. Notre Identité — couronne (tête + épaules), coin sup-droit ── */
+.orion-c--ni {
+    top: -30px; right: -10px;
+    width: 230px;
+    mix-blend-mode: multiply;
+}
+
+/* ── 3. Services — ceinture horizontale + épée droite ── */
+.orion-c--services {
+    top: 50%; right: 0;
+    transform: translateY(-52%);
+    width: clamp(220px, 28vw, 340px);
+    mix-blend-mode: multiply;
+}
+
+/* ── 4. Formations — Orion inversé (Rigel au sommet = le but) ── */
+.orion-c--formations {
+    top: 50%; left: 0;
+    transform: translateY(-50%) translateX(-18%);
+    width: clamp(240px, 30vw, 400px);
+    mix-blend-mode: multiply;
+}
+
+/* ── 5. Événements — incliné -22° (énergie de scène) ── */
+.orion-c--events {
+    top: -5%; right: 2%;
+    width: clamp(260px, 32vw, 420px);
+    mix-blend-mode: multiply;
+}
+
+/* ── 6. Témoignages — étoiles éparses, panoramique (voix libres) ── */
+.orion-c--temoignages {
+    left: 0; right: 0;
+    top: 50%; transform: translateY(-50%);
+    width: 100%;
+    mix-blend-mode: multiply;
+}
+.orion-c--temoignages svg { width: 100%; height: 100px; }
+
+/* ── 7. Galerie — ceinture verticale (pinceau / objectif) ── */
+.orion-c--galerie {
+    top: 50%; left: 4%;
+    transform: translateY(-50%);
+    width: 80px;
+    mix-blend-mode: multiply;
+}
+
+/* ── 8. CTA Final — diagonale Betelgeuse ↔ Rigel ── */
+.orion-c--cta {
+    inset: 0;
+    width: 100%; height: 100%;
+    mix-blend-mode: multiply;
+}
+.orion-c--cta svg { width: 100%; height: 100%; }
 
 /* ════════════════════════════════════════════════════════════
    RESPONSIVE
