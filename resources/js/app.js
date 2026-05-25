@@ -396,7 +396,6 @@ function initHeroCine() {
 
     setAccent(slides[0].dataset.accent || '#4caf7d');
     updateText(slides[0]);
-    updateSidebar(0);
     setTimeout(revealText, 150);
     startProgress();
     startAuto();
