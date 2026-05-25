@@ -275,17 +275,10 @@ function initHeroCine() {
     const ctaEl        = section.querySelector('.hc-cta');
     const counterCur   = section.querySelector('.hc-counter-cur');
     const progressFill = section.querySelector('.hc-progress-fill');
-    const scrollArrow  = section.querySelector('.hc-scroll-arrow');
-
     const INTERVAL = 7000;
     let current   = 0;
     let timer     = null;
     let animating = false;
-
-    // Flèche scroll : descend d'une hauteur d'écran
-    scrollArrow?.addEventListener('click', () => {
-        window.scrollBy({ top: window.innerHeight * 0.9, behavior: 'smooth' });
-    });
 
     function setAccent(color) {
         section.style.setProperty('--hc-accent', color);
@@ -310,6 +303,11 @@ function initHeroCine() {
         if (titleLines[0]) titleLines[0].textContent = slide.dataset.titleOne || '';
         if (titleLines[1]) titleLines[1].textContent = slide.dataset.titleTwo || '';
         if (leadEl) leadEl.textContent = slide.dataset.lead || '';
+        if (ctaEl) {
+            const ctaText = ctaEl.querySelector('.hc-cta-text');
+            if (ctaText) ctaText.textContent = slide.dataset.ctaLabel || '';
+            if (slide.dataset.ctaUrl) ctaEl.href = slide.dataset.ctaUrl;
+        }
     }
 
     function goTo(index) {

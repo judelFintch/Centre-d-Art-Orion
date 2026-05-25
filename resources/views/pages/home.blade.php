@@ -13,10 +13,10 @@
 <section class="hc-section hero-orion" id="hc-section">
     @php
         $heroSlides = [
-            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie."],
-            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique."],
-            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses."],
-            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres."],
+            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie.","cta_label"=>"Voir nos services","cta_url"=>route(‘services’)],
+            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique.","cta_label"=>"Voir nos formations","cta_url"=>route(‘formations.index’)],
+            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses.","cta_label"=>"Voir la galerie","cta_url"=>route(‘galerie.index’)],
+            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres.","cta_label"=>"Notre histoire","cta_url"=>route(‘about’)],
         ];
     @endphp
 
@@ -31,7 +31,9 @@
              data-label="{{ $slide['label'] }}"
              data-title-one="{{ $slide['title'][0] }}"
              data-title-two="{{ $slide['title'][1] }}"
-             data-lead="{{ $slide['lead'] }}">
+             data-lead="{{ $slide['lead'] }}"
+             data-cta-label="{{ $slide['cta_label'] }}"
+             data-cta-url="{{ $slide['cta_url'] }}">
             <div class="hc-photo" style="background-image:url('{{ asset('images/' . $slide['image']) }}')"></div>
             <div class="hc-overlay"></div>
             <div class="hc-tint" style="background-color:{{ $slide['accent'] }}"></div>
@@ -45,9 +47,8 @@
     {{-- ─── Filigrane numéro ─── --}}
     <div class="hc-watermark" aria-hidden="true">01</div>
 
-    {{-- ─── Barre supérieure : logo | compteur | localisation ─── --}}
+    {{-- ─── Barre supérieure : compteur | localisation ─── --}}
     <div class="hc-top">
-        <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="hc-logo">
         <div class="hc-counter" aria-live="polite">
             <span class="hc-counter-cur">01</span>
             <span class="hc-counter-sep"> / {{ str_pad(count($heroSlides), 2, '0', STR_PAD_LEFT) }}</span>
@@ -58,10 +59,6 @@
     {{-- ─── Corps centré ─── --}}
     <div class="hc-body">
         <div class="hc-center">
-            <div class="hc-signature">
-                <span class="hc-art-mark" aria-hidden="true"></span>
-                <span>Centre d'Art Orion</span>
-            </div>
             {{-- Kicker symétrique ──── label ──── --}}
             <div class="hc-kicker">
                 <span class="hc-kicker-line"></span>
@@ -73,8 +70,8 @@
                 <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $heroSlides[0]['title'][1] }}</span></span>
             </h1>
             <p class="hc-lead">{{ $heroSlides[0]['lead'] }}</p>
-            <a href="{{ route('about') }}" class="hc-cta">
-                Découvrir l'univers Orion
+            <a href="{{ $heroSlides[0]['cta_url'] }}" class="hc-cta">
+                <span class="hc-cta-text">{{ $heroSlides[0]['cta_label'] }}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -97,13 +94,6 @@
             @endforeach
         </div>
     </div>
-
-    {{-- ─── Flèche scroll vers le bas ─── --}}
-    <button class="hc-scroll-arrow" aria-label="Défiler vers le bas">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"/>
-        </svg>
-    </button>
 
     {{-- ─── Barre de progression plein écran (bas) ─── --}}
     <div class="hc-progress"><div class="hc-progress-fill"></div></div>
