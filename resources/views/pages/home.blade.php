@@ -11,19 +11,12 @@
      HERO CINÉMATOGRAPHIQUE — Diagonal Wipe
 ════════════════════════════════════════════════════════════ --}}
 <section class="hc-section hero-orion" id="hc-section">
+
+    {{-- Fallback si aucun slide en base --}}
     @php
-        $heroCtaUrls = [
-            route('services'),
-            route('formations.index'),
-            route('galerie.index'),
-            route('about'),
-        ];
-        $heroSlides = [
-            ["image"=>"10.jpg","accent"=>"#e07030","label"=>"Production","title"=>["DONNER VIE","A L’OEUVRE"],"lead"=>"Studios, techniques et savoir-faire pour transformer chaque vision en creation aboutie.","cta_label"=>"Voir nos services","cta_url"=>$heroCtaUrls[0]],
-            ["image"=>"5.jpg","accent"=>"#4caf7d","label"=>"Formation","title"=>["APPRENDRE","PROGRESSER"],"lead"=>"Des programmes concrets pour grandir, creer et professionnaliser son talent artistique.","cta_label"=>"Voir nos formations","cta_url"=>$heroCtaUrls[1]],
-            ["image"=>"13","accent"=>"#d4a030","label"=>"Creation","title"=>["L’ART NAIT","ICI"],"lead"=>"Residences, ateliers et collaborations pour faire eclore des oeuvres uniques et audacieuses.","cta_label"=>"Voir la galerie","cta_url"=>$heroCtaUrls[2]],
-            ["image"=>"11.jpg","accent"=>"#4caf7d","label"=>"Inspiration","title"=>["L’ETINCELLE","EST EN VOUS"],"lead"=>"Un espace vivant ou chaque artiste puise, partage et rayonne au-dela des frontieres.","cta_label"=>"Notre histoire","cta_url"=>$heroCtaUrls[3]],
-        ];
+        $slides = $heroSlides->isNotEmpty() ? $heroSlides : collect([
+            (object)[‘image’=>null,’accent’=>’#4caf7d’,’label’=>’Bienvenue’,’title_one’=>’CENTRE D\’ART’,’title_two’=>’ORION’,’lead’=>’Production · Création · Formation.’,’cta_label’=>’Découvrir’,’cta_url’=>route(‘about’)],
+        ]);
     @endphp
 
     {{-- Barre colorée top (3 px) --}}
@@ -31,18 +24,23 @@
 
     {{-- ─── Slides ─── --}}
     <div class="hc-slides">
-        @foreach($heroSlides as $slide)
-        <div class="hc-slide {{ $loop->first ? 'active' : '' }}"
-             data-accent="{{ $slide['accent'] }}"
-             data-label="{{ $slide['label'] }}"
-             data-title-one="{{ $slide['title'][0] }}"
-             data-title-two="{{ $slide['title'][1] }}"
-             data-lead="{{ $slide['lead'] }}"
-             data-cta-label="{{ $slide['cta_label'] }}"
-             data-cta-url="{{ $slide['cta_url'] }}">
-            <div class="hc-photo" style="background-image:url('{{ asset('images/' . $slide['image']) }}')"></div>
+        @foreach($slides as $slide)
+        @php
+            $imgUrl = $slide->image
+                ? Storage::url($slide->image)
+                : asset(‘images/10.jpg’);
+        @endphp
+        <div class="hc-slide {{ $loop->first ? ‘active’ : ‘’ }}"
+             data-accent="{{ $slide->accent }}"
+             data-label="{{ $slide->label }}"
+             data-title-one="{{ $slide->title_one }}"
+             data-title-two="{{ $slide->title_two }}"
+             data-lead="{{ $slide->lead }}"
+             data-cta-label="{{ $slide->cta_label }}"
+             data-cta-url="{{ $slide->cta_url }}">
+            <div class="hc-photo" style="background-image:url(‘{{ $imgUrl }}’)"></div>
             <div class="hc-overlay"></div>
-            <div class="hc-tint" style="background-color:{{ $slide['accent'] }}"></div>
+            <div class="hc-tint" style="background-color:{{ $slide->accent }}"></div>
         </div>
         @endforeach
     </div>
@@ -125,7 +123,7 @@
             @endforeach
         </div>
         <div class="hc-dots" role="tablist" aria-label="Navigation slides">
-            @foreach($heroSlides as $slide)
+            @foreach($slides as $slide)
             <button class="hc-dot {{ $loop->first ? 'active' : '' }}" data-i="{{ $loop->index }}" aria-label="Slide {{ $loop->iteration }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}"></button>
             @endforeach
         </div>

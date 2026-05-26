@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\EvenementAdminController;
 use App\Http\Controllers\Admin\GalerieAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
 use App\Http\Controllers\Admin\EquipeAdminController;
+use App\Http\Controllers\Admin\HeroSlideAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -52,6 +53,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('galerie', GalerieAdminController::class);
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::resource('equipe', EquipeAdminController::class);
+
+    // Hero Slides
+    Route::resource('hero', HeroSlideAdminController::class)->except(['show']);
+    Route::post('hero/reorder', [HeroSlideAdminController::class, 'reorder'])->name('hero.reorder');
+    Route::patch('hero/{hero}/toggle', [HeroSlideAdminController::class, 'toggleActif'])->name('hero.toggle');
 });
 
 // ─── Auth ──────────────────────────────────────────────────────

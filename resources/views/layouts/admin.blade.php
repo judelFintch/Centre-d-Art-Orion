@@ -29,6 +29,7 @@
         @php
         $navItems = [
             ['route' => 'admin.dashboard', 'icon' => '◈', 'label' => 'Tableau de bord', 'color' => '#4caf7d'],
+            ['route' => 'admin.hero.index', 'icon' => '▶', 'label' => 'Hero Slides', 'color' => '#4a90e2'],
             ['route' => 'admin.formations.index', 'icon' => '◉', 'label' => 'Formations', 'color' => '#e07030'],
             ['route' => 'admin.evenements.index', 'icon' => '◎', 'label' => 'Événements', 'color' => '#d4a030'],
             ['route' => 'admin.galerie.index', 'icon' => '◧', 'label' => 'Galerie', 'color' => '#4caf7d'],

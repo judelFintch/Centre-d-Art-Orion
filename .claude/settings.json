@@ -10,7 +10,9 @@
       "Bash(npm run *)",
       "Bash(npm --version)",
       "Bash(python3 -c ' *)",
-      "Bash(php artisan *)"
+      "Bash(php artisan *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
