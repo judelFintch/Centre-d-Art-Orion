@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ServiceController;
@@ -52,7 +54,34 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('equipe', EquipeAdminController::class);
 });
 
-// ─── Auth (Laravel Breeze / Fortify future) ────────────────────
-Route::get('/admin/login', function () {
-    return view('auth.login');
-})->name('login')->middleware('guest');
+// ─── Auth ──────────────────────────────────────────────────────
+Route::middleware('guest')->group(function () {
+
+    Route::get('/admin/login', function () {
+        return view('auth.login');
+    })->name('login');
+
+    Route::post('/admin/login', function (Request $request) {
+        $credentials = $request->validate([
+            'email'    => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended('/admin');
+        }
+
+        return back()->withErrors([
+            'email' => 'Identifiants incorrects.',
+        ])->onlyInput('email');
+    });
+
+});
+
+Route::post('/admin/logout', function (Request $request) {
+    Auth::logout();
+    $request->session()->invalidate();
+    $request->session()->regenerateToken();
+    return redirect('/admin/login');
+})->name('logout');

@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
-            'name'  => 'Admin Orion',
-            'email' => 'admin@centreartorion.cd',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@centreartorion.cd'],
+            ['name'  => 'Admin Orion', 'password' => bcrypt('admin1234')],
+        );
 
         $this->call(OrionSeeder::class);
     }

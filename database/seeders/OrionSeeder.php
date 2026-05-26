@@ -34,7 +34,10 @@ class OrionSeeder extends Seeder
         ];
 
         foreach ($membres as $m) {
-            EquipeMembre::create(array_merge($m, ['actif' => true]));
+            EquipeMembre::firstOrCreate(
+                ['nom' => $m['nom'], 'prenom' => $m['prenom']],
+                array_merge($m, ['actif' => true])
+            );
         }
 
         // ── Formations ────────────────────────────────────────
@@ -66,7 +69,10 @@ class OrionSeeder extends Seeder
         ];
 
         foreach ($formations as $f) {
-            Formation::create(array_merge($f, ['slug' => Str::slug($f['titre']), 'actif' => true]));
+            Formation::firstOrCreate(
+                ['slug' => Str::slug($f['titre'])],
+                array_merge($f, ['actif' => true])
+            );
         }
 
         // ── Événements ────────────────────────────────────────
@@ -89,7 +95,10 @@ class OrionSeeder extends Seeder
         ];
 
         foreach ($evenements as $e) {
-            Evenement::create(array_merge($e, ['slug' => Str::slug($e['titre']), 'actif' => true]));
+            Evenement::firstOrCreate(
+                ['slug' => Str::slug($e['titre'])],
+                array_merge($e, ['actif' => true])
+            );
         }
 
         // ── Témoignages ──────────────────────────────────────
@@ -105,7 +114,10 @@ class OrionSeeder extends Seeder
         ];
 
         foreach ($temoignages as $i => $t) {
-            Temoignage::create(array_merge($t, ['actif' => true, 'ordre' => $i + 1]));
+            Temoignage::firstOrCreate(
+                ['auteur' => $t['auteur']],
+                array_merge($t, ['actif' => true, 'ordre' => $i + 1])
+            );
         }
 
         // ── Galerie (placeholders) ────────────────────────────
@@ -125,7 +137,10 @@ class OrionSeeder extends Seeder
         ];
 
         foreach ($galerie as $i => $g) {
-            GalerieItem::create(array_merge($g, ['actif' => true, 'ordre' => $i + 1]));
+            GalerieItem::firstOrCreate(
+                ['titre' => $g['titre']],
+                array_merge($g, ['actif' => true, 'ordre' => $i + 1])
+            );
         }
     }
 }
