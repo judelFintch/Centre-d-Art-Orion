@@ -16,14 +16,42 @@
                 </p>
                 {{-- Réseaux sociaux --}}
                 <div style="display:flex;gap:10px;">
-                    @foreach([['fb','Facebook','#1877f2'],['ig','Instagram','#e1306c'],['yt','YouTube','#ff0000'],['tw','Twitter','#1da1f2']] as $r)
-                    <a href="#" aria-label="{{ $r[1] }}"
-                       style="width:36px;height:36px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;font-size:0.7rem;font-weight:700;text-decoration:none;transition:all 0.2s;font-family:'Space Grotesk',sans-serif;"
-                       onmouseover="this.style.borderColor='{{ $r[2] }}';this.style.color='{{ $r[2] }}'"
-                       onmouseout="this.style.borderColor='#222';this.style.color='#aaa'">
-                        {{ strtoupper($r[0]) }}
+
+                    {{-- Facebook --}}
+                    <a href="https://www.facebook.com/share/1A8TQCwohp/?mibextid=wwXIfr" aria-label="Facebook"
+                       target="_blank" rel="noopener noreferrer"
+                       style="width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;transition:all 0.25s;"
+                       onmouseover="this.style.borderColor='#1877f2';this.style.color='#1877f2';this.style.background='rgba(24,119,242,0.1)'"
+                       onmouseout="this.style.borderColor='#222';this.style.color='#aaa';this.style.background='rgba(255,255,255,0.06)'">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                     </a>
-                    @endforeach
+
+                    {{-- Instagram --}}
+                    <a href="https://www.instagram.com/centre_orion?igsh=MXBoMWZ6ZmQ0cmh3bA%3D%3D&utm_source=qr" aria-label="Instagram"
+                       target="_blank" rel="noopener noreferrer"
+                       style="width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;transition:all 0.25s;"
+                       onmouseover="this.style.borderColor='#e1306c';this.style.color='#e1306c';this.style.background='rgba(225,48,108,0.1)'"
+                       onmouseout="this.style.borderColor='#222';this.style.color='#aaa';this.style.background='rgba(255,255,255,0.06)'">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                    </a>
+
+                    {{-- YouTube --}}
+                    <a href="#" aria-label="YouTube"
+                       style="width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;transition:all 0.25s;"
+                       onmouseover="this.style.borderColor='#ff0000';this.style.color='#ff0000';this.style.background='rgba(255,0,0,0.1)'"
+                       onmouseout="this.style.borderColor='#222';this.style.color='#aaa';this.style.background='rgba(255,255,255,0.06)'">
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#0a0a0a"/></svg>
+                    </a>
+
+                    {{-- TikTok --}}
+                    <a href="https://www.tiktok.com/@centre_dart_orion?_r=1&_t=ZN-96g1IwdHuEg" aria-label="TikTok"
+                       target="_blank" rel="noopener noreferrer"
+                       style="width:38px;height:38px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#aaa;text-decoration:none;transition:all 0.25s;"
+                       onmouseover="this.style.borderColor='#69c9d0';this.style.color='#69c9d0';this.style.background='rgba(105,201,208,0.1)'"
+                       onmouseout="this.style.borderColor='#222';this.style.color='#aaa';this.style.background='rgba(255,255,255,0.06)'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.76a4.85 4.85 0 0 1-1.01-.07z"/></svg>
+                    </a>
+
                 </div>
             </div>
 
