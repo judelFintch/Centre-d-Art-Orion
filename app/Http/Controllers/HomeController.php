@@ -12,7 +12,20 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $heroSlides  = HeroSlide::actif()->ordonne()->get();
+        $heroSlides = HeroSlide::actif()->ordonne()->get();
+
+        if ($heroSlides->isEmpty()) {
+            $heroSlides = collect([(object)[
+                'image'     => null,
+                'accent'    => '#4caf7d',
+                'label'     => 'Bienvenue',
+                'title_one' => "CENTRE D'ART",
+                'title_two' => 'ORION',
+                'lead'      => 'Production · Création · Formation.',
+                'cta_label' => 'Découvrir',
+                'cta_url'   => route('about'),
+            ]]);
+        }
         $formations  = Formation::actif()->take(3)->get();
         $evenements  = Evenement::actif()->aVenir()->take(3)->get();
         $temoignages = Temoignage::actif()->take(4)->get();

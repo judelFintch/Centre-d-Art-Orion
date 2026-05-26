@@ -7,30 +7,27 @@
 
 <div class="home-biasasa">
 
+@php
+    $firstHeroSlide = $heroSlides->first();
+@endphp
+
 {{-- ════════════════════════════════════════════════════════════
      HERO CINÉMATOGRAPHIQUE — Diagonal Wipe
 ════════════════════════════════════════════════════════════ --}}
 <section class="hc-section hero-orion" id="hc-section">
-
-    {{-- Fallback si aucun slide en base --}}
-    @php
-        $slides = $heroSlides->isNotEmpty() ? $heroSlides : collect([
-            (object)[‘image’=>null,’accent’=>’#4caf7d’,’label’=>’Bienvenue’,’title_one’=>’CENTRE D\’ART’,’title_two’=>’ORION’,’lead’=>’Production · Création · Formation.’,’cta_label’=>’Découvrir’,’cta_url’=>route(‘about’)],
-        ]);
-    @endphp
 
     {{-- Barre colorée top (3 px) --}}
     <div class="hc-accent-bar"></div>
 
     {{-- ─── Slides ─── --}}
     <div class="hc-slides">
-        @foreach($slides as $slide)
+        @foreach($heroSlides as $slide)
         @php
             $imgUrl = $slide->image
                 ? Storage::url($slide->image)
-                : asset(‘images/10.jpg’);
+                : asset('images/10.jpg');
         @endphp
-        <div class="hc-slide {{ $loop->first ? ‘active’ : ‘’ }}"
+        <div class="hc-slide {{ $loop->first ? 'active' : '' }}"
              data-accent="{{ $slide->accent }}"
              data-label="{{ $slide->label }}"
              data-title-one="{{ $slide->title_one }}"
@@ -38,7 +35,7 @@
              data-lead="{{ $slide->lead }}"
              data-cta-label="{{ $slide->cta_label }}"
              data-cta-url="{{ $slide->cta_url }}">
-            <div class="hc-photo" style="background-image:url(‘{{ $imgUrl }}’)"></div>
+            <div class="hc-photo" style="background-image:url('{{ $imgUrl }}')"></div>
             <div class="hc-overlay"></div>
             <div class="hc-tint" style="background-color:{{ $slide->accent }}"></div>
         </div>
@@ -100,12 +97,12 @@
                 <span class="hc-kicker-line"></span>
             </div>
             <h1 class="hc-title">
-                <span class="hc-title-wrap"><span class="hc-title-line">{{ $heroSlides[0]['title'][0] }}</span></span>
-                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $heroSlides[0]['title'][1] }}</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line">{{ $firstHeroSlide->title_one ?? "CENTRE D'ART" }}</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $firstHeroSlide->title_two ?? 'ORION' }}</span></span>
             </h1>
-            <p class="hc-lead">{{ $heroSlides[0]['lead'] }}</p>
-            <a href="{{ $heroSlides[0]['cta_url'] }}" class="hc-cta">
-                <span class="hc-cta-text">{{ $heroSlides[0]['cta_label'] }}</span>
+            <p class="hc-lead">{{ $firstHeroSlide->lead ?? 'Production · Création · Formation.' }}</p>
+            <a href="{{ $firstHeroSlide->cta_url ?? route('about') }}" class="hc-cta">
+                <span class="hc-cta-text">{{ $firstHeroSlide->cta_label ?? 'Découvrir' }}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -123,7 +120,7 @@
             @endforeach
         </div>
         <div class="hc-dots" role="tablist" aria-label="Navigation slides">
-            @foreach($slides as $slide)
+            @foreach($heroSlides as $slide)
             <button class="hc-dot {{ $loop->first ? 'active' : '' }}" data-i="{{ $loop->index }}" aria-label="Slide {{ $loop->iteration }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}"></button>
             @endforeach
         </div>
