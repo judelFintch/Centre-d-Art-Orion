@@ -260,6 +260,56 @@ function showAlert(type, msg) {
     setTimeout(() => el.classList.add('hidden'), 6000);
 }
 
+// ─── Blog Share ────────────────────────────────────────────────
+function initBlogShare() {
+    document.querySelectorAll('.blog-share-native').forEach((button) => {
+        if (!navigator.share) {
+            button.style.display = 'none';
+            return;
+        }
+
+        button.addEventListener('click', async () => {
+            try {
+                await navigator.share({
+                    title: button.dataset.shareTitle || document.title,
+                    text: button.dataset.shareText || '',
+                    url: button.dataset.shareUrl || window.location.href,
+                });
+            } catch {
+                // The native share dialog was dismissed or blocked.
+            }
+        });
+    });
+
+    document.querySelectorAll('.blog-copy-link').forEach((button) => {
+        const defaultLabel = button.textContent.trim();
+
+        button.addEventListener('click', async () => {
+            const url = button.dataset.copyUrl || window.location.href;
+
+            try {
+                await navigator.clipboard.writeText(url);
+                button.textContent = 'Lien copié';
+            } catch {
+                const input = document.createElement('input');
+                input.value = url;
+                input.setAttribute('readonly', '');
+                input.style.position = 'fixed';
+                input.style.opacity = '0';
+                document.body.appendChild(input);
+                input.select();
+                document.execCommand('copy');
+                input.remove();
+                button.textContent = 'Lien copié';
+            }
+
+            setTimeout(() => {
+                button.textContent = defaultLabel;
+            }, 2200);
+        });
+    });
+}
+
 // ─── Hero Cinématographique ────────────────────────────────────
 function initHeroCine() {
     const section = document.getElementById('hc-section');
@@ -411,4 +461,5 @@ document.addEventListener('DOMContentLoaded', () => {
     initLightbox();
     initActiveNav();
     initContactForm();
+    initBlogShare();
 });

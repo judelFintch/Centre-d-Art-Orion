@@ -16,7 +16,7 @@
     <meta property="og:title" content="@yield('og_title', 'Centre d\'Art Orion')">
     <meta property="og:description" content="@yield('og_description', 'Production · Création · Formation — L\'excellence artistique au cœur de votre communauté.')">
     <meta property="og:image" content="@yield('og_image', asset('images/og-orion.jpg'))">
-    <meta property="og:type" content="website">
+    <meta property="og:type" content="@yield('og_type', 'website')">
     <meta property="og:locale" content="fr_FR">
 
     {{-- Favicon --}}

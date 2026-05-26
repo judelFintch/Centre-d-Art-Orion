@@ -2,8 +2,20 @@
 
 @section('title', $article['title'] . ' — Blog Orion')
 @section('meta_description', Str::limit($article['excerpt'], 160))
+@section('og_title', $article['title'] . ' — Blog Orion')
+@section('og_description', Str::limit($article['excerpt'], 160))
+@section('og_image', asset($article['image']))
+@section('og_type', 'article')
+@push('head')
+<meta property="og:url" content="{{ route('blog.show', $article['slug']) }}">
+<meta name="twitter:card" content="summary_large_image">
+@endpush
 
 @section('content')
+@php
+    $shareUrl = route('blog.show', $article['slug']);
+    $shareText = $article['title'] . ' — Centre d\'Art Orion';
+@endphp
 
 <article>
     <section style="padding:110px 0 56px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
@@ -29,6 +41,22 @@
                 <span>{{ $article['date'] }}</span>
                 <span style="color:#333;">•</span>
                 <span>{{ $article['read_time'] }} de lecture</span>
+            </div>
+            <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button"
+                        class="blog-share-native"
+                        data-share-title="{{ e($shareText) }}"
+                        data-share-text="{{ e($article['excerpt']) }}"
+                        data-share-url="{{ $shareUrl }}"
+                        style="display:inline-flex;align-items:center;gap:8px;padding:11px 16px;background:linear-gradient(135deg,#4caf7d,#2d7a52);border:0;border-radius:4px;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">
+                    Partager l'article
+                </button>
+                <button type="button"
+                        class="blog-copy-link"
+                        data-copy-url="{{ $shareUrl }}"
+                        style="display:inline-flex;align-items:center;gap:8px;padding:10px 15px;background:rgba(245,245,240,0.04);border:1px solid rgba(245,245,240,0.16);border-radius:4px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">
+                    Copier le lien
+                </button>
             </div>
         </div>
     </section>
@@ -89,6 +117,44 @@
                     </div>
                     @endif
                     @endauth
+
+                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">Partager</h3>
+                        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                            <a href="https://wa.me/?text={{ urlencode($shareText . ' ' . $shareUrl) }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="blog-share-link"
+                               style="display:flex;align-items:center;justify-content:center;padding:10px 12px;background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.26);border-radius:4px;color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
+                                WhatsApp
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="blog-share-link"
+                               style="display:flex;align-items:center;justify-content:center;padding:10px 12px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.24);border-radius:4px;color:#7db3ff;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
+                                Facebook
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($shareText) }}&url={{ urlencode($shareUrl) }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="blog-share-link"
+                               style="display:flex;align-items:center;justify-content:center;padding:10px 12px;background:rgba(245,245,240,0.04);border:1px solid rgba(245,245,240,0.14);border-radius:4px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
+                                X
+                            </a>
+                            <a href="mailto:?subject={{ rawurlencode($shareText) }}&body={{ rawurlencode($article['excerpt'] . "\n\n" . $shareUrl) }}"
+                               class="blog-share-link"
+                               style="display:flex;align-items:center;justify-content:center;padding:10px 12px;background:rgba(212,160,48,0.1);border:1px solid rgba(212,160,48,0.26);border-radius:4px;color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.05em;">
+                                E-mail
+                            </a>
+                        </div>
+                        <button type="button"
+                                class="blog-copy-link"
+                                data-copy-url="{{ $shareUrl }}"
+                                style="width:100%;margin-top:10px;display:flex;align-items:center;justify-content:center;padding:10px 12px;background:transparent;border:1px solid #242424;border-radius:4px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;">
+                            Copier le lien
+                        </button>
+                    </div>
 
 	                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
                         <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">Dans cet article</h3>
