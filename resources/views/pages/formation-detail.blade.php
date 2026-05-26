@@ -107,9 +107,15 @@
                 <div style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:24px;margin-top:16px;">
                     <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.85rem;color:#f5f5f0;margin:0 0 12px;">Des questions ?</h4>
                     <p style="color:#666;font-size:0.82rem;line-height:1.6;margin:0 0 14px;">Notre équipe est disponible pour vous renseigner.</p>
-                    <div style="display:flex;align-items:center;gap:8px;color:#4caf7d;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 012 1.18 2 2 0 014 .03h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
-                        +243 000 000 000
+                    <div style="display:flex;flex-direction:column;gap:6px;color:#4caf7d;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;">
+                        <a href="tel:+243802650023" style="display:flex;align-items:center;gap:8px;color:#4caf7d;text-decoration:none;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 012 1.18 2 2 0 014 .03h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+                            +243 802 650 023
+                        </a>
+                        <a href="tel:+243852236771" style="display:flex;align-items:center;gap:8px;color:#4caf7d;text-decoration:none;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.82 19.79 19.79 0 012 1.18 2 2 0 014 .03h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+                            +243 852 236 771
+                        </a>
                     </div>
                 </div>
             </div>

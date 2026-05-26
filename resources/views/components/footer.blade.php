@@ -97,15 +97,19 @@
                         <span style="color:#4caf7d;font-size:0.9rem;margin-top:2px;flex-shrink:0;">📍</span>
                         <p style="color:#666;font-size:0.85rem;line-height:1.6;margin:0;">380, Av. Changalele, Q. Gambela<br><span style="color:#555;">Derrière le bâtiment INPP</span></p>
                     </div>
-                    <div style="display:flex;gap:12px;align-items:center;">
-                        <span style="color:#d4a030;font-size:0.9rem;flex-shrink:0;">📞</span>
-                        <a href="tel:+243000000000" style="color:#666;font-size:0.85rem;text-decoration:none;transition:color 0.2s;"
-                           onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#666'">+243 000 000 000</a>
+                    <div style="display:flex;gap:12px;align-items:flex-start;">
+                        <span style="color:#d4a030;font-size:0.9rem;flex-shrink:0;margin-top:2px;">📞</span>
+                        <div style="display:flex;flex-direction:column;gap:4px;">
+                            <a href="tel:+243802650023" style="color:#666;font-size:0.85rem;text-decoration:none;transition:color 0.2s;"
+                               onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#666'">+243 802 650 023</a>
+                            <a href="tel:+243852236771" style="color:#666;font-size:0.85rem;text-decoration:none;transition:color 0.2s;"
+                               onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#666'">+243 852 236 771</a>
+                        </div>
                     </div>
                     <div style="display:flex;gap:12px;align-items:center;">
                         <span style="color:#e07030;font-size:0.9rem;flex-shrink:0;">✉</span>
-                        <a href="mailto:contact@centreartorion.cd" style="color:#666;font-size:0.85rem;text-decoration:none;transition:color 0.2s;"
-                           onmouseover="this.style.color='#e07030'" onmouseout="this.style.color='#666'">contact@centreartorion.cd</a>
+                        <a href="mailto:info@orioncentredart.com" style="color:#666;font-size:0.85rem;text-decoration:none;transition:color 0.2s;"
+                           onmouseover="this.style.color='#e07030'" onmouseout="this.style.color='#666'">info@orioncentredart.com</a>
                     </div>
                 </div>
 

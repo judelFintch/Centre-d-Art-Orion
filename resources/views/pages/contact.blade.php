@@ -129,7 +129,8 @@
                             </div>
                             <div>
                                 <p style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#555;margin:0 0 6px;">Téléphone</p>
-                                <a href="tel:+243000000000" style="color:#ccc;font-size:0.88rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#ccc'">+243 000 000 000</a>
+                                <a href="tel:+243802650023" style="display:block;color:#ccc;font-size:0.88rem;text-decoration:none;transition:color 0.2s;" onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#ccc'">+243 802 650 023</a>
+                                <a href="tel:+243852236771" style="display:block;color:#ccc;font-size:0.88rem;text-decoration:none;transition:color 0.2s;margin-top:4px;" onmouseover="this.style.color='#d4a030'" onmouseout="this.style.color='#ccc'">+243 852 236 771</a>
                             </div>
                         </div>
 
@@ -139,7 +140,7 @@
                             </div>
                             <div>
                                 <p style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#555;margin:0 0 6px;">Email</p>
-                                <a href="mailto:contact@centreartorion.cd" style="color:#ccc;font-size:0.88rem;text-decoration:none;transition:color 0.2s;word-break:break-all;" onmouseover="this.style.color='#e07030'" onmouseout="this.style.color='#ccc'">contact@centreartorion.cd</a>
+                                <a href="mailto:info@orioncentredart.com" style="color:#ccc;font-size:0.88rem;text-decoration:none;transition:color 0.2s;word-break:break-all;" onmouseover="this.style.color='#e07030'" onmouseout="this.style.color='#ccc'">info@orioncentredart.com</a>
                             </div>
                         </div>
                     </div>
