@@ -23,6 +23,7 @@ use App\Http\Controllers\Admin\HeroSlideAdminController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::view('/blog', 'pages.blog')->name('blog.index');
 
 Route::prefix('formations')->name('formations.')->group(function () {
     Route::get('/', [FormationController::class, 'index'])->name('index');

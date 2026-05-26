@@ -6,6 +6,7 @@ $links = [
     ['url' => route('formations.index'), 'label' => 'Formations'],
     ['url' => route('galerie.index'),    'label' => 'Galerie'],
     ['url' => route('evenements.index'), 'label' => 'Événements'],
+    ['url' => route('blog.index'),       'label' => 'Blog', 'class' => 'nav-link-blog'],
     ['url' => route('equipe'),           'label' => 'Équipe'],
 ];
 @endphp
@@ -28,7 +29,7 @@ $links = [
         <nav style="display:none;" class="lg:block lg:flex lg:items-center lg:gap-1">
             @foreach($links as $link)
                 <a href="{{ $link['url'] }}"
-                   class="nav-link"
+                   class="nav-link {{ $link['class'] ?? '' }}"
                    style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;">
                     {{ $link['label'] }}
                 </a>
@@ -76,10 +77,25 @@ $links = [
 	    #main-header .lg\:inline-flex { display:inline-flex !important; }
 	    #burger-btn               { display:none !important; }
 	}
-	.nav-link:hover { color: #1c1510 !important; }
-	.nav-link.active { color: #4caf7d !important; }
-	.header-admin-link:hover {
-	    background: rgba(76,175,125,0.08);
-	    border-color: rgba(76,175,125,0.65) !important;
+		.nav-link:hover { color: #1c1510 !important; }
+		.nav-link.active { color: #4caf7d !important; }
+		.nav-link-blog {
+		    position: relative;
+		    color: #9a6a1d !important;
+		}
+		.nav-link-blog::after {
+		    content: "";
+		    position: absolute;
+		    left: 12px;
+		    right: 12px;
+		    bottom: 3px;
+		    height: 1px;
+		    background: linear-gradient(90deg, transparent, #d4a030, transparent);
+		    opacity: 0.65;
+		}
+		.nav-link-blog:hover { color: #1c1510 !important; }
+		.header-admin-link:hover {
+		    background: rgba(76,175,125,0.08);
+		    border-color: rgba(76,175,125,0.65) !important;
 	}
 	</style>
