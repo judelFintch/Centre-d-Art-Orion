@@ -37,6 +37,14 @@ $links = [
 
         {{-- CTA + Burger --}}
         <div style="display:flex;align-items:center;gap:12px;">
+            @auth
+            <a href="{{ route('admin.dashboard') }}"
+               style="display:none;padding:9px 16px;border:1px solid rgba(76,175,125,0.35);color:#2d7a52;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;"
+               class="header-admin-link lg:inline-flex">
+                Admin
+            </a>
+            @endauth
+
             <a href="{{ route('contact.index') }}"
                style="display:none;padding:9px 20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 14px rgba(76,175,125,0.20);"
                class="header-cta lg:inline-flex"
@@ -63,11 +71,15 @@ $links = [
 
 <style>
 @media(min-width:1024px){
-    #main-header nav          { display:flex !important; }
-    #main-header .lg\:block   { display:block !important; }
-    #main-header .lg\:inline-flex { display:inline-flex !important; }
-    #burger-btn               { display:none !important; }
-}
-.nav-link:hover { color: #1c1510 !important; }
-.nav-link.active { color: #4caf7d !important; }
-</style>
+	    #main-header nav          { display:flex !important; }
+	    #main-header .lg\:block   { display:block !important; }
+	    #main-header .lg\:inline-flex { display:inline-flex !important; }
+	    #burger-btn               { display:none !important; }
+	}
+	.nav-link:hover { color: #1c1510 !important; }
+	.nav-link.active { color: #4caf7d !important; }
+	.header-admin-link:hover {
+	    background: rgba(76,175,125,0.08);
+	    border-color: rgba(76,175,125,0.65) !important;
+	}
+	</style>

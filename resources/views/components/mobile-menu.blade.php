@@ -38,6 +38,14 @@ $links = [
 
     {{-- Bottom CTA --}}
     <div style="padding:20px 24px;border-top:1px solid #e0d8cc;margin-top:auto;">
+        @auth
+        <a href="{{ route('admin.dashboard') }}"
+           class="mobile-nav-link"
+           style="display:flex;align-items:center;justify-content:center;width:100%;margin-bottom:12px;padding:12px 16px;border:1px solid rgba(76,175,125,0.35);border-radius:4px;color:#2d7a52;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">
+            Admin
+        </a>
+        @endauth
+
         <a href="{{ route('contact.index') }}"
            class="mobile-nav-link btn-primary"
            style="width:100%;justify-content:center;">
