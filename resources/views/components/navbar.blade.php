@@ -13,11 +13,11 @@ $links = [
 <header id="main-header"
         style="position:fixed;top:0;left:0;right:0;z-index:50;transition:background 0.3s,box-shadow 0.3s;">
 
-    <div class="header-inner" style="max-width:1440px;margin:0 auto;padding:0 24px 0 0;display:flex;align-items:center;justify-content:space-between;height:84px;">
+    <div class="header-inner" style="max-width:1440px;margin:0 auto;padding:0 24px 0 0;display:flex;align-items:center;justify-content:space-between;height:96px;">
 
         {{-- Logo --}}
         <a href="{{ route('home') }}" class="orion-brand" style="display:flex;align-items:center;gap:12px;text-decoration:none;">
-            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="brand-logo" style="height:48px;width:auto;object-fit:contain;display:block;">
+            <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" class="brand-logo" style="height:64px;width:auto;object-fit:contain;display:block;">
             <span class="brand-wordmark" aria-hidden="true">
                 <strong>Orion</strong>
                 <span>Centre d'Art</span>

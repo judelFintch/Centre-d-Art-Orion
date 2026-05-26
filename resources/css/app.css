@@ -793,7 +793,7 @@ body, body * {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 80px clamp(24px,5vw,72px) 130px;
+    padding: 96px clamp(24px,5vw,72px) 130px;
 }
 .hc-center {
     text-align: center;
