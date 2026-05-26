@@ -66,7 +66,7 @@
         </div>
 
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
-            <a href="{{ route('formations.show', $formation) }}" target="_blank"
+            <a href="{{ route('formations.show', $formation->slug) }}" target="_blank"
                style="display:flex;align-items:center;gap:6px;padding:7px 12px;background:rgba(76,175,125,0.08);border:1px solid rgba(76,175,125,0.2);border-radius:6px;color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;text-decoration:none;">
                 Voir
             </a>

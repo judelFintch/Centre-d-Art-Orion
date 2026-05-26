@@ -127,7 +127,7 @@
         </h2>
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;">
             @foreach($autres as $a)
-            <a href="{{ route('formations.show', $a) }}"
+            <a href="{{ route('formations.show', $a->slug) }}"
                class="reveal hover-lift"
                style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;text-decoration:none;display:block;transition:all 0.3s;"
                onmouseover="this.style.borderColor='#d4a03033'" onmouseout="this.style.borderColor='#1a1a1a'">

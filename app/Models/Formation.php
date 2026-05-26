@@ -22,8 +22,4 @@ class Formation extends Model
         return $query->where('actif', true)->orderBy('ordre');
     }
 
-    public function getRouteKeyName(): string
-    {
-        return 'slug';
-    }
 }

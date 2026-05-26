@@ -6,7 +6,7 @@
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;gap:12px;flex-wrap:wrap;">
     <a href="{{ route('admin.formations.index') }}"
        style="color:#e07030;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;">← Retour aux formations</a>
-    <a href="{{ route('formations.show', $formation) }}" target="_blank"
+    <a href="{{ route('formations.show', $formation->slug) }}" target="_blank"
        style="color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;">Voir sur le site →</a>
 </div>
 

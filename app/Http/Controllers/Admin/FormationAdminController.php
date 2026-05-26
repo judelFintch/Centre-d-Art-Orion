@@ -45,7 +45,7 @@ class FormationAdminController extends Controller
 
     public function show(Formation $formation)
     {
-        return redirect()->route('formations.show', $formation);
+        return redirect()->route('formations.show', $formation->slug);
     }
 
     public function edit(Formation $formation)

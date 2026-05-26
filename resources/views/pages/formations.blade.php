@@ -94,7 +94,7 @@
                             @else
                             <span style="color:#4caf7d;font-weight:600;font-size:0.9rem;">Sur devis</span>
                             @endif
-                            <a href="{{ route('formations.show', $f) }}" class="btn-primary" style="padding:9px 18px;font-size:0.78rem;">
+                            <a href="{{ route('formations.show', $f->slug) }}" class="btn-primary" style="padding:9px 18px;font-size:0.78rem;">
                                 Détails & inscription
                             </a>
                         </div>
