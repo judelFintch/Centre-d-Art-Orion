@@ -1,61 +1,97 @@
 @extends('layouts.app')
 
 @section('title', 'Blog — Centre d\'Art Orion')
-@section('meta_description', 'Carnet d\'atelier du Centre d\'Art Orion : réflexions, coulisses, récits de création et actualités artistiques.')
+@section('meta_description', $activeCategory ? 'Articles de la catégorie '.$activeCategory['name'].' — Centre d\'Art Orion.' : 'Carnet d\'atelier du Centre d\'Art Orion : réflexions, coulisses, récits de création et actualités artistiques.')
 
 @section('content')
 
-<section style="min-height:92vh;background:#0a0a0a;position:relative;overflow:hidden;padding:120px 0 80px;border-bottom:1px solid #1a1a1a;">
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 18% 28%,rgba(212,160,48,0.13),transparent 34%),radial-gradient(ellipse at 78% 68%,rgba(76,175,125,0.09),transparent 36%);pointer-events:none;"></div>
-    <div style="position:absolute;inset:0;opacity:0.12;background-image:linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,#000,transparent 82%);"></div>
+<section style="background:#0a0a0a;position:relative;overflow:hidden;padding:120px 0 72px;border-bottom:1px solid #1a1a1a;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 18% 24%,rgba(212,160,48,0.13),transparent 34%),radial-gradient(ellipse at 78% 68%,rgba(76,175,125,0.09),transparent 36%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;opacity:0.12;background-image:linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:72px 72px;mask-image:linear-gradient(to bottom,#000,transparent 80%);"></div>
 
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
-        <div style="max-width:760px;">
-            <div class="tag tag-gold" style="margin-bottom:18px;">Carnet d'atelier</div>
-            <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;color:#f5f5f0;line-height:0.95;margin:0 0 24px;">
-                Blog<br>
-                <span style="background:linear-gradient(135deg,#d4a030,#4caf7d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Orion</span>
-            </h1>
-            <p style="color:#8f877d;font-size:1.05rem;line-height:1.9;max-width:620px;margin:0;">
-                Un espace pour raconter les coulisses du centre, les gestes de création, les parcours d'artistes et les idées qui nourrissent notre constellation artistique.
-            </p>
-        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(420px,1.1fr);gap:48px;align-items:end;">
+            <div>
+                <div class="tag tag-gold" style="margin-bottom:18px;">{{ $activeCategory ? 'Catégorie' : "Carnet d'atelier" }}</div>
+                <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,7vw,6.2rem);font-weight:900;color:#f5f5f0;line-height:0.95;margin:0 0 24px;">
+                    {{ $activeCategory ? $activeCategory['name'] : 'Blog' }}<br>
+                    <span style="background:linear-gradient(135deg,#d4a030,#4caf7d);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ $activeCategory ? 'Articles' : 'Orion' }}</span>
+                </h1>
+                <p style="color:#8f877d;font-size:1.05rem;line-height:1.9;max-width:620px;margin:0;">
+                    {{ $activeCategory ? $activeCategory['count'].' article(s) dans cette catégorie du carnet Orion.' : "Récits de création, coulisses d'ateliers, portraits et réflexions pour suivre la vie artistique du centre." }}
+                </p>
+            </div>
 
-        <div style="margin-top:72px;display:grid;grid-template-columns:1.1fr 0.9fr;gap:28px;align-items:stretch;">
-            <article style="background:#111;border:1px solid #1f1a12;border-radius:8px;overflow:hidden;min-height:360px;display:flex;flex-direction:column;justify-content:flex-end;position:relative;">
-                <div style="position:absolute;inset:0;background:linear-gradient(145deg,rgba(212,160,48,0.16),transparent 46%),url('{{ asset('images/10.jpg') }}') center/cover;opacity:0.72;"></div>
-                <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.94),rgba(0,0,0,0.18));"></div>
-                <div style="position:relative;padding:32px;">
-                    <span class="tag tag-gold">À venir</span>
-                    <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.05;color:#f5f5f0;margin:18px 0 12px;">
-                        Les récits du centre prendront bientôt forme ici.
+            @if($featured)
+            <a href="{{ route('blog.show', $featured['slug']) }}"
+               style="min-height:420px;background:#111;border:1px solid #1f1a12;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;position:relative;text-decoration:none;">
+                <div style="position:absolute;inset:0;background:linear-gradient(145deg,rgba(212,160,48,0.16),transparent 46%),url('{{ asset($featured['image']) }}') center/cover;opacity:0.78;"></div>
+                <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.96),rgba(0,0,0,0.14));"></div>
+                <div style="position:relative;padding:34px;">
+                    <span class="tag tag-gold">Article à la une</span>
+                    <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.9rem,3.5vw,3rem);line-height:1.04;color:#f5f5f0;margin:18px 0 14px;">
+                        {{ $featured['title'] }}
                     </h2>
-                    <p style="color:#b6afa7;font-size:0.95rem;line-height:1.75;max-width:620px;margin:0;">
-                        Interviews, retours d'ateliers, chroniques d'exposition et notes de production seront publiés progressivement.
+                    <p style="color:#b6afa7;font-size:0.95rem;line-height:1.75;max-width:620px;margin:0 0 20px;">
+                        {{ $featured['excerpt'] }}
                     </p>
+                    <span style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Lire l'article →</span>
                 </div>
-            </article>
+            </a>
+            @endif
+        </div>
+    </div>
+</section>
 
-            <div style="display:grid;gap:16px;">
-                @foreach([
-                    ['Coulisses', 'Suivre les préparations, répétitions, montages et rencontres qui précèdent chaque création.', '#4caf7d'],
-                    ['Portraits', 'Donner la parole aux artistes, formateurs et talents qui font vivre Orion.', '#d4a030'],
-                    ['Pensées', 'Partager des repères sur la création, la formation et la pratique artistique contemporaine.', '#e07030'],
-                ] as $note)
-                <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;">
-                    <div style="width:28px;height:2px;background:{{ $note[2] }};margin-bottom:18px;"></div>
-                    <h3 style="font-family:'Space Grotesk',sans-serif;color:#f5f5f0;font-size:0.95rem;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;">{{ $note[0] }}</h3>
-                    <p style="color:#777;font-size:0.88rem;line-height:1.7;margin:0;">{{ $note[1] }}</p>
-                </div>
+<section style="padding:72px 0 100px;background:#0d0d0d;">
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:32px;flex-wrap:wrap;">
+	            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#f5f5f0;letter-spacing:0.1em;text-transform:uppercase;margin:0;">{{ $activeCategory ? 'Articles filtrés' : 'Tous les articles' }}</h2>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <a href="{{ route('blog.index') }}"
+                   style="padding:7px 12px;border:1px solid {{ $activeCategory ? '#222' : 'rgba(76,175,125,0.45)' }};border-radius:4px;color:{{ $activeCategory ? '#777' : '#4caf7d' }};background:{{ $activeCategory ? 'transparent' : 'rgba(76,175,125,0.1)' }};font-family:'Space Grotesk',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;text-decoration:none;">
+                    Tous
+                </a>
+                @foreach($categories as $category)
+                @php $isActive = $activeCategory && $activeCategory['slug'] === $category['slug']; @endphp
+                <a href="{{ route('blog.category', $category['slug']) }}"
+                   style="padding:7px 12px;border:1px solid {{ $isActive ? 'rgba(212,160,48,0.45)' : '#222' }};border-radius:4px;color:{{ $isActive ? '#d4a030' : '#777' }};background:{{ $isActive ? 'rgba(212,160,48,0.1)' : 'transparent' }};font-family:'Space Grotesk',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;text-decoration:none;">
+                    {{ $category['name'] }} · {{ $category['count'] }}
+                </a>
                 @endforeach
             </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;">
+            @foreach($articles as $article)
+            <a href="{{ route('blog.show', $article['slug']) }}"
+               class="hover-lift"
+               style="background:#111;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:all 0.3s;">
+                <div style="height:210px;position:relative;overflow:hidden;background:#161616;">
+                    <img src="{{ asset($article['image']) }}" alt="{{ $article['title'] }}" style="width:100%;height:100%;object-fit:cover;">
+	                    <div style="position:absolute;left:14px;bottom:14px;">
+	                        <span class="tag {{ $loop->even ? 'tag-green' : 'tag-gold' }}">{{ $article['category'] }}</span>
+	                    </div>
+                </div>
+                <div style="padding:24px;display:flex;flex-direction:column;flex:1;">
+                    <div style="display:flex;gap:10px;color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+                        <span>{{ $article['date'] }}</span>
+                        <span>•</span>
+                        <span>{{ $article['read_time'] }}</span>
+                    </div>
+                    <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.45rem;line-height:1.15;color:#f5f5f0;margin:0 0 12px;">{{ $article['title'] }}</h3>
+                    <p style="color:#777;font-size:0.88rem;line-height:1.7;margin:0 0 20px;flex:1;">{{ $article['excerpt'] }}</p>
+                    <span style="color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">Ouvrir →</span>
+                </div>
+            </a>
+            @endforeach
         </div>
     </div>
 </section>
 
 <style>
 @media(max-width:900px){
-    section div[style*="grid-template-columns:1.1fr 0.9fr"] {
+    section div[style*="grid-template-columns:minmax(0,0.9fr)"] {
         grid-template-columns: 1fr !important;
     }
 }

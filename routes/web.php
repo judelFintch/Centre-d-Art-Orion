@@ -11,6 +11,7 @@ use App\Http\Controllers\GalerieController;
 use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\EquipeController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FormationAdminController;
 use App\Http\Controllers\Admin\EvenementAdminController;
@@ -23,7 +24,9 @@ use App\Http\Controllers\Admin\HeroSlideAdminController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
-Route::view('/blog', 'pages.blog')->name('blog.index');
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/categorie/{category}', [BlogController::class, 'category'])->name('blog.category');
+Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
 Route::prefix('formations')->name('formations.')->group(function () {
     Route::get('/', [FormationController::class, 'index'])->name('index');
