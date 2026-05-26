@@ -126,11 +126,19 @@
             <p style="color:#444;font-size:0.8rem;margin:0;">
                 &copy; {{ date('Y') }} <span style="color:#4caf7d;">Centre d'Art Orion</span>. Tous droits réservés.
             </p>
-            <div style="display:flex;gap:20px;">
+            <div style="display:flex;gap:20px;align-items:center;">
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
                    onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Mentions légales</a>
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
                    onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Politique de confidentialité</a>
+                <span style="color:#2a2a2a;font-size:0.68rem;">|</span>
+                <a href="https://fintchweb.com/" target="_blank" rel="noopener noreferrer"
+                   style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;opacity:0.5;transition:opacity 0.25s;"
+                   onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
+                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;letter-spacing:0.06em;color:#888;">Conçu par</span>
+                    <span style="font-family:'Playfair Display',Georgia,serif;font-size:0.75rem;font-style:italic;color:#b6afa7;letter-spacing:0.02em;">Fintch</span>
+                    <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
             </div>
         </div>
 
