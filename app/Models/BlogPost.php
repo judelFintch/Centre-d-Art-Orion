@@ -34,6 +34,7 @@ class BlogPost extends Model
     public function toArticleArray(): array
     {
         return [
+            'admin_id' => $this->id,
             'slug' => $this->slug,
             'title' => $this->title,
             'category' => $this->category ?: 'Blog',

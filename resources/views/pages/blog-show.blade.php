@@ -73,8 +73,24 @@
                     @endif
                 </div>
 
-                <aside style="position:sticky;top:96px;">
-                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
+	                <aside style="position:sticky;top:96px;">
+                    @auth
+                    @if(!empty($article['admin_id']))
+                    <div style="background:#111;border:1px solid rgba(212,160,48,0.28);border-radius:8px;padding:20px;margin-bottom:18px;">
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;color:#d4a030;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 14px;">Administration</h3>
+                        <a href="{{ route('admin.blog.edit', $article['admin_id']) }}"
+                           style="display:flex;align-items:center;justify-content:center;width:100%;padding:10px 14px;background:rgba(212,160,48,0.12);border:1px solid rgba(212,160,48,0.28);border-radius:6px;color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;">
+                            Modifier l'article
+                        </a>
+                        <a href="{{ route('admin.blog.index') }}"
+                           style="display:block;margin-top:10px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;text-align:center;text-decoration:none;">
+                            Gérer les publications
+                        </a>
+                    </div>
+                    @endif
+                    @endauth
+
+	                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
                         <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">Dans cet article</h3>
                         <div style="display:flex;flex-direction:column;gap:12px;color:#777;font-size:0.86rem;line-height:1.55;">
                             <span>Processus créatif</span>
