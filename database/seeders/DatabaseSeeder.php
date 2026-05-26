@@ -15,9 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::firstOrCreate(
+        User::updateOrCreate(
             ['email' => 'admin@centreartorion.cd'],
-            ['name'  => 'Admin Orion', 'password' => bcrypt('admin1234')],
+            [
+                'name'              => 'Admin Orion',
+                'password'          => bcrypt('Orion@2026'),
+                'email_verified_at' => now(),
+            ]
         );
 
         $this->call(OrionSeeder::class);
