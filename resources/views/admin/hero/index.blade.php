@@ -10,18 +10,36 @@
             {{ $slides->count() }} slide(s) — glisser-déposer pour réordonner
         </p>
     </div>
-    <a href="{{ route('admin.hero.create') }}"
-       style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;border-radius:6px;transition:opacity 0.2s;"
-       onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        Nouveau slide
-    </a>
+    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <form method="POST" action="{{ route('admin.hero.load-defaults') }}" style="margin:0;">
+            @csrf
+            <button type="submit"
+                    style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:rgba(212,160,48,0.1);border:1px solid rgba(212,160,48,0.25);color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;border-radius:6px;cursor:pointer;transition:background 0.2s;"
+                    onmouseover="this.style.background='rgba(212,160,48,0.18)'" onmouseout="this.style.background='rgba(212,160,48,0.1)'">
+                Charger les slides par défaut
+            </button>
+        </form>
+        <a href="{{ route('admin.hero.create') }}"
+           style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;border-radius:6px;transition:opacity 0.2s;"
+           onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nouveau slide
+        </a>
+    </div>
 </div>
 
 @if($slides->isEmpty())
 <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:60px;text-align:center;">
     <p style="color:#555;font-family:'Space Grotesk',sans-serif;">Aucun slide pour l'instant.</p>
-    <a href="{{ route('admin.hero.create') }}" style="color:#4caf7d;font-size:0.85rem;text-decoration:none;">Créer le premier slide →</a>
+    <div style="display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;">
+        <form method="POST" action="{{ route('admin.hero.load-defaults') }}" style="margin:0;">
+            @csrf
+            <button type="submit" style="background:transparent;border:0;color:#d4a030;font-size:0.85rem;text-decoration:none;cursor:pointer;padding:0;">
+                Charger les slides par défaut
+            </button>
+        </form>
+        <a href="{{ route('admin.hero.create') }}" style="color:#4caf7d;font-size:0.85rem;text-decoration:none;">Créer le premier slide →</a>
+    </div>
 </div>
 @else
 

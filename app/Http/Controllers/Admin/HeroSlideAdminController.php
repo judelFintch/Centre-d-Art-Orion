@@ -48,6 +48,16 @@ class HeroSlideAdminController extends Controller
             ->with('success', 'Slide créé avec succès.');
     }
 
+    public function loadDefaults()
+    {
+        $created = HeroSlide::loadDefaultSlides();
+
+        return redirect()->route('admin.hero.index')
+            ->with('success', $created > 0
+                ? "{$created} slide(s) par défaut chargé(s). Vous pouvez maintenant les modifier."
+                : 'Les slides par défaut sont déjà chargés. Vous pouvez les modifier.');
+    }
+
     public function edit(HeroSlide $hero)
     {
         return view('admin.hero.edit', compact('hero'));

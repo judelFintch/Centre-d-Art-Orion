@@ -56,6 +56,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
 
     // Hero Slides
     Route::resource('hero', HeroSlideAdminController::class)->except(['show']);
+    Route::post('hero/load-defaults', [HeroSlideAdminController::class, 'loadDefaults'])->name('hero.load-defaults');
     Route::post('hero/reorder', [HeroSlideAdminController::class, 'reorder'])->name('hero.reorder');
     Route::patch('hero/{hero}/toggle', [HeroSlideAdminController::class, 'toggleActif'])->name('hero.toggle');
 });
