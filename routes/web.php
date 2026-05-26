@@ -25,6 +25,7 @@ use App\Http\Controllers\Admin\BlogPostAdminController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
+Route::view('/podcasts', 'pages.podcasts')->name('podcasts.index');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/categorie/{category}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');

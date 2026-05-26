@@ -410,6 +410,46 @@
 </section>
 
 {{-- ════════════════════════════════════════════════════
+     PODCASTS — Promotion
+════════════════════════════════════════════════════ --}}
+<section style="position:relative;overflow:hidden;padding:110px 0;background:#0a0a0a;border-top:1px solid rgba(28,21,16,0.08);">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 20% 30%,rgba(76,175,125,0.18),transparent 34%),radial-gradient(ellipse at 82% 70%,rgba(212,160,48,0.15),transparent 38%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;opacity:0.13;background-image:linear-gradient(90deg,rgba(255,255,255,0.08) 1px,transparent 1px),linear-gradient(rgba(255,255,255,0.08) 1px,transparent 1px);background-size:64px 64px;mask-image:linear-gradient(to bottom,#000,transparent 86%);"></div>
+
+    <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
+        <div style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(360px,0.8fr);gap:52px;align-items:center;">
+            <div class="reveal">
+                <div class="tag tag-green" style="margin-bottom:18px;">Podcasts Orion</div>
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.02;margin:0 0 22px;">
+                    Écouter les voix<br>
+                    <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">de la création</span>
+                </h2>
+                <p style="color:#aaa19a;font-size:1rem;line-height:1.85;max-width:620px;margin:0 0 30px;">
+                    Conversations avec artistes, formateurs et créateurs du centre : coulisses d'ateliers, parcours, résidences et réflexions sur les métiers de l'art.
+                </p>
+                <div style="display:flex;gap:14px;flex-wrap:wrap;">
+                    <a href="{{ route('podcasts.index') }}" class="btn-gold">Découvrir les podcasts</a>
+                    <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-outline" style="color:#f5f5f0;border-color:rgba(255,255,255,0.28);">Proposer un invité</a>
+                </div>
+            </div>
+
+            <a href="{{ route('podcasts.index') }}" class="reveal" style="display:block;text-decoration:none;position:relative;min-height:380px;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 100px rgba(0,0,0,0.35);">
+                <img src="{{ asset('images/11.jpg') }}" alt="Podcasts Orion" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92),rgba(0,0,0,0.12));"></div>
+                <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:92px;height:92px;border-radius:50%;background:rgba(212,160,48,0.22);border:2px solid rgba(212,160,48,0.55);display:flex;align-items:center;justify-content:center;">
+                    <svg width="34" height="34" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>
+                </div>
+                <div style="position:absolute;left:28px;right:28px;bottom:26px;">
+                    <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Série audio</div>
+                    <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:2rem;line-height:1.05;margin:0 0 8px;">Dans l'atelier</h3>
+                    <p style="color:rgba(245,245,240,0.72);font-size:0.88rem;line-height:1.65;margin:0;">Une immersion dans les gestes, les voix et les idées qui précèdent l'oeuvre.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+{{-- ════════════════════════════════════════════════════
      FORMATIONS — Aperçu
 ════════════════════════════════════════════════════ --}}
 @if($formations->count())

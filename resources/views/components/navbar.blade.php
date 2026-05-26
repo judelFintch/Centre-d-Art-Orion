@@ -6,6 +6,7 @@ $links = [
     ['url' => route('formations.index'), 'label' => 'Formations'],
     ['url' => route('galerie.index'),    'label' => 'Galerie'],
     ['url' => route('evenements.index'), 'label' => 'Événements'],
+    ['url' => route('podcasts.index'),   'label' => 'Podcasts'],
     ['url' => route('blog.index'),       'label' => 'Blog', 'class' => 'nav-link-blog'],
     ['url' => route('equipe'),           'label' => 'Équipe'],
 ];
