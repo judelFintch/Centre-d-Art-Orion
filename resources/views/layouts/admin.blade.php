@@ -34,6 +34,7 @@
             ['route' => 'admin.evenements.index', 'icon' => '◎', 'label' => 'Événements', 'color' => '#d4a030'],
             ['route' => 'admin.galerie.index', 'icon' => '◧', 'label' => 'Galerie', 'color' => '#4caf7d'],
             ['route' => 'admin.blog.index', 'icon' => '✎', 'label' => 'Blog', 'color' => '#d4a030'],
+            ['route' => 'admin.podcasts.index', 'icon' => '◌', 'label' => 'Podcasts', 'color' => '#4caf7d'],
             ['route' => 'admin.equipe.index', 'icon' => '◈', 'label' => 'Équipe', 'color' => '#d4a030'],
             ['route' => 'admin.messages.index', 'icon' => '✉', 'label' => 'Messages', 'color' => '#e07030'],
         ];

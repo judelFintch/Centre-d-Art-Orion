@@ -12,6 +12,7 @@ use App\Http\Controllers\EvenementController;
 use App\Http\Controllers\EquipeController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\PodcastController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FormationAdminController;
 use App\Http\Controllers\Admin\EvenementAdminController;
@@ -20,12 +21,13 @@ use App\Http\Controllers\Admin\MessageAdminController;
 use App\Http\Controllers\Admin\EquipeAdminController;
 use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
+use App\Http\Controllers\Admin\PodcastAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
 Route::get('/services', [ServiceController::class, 'index'])->name('services');
-Route::view('/podcasts', 'pages.podcasts')->name('podcasts.index');
+Route::get('/podcasts', [PodcastController::class, 'index'])->name('podcasts.index');
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/categorie/{category}', [BlogController::class, 'category'])->name('blog.category');
 Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
@@ -58,6 +60,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('evenements', EvenementAdminController::class);
     Route::resource('galerie', GalerieAdminController::class);
     Route::resource('blog', BlogPostAdminController::class);
+    Route::resource('podcasts', PodcastAdminController::class);
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::resource('equipe', EquipeAdminController::class);
 

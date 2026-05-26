@@ -28,7 +28,7 @@
 
             <div style="position:relative;">
                 <div style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,rgba(76,175,125,0.22),rgba(212,160,48,0.16));border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 100px rgba(0,0,0,0.45);">
-                    <div style="width:74%;height:74%;border-radius:50%;background:url('{{ asset('images/11.jpg') }}') center/cover;border:1px solid rgba(255,255,255,0.18);position:relative;overflow:hidden;">
+                    <div style="width:74%;height:74%;border-radius:50%;background:url('{{ $featured ? $featured->cover_source : asset('images/11.jpg') }}') center/cover;border:1px solid rgba(255,255,255,0.18);position:relative;overflow:hidden;">
                         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82),rgba(0,0,0,0.08));"></div>
                         <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(212,160,48,0.22);border:2px solid rgba(212,160,48,0.55);display:flex;align-items:center;justify-content:center;">
                             <svg width="30" height="30" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>
@@ -37,8 +37,8 @@
                 </div>
                 <div style="position:absolute;right:0;bottom:24px;background:#111;border:1px solid #242018;border-radius:8px;padding:18px 20px;max-width:260px;">
                     <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">Série phare</div>
-                    <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.1;margin:0;">Dans l'atelier</p>
-                    <p style="color:#777;font-size:0.82rem;line-height:1.55;margin:8px 0 0;">Une immersion dans les gestes et les voix de la création.</p>
+                    <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.1;margin:0;">{{ $featured->series ?? "Dans l'atelier" }}</p>
+                    <p style="color:#777;font-size:0.82rem;line-height:1.55;margin:8px 0 0;">{{ $featured->description ?? 'Une immersion dans les gestes et les voix de la création.' }}</p>
                 </div>
             </div>
         </div>
@@ -56,23 +56,22 @@
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-            @foreach([
-                ['01','Dans les coulisses d\'un atelier','Comment naît une oeuvre entre intuition, technique et accompagnement.','38 min','#4caf7d','images/10.jpg'],
-                ['02','Former un regard artistique','La formation comme discipline du geste, de l\'écoute et du regard.','31 min','#d4a030','images/6.jpg'],
-                ['03','Résidence : créer avec le temps','Pourquoi le temps long change la qualité d\'une recherche artistique.','44 min','#e07030','images/5.jpg'],
-            ] as $episode)
+            @foreach($episodes as $episode)
             <article style="background:#111;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;">
                 <div style="height:190px;position:relative;background:#161616;">
-                    <img src="{{ asset($episode[5]) }}" alt="{{ $episode[1] }}" style="width:100%;height:100%;object-fit:cover;">
+                    <img src="{{ $episode->cover_source }}" alt="{{ $episode->title }}" style="width:100%;height:100%;object-fit:cover;">
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);"></div>
-                    <div style="position:absolute;left:18px;bottom:16px;color:{{ $episode[4] }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.1em;">EP. {{ $episode[0] }}</div>
+                    <div style="position:absolute;left:18px;bottom:16px;color:{{ $episode->accent }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.1em;">EP. {{ $episode->episode_number ?: $loop->iteration }}</div>
                 </div>
                 <div style="padding:24px;">
-                    <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:1.45rem;line-height:1.12;margin:0 0 10px;">{{ $episode[1] }}</h3>
-                    <p style="color:#777;font-size:0.88rem;line-height:1.7;margin:0 0 18px;">{{ $episode[2] }}</p>
+                    <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:1.45rem;line-height:1.12;margin:0 0 10px;">{{ $episode->title }}</h3>
+                    <p style="color:#777;font-size:0.88rem;line-height:1.7;margin:0 0 18px;">{{ $episode->excerpt }}</p>
+                    @if($episode->audio_source)
+                    <audio controls src="{{ $episode->audio_source }}" style="width:100%;margin-bottom:16px;"></audio>
+                    @endif
                     <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
-                        <span style="color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;">{{ $episode[3] }}</span>
-                        <a href="{{ route('contact.index') }}?sujet=Podcast+{{ urlencode($episode[1]) }}" style="color:{{ $episode[4] }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;">Être notifié →</a>
+                        <span style="color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;">{{ $episode->duration ?: 'À venir' }}</span>
+                        <a href="{{ route('contact.index') }}?sujet=Podcast+{{ urlencode($episode->title) }}" style="color:{{ $episode->accent }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;">{{ $episode->audio_source ? 'Réagir →' : 'Être notifié →' }}</a>
                     </div>
                 </div>
             </article>
