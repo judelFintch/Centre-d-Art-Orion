@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogPost;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
@@ -57,6 +59,14 @@ class BlogController extends Controller
 
     private function articles(): Collection
     {
+        if (Schema::hasTable('blog_posts')) {
+            $posts = BlogPost::published()->get();
+
+            if ($posts->isNotEmpty()) {
+                return $posts->map(fn (BlogPost $post) => $post->toArticleArray());
+            }
+        }
+
         return collect([
             [
                 'slug' => 'dans-les-coulisses-d-un-atelier-orion',

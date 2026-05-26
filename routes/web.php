@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\GalerieAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
 use App\Http\Controllers\Admin\EquipeAdminController;
 use App\Http\Controllers\Admin\HeroSlideAdminController;
+use App\Http\Controllers\Admin\BlogPostAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -55,6 +56,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('formations', FormationAdminController::class);
     Route::resource('evenements', EvenementAdminController::class);
     Route::resource('galerie', GalerieAdminController::class);
+    Route::resource('blog', BlogPostAdminController::class);
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::resource('equipe', EquipeAdminController::class);
 

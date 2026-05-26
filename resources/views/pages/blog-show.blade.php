@@ -41,16 +41,25 @@
                         <img src="{{ asset($article['image']) }}" alt="{{ $article['title'] }}" style="width:100%;height:auto;display:block;">
                     </div>
 
+                    @if(!empty($article['content_html']))
+                    <div class="blog-content" style="font-size:1.02rem;line-height:1.95;color:#b6afa7;">
+                        {!! $article['content_html'] !!}
+                    </div>
+                    @else
                     <div style="font-size:1.02rem;line-height:1.95;color:#b6afa7;">
                         @foreach($article['body'] as $paragraph)
                         <p style="margin:0 0 24px;">{{ $paragraph }}</p>
                         @endforeach
                     </div>
+                    @endif
 
+                    @if(!empty($article['quote']))
                     <blockquote style="margin:42px 0;padding:28px 32px;border-left:3px solid #d4a030;background:#111;color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.55rem;line-height:1.35;border-radius:0 8px 8px 0;">
                         {{ $article['quote'] }}
                     </blockquote>
+                    @endif
 
+                    @if(!empty($article['gallery']))
                     <div style="margin-top:48px;">
                         <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 22px;">Images correspondantes</h2>
                         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
@@ -61,6 +70,7 @@
                             @endforeach
                         </div>
                     </div>
+                    @endif
                 </div>
 
                 <aside style="position:sticky;top:96px;">
@@ -103,6 +113,38 @@
 @endif
 
 <style>
+.blog-content p {
+    margin: 0 0 24px;
+}
+.blog-content h2,
+.blog-content h3,
+.blog-content h4 {
+    color: #f5f5f0;
+    font-family: 'Playfair Display', Georgia, serif;
+    line-height: 1.2;
+    margin: 36px 0 16px;
+}
+.blog-content h2 { font-size: 2rem; }
+.blog-content h3 { font-size: 1.55rem; }
+.blog-content blockquote {
+    margin: 36px 0;
+    padding: 22px 26px;
+    border-left: 3px solid #d4a030;
+    background: #111;
+    color: #f5f5f0;
+    border-radius: 0 8px 8px 0;
+}
+.blog-content ul,
+.blog-content ol {
+    margin: 0 0 24px 22px;
+    padding: 0;
+}
+.blog-content li {
+    margin-bottom: 8px;
+}
+.blog-content a {
+    color: #d4a030;
+}
 @media(max-width:900px){
     section div[style*="grid-template-columns:minmax(0,720px)"] {
         grid-template-columns: 1fr !important;
