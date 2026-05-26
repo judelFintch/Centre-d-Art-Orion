@@ -1551,27 +1551,8 @@ body, body * {
     .header-inner { max-width: 1600px !important; }
     .ni-inner     { max-width: 1600px; }
 
-    /* Containers de sections inline */
-    .home-biasasa section > div > [style*="max-width:1440px"],
-    .home-biasasa section > div { max-width: 1600px; }
-
-    /* Services : 4 colonnes */
-    [style*="grid-template-columns:repeat(3,1fr)"] {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-
-    /* Événements : 4 colonnes */
-    [style*="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))"] {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-
-    /* Formations : 4 colonnes */
-    [style*="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))"] {
-        grid-template-columns: repeat(4, 1fr) !important;
-    }
-
     /* Hero : titre un peu plus grand */
-    .hc-title { font-size: clamp(3rem, 5vw, 5.5rem); }
+    .hc-title  { font-size: clamp(3rem, 5vw, 5.5rem); }
     .hc-center { max-width: 900px; }
 }
 
