@@ -69,12 +69,15 @@ body, body * {
 }
 
 /* ─── Scroll Reveal ─────────────────────────────────────────── */
-.reveal {
+/* Sans JS : sections visibles par défaut */
+.reveal { transition: opacity 0.7s ease, transform 0.7s ease; }
+
+/* Avec JS (classe ajoutée par app.js) : animation activée */
+.js-ready .reveal {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
 }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+.js-ready .reveal.visible { opacity: 1; transform: translateY(0); }
 
 /* ─── Scrollbar ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 6px; }

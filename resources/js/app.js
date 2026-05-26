@@ -401,6 +401,7 @@ function initHeroCine() {
 
 // ─── Bootstrap ─────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
+    document.body.classList.add('js-ready');
     initReveal();
     initNav();
     initStickyHeader();
