@@ -10,7 +10,7 @@ class BlogPost extends Model
     protected $fillable = [
         'title', 'slug', 'category', 'author', 'read_time',
         'excerpt', 'content', 'quote', 'image', 'gallery',
-        'featured', 'actif', 'published_at', 'ordre',
+        'featured', 'actif', 'published_at', 'ordre', 'views',
     ];
 
     protected $casts = [
@@ -35,6 +35,7 @@ class BlogPost extends Model
     {
         return [
             'admin_id' => $this->id,
+            'views' => $this->views ?? 0,
             'slug' => $this->slug,
             'title' => $this->title,
             'category' => $this->category ?: 'Blog',

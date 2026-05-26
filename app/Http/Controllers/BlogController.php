@@ -38,6 +38,13 @@ class BlogController extends Controller
 
     public function show(string $slug)
     {
+        if (Schema::hasTable('blog_posts')) {
+            $post = BlogPost::published()->where('slug', $slug)->first();
+            if ($post) {
+                $post->increment('views');
+            }
+        }
+
         $articles = $this->articles();
         $article = $articles->firstWhere('slug', $slug);
 
@@ -75,6 +82,7 @@ class BlogController extends Controller
                 'date' => '26 mai 2026',
                 'read_time' => '5 min',
                 'author' => 'Équipe Orion',
+                'views' => 214,
                 'image' => 'images/10.jpg',
                 'excerpt' => "Avant qu'une oeuvre ne rencontre son public, il y a des essais, des silences, des gestes répétés et une équipe qui accompagne chaque détail.",
                 'body' => [
@@ -92,6 +100,7 @@ class BlogController extends Controller
                 'date' => '18 mai 2026',
                 'read_time' => '4 min',
                 'author' => 'Pôle Formation',
+                'views' => 187,
                 'image' => 'images/6.jpg',
                 'excerpt' => "La technique est essentielle, mais elle ne suffit pas. Une formation artistique solide apprend aussi à observer, choisir et défendre une vision.",
                 'body' => [
@@ -109,6 +118,7 @@ class BlogController extends Controller
                 'date' => '10 mai 2026',
                 'read_time' => '3 min',
                 'author' => 'Direction artistique',
+                'views' => 143,
                 'image' => 'images/22.jpg',
                 'excerpt' => "Photographier, écrire et archiver les étapes d'un projet permet de transmettre plus qu'un résultat : une méthode, une mémoire et une culture.",
                 'body' => [
@@ -126,6 +136,7 @@ class BlogController extends Controller
                 'date' => '2 mai 2026',
                 'read_time' => '6 min',
                 'author' => 'Centre Orion',
+                'views' => 309,
                 'image' => 'images/5.jpg',
                 'excerpt' => "Une résidence offre aux artistes un luxe rare : du temps concentré, des ressources disponibles et un dialogue constant avec un lieu.",
                 'body' => [

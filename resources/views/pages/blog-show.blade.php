@@ -41,6 +41,11 @@
                 <span>{{ $article['date'] }}</span>
                 <span style="color:#333;">•</span>
                 <span>{{ $article['read_time'] }} de lecture</span>
+                <span style="color:#333;">•</span>
+                <span style="display:inline-flex;align-items:center;gap:5px;">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                    {{ number_format($article['views'] ?? 0) }} {{ ($article['views'] ?? 0) <= 1 ? 'vue' : 'vues' }}
+                </span>
             </div>
             <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;">
                 <button type="button"

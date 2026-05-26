@@ -74,10 +74,15 @@
 	                    </div>
                 </div>
                 <div style="padding:24px;display:flex;flex-direction:column;flex:1;">
-                    <div style="display:flex;gap:10px;color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">
+                    <div style="display:flex;gap:10px;color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;flex-wrap:wrap;">
                         <span>{{ $article['date'] }}</span>
                         <span>•</span>
                         <span>{{ $article['read_time'] }}</span>
+                        <span>•</span>
+                        <span style="display:inline-flex;align-items:center;gap:4px;">
+                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                            {{ number_format($article['views'] ?? 0) }}
+                        </span>
                     </div>
                     <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.45rem;line-height:1.15;color:#f5f5f0;margin:0 0 12px;">{{ $article['title'] }}</h3>
                     <p style="color:#777;font-size:0.88rem;line-height:1.7;margin:0 0 20px;flex:1;">{{ $article['excerpt'] }}</p>
