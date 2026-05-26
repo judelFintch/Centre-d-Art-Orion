@@ -91,16 +91,8 @@
     {{-- ─── Filigrane numéro ─── --}}
     <div class="hc-watermark" aria-hidden="true">01</div>
 
-    {{-- ─── Barre supérieure : compteur | localisation ─── --}}
-    <div class="hc-top">
-        <div class="hc-counter" aria-live="polite">
-            <span class="hc-counter-cur">01</span>
-            <span class="hc-counter-sep"> / {{ str_pad(count($heroSlides), 2, '0', STR_PAD_LEFT) }}</span>
-        </div>
-        <span class="hc-location">Kinshasa — Congo RDC</span>
-    </div>
 
-    {{-- ─── Corps centré ─── --}}
+{{-- ─── Corps centré ─── --}}
     <div class="hc-body">
         <div class="hc-center">
             {{-- Kicker symétrique ──── label ──── --}}
@@ -352,7 +344,7 @@
             </g>
         </svg>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
         <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:56px;">
@@ -464,7 +456,7 @@
             </g>
         </svg>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
             <div>
@@ -571,7 +563,7 @@
             </g>
         </svg>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         {{-- Header --}}
         <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:56px;">
@@ -667,7 +659,7 @@
             <circle cx="1135" cy="45" r="5" fill="#1e4d2f" class="oc-betel"/>
         </svg>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
             <div class="tag tag-gold" style="margin-bottom:20px;">Témoignages</div>
@@ -736,7 +728,7 @@
             </g>
         </svg>
     </div>
-    <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
             <div>
