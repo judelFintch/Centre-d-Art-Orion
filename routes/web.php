@@ -22,6 +22,8 @@ use App\Http\Controllers\Admin\EquipeAdminController;
 use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
+use App\Http\Controllers\AbonnementController;
+use App\Http\Controllers\Admin\AbonnementAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -53,6 +55,10 @@ Route::prefix('contact')->name('contact.')->group(function () {
     Route::post('/', [ContactController::class, 'store'])->name('store');
 });
 
+// ─── Abonnements ───────────────────────────────────────────────
+Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store');
+Route::get('/abonnement/desinscription/{token}', [AbonnementController::class, 'unsubscribe'])->name('abonnement.unsubscribe');
+
 // ─── Back-office Admin ─────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -62,6 +68,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('blog', BlogPostAdminController::class);
     Route::resource('podcasts', PodcastAdminController::class);
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
+    Route::get('abonnements', [AbonnementAdminController::class, 'index'])->name('abonnements.index');
+    Route::delete('abonnements/{abonnement}', [AbonnementAdminController::class, 'destroy'])->name('abonnements.destroy');
     Route::resource('equipe', EquipeAdminController::class);
 
     // Hero Slides

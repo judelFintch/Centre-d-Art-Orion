@@ -1,5 +1,29 @@
 <footer style="background:#0a0a0a;border-top:1px solid #1a1a1a;padding:80px 0 0;">
 
+    {{-- Bandeau Newsletter --}}
+    <div style="background:linear-gradient(135deg,#0d1a12 0%,#0a1510 100%);border-bottom:1px solid #1a2e20;padding:60px 0;">
+        <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;">
+            <div style="flex:1;min-width:260px;">
+                <p style="font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#4caf7d;margin:0 0 10px;">Newsletter</p>
+                <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:700;color:#f5f5f0;margin:0 0 10px;line-height:1.25;">Restez dans l'univers Orion</h3>
+                <p style="color:#666;font-size:0.88rem;line-height:1.7;margin:0;max-width:440px;">Actualités, événements, nouvelles formations — recevez l'essentiel directement dans votre boîte mail.</p>
+            </div>
+            <div style="flex:1;min-width:280px;max-width:480px;">
+                <form id="newsletter-footer-form" style="display:flex;gap:10px;flex-wrap:wrap;">
+                    @csrf
+                    <input type="hidden" name="type" value="newsletter">
+                    <input type="email" name="email" placeholder="Votre adresse e-mail" required
+                           style="flex:1;min-width:200px;background:#111;border:1px solid #2a2a2a;border-radius:4px;padding:12px 16px;color:#f5f5f0;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color 0.2s;"
+                           onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#2a2a2a'">
+                    <button type="submit"
+                            style="background:#4caf7d;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:12px 22px;cursor:pointer;white-space:nowrap;transition:background 0.2s;"
+                            onmouseover="this.style.background='#3d9e6a'" onmouseout="this.style.background='#4caf7d'">S'abonner</button>
+                </form>
+                <div id="newsletter-footer-msg" style="display:none;margin-top:12px;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;"></div>
+            </div>
+        </div>
+    </div>
+
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         {{-- Grid --}}
@@ -143,4 +167,48 @@
         </div>
 
     </div>
+
+<script>
+(function () {
+    function setupSubscribeForm(formId, msgId) {
+        var form = document.getElementById(formId);
+        if (!form) return;
+        var msg = document.getElementById(msgId);
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var data = new FormData(form);
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.textContent = '…';
+
+            fetch('{{ route("abonnement.store") }}', {
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': data.get('_token'), 'Accept': 'application/json' },
+                body: data,
+            })
+            .then(function (r) { return r.json(); })
+            .then(function (json) {
+                msg.style.display = 'block';
+                msg.style.color = json.success ? '#4caf7d' : '#e07030';
+                msg.textContent = json.message;
+                if (json.success) { form.reset(); }
+            })
+            .catch(function () {
+                msg.style.display = 'block';
+                msg.style.color = '#e07030';
+                msg.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+            })
+            .finally(function () {
+                btn.disabled = false;
+                btn.textContent = "S'abonner";
+            });
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        setupSubscribeForm('newsletter-footer-form', 'newsletter-footer-msg');
+    });
+})();
+</script>
 </footer>

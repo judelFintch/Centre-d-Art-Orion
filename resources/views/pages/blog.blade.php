@@ -94,6 +94,65 @@
     </div>
 </section>
 
+{{-- Abonnement Blog --}}
+<section style="padding:72px 24px;background:#0d1a12;border-top:1px solid #1a2e20;border-bottom:1px solid #1a2e20;">
+    <div style="max-width:640px;margin:0 auto;text-align:center;">
+        <p style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#4caf7d;margin:0 0 12px;">Abonnement Blog</p>
+        <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:2rem;font-weight:700;color:#f5f5f0;margin:0 0 14px;line-height:1.2;">Ne manquez aucun article</h2>
+        <p style="color:#666;font-size:0.9rem;line-height:1.75;margin:0 0 32px;">Recevez nos nouveaux articles — coulisses, formations, création et résidences — dès leur publication.</p>
+        <form id="blog-subscribe-form" style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;">
+            @csrf
+            <input type="hidden" name="type" value="blog">
+            <input type="email" name="email" placeholder="Votre adresse e-mail" required
+                   style="flex:1;min-width:220px;max-width:340px;background:#111;border:1px solid #2a2a2a;border-radius:4px;padding:13px 18px;color:#f5f5f0;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color 0.2s;"
+                   onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#2a2a2a'">
+            <button type="submit"
+                    style="background:#4caf7d;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:13px 26px;cursor:pointer;transition:background 0.2s;white-space:nowrap;"
+                    onmouseover="this.style.background='#3d9e6a'" onmouseout="this.style.background='#4caf7d'">S'abonner</button>
+        </form>
+        <div id="blog-subscribe-msg" style="display:none;margin-top:14px;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;"></div>
+        <p style="color:#444;font-size:0.78rem;margin:18px 0 0;">Aucun spam. Désabonnement possible à tout moment.</p>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var form = document.getElementById('blog-subscribe-form');
+    if (!form) return;
+    var msg = document.getElementById('blog-subscribe-msg');
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = new FormData(form);
+        var btn = form.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = '…';
+
+        fetch('{{ route("abonnement.store") }}', {
+            method: 'POST',
+            headers: { 'X-CSRF-TOKEN': data.get('_token'), 'Accept': 'application/json' },
+            body: data,
+        })
+        .then(function (r) { return r.json(); })
+        .then(function (json) {
+            msg.style.display = 'block';
+            msg.style.color = json.success ? '#4caf7d' : '#e07030';
+            msg.textContent = json.message;
+            if (json.success) { form.reset(); }
+        })
+        .catch(function () {
+            msg.style.display = 'block';
+            msg.style.color = '#e07030';
+            msg.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+        })
+        .finally(function () {
+            btn.disabled = false;
+            btn.textContent = "S'abonner";
+        });
+    });
+});
+</script>
+
 <style>
 @media(max-width:900px){
     section div[style*="grid-template-columns:minmax(0,0.9fr)"] {

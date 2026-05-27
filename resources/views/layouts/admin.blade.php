@@ -37,6 +37,7 @@
             ['route' => 'admin.podcasts.index', 'icon' => '◌', 'label' => 'Podcasts', 'color' => '#4caf7d'],
             ['route' => 'admin.equipe.index', 'icon' => '◈', 'label' => 'Équipe', 'color' => '#d4a030'],
             ['route' => 'admin.messages.index', 'icon' => '✉', 'label' => 'Messages', 'color' => '#e07030'],
+            ['route' => 'admin.abonnements.index', 'icon' => '◐', 'label' => 'Abonnements', 'color' => '#4caf7d'],
         ];
         @endphp
 
