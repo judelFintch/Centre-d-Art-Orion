@@ -50,6 +50,9 @@
     {{-- Lightbox --}}
     @include('components.lightbox')
 
+    {{-- Bannière de consentement aux cookies (RGPD) --}}
+    @include('components.cookie-consent')
+
     @stack('scripts')
 </body>
 </html>

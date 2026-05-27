@@ -163,6 +163,11 @@
                    onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Mentions légales</a>
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
                    onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Politique de confidentialité</a>
+                <button onclick="window.OrionCookies && window.OrionCookies.openPanel()"
+                        style="background:none;border:none;padding:0;color:#444;font-size:0.78rem;cursor:pointer;text-decoration:none;transition:color 0.2s;font-family:'Space Grotesk',sans-serif;"
+                        onmouseover="this.style.color='#4caf7d'" onmouseout="this.style.color='#444'">
+                    🍪 Gestion des cookies
+                </button>
                 <span style="color:#2a2a2a;font-size:0.68rem;">|</span>
                 <a href="https://fintchweb.com/" target="_blank" rel="noopener noreferrer"
                    style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;opacity:0.5;transition:opacity 0.25s;"
