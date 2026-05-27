@@ -41,6 +41,14 @@
                       style="display:flex;flex-direction:column;gap:20px;">
                     @csrf
 
+                    {{-- Honeypot anti-bot : invisible pour les humains, attirant pour les robots --}}
+                    <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                        <label for="hp_website_contact">Ne pas remplir</label>
+                        <input type="text" id="hp_website_contact" name="_hp_website" tabindex="-1" autocomplete="off" value="">
+                    </div>
+                    {{-- Timestamp de chargement du formulaire (détection bot trop rapide) --}}
+                    <input type="hidden" name="_form_loaded_at" value="{{ base64_encode((string) time()) }}">
+
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
                         <div>
                             <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:#888;margin-bottom:8px;">Nom *</label>

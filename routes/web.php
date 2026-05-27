@@ -53,11 +53,13 @@ Route::get('/equipe', [EquipeController::class, 'index'])->name('equipe');
 
 Route::prefix('contact')->name('contact.')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('index');
-    Route::post('/', [ContactController::class, 'store'])->name('store');
+    // Limite : 5 soumissions par minute par IP, puis 30 s de blocage
+    Route::post('/', [ContactController::class, 'store'])->name('store')->middleware('throttle:5,1');
 });
 
 // ─── Abonnements ───────────────────────────────────────────────
-Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store');
+// Limite : 5 soumissions par minute par IP
+Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store')->middleware('throttle:5,1');
 Route::get('/abonnement/desinscription/{token}', [AbonnementController::class, 'unsubscribe'])->name('abonnement.unsubscribe');
 
 // ─── Back-office Admin ─────────────────────────────────────────

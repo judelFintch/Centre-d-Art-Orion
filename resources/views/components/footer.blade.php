@@ -12,6 +12,14 @@
                 <form id="newsletter-footer-form" style="display:flex;gap:10px;flex-wrap:wrap;">
                     @csrf
                     <input type="hidden" name="type" value="newsletter">
+
+                    {{-- Honeypot anti-bot : invisible pour les humains, attirant pour les robots --}}
+                    <div style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+                        <label for="hp_website_footer">Ne pas remplir</label>
+                        <input type="text" id="hp_website_footer" name="_hp_website" tabindex="-1" autocomplete="off" value="">
+                    </div>
+                    {{-- Timestamp de chargement du formulaire (détection bot trop rapide) --}}
+                    <input type="hidden" name="_form_loaded_at" value="{{ base64_encode((string) time()) }}">
                     <input type="email" name="email" placeholder="Votre adresse e-mail" required
                            style="flex:1;min-width:200px;background:#111;border:1px solid #2a2a2a;border-radius:4px;padding:12px 16px;color:#f5f5f0;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color 0.2s;"
                            onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#2a2a2a'">
