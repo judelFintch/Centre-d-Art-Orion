@@ -38,6 +38,7 @@
             ['route' => 'admin.equipe.index', 'icon' => '◈', 'label' => 'Équipe', 'color' => '#d4a030'],
             ['route' => 'admin.messages.index', 'icon' => '✉', 'label' => 'Messages', 'color' => '#e07030'],
             ['route' => 'admin.abonnements.index', 'icon' => '◐', 'label' => 'Abonnements', 'color' => '#4caf7d'],
+            ['route' => 'admin.mail.index',        'icon' => '✉', 'label' => 'Config. Mail',  'color' => '#4a90e2'],
         ];
         @endphp
 

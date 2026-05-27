@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
 use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\Admin\AbonnementAdminController;
+use App\Http\Controllers\Admin\MailSettingAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -71,6 +72,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::get('abonnements', [AbonnementAdminController::class, 'index'])->name('abonnements.index');
     Route::delete('abonnements/{abonnement}', [AbonnementAdminController::class, 'destroy'])->name('abonnements.destroy');
+
+    // Configuration mail
+    Route::get('mail', [MailSettingAdminController::class, 'index'])->name('mail.index');
+    Route::put('mail', [MailSettingAdminController::class, 'update'])->name('mail.update');
+    Route::post('mail/test', [MailSettingAdminController::class, 'test'])->name('mail.test');
     Route::resource('equipe', EquipeAdminController::class);
     Route::patch('equipe/{equipe}/toggle', [EquipeAdminController::class, 'toggleActif'])->name('equipe.toggle');
     Route::post('equipe/reorder', [EquipeAdminController::class, 'reorder'])->name('equipe.reorder');
