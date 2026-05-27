@@ -64,6 +64,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('formations', FormationAdminController::class);
     Route::resource('evenements', EvenementAdminController::class);
+    Route::patch('evenements/{evenement}/toggle', [EvenementAdminController::class, 'toggleActif'])->name('evenements.toggle');
     Route::resource('galerie', GalerieAdminController::class);
     Route::resource('blog', BlogPostAdminController::class);
     Route::resource('podcasts', PodcastAdminController::class);
