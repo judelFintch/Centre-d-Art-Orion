@@ -3,63 +3,150 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\EquipeMembre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class EquipeAdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $membres = EquipeMembre::orderBy('ordre')->orderBy('nom')->get();
+
+        return view('admin.equipe.index', compact('membres'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.equipe.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $data = $this->validatedData($request);
+        $data['actif'] = $request->boolean('actif', true);
+        $data['ordre'] = $data['ordre'] ?? ((EquipeMembre::max('ordre') ?? 0) + 1);
+        $data['reseaux_sociaux'] = $this->parseReseaux($request);
+        $data['competences']     = $this->parseCompetences($request);
+
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('equipe', 'public');
+        }
+
+        EquipeMembre::create($data);
+
+        return redirect()->route('admin.equipe.index')
+            ->with('success', 'Membre ajouté avec succès.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(EquipeMembre $equipe)
     {
-        //
+        return redirect()->route('equipe');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function edit(EquipeMembre $equipe)
     {
-        //
+        return view('admin.equipe.edit', compact('equipe'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, EquipeMembre $equipe)
     {
-        //
+        $data = $this->validatedData($request);
+        $data['actif']           = $request->boolean('actif');
+        $data['reseaux_sociaux'] = $this->parseReseaux($request);
+        $data['competences']     = $this->parseCompetences($request);
+
+        if ($request->hasFile('photo')) {
+            $this->deleteFile($equipe->photo);
+            $data['photo'] = $request->file('photo')->store('equipe', 'public');
+        }
+
+        if ($request->boolean('remove_photo') && !$request->hasFile('photo')) {
+            $this->deleteFile($equipe->photo);
+            $data['photo'] = null;
+        }
+
+        $equipe->update($data);
+
+        return redirect()->route('admin.equipe.index')
+            ->with('success', 'Membre mis à jour.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(EquipeMembre $equipe)
     {
-        //
+        $this->deleteFile($equipe->photo);
+        $equipe->delete();
+
+        return redirect()->route('admin.equipe.index')
+            ->with('success', 'Membre supprimé.');
+    }
+
+    public function toggleActif(EquipeMembre $equipe)
+    {
+        $equipe->update(['actif' => !$equipe->actif]);
+
+        return back()->with('success', 'Visibilité mise à jour.');
+    }
+
+    public function reorder(Request $request)
+    {
+        $request->validate(['ordre' => ['required', 'array']]);
+
+        foreach ($request->ordre as $position => $id) {
+            EquipeMembre::where('id', $id)->update(['ordre' => $position]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    // ─── Helpers ───────────────────────────────────────────────────
+
+    private function validatedData(Request $request): array
+    {
+        return $request->validate([
+            'nom'       => ['required', 'string', 'max:100'],
+            'prenom'    => ['required', 'string', 'max:100'],
+            'poste'     => ['required', 'string', 'max:160'],
+            'role'      => ['required', 'in:ceo,chef_centre,formateur,artiste,membre'],
+            'bio'       => ['nullable', 'string', 'max:2000'],
+            'email'     => ['nullable', 'email', 'max:200'],
+            'telephone' => ['nullable', 'string', 'max:40'],
+            'photo'     => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'ordre'     => ['nullable', 'integer', 'min:0'],
+            'actif'     => ['nullable', 'boolean'],
+            'remove_photo' => ['nullable', 'boolean'],
+            'rs_facebook'  => ['nullable', 'url', 'max:300'],
+            'rs_instagram' => ['nullable', 'url', 'max:300'],
+            'rs_linkedin'  => ['nullable', 'url', 'max:300'],
+            'rs_twitter'   => ['nullable', 'url', 'max:300'],
+            'competences_raw' => ['nullable', 'string', 'max:1000'],
+        ]);
+    }
+
+    private function parseReseaux(Request $request): array
+    {
+        return array_filter([
+            'facebook'  => $request->input('rs_facebook'),
+            'instagram' => $request->input('rs_instagram'),
+            'linkedin'  => $request->input('rs_linkedin'),
+            'twitter'   => $request->input('rs_twitter'),
+        ]);
+    }
+
+    private function parseCompetences(Request $request): array
+    {
+        $raw = $request->input('competences_raw', '');
+        return collect(explode(',', $raw))
+            ->map(fn ($c) => trim($c))
+            ->filter()
+            ->values()
+            ->all();
+    }
+
+    private function deleteFile(?string $path): void
+    {
+        if ($path && Storage::disk('public')->exists($path)) {
+            Storage::disk('public')->delete($path);
+        }
     }
 }

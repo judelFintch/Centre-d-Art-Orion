@@ -72,6 +72,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('abonnements', [AbonnementAdminController::class, 'index'])->name('abonnements.index');
     Route::delete('abonnements/{abonnement}', [AbonnementAdminController::class, 'destroy'])->name('abonnements.destroy');
     Route::resource('equipe', EquipeAdminController::class);
+    Route::patch('equipe/{equipe}/toggle', [EquipeAdminController::class, 'toggleActif'])->name('equipe.toggle');
+    Route::post('equipe/reorder', [EquipeAdminController::class, 'reorder'])->name('equipe.reorder');
 
     // Hero Slides
     Route::resource('hero', HeroSlideAdminController::class)->except(['show']);
