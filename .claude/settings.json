@@ -12,7 +12,10 @@
       "Bash(python3 -c ' *)",
       "Bash(php artisan *)",
       "Bash(git add *)",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add resources/views/components/footer.blade.php)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion commit -m ' *)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add resources/views/pages/home.blade.php)"
     ]
   }
 }
