@@ -28,17 +28,18 @@
     <nav style="padding:16px 12px;flex:1;">
         @php
         $navItems = [
-            ['route' => 'admin.dashboard', 'icon' => '◈', 'label' => 'Tableau de bord', 'color' => '#4caf7d'],
-            ['route' => 'admin.hero.index', 'icon' => '▶', 'label' => 'Hero Slides', 'color' => '#4a90e2'],
-            ['route' => 'admin.formations.index', 'icon' => '◉', 'label' => 'Formations', 'color' => '#e07030'],
-            ['route' => 'admin.evenements.index', 'icon' => '◎', 'label' => 'Événements', 'color' => '#d4a030'],
-            ['route' => 'admin.galerie.index', 'icon' => '◧', 'label' => 'Galerie', 'color' => '#4caf7d'],
-            ['route' => 'admin.blog.index', 'icon' => '✎', 'label' => 'Blog', 'color' => '#d4a030'],
-            ['route' => 'admin.podcasts.index', 'icon' => '◌', 'label' => 'Podcasts', 'color' => '#4caf7d'],
-            ['route' => 'admin.equipe.index', 'icon' => '◈', 'label' => 'Équipe', 'color' => '#d4a030'],
-            ['route' => 'admin.messages.index', 'icon' => '✉', 'label' => 'Messages', 'color' => '#e07030'],
-            ['route' => 'admin.abonnements.index', 'icon' => '◐', 'label' => 'Abonnements', 'color' => '#4caf7d'],
-            ['route' => 'admin.mail.index',        'icon' => '✉', 'label' => 'Config. Mail',  'color' => '#4a90e2'],
+            ['route' => 'admin.dashboard',          'icon' => '◈', 'label' => 'Tableau de bord',  'color' => '#4caf7d'],
+            ['route' => 'admin.analytics.index',    'icon' => '📊', 'label' => 'Analytics',         'color' => '#4a90e2'],
+            ['route' => 'admin.hero.index',          'icon' => '▶', 'label' => 'Hero Slides',       'color' => '#4a90e2'],
+            ['route' => 'admin.formations.index',    'icon' => '◉', 'label' => 'Formations',        'color' => '#e07030'],
+            ['route' => 'admin.evenements.index',    'icon' => '◎', 'label' => 'Événements',        'color' => '#d4a030'],
+            ['route' => 'admin.galerie.index',       'icon' => '◧', 'label' => 'Galerie',           'color' => '#4caf7d'],
+            ['route' => 'admin.blog.index',          'icon' => '✎', 'label' => 'Blog',              'color' => '#d4a030'],
+            ['route' => 'admin.podcasts.index',      'icon' => '◌', 'label' => 'Podcasts',          'color' => '#4caf7d'],
+            ['route' => 'admin.equipe.index',        'icon' => '◈', 'label' => 'Équipe',            'color' => '#d4a030'],
+            ['route' => 'admin.messages.index',      'icon' => '✉', 'label' => 'Messages',          'color' => '#e07030'],
+            ['route' => 'admin.abonnements.index',   'icon' => '◐', 'label' => 'Abonnements',       'color' => '#4caf7d'],
+            ['route' => 'admin.mail.index',          'icon' => '✉', 'label' => 'Config. Mail',      'color' => '#4a90e2'],
         ];
         @endphp
 

@@ -23,7 +23,9 @@ use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
 use App\Http\Controllers\AbonnementController;
+use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\Admin\AbonnementAdminController;
+use App\Http\Controllers\Admin\AnalyticsAdminController;
 use App\Http\Controllers\Admin\MailSettingAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
@@ -62,6 +64,12 @@ Route::prefix('contact')->name('contact.')->group(function () {
 Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store')->middleware('throttle:5,1');
 Route::get('/abonnement/desinscription/{token}', [AbonnementController::class, 'unsubscribe'])->name('abonnement.unsubscribe');
 
+// ─── Analytics (tracking côté client) ─────────────────────────
+Route::prefix('analytics')->name('analytics.')->middleware('throttle:60,1')->group(function () {
+    Route::post('/track',  [AnalyticsController::class, 'track'])->name('track');
+    Route::post('/update', [AnalyticsController::class, 'update'])->name('update');
+});
+
 // ─── Back-office Admin ─────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -74,6 +82,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::get('abonnements', [AbonnementAdminController::class, 'index'])->name('abonnements.index');
     Route::delete('abonnements/{abonnement}', [AbonnementAdminController::class, 'destroy'])->name('abonnements.destroy');
+
+    // Analytics
+    Route::get('analytics', [AnalyticsAdminController::class, 'index'])->name('analytics.index');
 
     // Configuration mail
     Route::get('mail', [MailSettingAdminController::class, 'index'])->name('mail.index');

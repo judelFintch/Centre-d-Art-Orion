@@ -275,6 +275,12 @@
         };
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
         catch (e) {}
+        // Notifie le script de tracking si analytics activé
+        if (analytics) {
+            window.dispatchEvent(new CustomEvent('orion:consent-granted', {
+                detail: { analytics: true, social: !!social }
+            }));
+        }
         return data;
     }
 
