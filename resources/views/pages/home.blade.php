@@ -6,10 +6,21 @@
 @php
     use App\Models\PageSetting as PS;
     use Illuminate\Support\Facades\Storage;
-    function psImg(string $key, string $fallback): string {
-        $stored = PS::get($key);
-        return $stored ? Storage::url($stored) : $fallback;
-    }
+    $psImg = fn(string $key, string $fallback): string =>
+        ($s = PS::get($key)) ? Storage::url($s) : $fallback;
+    // Helpers réordonnancement : lit "1,2,3" → [0,1,2] (indices 0-based)
+    $psOrder = function(string $key, int $count): array {
+        $raw = PS::get($key, implode(',', range(1, $count)));
+        $ids = array_values(array_unique(array_filter(
+            array_map('intval', explode(',', $raw)),
+            fn($v) => $v >= 1 && $v <= $count
+        )));
+        // Compléter si ordre partiel stocké
+        for ($i = 1; $i <= $count; $i++) {
+            if (!in_array($i, $ids)) $ids[] = $i;
+        }
+        return $ids; // tableau 1-based, dans l'ordre voulu
+    };
 @endphp
 
 @section('content')
@@ -251,12 +262,16 @@
             </h2>
 
             {{-- Métriques éditoriales --}}
+            @php
+            $niStatsAll = [
+                1 => [PS::get('home.ni.stat1_val','5+'),  '#4caf7d', PS::get('home.ni.stat1_lbl','Années')],
+                2 => [PS::get('home.ni.stat2_val','100+'), '#d4a030', PS::get('home.ni.stat2_lbl','Artistes')],
+                3 => [PS::get('home.ni.stat3_val','6'),    '#e07030', PS::get('home.ni.stat3_lbl','Disciplines')],
+            ];
+            $niStatsOrdered = array_map(fn($n) => $niStatsAll[$n], $psOrder('home.ni.stats_order', 3));
+            @endphp
             <div class="ni-strip">
-                @foreach([
-                    [PS::get('home.ni.stat1_val','5+'),'#4caf7d',PS::get('home.ni.stat1_lbl','Années')],
-                    [PS::get('home.ni.stat2_val','100+'),'#d4a030',PS::get('home.ni.stat2_lbl','Artistes')],
-                    [PS::get('home.ni.stat3_val','6'),'#e07030',PS::get('home.ni.stat3_lbl','Disciplines')],
-                ] as $s)
+                @foreach($niStatsOrdered as $s)
                 <div class="ni-strip-item">
                     <span class="ni-strip-val" style="color:{{ $s[1] }}">{{ $s[0] }}</span>
                     <span class="ni-strip-lbl">{{ $s[2] }}</span>
@@ -271,12 +286,16 @@
             </p>
 
             {{-- Points-clés numérotés --}}
+            @php
+            $niFeatsAll = [
+                1 => ['01','#4caf7d', PS::get('home.ni.feat1_text','Accompagnement personnalisé de chaque artiste')],
+                2 => ['02','#d4a030', PS::get('home.ni.feat2_text','Équipements professionnels de pointe')],
+                3 => ['03','#e07030', PS::get('home.ni.feat3_text','Réseau actif de partenaires culturels')],
+            ];
+            $niFeatsOrdered = array_map(fn($n) => $niFeatsAll[$n], $psOrder('home.ni.feats_order', 3));
+            @endphp
             <div class="ni-features">
-                @foreach([
-                    ['01','#4caf7d', PS::get('home.ni.feat1_text','Accompagnement personnalisé de chaque artiste')],
-                    ['02','#d4a030', PS::get('home.ni.feat2_text','Équipements professionnels de pointe')],
-                    ['03','#e07030', PS::get('home.ni.feat3_text','Réseau actif de partenaires culturels')],
-                ] as $f)
+                @foreach($niFeatsOrdered as $f)
                 <div class="ni-feature">
                     <span class="ni-feat-num" style="color:{{ $f[1] }}">{{ $f[0] }}</span>
                     <span class="ni-feat-bar" style="background:{{ $f[1] }}"></span>
@@ -299,7 +318,7 @@
             <div class="ni-img-main">
                 <div class="ni-img-frame"></div>
                 <div class="ni-img-clip">
-                    <img src="{{ psImg('home.ni.img1_file', asset('images/10.jpg')) }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img1_file', asset('images/10.jpg')) }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#4caf7d">{{ PS::get('home.ni.img1_label','Arts Visuels') }}</span>
                 </div>
@@ -308,12 +327,12 @@
             {{-- Deux petites images --}}
             <div class="ni-img-row">
                 <div class="ni-img-sm">
-                    <img src="{{ psImg('home.ni.img2_file', asset('images/5.jpg')) }}" alt="Formation" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img2_file', asset('images/5.jpg')) }}" alt="Formation" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#d4a030">{{ PS::get('home.ni.img2_label','Musique') }}</span>
                 </div>
                 <div class="ni-img-sm">
-                    <img src="{{ psImg('home.ni.img3_file', asset('images/11.jpg')) }}" alt="Inspiration" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img3_file', asset('images/11.jpg')) }}" alt="Inspiration" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#e07030">{{ PS::get('home.ni.img3_label','Danse') }}</span>
                 </div>
@@ -383,18 +402,20 @@
         ];
         $hServicesLinks = [route('services'),route('services'),route('formations.index'),route('services'),route('evenements.index'),route('services')];
         $hServicesColors = ['#4caf7d','#d4a030','#e07030','#4caf7d','#d4a030','#e07030'];
-        $hServices = [];
+        $hServicesAll = [];
         foreach($hServicesDefaults as $i => $sd) {
             $n = $i + 1;
-            $hServices[] = [
+            $hServicesAll[$n] = [
                 PS::get('home.services.item'.$n.'_icon',  $sd[0]),
                 PS::get('home.services.item'.$n.'_titre', $sd[1]),
                 $hServicesColors[$i],
                 PS::get('home.services.item'.$n.'_desc',  $sd[2]),
                 $hServicesLinks[$i],
-                psImg('home.services.item'.$n.'_img', asset('images/'.$sd[3])),
+                $psImg('home.services.item'.$n.'_img', asset('images/'.$sd[3])),
             ];
         }
+        // Appliquer l'ordre stocké
+        $hServices = array_map(fn($n) => $hServicesAll[$n], $psOrder('home.services.order', 6));
         @endphp
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
@@ -461,7 +482,7 @@
             </div>
 
             <a href="{{ route('podcasts.index') }}" class="reveal podcast-visual" style="display:block;text-decoration:none;position:relative;min-height:380px;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 100px rgba(0,0,0,0.35);">
-                <img src="{{ psImg('home.podcasts.img_file', asset('images/11.jpg')) }}" alt="Podcasts Orion" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <img src="{{ $psImg('home.podcasts.img_file', asset('images/11.jpg')) }}" alt="Podcasts Orion" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92),rgba(0,0,0,0.12));"></div>
                 <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:92px;height:92px;border-radius:50%;background:rgba(212,160,48,0.22);border:2px solid rgba(212,160,48,0.55);display:flex;align-items:center;justify-content:center;">
                     <svg width="34" height="34" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>

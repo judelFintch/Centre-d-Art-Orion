@@ -103,6 +103,8 @@
     </main>
 </div>
 
+{{-- SortableJS — drag-and-drop réordonnancement --}}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
 @stack('scripts')
 </body>
 </html>

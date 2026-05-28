@@ -6,10 +6,19 @@
 @php
     use App\Models\PageSetting as PS;
     use Illuminate\Support\Facades\Storage;
-    function psImgAbout(string $key): ?string {
-        $stored = PS::get($key);
-        return $stored ? Storage::url($stored) : null;
-    }
+    $psImgA = fn(string $key): ?string =>
+        ($s = PS::get($key)) ? Storage::url($s) : null;
+    $psOrder = function(string $key, int $count): array {
+        $raw = PS::get($key, implode(',', range(1, $count)));
+        $ids = array_values(array_unique(array_filter(
+            array_map('intval', explode(',', $raw)),
+            fn($v) => $v >= 1 && $v <= $count
+        )));
+        for ($i = 1; $i <= $count; $i++) {
+            if (!in_array($i, $ids)) $ids[] = $i;
+        }
+        return $ids;
+    };
 @endphp
 
 @section('content')
@@ -67,15 +76,16 @@
                         ['🎯','Mission','Former, produire, créer et accompagner les talents artistiques'],
                         ['🌟','Vision','Faire d\'Orion le centre de référence artistique en Afrique centrale'],
                     ];
-                    $histItemsDyn = [];
+                    $histItemsAll = [];
                     foreach($histItemsDefaults as $i => $hd) {
                         $n = $i + 1;
-                        $histItemsDyn[] = [
+                        $histItemsAll[$n] = [
                             PS::get('about.histoire.item'.$n.'_emoji', $hd[0]),
                             PS::get('about.histoire.item'.$n.'_titre', $hd[1]),
                             PS::get('about.histoire.item'.$n.'_desc',  $hd[2]),
                         ];
                     }
+                    $histItemsDyn = array_map(fn($n) => $histItemsAll[$n], $psOrder('about.histoire.order', 4));
                     @endphp
                     @foreach($histItemsDyn as $item)
                     <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;transition:border-color 0.3s;"
@@ -139,11 +149,12 @@
                         "Intégrité — Éthique professionnelle constante",
                         "Communauté — Tisser des liens durables",
                     ];
-                    $valeursDyn = [];
+                    $valeursAll = [];
                     foreach($valeursDefault as $i => $vd) {
                         $n = $i + 1;
-                        $valeursDyn[] = PS::get('about.valeurs.item'.$n, $vd);
+                        $valeursAll[$n] = PS::get('about.valeurs.item'.$n, $vd);
                     }
+                    $valeursDyn = array_map(fn($n) => $valeursAll[$n], $psOrder('about.valeurs.order', 5));
                     @endphp
                     @foreach($valeursDyn as $v)
                     <div style="display:flex;align-items:flex-start;gap:10px;">
@@ -175,7 +186,7 @@
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='#4caf7d44'" onmouseout="this.style.borderColor='#1a1a1a'">
-                @php $ceoPhoto = psImgAbout('about.direction.ceo_photo'); @endphp
+                @php $ceoPhoto = $psImgA('about.direction.ceo_photo'); @endphp
                 @if($ceoPhoto)
                 <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 20px;box-shadow:0 8px 30px rgba(76,175,125,0.3);border:2px solid #4caf7d44;">
                     <img src="{{ $ceoPhoto }}" alt="{{ PS::get('about.direction.ceo_nom','Aras M. NGONGO') }}" style="width:100%;height:100%;object-fit:cover;display:block;">
@@ -197,7 +208,7 @@
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='#d4a03044'" onmouseout="this.style.borderColor='#1a1a1a'">
-                @php $chefPhoto = psImgAbout('about.direction.chef_photo'); @endphp
+                @php $chefPhoto = $psImgA('about.direction.chef_photo'); @endphp
                 @if($chefPhoto)
                 <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 20px;box-shadow:0 8px 30px rgba(212,160,48,0.3);border:2px solid #d4a03044;">
                     <img src="{{ $chefPhoto }}" alt="{{ PS::get('about.direction.chef_nom','Magellan KAHOZI') }}" style="width:100%;height:100%;object-fit:cover;display:block;">

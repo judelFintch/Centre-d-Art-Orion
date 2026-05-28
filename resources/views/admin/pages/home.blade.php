@@ -66,35 +66,63 @@
             ])
         </div>
 
-        {{-- Statistiques --}}
+        {{-- Statistiques — SORTABLE --}}
+        @php
+        $statsOrder = array_map('intval', array_filter(explode(',', \App\Models\PageSetting::get('home.ni.stats_order','1,2,3'))));
+        if (count($statsOrder) < 3) $statsOrder = [1,2,3];
+        $statsDefaults = [
+            1 => ['home[ni][stat1_val]','home.ni.stat1_val','5+', 'home[ni][stat1_lbl]','home.ni.stat1_lbl','Années'],
+            2 => ['home[ni][stat2_val]','home.ni.stat2_val','100+','home[ni][stat2_lbl]','home.ni.stat2_lbl','Artistes'],
+            3 => ['home[ni][stat3_val]','home.ni.stat3_val','6',  'home[ni][stat3_lbl]','home.ni.stat3_lbl','Disciplines'],
+        ];
+        @endphp
         <div style="margin-top:20px;">
-            <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Statistiques (3 métriques)</p>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
-                @foreach([
-                    ['home[ni][stat1_val]','home.ni.stat1_val','Valeur 1','5+'],
-                    ['home[ni][stat1_lbl]','home.ni.stat1_lbl','Libellé 1','Années'],
-                    ['home[ni][stat2_val]','home.ni.stat2_val','Valeur 2','100+'],
-                    ['home[ni][stat2_lbl]','home.ni.stat2_lbl','Libellé 2','Artistes'],
-                    ['home[ni][stat3_val]','home.ni.stat3_val','Valeur 3','6'],
-                    ['home[ni][stat3_lbl]','home.ni.stat3_lbl','Libellé 3','Disciplines'],
-                ] as $f)
-                    @include('admin.pages._field', ['name' => $f[0], 'key' => $f[1], 'label' => $f[2], 'default' => $f[3]])
+            @include('admin.pages._sortable_header', ['label' => 'Statistiques (3 métriques)', 'hint' => 'Glisser pour réordonner'])
+            <div id="sortable-ni-stats" style="display:flex;flex-direction:column;gap:8px;">
+                @foreach($statsOrder as $n)
+                @php $sd = $statsDefaults[$n]; @endphp
+                <div class="sort-item" data-id="{{ $n }}"
+                     style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+                    @include('admin.pages._drag_handle')
+                    <span class="pos-badge" style="min-width:18px;height:18px;border-radius:50%;background:#4caf7d22;color:#4caf7d;font-size:0.68rem;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">{{ $loop->iteration }}</span>
+                    <div style="display:grid;grid-template-columns:80px 1fr;gap:8px;flex:1;">
+                        @include('admin.pages._field', ['name' => $sd[0], 'key' => $sd[1], 'label' => 'Valeur', 'default' => $sd[2]])
+                        @include('admin.pages._field', ['name' => $sd[3], 'key' => $sd[4], 'label' => 'Libellé', 'default' => $sd[5]])
+                    </div>
+                </div>
                 @endforeach
             </div>
+            <input type="hidden" name="home[ni][stats_order]" id="ni-stats-order"
+                   value="{{ \App\Models\PageSetting::get('home.ni.stats_order','1,2,3') }}">
         </div>
 
-        {{-- Points-clés --}}
+        {{-- Points-clés — SORTABLE --}}
+        @php
+        $featsOrder = array_map('intval', array_filter(explode(',', \App\Models\PageSetting::get('home.ni.feats_order','1,2,3'))));
+        if (count($featsOrder) < 3) $featsOrder = [1,2,3];
+        $featsDefaults = [
+            1 => ['home[ni][feat1_text]','home.ni.feat1_text','Accompagnement personnalisé de chaque artiste'],
+            2 => ['home[ni][feat2_text]','home.ni.feat2_text','Équipements professionnels de pointe'],
+            3 => ['home[ni][feat3_text]','home.ni.feat3_text','Réseau actif de partenaires culturels'],
+        ];
+        @endphp
         <div style="margin-top:20px;">
-            <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Points-clés (3 lignes)</p>
-            <div style="display:grid;grid-template-columns:1fr;gap:12px;">
-                @foreach([
-                    ['home[ni][feat1_text]','home.ni.feat1_text','Ligne 1','Accompagnement personnalisé de chaque artiste'],
-                    ['home[ni][feat2_text]','home.ni.feat2_text','Ligne 2','Équipements professionnels de pointe'],
-                    ['home[ni][feat3_text]','home.ni.feat3_text','Ligne 3','Réseau actif de partenaires culturels'],
-                ] as $f)
-                    @include('admin.pages._field', ['name' => $f[0], 'key' => $f[1], 'label' => $f[2], 'default' => $f[3]])
+            @include('admin.pages._sortable_header', ['label' => 'Points-clés (3 lignes)', 'hint' => 'Glisser pour réordonner'])
+            <div id="sortable-ni-feats" style="display:flex;flex-direction:column;gap:8px;">
+                @foreach($featsOrder as $n)
+                @php $fd = $featsDefaults[$n]; @endphp
+                <div class="sort-item" data-id="{{ $n }}"
+                     style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;padding:12px 14px;display:flex;align-items:center;gap:10px;">
+                    @include('admin.pages._drag_handle')
+                    <span class="pos-badge" style="min-width:18px;height:18px;border-radius:50%;background:#d4a03022;color:#d4a030;font-size:0.68rem;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">{{ $loop->iteration }}</span>
+                    <div style="flex:1;">
+                        @include('admin.pages._field', ['name' => $fd[0], 'key' => $fd[1], 'label' => 'Texte du point', 'default' => $fd[2]])
+                    </div>
+                </div>
                 @endforeach
             </div>
+            <input type="hidden" name="home[ni][feats_order]" id="ni-feats-order"
+                   value="{{ \App\Models\PageSetting::get('home.ni.feats_order','1,2,3') }}">
         </div>
 
         {{-- Labels images + CTA --}}
@@ -174,33 +202,59 @@
 
         @php
         $servicesFallbacks = ['10.jpg','5.jpg','10.jpg','11.jpg','10.jpg','5.jpg'];
+        $servicesColors    = ['#4caf7d','#d4a030','#e07030','#4caf7d','#d4a030','#e07030'];
+        $servicesOrder = array_map('intval', array_filter(
+            explode(',', \App\Models\PageSetting::get('home.services.order','1,2,3,4,5,6'))
+        ));
+        if (count($servicesOrder) < 6) $servicesOrder = range(1,6);
         @endphp
 
-        <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 16px;">Les 6 services</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-            @foreach($servicesDefaults as $i => $sd)
-            @php $n = $i + 1; @endphp
-            <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:18px;">
-                <p style="color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Service {{ $n }}</p>
-                {{-- Photo du service --}}
-                <div style="margin-bottom:14px;">
-                    @include('admin.pages._image', [
-                        'name'     => 'home[services][item'.$n.'_img]',
-                        'key'      => 'home.services.item'.$n.'_img',
-                        'label'    => 'Photo de la carte',
-                        'fallback' => asset('images/'.$servicesFallbacks[$i]),
-                        'width'    => '100px',
-                        'height'   => '66px',
-                    ])
+        @include('admin.pages._sortable_header', ['label' => 'Les 6 services (glisser pour réordonner)'])
+        <div id="sortable-services" style="display:flex;flex-direction:column;gap:10px;">
+            @foreach($servicesOrder as $pos => $n)
+            @php
+                $sd  = $servicesDefaults[$n-1];
+                $col = $servicesColors[$n-1];
+                $fb  = $servicesFallbacks[$n-1];
+            @endphp
+            <div class="sort-item" data-id="{{ $n }}"
+                 style="background:#0d0d0d;border:1px solid #1a1a1a;border-left:3px solid {{ $col }};border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
+
+                {{-- Poignée --}}
+                @include('admin.pages._drag_handle')
+
+                {{-- Numéro de position --}}
+                <div class="pos-badge" style="min-width:24px;height:24px;border-radius:50%;background:{{ $col }}22;color:{{ $col }};font-size:0.72rem;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+                    {{ $pos+1 }}
                 </div>
-                <div style="display:grid;grid-template-columns:60px 1fr;gap:10px;margin-bottom:10px;">
-                    @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_icon]', 'key' => 'home.services.item'.$n.'_icon', 'label' => 'Icône', 'default' => $sd[0]])
-                    @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_titre]', 'key' => 'home.services.item'.$n.'_titre', 'label' => 'Titre', 'default' => $sd[1]])
+
+                {{-- Contenu --}}
+                <div style="flex:1;min-width:0;">
+                    <p style="color:{{ $col }};font-size:0.7rem;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 10px;">
+                        Service {{ $n }}
+                    </p>
+                    {{-- Photo --}}
+                    <div style="margin-bottom:12px;">
+                        @include('admin.pages._image', [
+                            'name'     => 'home[services][item'.$n.'_img]',
+                            'key'      => 'home.services.item'.$n.'_img',
+                            'label'    => 'Photo',
+                            'fallback' => asset('images/'.$fb),
+                            'width'    => '90px', 'height' => '60px',
+                        ])
+                    </div>
+                    <div style="display:grid;grid-template-columns:60px 1fr;gap:8px;margin-bottom:8px;">
+                        @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_icon]', 'key' => 'home.services.item'.$n.'_icon', 'label' => 'Icône', 'default' => $sd[0]])
+                        @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_titre]', 'key' => 'home.services.item'.$n.'_titre', 'label' => 'Titre', 'default' => $sd[1]])
+                    </div>
+                    @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_desc]', 'key' => 'home.services.item'.$n.'_desc', 'label' => 'Description', 'default' => $sd[2]])
                 </div>
-                @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_desc]', 'key' => 'home.services.item'.$n.'_desc', 'label' => 'Description', 'default' => $sd[2]])
+
             </div>
             @endforeach
         </div>
+        <input type="hidden" name="home[services][order]" id="services-order"
+               value="{{ \App\Models\PageSetting::get('home.services.order','1,2,3,4,5,6') }}">
     </div>
 
     <div style="height:1px;background:#161616;margin:32px 0;"></div>
@@ -285,5 +339,32 @@ function scrollSection(id) {
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 </script>
+
+@push('scripts')
+<script>
+function makeSortable(containerId, hiddenInputId) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    new Sortable(el, {
+        handle: '.drag-handle',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        onEnd: function () {
+            const items = [...el.querySelectorAll('.sort-item')];
+            // Mettre à jour la valeur de l'input caché
+            document.getElementById(hiddenInputId).value = items.map(i => i.dataset.id).join(',');
+            // Mettre à jour les badges de position
+            items.forEach(function (item, idx) {
+                const badge = item.querySelector('.pos-badge');
+                if (badge) badge.textContent = idx + 1;
+            });
+        }
+    });
+}
+makeSortable('sortable-ni-stats',  'ni-stats-order');
+makeSortable('sortable-ni-feats',  'ni-feats-order');
+makeSortable('sortable-services',  'services-order');
+</script>
+@endpush
 
 @endsection

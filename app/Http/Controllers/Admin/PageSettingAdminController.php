@@ -84,6 +84,10 @@ class PageSettingAdminController extends Controller
             'home.cta.titre_1'  => 'nullable|string|max:80',
             'home.cta.titre_em' => 'nullable|string|max:80',
             'home.cta.prose'    => 'nullable|string|max:400',
+            /* ── Ordres ── */
+            'home.services.order'   => 'nullable|string|max:20',
+            'home.ni.stats_order'   => 'nullable|string|max:10',
+            'home.ni.feats_order'   => 'nullable|string|max:10',
         ]);
 
         // Sauvegarder les champs texte
@@ -169,6 +173,9 @@ class PageSettingAdminController extends Controller
             'about.cta.titre_1'        => 'nullable|string|max:80',
             'about.cta.titre_gradient' => 'nullable|string|max:40',
             'about.cta.desc'           => 'nullable|string|max:400',
+            /* ── Ordres ── */
+            'about.histoire.order' => 'nullable|string|max:12',
+            'about.valeurs.order'  => 'nullable|string|max:12',
         ]);
 
         // Champs texte

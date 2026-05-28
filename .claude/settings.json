@@ -39,7 +39,11 @@
       "Bash(php -l app/Http/Controllers/Admin/PageSettingAdminController.php)",
       "Bash(php -l app/Models/PageSetting.php)",
       "Bash(git commit -m 'feat\\(cms\\): page content editor for home and about pages *)",
-      "Bash(git commit -m 'feat\\(cms\\): image upload for home and about editable sections *)"
+      "Bash(git commit -m 'feat\\(cms\\): image upload for home and about editable sections *)",
+      "Bash(sed -i '' 's/psImg\\(/\\\\$psImg\\(/g' /Users/fintch/Desktop/projet/Centre-d-Art-Orion/resources/views/pages/home.blade.php)",
+      "Bash(sed -i '' 's/psImgAbout\\(/\\\\$psImgA\\(/g' /Users/fintch/Desktop/projet/Centre-d-Art-Orion/resources/views/pages/about.blade.php)",
+      "Bash(php -r \"echo 'PHP OK';\")",
+      "Bash(git commit -m 'feat\\(admin\\): drag-and-drop reordering for all CMS sections *)"
     ]
   }
 }

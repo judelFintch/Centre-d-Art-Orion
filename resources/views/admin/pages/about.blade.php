@@ -76,29 +76,40 @@
             @include('admin.pages._textarea', ['name' => 'about[histoire][para3]', 'key' => 'about.histoire.para3', 'label' => 'Paragraphe 3', 'default' => "Sous la direction opérationnelle de Magellan KAHOZI, Chef de Centre, Orion a su construire des programmes de formation rigoureux, accueillir des artistes en résidence et organiser des événements culturels qui ont marqué la communauté.", 'rows' => 3])
         </div>
 
-        {{-- 4 items --}}
-        <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 14px;">4 blocs informatifs (Fondation, Localisation, Mission, Vision)</p>
+        {{-- 4 items — SORTABLE --}}
         @php
-        $histItems = [
-            ['📅','Fondation',"Une vision née de la passion pour l'art et les artistes congolais"],
-            ['📍','Localisation','380, Av. Changalele, Q. Gambela — au cœur de la ville'],
-            ['🎯','Mission','Former, produire, créer et accompagner les talents artistiques'],
-            ['🌟','Vision','Faire d\'Orion le centre de référence artistique en Afrique centrale'],
+        $histItemsDefaults = [
+            1 => ['📅','Fondation',"Une vision née de la passion pour l'art et les artistes congolais"],
+            2 => ['📍','Localisation','380, Av. Changalele, Q. Gambela — au cœur de la ville'],
+            3 => ['🎯','Mission','Former, produire, créer et accompagner les talents artistiques'],
+            4 => ['🌟','Vision','Faire d\'Orion le centre de référence artistique en Afrique centrale'],
         ];
+        $histOrder = array_map('intval', array_filter(
+            explode(',', \App\Models\PageSetting::get('about.histoire.order','1,2,3,4'))
+        ));
+        if (count($histOrder) < 4) $histOrder = [1,2,3,4];
         @endphp
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            @foreach($histItems as $i => $hi)
-            @php $n = $i + 1; @endphp
-            <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:16px;">
-                <p style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;text-transform:uppercase;margin:0 0 10px;">Bloc {{ $n }}</p>
-                <div style="display:grid;grid-template-columns:50px 1fr;gap:8px;margin-bottom:8px;">
-                    @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_emoji]', 'key' => 'about.histoire.item'.$n.'_emoji', 'label' => 'Emoji', 'default' => $hi[0]])
-                    @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_titre]', 'key' => 'about.histoire.item'.$n.'_titre', 'label' => 'Titre', 'default' => $hi[1]])
+        @include('admin.pages._sortable_header', ['label' => '4 blocs informatifs', 'hint' => 'Glisser pour réordonner'])
+        <div id="sortable-histoire" style="display:flex;flex-direction:column;gap:10px;">
+            @foreach($histOrder as $n)
+            @php $hi = $histItemsDefaults[$n]; @endphp
+            <div class="sort-item" data-id="{{ $n }}"
+                 style="background:#0d0d0d;border:1px solid #1a1a1a;border-left:3px solid #d4a030;border-radius:8px;padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
+                @include('admin.pages._drag_handle')
+                <div class="pos-badge" style="min-width:22px;height:22px;border-radius:50%;background:#d4a03022;color:#d4a030;font-size:0.68rem;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">{{ $loop->iteration }}</div>
+                <div style="flex:1;min-width:0;">
+                    <p style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.7rem;font-weight:700;text-transform:uppercase;margin:0 0 10px;">Bloc {{ $n }}</p>
+                    <div style="display:grid;grid-template-columns:50px 1fr;gap:8px;margin-bottom:8px;">
+                        @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_emoji]', 'key' => 'about.histoire.item'.$n.'_emoji', 'label' => 'Emoji', 'default' => $hi[0]])
+                        @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_titre]', 'key' => 'about.histoire.item'.$n.'_titre', 'label' => 'Titre', 'default' => $hi[1]])
+                    </div>
+                    @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_desc]', 'key' => 'about.histoire.item'.$n.'_desc', 'label' => 'Description', 'default' => $hi[2]])
                 </div>
-                @include('admin.pages._field', ['name' => 'about[histoire][item'.$n.'_desc]', 'key' => 'about.histoire.item'.$n.'_desc', 'label' => 'Description', 'default' => $hi[2]])
             </div>
             @endforeach
         </div>
+        <input type="hidden" name="about[histoire][order]" id="histoire-order"
+               value="{{ \App\Models\PageSetting::get('about.histoire.order','1,2,3,4') }}">
     </div>
 
     <div style="height:1px;background:#161616;margin:32px 0;"></div>
@@ -125,22 +136,34 @@
         </div>
 
         <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-left:3px solid #e07030;border-radius:8px;padding:18px;">
-            <p style="color:#e07030;font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;margin:0 0 14px;">💎 Nos Valeurs (5 items)</p>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                @php
-                $valeursDefaults = [
-                    "Excellence — Qualité sans compromis",
-                    "Créativité — Encourager l'expression unique",
-                    "Inclusion — Art pour tous, sans distinction",
-                    "Intégrité — Éthique professionnelle constante",
-                    "Communauté — Tisser des liens durables",
-                ];
-                @endphp
-                @foreach($valeursDefaults as $i => $vd)
-                @php $n = $i + 1; @endphp
-                @include('admin.pages._field', ['name' => 'about[valeurs][item'.$n.']', 'key' => 'about.valeurs.item'.$n, 'label' => 'Valeur '.$n, 'default' => $vd])
+            @php
+            $valeursDefaultsAll = [
+                1 => "Excellence — Qualité sans compromis",
+                2 => "Créativité — Encourager l'expression unique",
+                3 => "Inclusion — Art pour tous, sans distinction",
+                4 => "Intégrité — Éthique professionnelle constante",
+                5 => "Communauté — Tisser des liens durables",
+            ];
+            $valeursOrder = array_map('intval', array_filter(
+                explode(',', \App\Models\PageSetting::get('about.valeurs.order','1,2,3,4,5'))
+            ));
+            if (count($valeursOrder) < 5) $valeursOrder = [1,2,3,4,5];
+            @endphp
+            @include('admin.pages._sortable_header', ['label' => '💎 Nos Valeurs (5 items)', 'hint' => 'Glisser pour réordonner'])
+            <div id="sortable-valeurs" style="display:flex;flex-direction:column;gap:8px;">
+                @foreach($valeursOrder as $n)
+                <div class="sort-item" data-id="{{ $n }}"
+                     style="background:#111;border:1px solid #1a1a1a;border-radius:6px;padding:10px 12px;display:flex;align-items:center;gap:10px;">
+                    @include('admin.pages._drag_handle')
+                    <span class="pos-badge" style="min-width:18px;height:18px;border-radius:50%;background:#e0703022;color:#e07030;font-size:0.68rem;font-family:'Space Grotesk',sans-serif;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;">{{ $loop->iteration }}</span>
+                    <div style="flex:1;">
+                        @include('admin.pages._field', ['name' => 'about[valeurs][item'.$n.']', 'key' => 'about.valeurs.item'.$n, 'label' => 'Valeur '.$n, 'default' => $valeursDefaultsAll[$n]])
+                    </div>
+                </div>
                 @endforeach
             </div>
+            <input type="hidden" name="about[valeurs][order]" id="valeurs-order"
+                   value="{{ \App\Models\PageSetting::get('about.valeurs.order','1,2,3,4,5') }}">
         </div>
     </div>
 
@@ -242,5 +265,29 @@
     </div>
 
 </form>
+
+@push('scripts')
+<script>
+function makeSortable(containerId, hiddenInputId) {
+    const el = document.getElementById(containerId);
+    if (!el) return;
+    new Sortable(el, {
+        handle: '.drag-handle',
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        onEnd: function () {
+            const items = [...el.querySelectorAll('.sort-item')];
+            document.getElementById(hiddenInputId).value = items.map(i => i.dataset.id).join(',');
+            items.forEach(function (item, idx) {
+                const badge = item.querySelector('.pos-badge');
+                if (badge) badge.textContent = idx + 1;
+            });
+        }
+    });
+}
+makeSortable('sortable-histoire', 'histoire-order');
+makeSortable('sortable-valeurs',  'valeurs-order');
+</script>
+@endpush
 
 @endsection
