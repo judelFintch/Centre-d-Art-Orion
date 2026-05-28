@@ -3,6 +3,8 @@
 @section('title', 'Centre d\'Art Orion — Production, Création, Formation')
 @section('meta_description', 'Le Centre d\'Art Orion : votre espace de production artistique, création, formation et accompagnement des talents. Découvrez nos programmes et événements.')
 
+@php use App\Models\PageSetting as PS; @endphp
+
 @section('content')
 
 <div class="home-biasasa">
@@ -231,19 +233,23 @@
             {{-- Kicker symétrique --}}
             <div class="ni-kicker">
                 <span class="ni-kicker-line"></span>
-                <span class="ni-kicker-label">Notre identité</span>
+                <span class="ni-kicker-label">{{ PS::get('home.ni.kicker','Notre identité') }}</span>
                 <span class="ni-kicker-line"></span>
             </div>
 
             {{-- Titre — italic vert + normal sombre --}}
             <h2 class="ni-title">
-                <em>Un espace dédié à</em><br>
-                l'excellence artistique
+                <em>{{ PS::get('home.ni.titre_em','Un espace dédié à') }}</em><br>
+                {{ PS::get('home.ni.titre',"l'excellence artistique") }}
             </h2>
 
             {{-- Métriques éditoriales --}}
             <div class="ni-strip">
-                @foreach([['5+','#4caf7d','Années'],['100+','#d4a030','Artistes'],['6','#e07030','Disciplines']] as $s)
+                @foreach([
+                    [PS::get('home.ni.stat1_val','5+'),'#4caf7d',PS::get('home.ni.stat1_lbl','Années')],
+                    [PS::get('home.ni.stat2_val','100+'),'#d4a030',PS::get('home.ni.stat2_lbl','Artistes')],
+                    [PS::get('home.ni.stat3_val','6'),'#e07030',PS::get('home.ni.stat3_lbl','Disciplines')],
+                ] as $s)
                 <div class="ni-strip-item">
                     <span class="ni-strip-val" style="color:{{ $s[1] }}">{{ $s[0] }}</span>
                     <span class="ni-strip-lbl">{{ $s[2] }}</span>
@@ -254,15 +260,15 @@
 
             {{-- Corps --}}
             <p class="ni-prose">
-                Fondé par <strong>Aras M. NGONGO</strong>, le Centre d'Art Orion est bien plus qu'un espace de formation — c'est un écosystème artistique complet où les talents émergent, se développent et rayonnent.
+                {!! nl2br(e(PS::get('home.ni.prose',"Fondé par Aras M. NGONGO, le Centre d'Art Orion est bien plus qu'un espace de formation — c'est un écosystème artistique complet où les talents émergent, se développent et rayonnent."))) !!}
             </p>
 
             {{-- Points-clés numérotés --}}
             <div class="ni-features">
                 @foreach([
-                    ['01','#4caf7d','Accompagnement personnalisé de chaque artiste'],
-                    ['02','#d4a030','Équipements professionnels de pointe'],
-                    ['03','#e07030','Réseau actif de partenaires culturels'],
+                    ['01','#4caf7d', PS::get('home.ni.feat1_text','Accompagnement personnalisé de chaque artiste')],
+                    ['02','#d4a030', PS::get('home.ni.feat2_text','Équipements professionnels de pointe')],
+                    ['03','#e07030', PS::get('home.ni.feat3_text','Réseau actif de partenaires culturels')],
                 ] as $f)
                 <div class="ni-feature">
                     <span class="ni-feat-num" style="color:{{ $f[1] }}">{{ $f[0] }}</span>
@@ -274,7 +280,7 @@
 
             {{-- CTA --}}
             <a href="{{ route('about') }}" class="ni-cta">
-                Notre histoire complète
+                {{ PS::get('home.ni.cta_label','Notre histoire complète') }}
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -288,7 +294,7 @@
                 <div class="ni-img-clip">
                     <img src="{{ asset('images/10.jpg') }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
-                    <span class="ni-img-label" style="color:#4caf7d">Arts Visuels</span>
+                    <span class="ni-img-label" style="color:#4caf7d">{{ PS::get('home.ni.img1_label','Arts Visuels') }}</span>
                 </div>
             </div>
 
@@ -297,17 +303,17 @@
                 <div class="ni-img-sm">
                     <img src="{{ asset('images/5.jpg') }}" alt="Formation" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
-                    <span class="ni-img-label" style="color:#d4a030">Musique</span>
+                    <span class="ni-img-label" style="color:#d4a030">{{ PS::get('home.ni.img2_label','Musique') }}</span>
                 </div>
                 <div class="ni-img-sm">
                     <img src="{{ asset('images/11.jpg') }}" alt="Inspiration" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
-                    <span class="ni-img-label" style="color:#e07030">Danse</span>
+                    <span class="ni-img-label" style="color:#e07030">{{ PS::get('home.ni.img3_label','Danse') }}</span>
                 </div>
             </div>
 
             {{-- Label vertical --}}
-            <span class="ni-year" aria-hidden="true">Depuis 2019</span>
+            <span class="ni-year" aria-hidden="true">{{ PS::get('home.ni.annee','Depuis 2019') }}</span>
 
         </div>
 
@@ -344,14 +350,14 @@
         {{-- Header --}}
         <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin-bottom:56px;">
             <div>
-                <div class="tag tag-gold" style="margin-bottom:16px;">Ce que nous offrons</div>
+                <div class="tag tag-gold" style="margin-bottom:16px;">{{ PS::get('home.services.tag','Ce que nous offrons') }}</div>
                 <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.2rem,4vw,3rem);font-weight:900;color:#1c1510;margin:0;line-height:1.08;" class="accent-line">
-                    Nos Services<br>& Activités
+                    {{ PS::get('home.services.titre_1','Nos Services') }}<br>{{ PS::get('home.services.titre_2','& Activités') }}
                 </h2>
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:20px;">
                 <p style="color:#8a7e74;font-size:0.92rem;line-height:1.8;margin:0;max-width:360px;text-align:right;">
-                    De la création à la scène — un écosystème complet pour chaque artiste, à chaque étape.
+                    {{ PS::get('home.services.desc',"De la création à la scène — un écosystème complet pour chaque artiste, à chaque étape.") }}
                 </p>
                 <a href="{{ route('services') }}" class="btn-outline">Voir tous les services →</a>
             </div>
@@ -360,14 +366,27 @@
         {{-- Grille cards --}}
         @php
         $hSPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg'];
-        $hServices = [
-            ['🎬','Production Artistique','#4caf7d','Studios, accompagnement technique et distribution des œuvres.',route('services')],
-            ['✨','Création Artistique','#d4a030','Résidences, ateliers ouverts et collaborations inter-disciplines.',route('services')],
-            ['🎓','Formation Artistique','#e07030','6 disciplines, de débutant à avancé, avec certification.',route('formations.index')],
-            ['🤝','Accompagnement','#4caf7d','Mentorat, développement de carrière et mise en réseau.',route('services')],
-            ['🎪','Événements Culturels','#d4a030','Concerts, expositions et galas qui valorisent les talents.',route('evenements.index')],
-            ['🏛','Ateliers & Programmes','#e07030','Programmes ouverts à tous, toute l\'année.',route('services')],
+        $hServicesDefaults = [
+            ['🎬','Production Artistique','Studios, accompagnement technique et distribution des œuvres.'],
+            ['✨','Création Artistique','Résidences, ateliers ouverts et collaborations inter-disciplines.'],
+            ['🎓','Formation Artistique','6 disciplines, de débutant à avancé, avec certification.'],
+            ['🤝','Accompagnement','Mentorat, développement de carrière et mise en réseau.'],
+            ['🎪','Événements Culturels','Concerts, expositions et galas qui valorisent les talents.'],
+            ['🏛','Ateliers & Programmes',"Programmes ouverts à tous, toute l'année."],
         ];
+        $hServicesLinks = [route('services'),route('services'),route('formations.index'),route('services'),route('evenements.index'),route('services')];
+        $hServicesColors = ['#4caf7d','#d4a030','#e07030','#4caf7d','#d4a030','#e07030'];
+        $hServices = [];
+        foreach($hServicesDefaults as $i => $sd) {
+            $n = $i + 1;
+            $hServices[] = [
+                PS::get('home.services.item'.$n.'_icon',  $sd[0]),
+                PS::get('home.services.item'.$n.'_titre', $sd[1]),
+                $hServicesColors[$i],
+                PS::get('home.services.item'.$n.'_desc',  $sd[2]),
+                $hServicesLinks[$i],
+            ];
+        }
         @endphp
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
@@ -419,13 +438,13 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
         <div class="podcast-grid" style="display:grid;grid-template-columns:minmax(0,0.9fr) minmax(360px,0.8fr);gap:52px;align-items:center;">
             <div class="reveal">
-                <div class="tag tag-green" style="margin-bottom:18px;">Podcasts Orion</div>
+                <div class="tag tag-green" style="margin-bottom:18px;">{{ PS::get('home.podcasts.kicker','Podcasts Orion') }}</div>
                 <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.02;margin:0 0 22px;">
-                    Écouter les voix<br>
-                    <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">de la création</span>
+                    {{ PS::get('home.podcasts.titre_1','Écouter les voix') }}<br>
+                    <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ PS::get('home.podcasts.titre_gradient','de la création') }}</span>
                 </h2>
                 <p style="color:#aaa19a;font-size:1rem;line-height:1.85;max-width:620px;margin:0 0 30px;">
-                    Conversations avec artistes, formateurs et créateurs du centre : coulisses d'ateliers, parcours, résidences et réflexions sur les métiers de l'art.
+                    {!! nl2br(e(PS::get('home.podcasts.desc',"Conversations avec artistes, formateurs et créateurs du centre : coulisses d'ateliers, parcours, résidences et réflexions sur les métiers de l'art."))) !!}
                 </p>
                 <div style="display:flex;gap:14px;flex-wrap:wrap;">
                     <a href="{{ route('podcasts.index') }}" class="btn-gold">Découvrir les podcasts</a>
@@ -441,8 +460,8 @@
                 </div>
                 <div style="position:absolute;left:28px;right:28px;bottom:26px;">
                     <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Série audio</div>
-                    <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:2rem;line-height:1.05;margin:0 0 8px;">Dans l'atelier</h3>
-                    <p style="color:rgba(245,245,240,0.72);font-size:0.88rem;line-height:1.65;margin:0;">Une immersion dans les gestes, les voix et les idées qui précèdent l'oeuvre.</p>
+                    <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:2rem;line-height:1.05;margin:0 0 8px;">{{ PS::get('home.podcasts.serie_titre',"Dans l'atelier") }}</h3>
+                    <p style="color:rgba(245,245,240,0.72);font-size:0.88rem;line-height:1.65;margin:0;">{{ PS::get('home.podcasts.serie_desc',"Une immersion dans les gestes, les voix et les idées qui précèdent l'oeuvre.") }}</p>
                 </div>
             </a>
         </div>
@@ -902,14 +921,14 @@
         {{-- Filet + kicker --}}
         <div class="rj-kicker">
             <span class="rj-kicker-line"></span>
-            <span class="ni-kicker-label">Rejoignez-nous</span>
+            <span class="ni-kicker-label">{{ PS::get('home.cta.kicker','Rejoignez-nous') }}</span>
             <span class="rj-kicker-line"></span>
         </div>
 
         {{-- Titre --}}
         <h2 class="rj-title">
-            Prêt à révéler<br>
-            <em>votre talent ?</em>
+            {{ PS::get('home.cta.titre_1','Prêt à révéler') }}<br>
+            <em>{{ PS::get('home.cta.titre_em','votre talent ?') }}</em>
         </h2>
 
         {{-- Filet doré --}}
@@ -917,7 +936,7 @@
 
         {{-- Prose --}}
         <p class="rj-prose">
-            Rejoignez une communauté d'artistes passionnés et bénéficiez d'un accompagnement professionnel pour concrétiser vos projets artistiques.
+            {!! nl2br(e(PS::get('home.cta.prose',"Rejoignez une communauté d'artistes passionnés et bénéficiez d'un accompagnement professionnel pour concrétiser vos projets artistiques."))) !!}
         </p>
 
         {{-- Boutons --}}

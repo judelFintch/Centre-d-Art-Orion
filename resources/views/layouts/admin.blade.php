@@ -31,6 +31,7 @@
             ['route' => 'admin.dashboard',          'icon' => '◈', 'label' => 'Tableau de bord',  'color' => '#4caf7d'],
             ['route' => 'admin.analytics.index',    'icon' => '📊', 'label' => 'Analytics',         'color' => '#4a90e2'],
             ['route' => 'admin.hero.index',          'icon' => '▶', 'label' => 'Hero Slides',       'color' => '#4a90e2'],
+            ['route' => 'admin.pages.home',          'icon' => '✦', 'label' => 'Contenu Pages',     'color' => '#b07aff'],
             ['route' => 'admin.formations.index',    'icon' => '◉', 'label' => 'Formations',        'color' => '#e07030'],
             ['route' => 'admin.evenements.index',    'icon' => '◎', 'label' => 'Événements',        'color' => '#d4a030'],
             ['route' => 'admin.galerie.index',       'icon' => '◧', 'label' => 'Galerie',           'color' => '#4caf7d'],
@@ -44,7 +45,14 @@
         @endphp
 
         @foreach($navItems as $item)
-        @php $isActive = request()->routeIs($item['route']) @endphp
+        @php
+            $isActive = request()->routeIs($item['route'])
+                || (isset($item['active_pattern']) && request()->routeIs($item['active_pattern']));
+            // Contenu Pages : actif pour home ET about
+            if ($item['route'] === 'admin.pages.home') {
+                $isActive = request()->routeIs('admin.pages.*');
+            }
+        @endphp
         <a href="{{ route($item['route']) }}"
            style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:6px;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:500;margin-bottom:2px;transition:all 0.2s;{{ $isActive ? 'background:rgba(76,175,125,0.1);color:'.$item['color'].';border-left:2px solid '.$item['color'].';padding-left:10px;' : 'color:#666;border-left:2px solid transparent;' }}"
            onmouseover="{{ !$isActive ? 'this.style.color=\"'.$item['color'].'\";this.style.background=\"rgba(255,255,255,0.04)\"' : '' }}"

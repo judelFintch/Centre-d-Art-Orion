@@ -27,6 +27,7 @@ use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\Admin\AbonnementAdminController;
 use App\Http\Controllers\Admin\AnalyticsAdminController;
 use App\Http\Controllers\Admin\MailSettingAdminController;
+use App\Http\Controllers\Admin\PageSettingAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -93,6 +94,12 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('equipe', EquipeAdminController::class);
     Route::patch('equipe/{equipe}/toggle', [EquipeAdminController::class, 'toggleActif'])->name('equipe.toggle');
     Route::post('equipe/reorder', [EquipeAdminController::class, 'reorder'])->name('equipe.reorder');
+
+    // Contenu des pages (Home / À propos)
+    Route::get('pages/home',   [PageSettingAdminController::class, 'home'])->name('pages.home');
+    Route::put('pages/home',   [PageSettingAdminController::class, 'updateHome'])->name('pages.home.update');
+    Route::get('pages/about',  [PageSettingAdminController::class, 'about'])->name('pages.about');
+    Route::put('pages/about',  [PageSettingAdminController::class, 'updateAbout'])->name('pages.about.update');
 
     // Hero Slides
     Route::resource('hero', HeroSlideAdminController::class)->except(['show']);
