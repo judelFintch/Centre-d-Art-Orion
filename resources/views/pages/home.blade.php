@@ -3,7 +3,14 @@
 @section('title', 'Centre d\'Art Orion — Production, Création, Formation')
 @section('meta_description', 'Le Centre d\'Art Orion : votre espace de production artistique, création, formation et accompagnement des talents. Découvrez nos programmes et événements.')
 
-@php use App\Models\PageSetting as PS; @endphp
+@php
+    use App\Models\PageSetting as PS;
+    use Illuminate\Support\Facades\Storage;
+    function psImg(string $key, string $fallback): string {
+        $stored = PS::get($key);
+        return $stored ? Storage::url($stored) : $fallback;
+    }
+@endphp
 
 @section('content')
 
@@ -292,7 +299,7 @@
             <div class="ni-img-main">
                 <div class="ni-img-frame"></div>
                 <div class="ni-img-clip">
-                    <img src="{{ asset('images/10.jpg') }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
+                    <img src="{{ psImg('home.ni.img1_file', asset('images/10.jpg')) }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#4caf7d">{{ PS::get('home.ni.img1_label','Arts Visuels') }}</span>
                 </div>
@@ -301,12 +308,12 @@
             {{-- Deux petites images --}}
             <div class="ni-img-row">
                 <div class="ni-img-sm">
-                    <img src="{{ asset('images/5.jpg') }}" alt="Formation" class="ni-img-photo">
+                    <img src="{{ psImg('home.ni.img2_file', asset('images/5.jpg')) }}" alt="Formation" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#d4a030">{{ PS::get('home.ni.img2_label','Musique') }}</span>
                 </div>
                 <div class="ni-img-sm">
-                    <img src="{{ asset('images/11.jpg') }}" alt="Inspiration" class="ni-img-photo">
+                    <img src="{{ psImg('home.ni.img3_file', asset('images/11.jpg')) }}" alt="Inspiration" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#e07030">{{ PS::get('home.ni.img3_label','Danse') }}</span>
                 </div>
@@ -367,12 +374,12 @@
         @php
         $hSPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg'];
         $hServicesDefaults = [
-            ['🎬','Production Artistique','Studios, accompagnement technique et distribution des œuvres.'],
-            ['✨','Création Artistique','Résidences, ateliers ouverts et collaborations inter-disciplines.'],
-            ['🎓','Formation Artistique','6 disciplines, de débutant à avancé, avec certification.'],
-            ['🤝','Accompagnement','Mentorat, développement de carrière et mise en réseau.'],
-            ['🎪','Événements Culturels','Concerts, expositions et galas qui valorisent les talents.'],
-            ['🏛','Ateliers & Programmes',"Programmes ouverts à tous, toute l'année."],
+            ['🎬','Production Artistique','Studios, accompagnement technique et distribution des œuvres.','10.jpg'],
+            ['✨','Création Artistique','Résidences, ateliers ouverts et collaborations inter-disciplines.','5.jpg'],
+            ['🎓','Formation Artistique','6 disciplines, de débutant à avancé, avec certification.','10.jpg'],
+            ['🤝','Accompagnement','Mentorat, développement de carrière et mise en réseau.','11.jpg'],
+            ['🎪','Événements Culturels','Concerts, expositions et galas qui valorisent les talents.','10.jpg'],
+            ['🏛','Ateliers & Programmes',"Programmes ouverts à tous, toute l'année.",'5.jpg'],
         ];
         $hServicesLinks = [route('services'),route('services'),route('formations.index'),route('services'),route('evenements.index'),route('services')];
         $hServicesColors = ['#4caf7d','#d4a030','#e07030','#4caf7d','#d4a030','#e07030'];
@@ -385,6 +392,7 @@
                 $hServicesColors[$i],
                 PS::get('home.services.item'.$n.'_desc',  $sd[2]),
                 $hServicesLinks[$i],
+                psImg('home.services.item'.$n.'_img', asset('images/'.$sd[3])),
             ];
         }
         @endphp
@@ -398,7 +406,7 @@
 
                 {{-- Photo --}}
                 <img class="sc-img"
-                     src="{{ asset('images/' . $hSPhotos[$hi]) }}"
+                     src="{{ $hs[5] }}"
                      alt="{{ $hs[1] }}"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;">
 
@@ -453,7 +461,7 @@
             </div>
 
             <a href="{{ route('podcasts.index') }}" class="reveal podcast-visual" style="display:block;text-decoration:none;position:relative;min-height:380px;border-radius:14px;overflow:hidden;background:#111;border:1px solid rgba(255,255,255,0.1);box-shadow:0 30px 100px rgba(0,0,0,0.35);">
-                <img src="{{ asset('images/11.jpg') }}" alt="Podcasts Orion" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+                <img src="{{ psImg('home.podcasts.img_file', asset('images/11.jpg')) }}" alt="Podcasts Orion" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
                 <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92),rgba(0,0,0,0.12));"></div>
                 <div style="position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:92px;height:92px;border-radius:50%;background:rgba(212,160,48,0.22);border:2px solid rgba(212,160,48,0.55);display:flex;align-items:center;justify-content:center;">
                     <svg width="34" height="34" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>

@@ -15,7 +15,31 @@
       "Bash(git commit -m ' *)",
       "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add resources/views/components/footer.blade.php)",
       "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion commit -m ' *)",
-      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add resources/views/pages/home.blade.php)"
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add resources/views/pages/home.blade.php)",
+      "Bash(open \"http://localhost:8000/admin/formations\")",
+      "Bash(git commit -m 'feat\\(security\\): anti-bot and fake email protection on public forms *)",
+      "Bash(git commit -m 'feat\\(rgpd\\): add GDPR cookie consent banner *)",
+      "Bash(php -l app/Http/Controllers/AnalyticsController.php)",
+      "Bash(php -l app/Http/Controllers/Admin/AnalyticsAdminController.php)",
+      "Bash(php -l app/Models/Visite.php)",
+      "Bash(php -l routes/web.php)",
+      "Bash(bash .claude/skills/run-centre-d-art-orion/smoke.sh)",
+      "Bash(chromium-cli --session orion-pages)",
+      "Bash(curl -s -o /dev/null -w \"admin/pages/home: %{http_code}\\\\n\" -L -c /tmp/orion_cookies.txt http://localhost:8000/admin/login)",
+      "Bash(curl -s -o /dev/null -w \"/ : %{http_code}\\\\n\" http://localhost:8000/)",
+      "Bash(curl -s -o /dev/null -w \"/a-propos : %{http_code}\\\\n\" http://localhost:8000/a-propos)",
+      "Bash(curl -s -o /dev/null -w \"admin/pages/home \\(unauthenticated\\): %{http_code}\\\\n\" http://localhost:8000/admin/pages/home)",
+      "Bash(curl -s http://localhost:8000/)",
+      "Bash(curl -s http://localhost:8000/a-propos)",
+      "Bash(curl -sc /tmp/c3.txt http://localhost:8000/admin/login)",
+      "Read(//tmp/**)",
+      "Bash(curl -sLb /tmp/c3.txt -c /tmp/c3.txt http://localhost:8000/admin/pages/home -w '\\\\nHTTP: %{http_code}' -o /tmp/admin_pages2.html)",
+      "Bash(grep -i \"pages\\\\|identit\\\\|service\\\\|podcast\" /tmp/admin_pages2.html | head -5)",
+      "Read(//private/tmp/**)",
+      "Bash(php -l app/Http/Controllers/Admin/PageSettingAdminController.php)",
+      "Bash(php -l app/Models/PageSetting.php)",
+      "Bash(git commit -m 'feat\\(cms\\): page content editor for home and about pages *)",
+      "Bash(git commit -m 'feat\\(cms\\): image upload for home and about editable sections *)"
     ]
   }
 }

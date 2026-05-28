@@ -34,7 +34,7 @@
     @endforeach
 </div>
 
-<form method="POST" action="{{ route('admin.pages.home.update') }}">
+<form method="POST" action="{{ route('admin.pages.home.update') }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -105,6 +105,37 @@
             @include('admin.pages._field', ['name' => 'home[ni][cta_label]', 'key' => 'home.ni.cta_label', 'label' => 'Texte du lien CTA', 'default' => 'Notre histoire complète'])
         </div>
 
+        {{-- Upload photos ── --}}
+        <div style="margin-top:20px;">
+            <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 14px;">Photos de la section</p>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;">
+                @include('admin.pages._image', [
+                    'name'     => 'home[ni][img1_file]',
+                    'key'      => 'home.ni.img1_file',
+                    'label'    => 'Image principale (grande)',
+                    'fallback' => asset('images/10.jpg'),
+                    'width'    => '120px',
+                    'height'   => '80px',
+                ])
+                @include('admin.pages._image', [
+                    'name'     => 'home[ni][img2_file]',
+                    'key'      => 'home.ni.img2_file',
+                    'label'    => 'Petite image 2',
+                    'fallback' => asset('images/5.jpg'),
+                    'width'    => '100px',
+                    'height'   => '70px',
+                ])
+                @include('admin.pages._image', [
+                    'name'     => 'home[ni][img3_file]',
+                    'key'      => 'home.ni.img3_file',
+                    'label'    => 'Petite image 3',
+                    'fallback' => asset('images/11.jpg'),
+                    'width'    => '100px',
+                    'height'   => '70px',
+                ])
+            </div>
+        </div>
+
     </div>
 
     <div style="height:1px;background:#161616;margin:32px 0;"></div>
@@ -141,12 +172,27 @@
         ];
         @endphp
 
+        @php
+        $servicesFallbacks = ['10.jpg','5.jpg','10.jpg','11.jpg','10.jpg','5.jpg'];
+        @endphp
+
         <p style="color:#888;font-size:0.78rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 16px;">Les 6 services</p>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
             @foreach($servicesDefaults as $i => $sd)
             @php $n = $i + 1; @endphp
             <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-radius:8px;padding:18px;">
                 <p style="color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 12px;">Service {{ $n }}</p>
+                {{-- Photo du service --}}
+                <div style="margin-bottom:14px;">
+                    @include('admin.pages._image', [
+                        'name'     => 'home[services][item'.$n.'_img]',
+                        'key'      => 'home.services.item'.$n.'_img',
+                        'label'    => 'Photo de la carte',
+                        'fallback' => asset('images/'.$servicesFallbacks[$i]),
+                        'width'    => '100px',
+                        'height'   => '66px',
+                    ])
+                </div>
                 <div style="display:grid;grid-template-columns:60px 1fr;gap:10px;margin-bottom:10px;">
                     @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_icon]', 'key' => 'home.services.item'.$n.'_icon', 'label' => 'Icône', 'default' => $sd[0]])
                     @include('admin.pages._field', ['name' => 'home[services][item'.$n.'_titre]', 'key' => 'home.services.item'.$n.'_titre', 'label' => 'Titre', 'default' => $sd[1]])
@@ -182,6 +228,18 @@
             <div>
                 @include('admin.pages._textarea', ['name' => 'home[podcasts][serie_desc]', 'key' => 'home.podcasts.serie_desc', 'label' => 'Description de la série audio', 'default' => "Une immersion dans les gestes, les voix et les idées qui précèdent l'oeuvre."])
             </div>
+        </div>
+
+        {{-- Photo de couverture --}}
+        <div style="margin-top:16px;">
+            @include('admin.pages._image', [
+                'name'     => 'home[podcasts][img_file]',
+                'key'      => 'home.podcasts.img_file',
+                'label'    => 'Photo de couverture podcasts',
+                'fallback' => asset('images/11.jpg'),
+                'width'    => '160px',
+                'height'   => '100px',
+            ])
         </div>
     </div>
 

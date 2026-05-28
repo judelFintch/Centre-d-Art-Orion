@@ -33,7 +33,7 @@
     @endforeach
 </div>
 
-<form method="POST" action="{{ route('admin.pages.about.update') }}">
+<form method="POST" action="{{ route('admin.pages.about.update') }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -161,8 +161,18 @@
             {{-- CEO --}}
             <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-top:3px solid #4caf7d;border-radius:8px;padding:20px;">
                 <p style="color:#4caf7d;font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 14px;">CEO & Fondateur</p>
+                {{-- Photo CEO --}}
+                <div style="margin-bottom:14px;">
+                    @include('admin.pages._image', [
+                        'name'    => 'about[direction][ceo_photo]',
+                        'key'     => 'about.direction.ceo_photo',
+                        'label'   => 'Photo de profil (remplace le cercle AN)',
+                        'width'   => '80px',
+                        'height'  => '80px',
+                    ])
+                </div>
                 <div style="display:grid;grid-template-columns:60px 1fr;gap:10px;margin-bottom:10px;">
-                    @include('admin.pages._field', ['name' => 'about[direction][ceo_initiales]', 'key' => 'about.direction.ceo_initiales', 'label' => 'Initiales', 'default' => 'AN'])
+                    @include('admin.pages._field', ['name' => 'about[direction][ceo_initiales]', 'key' => 'about.direction.ceo_initiales', 'label' => 'Initiales (si pas de photo)', 'default' => 'AN'])
                     @include('admin.pages._field', ['name' => 'about[direction][ceo_nom]', 'key' => 'about.direction.ceo_nom', 'label' => 'Nom complet', 'default' => 'Aras M. NGONGO'])
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
@@ -175,8 +185,18 @@
             {{-- Chef de Centre --}}
             <div style="background:#0d0d0d;border:1px solid #1a1a1a;border-top:3px solid #d4a030;border-radius:8px;padding:20px;">
                 <p style="color:#d4a030;font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 14px;">Chef de Centre</p>
+                {{-- Photo Chef --}}
+                <div style="margin-bottom:14px;">
+                    @include('admin.pages._image', [
+                        'name'    => 'about[direction][chef_photo]',
+                        'key'     => 'about.direction.chef_photo',
+                        'label'   => 'Photo de profil (remplace le cercle MK)',
+                        'width'   => '80px',
+                        'height'  => '80px',
+                    ])
+                </div>
                 <div style="display:grid;grid-template-columns:60px 1fr;gap:10px;margin-bottom:10px;">
-                    @include('admin.pages._field', ['name' => 'about[direction][chef_initiales]', 'key' => 'about.direction.chef_initiales', 'label' => 'Initiales', 'default' => 'MK'])
+                    @include('admin.pages._field', ['name' => 'about[direction][chef_initiales]', 'key' => 'about.direction.chef_initiales', 'label' => 'Initiales (si pas de photo)', 'default' => 'MK'])
                     @include('admin.pages._field', ['name' => 'about[direction][chef_nom]', 'key' => 'about.direction.chef_nom', 'label' => 'Nom complet', 'default' => 'Magellan KAHOZI'])
                 </div>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">

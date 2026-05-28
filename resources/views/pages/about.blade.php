@@ -3,7 +3,14 @@
 @section('title', 'À Propos — Centre d\'Art Orion')
 @section('meta_description', 'Découvrez l\'histoire, la vision, la mission et les valeurs du Centre d\'Art Orion. Rencontrez notre équipe de direction.')
 
-@php use App\Models\PageSetting as PS; @endphp
+@php
+    use App\Models\PageSetting as PS;
+    use Illuminate\Support\Facades\Storage;
+    function psImgAbout(string $key): ?string {
+        $stored = PS::get($key);
+        return $stored ? Storage::url($stored) : null;
+    }
+@endphp
 
 @section('content')
 
@@ -168,9 +175,16 @@
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='#4caf7d44'" onmouseout="this.style.borderColor='#1a1a1a'">
+                @php $ceoPhoto = psImgAbout('about.direction.ceo_photo'); @endphp
+                @if($ceoPhoto)
+                <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 20px;box-shadow:0 8px 30px rgba(76,175,125,0.3);border:2px solid #4caf7d44;">
+                    <img src="{{ $ceoPhoto }}" alt="{{ PS::get('about.direction.ceo_nom','Aras M. NGONGO') }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+                </div>
+                @else
                 <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#0a0a0a;margin:0 auto 20px;box-shadow:0 8px 30px rgba(76,175,125,0.3);">
                     {{ PS::get('about.direction.ceo_initiales','AN') }}
                 </div>
+                @endif
                 <span class="tag tag-gold" style="margin-bottom:16px;display:inline-block;">{{ PS::get('about.direction.ceo_role','CEO & Fondateur') }}</span>
                 <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.4rem;color:#f5f5f0;margin:0 0 6px;">{{ PS::get('about.direction.ceo_nom','Aras M. NGONGO') }}</h3>
                 <p style="color:#777;font-size:0.85rem;margin:0 0 20px;font-family:'Space Grotesk',sans-serif;">{{ PS::get('about.direction.ceo_sous_titre','Visionnaire — Fondateur') }}</p>
@@ -183,9 +197,16 @@
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:40px;text-align:center;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='#d4a03044'" onmouseout="this.style.borderColor='#1a1a1a'">
+                @php $chefPhoto = psImgAbout('about.direction.chef_photo'); @endphp
+                @if($chefPhoto)
+                <div style="width:90px;height:90px;border-radius:50%;overflow:hidden;margin:0 auto 20px;box-shadow:0 8px 30px rgba(212,160,48,0.3);border:2px solid #d4a03044;">
+                    <img src="{{ $chefPhoto }}" alt="{{ PS::get('about.direction.chef_nom','Magellan KAHOZI') }}" style="width:100%;height:100%;object-fit:cover;display:block;">
+                </div>
+                @else
                 <div style="width:90px;height:90px;border-radius:50%;background:linear-gradient(135deg,#d4a030,#e07030);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#0a0a0a;margin:0 auto 20px;box-shadow:0 8px 30px rgba(212,160,48,0.3);">
                     {{ PS::get('about.direction.chef_initiales','MK') }}
                 </div>
+                @endif
                 <span class="tag tag-green" style="margin-bottom:16px;display:inline-block;">{{ PS::get('about.direction.chef_role','Chef de Centre') }}</span>
                 <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.4rem;color:#f5f5f0;margin:0 0 6px;">{{ PS::get('about.direction.chef_nom','Magellan KAHOZI') }}</h3>
                 <p style="color:#777;font-size:0.85rem;margin:0 0 20px;font-family:'Space Grotesk',sans-serif;">{{ PS::get('about.direction.chef_sous_titre','Direction opérationnelle') }}</p>
