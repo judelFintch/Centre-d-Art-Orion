@@ -31,6 +31,12 @@
         </div>
     </div>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <a href="{{ route('admin.billets.create', ['evenement_id' => $evenement->id]) }}"
+           style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;border-radius:6px;text-decoration:none;"
+           onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Ajouter
+        </a>
         <a href="{{ route('admin.billets.export', ['evenement_id' => $evenement->id]) }}"
            style="display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:rgba(74,144,226,0.1);border:1px solid rgba(74,144,226,0.25);color:#4a90e2;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;border-radius:6px;text-decoration:none;"
            onmouseover="this.style.background='rgba(74,144,226,0.2)'" onmouseout="this.style.background='rgba(74,144,226,0.1)'">

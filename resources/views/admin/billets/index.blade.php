@@ -25,6 +25,13 @@
 <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap;">
     <h2 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:#f5f5f0;margin:0;">Toutes les réservations</h2>
     <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        {{-- Nouvelle réservation --}}
+        <a href="{{ route('admin.billets.create') }}"
+           style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;border-radius:6px;text-decoration:none;transition:opacity 0.2s;"
+           onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nouvelle réservation
+        </a>
         {{-- Export CSV (reprend les filtres actifs) --}}
         <a href="{{ route('admin.billets.export', request()->query()) }}"
            style="display:inline-flex;align-items:center;gap:7px;padding:8px 16px;background:rgba(74,144,226,0.1);border:1px solid rgba(74,144,226,0.25);color:#4a90e2;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;border-radius:6px;text-decoration:none;transition:background 0.2s;"
@@ -186,6 +193,11 @@
                            style="padding:5px 11px;background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.2);color:#4caf7d;font-size:0.73rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-decoration:none;border-radius:4px;"
                            onmouseover="this.style.background='rgba(76,175,125,0.2)'" onmouseout="this.style.background='rgba(76,175,125,0.1)'">
                             Voir
+                        </a>
+                        <a href="{{ route('admin.billets.edit', $billet) }}"
+                           style="padding:5px 10px;background:rgba(74,144,226,0.08);border:1px solid rgba(74,144,226,0.2);color:#4a90e2;font-size:0.73rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-decoration:none;border-radius:4px;"
+                           onmouseover="this.style.background='rgba(74,144,226,0.2)'" onmouseout="this.style.background='rgba(74,144,226,0.08)'">
+                            ✎
                         </a>
                         <a href="mailto:{{ $billet->email }}?subject=Votre réservation {{ $billet->reference }}"
                            title="Envoyer un email"

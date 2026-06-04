@@ -118,11 +118,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('billets',                          [BilletAdminController::class, 'index'])->name('billets.index');
     Route::get('billets/export',                   [BilletAdminController::class, 'export'])->name('billets.export');
     Route::post('billets/bulk',                    [BilletAdminController::class, 'bulkUpdate'])->name('billets.bulk');
+    Route::get('billets/create',                   [BilletAdminController::class, 'create'])->name('billets.create');
+    Route::post('billets',                         [BilletAdminController::class, 'store'])->name('billets.store');
     Route::get('billets/evenement/{evenement}',    [BilletAdminController::class, 'byEvent'])->name('billets.by-event');
     Route::get('billets/{billet}',                 [BilletAdminController::class, 'show'])->name('billets.show');
-    Route::patch('billets/{billet}/statut',         [BilletAdminController::class, 'updateStatut'])->name('billets.statut');
-    Route::patch('billets/{billet}/verifier',       [BilletAdminController::class, 'verifierPaiement'])->name('billets.verifier');
-    Route::delete('billets/{billet}',               [BilletAdminController::class, 'destroy'])->name('billets.destroy');
+    Route::get('billets/{billet}/edit',            [BilletAdminController::class, 'edit'])->name('billets.edit');
+    Route::put('billets/{billet}',                 [BilletAdminController::class, 'update'])->name('billets.update');
+    Route::patch('billets/{billet}/statut',        [BilletAdminController::class, 'updateStatut'])->name('billets.statut');
+    Route::patch('billets/{billet}/verifier',      [BilletAdminController::class, 'verifierPaiement'])->name('billets.verifier');
+    Route::delete('billets/{billet}',              [BilletAdminController::class, 'destroy'])->name('billets.destroy');
 
     // Paramètres paiement
     Route::get('paiement/settings',  [PaiementSettingAdminController::class, 'index'])->name('paiement.index');

@@ -2,13 +2,14 @@
     use App\Models\PageSetting;
     use Illuminate\Support\Facades\Storage;
 
-    $stored  = PageSetting::get($key, '');
-    $preview = $stored ? Storage::url($stored) : ($fallback ?? null);
-    $inputId = 'img_' . str_replace(['.','[',']'], '_', $key);
+    $stored   = PageSetting::get($key, '');
+    $preview  = $stored ? Storage::url($stored) : ($fallback ?? null);
+    $inputId  = 'img_' . str_replace(['.','[',']'], '_', $key);
+    $hasError = $errors->has($key);
 @endphp
 
-<div>
-    <label style="display:block;color:#888;font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">
+<div data-field-key="{{ $key }}">
+    <label style="display:block;color:{{ $hasError ? '#e07030' : '#888' }};font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;">
         {{ $label }}
     </label>
 
@@ -46,6 +47,12 @@
                    accept="image/*"
                    style="display:none;"
                    onchange="previewImage(this, 'prev_{{ $inputId }}')">
+
+            @if($hasError)
+            <p style="margin:6px 0 0;color:#e07030;font-size:0.72rem;font-family:'Space Grotesk',sans-serif;">
+                {{ $errors->first($key) }}
+            </p>
+            @endif
 
             {{-- Nom du fichier actuel --}}
             @if($stored)

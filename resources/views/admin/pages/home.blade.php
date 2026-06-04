@@ -25,12 +25,49 @@
 </div>
 
 {{-- Onglets navigation interne --}}
+@php
+$tabSections = [
+    'identite' => 'Notre Identité',
+    'services' => 'Services',
+    'podcasts' => 'Podcasts',
+    'cta'      => 'CTA Final',
+];
+// Compter les erreurs par onglet selon le préfixe de la clé
+$tabPrefixes = [
+    'identite' => 'home.ni.',
+    'services' => 'home.services.',
+    'podcasts' => 'home.podcasts.',
+    'cta'      => 'home.cta.',
+];
+$tabErrors = [];
+foreach ($tabPrefixes as $tabId => $prefix) {
+    $tabErrors[$tabId] = collect($errors->keys())->filter(fn($k) => str_starts_with($k, $prefix))->count();
+}
+$totalErrors = $errors->count();
+@endphp
+
+@if($totalErrors)
+<div style="background:rgba(224,112,48,0.08);border:1px solid rgba(224,112,48,0.3);border-radius:8px;padding:12px 16px;margin-bottom:20px;display:flex;align-items:center;gap:10px;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#e07030" stroke-width="2" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <p style="color:#e07030;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;font-weight:600;margin:0;">
+        {{ $totalErrors }} erreur{{ $totalErrors > 1 ? 's' : '' }} — corrigez les champs surlignés puis réessayez.
+    </p>
+</div>
+@endif
+
 <div style="display:flex;gap:4px;margin-bottom:28px;border-bottom:1px solid #1a1a1a;padding-bottom:0;">
-    @foreach(['identite' => 'Notre Identité','services' => 'Services','podcasts' => 'Podcasts','cta' => 'CTA Final'] as $id => $label)
+    @foreach($tabSections as $id => $label)
     <a href="#section-{{ $id }}"
-       style="padding:10px 16px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;color:#666;text-decoration:none;border-bottom:2px solid transparent;transition:all 0.2s;"
+       style="display:flex;align-items:center;gap:6px;padding:10px 16px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;color:#666;text-decoration:none;border-bottom:2px solid transparent;transition:all 0.2s;"
        onclick="scrollSection('{{ $id }}');return false;"
-       id="tab-{{ $id }}">{{ $label }}</a>
+       id="tab-{{ $id }}">
+        {{ $label }}
+        @if(($tabErrors[$id] ?? 0) > 0)
+        <span style="display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;background:#e07030;color:#fff;font-size:0.65rem;font-weight:700;border-radius:9px;line-height:1;">
+            {{ $tabErrors[$id] }}
+        </span>
+        @endif
+    </a>
     @endforeach
 </div>
 
@@ -346,11 +383,12 @@ function scrollSection(id) {
 
 function setActiveTab(id) {
     TABS.forEach(t => {
-        const tab = document.getElementById('tab-' + t);
+        const tab      = document.getElementById('tab-' + t);
         if (!tab) return;
         const isActive = t === id;
-        tab.style.color       = isActive ? '#4caf7d' : '#666';
-        tab.style.borderBottom = isActive ? '2px solid #4caf7d' : '2px solid transparent';
+        const hasBadge = tab.querySelector('span') !== null; // badge erreur présent
+        tab.style.color        = isActive ? '#4caf7d' : (hasBadge ? '#e07030' : '#666');
+        tab.style.borderBottom = isActive ? '2px solid #4caf7d' : (hasBadge ? '2px solid #e0703055' : '2px solid transparent');
     });
 }
 
@@ -370,8 +408,21 @@ function setActiveTab(id) {
         if (el) observer.observe(el);
     });
 
-    // Activer le premier onglet au chargement
-    setActiveTab(TABS[0]);
+    // Activer le premier onglet au chargement (ou l'onglet fautif s'il y a des erreurs)
+    const firstErrorField = document.querySelector('[data-field-key] p[style*="e07030"]');
+    if (firstErrorField) {
+        const key    = firstErrorField.closest('[data-field-key]')?.dataset?.fieldKey ?? '';
+        const tabMap = { 'home.ni': 'identite', 'home.services': 'services', 'home.podcasts': 'podcasts', 'home.cta': 'cta' };
+        const tabId  = Object.entries(tabMap).find(([prefix]) => key.startsWith(prefix))?.[1] ?? TABS[0];
+        setActiveTab(tabId);
+        setTimeout(() => {
+            const section = document.getElementById('section-' + tabId);
+            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            firstErrorField.closest('[data-field-key]')?.querySelector('input,textarea')?.focus();
+        }, 120);
+    } else {
+        setActiveTab(TABS[0]);
+    }
 })();
 
 // ── Avertissement modifications non sauvegardées ─────────────

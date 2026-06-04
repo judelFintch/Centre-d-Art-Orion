@@ -174,6 +174,10 @@
 
     {{-- Actions --}}
     <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="{{ route('admin.billets.edit', $billet) }}" class="btn-primary">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Modifier
+        </a>
         <a href="mailto:{{ $billet->email }}?subject=Votre réservation {{ $billet->reference }}" class="btn-primary">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             Écrire au participant

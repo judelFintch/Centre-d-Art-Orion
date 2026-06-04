@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Billet;
+use App\Models\BilletCategorie;
 use App\Models\Evenement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class BilletAdminController extends Controller
@@ -63,11 +66,94 @@ class BilletAdminController extends Controller
         return view('admin.billets.index', compact('billets', 'stats', 'evenements', 'parEvenement'));
     }
 
+    // ── CREATE / STORE ────────────────────────────────────────
+
+    public function create(Request $request)
+    {
+        $evenements   = Evenement::orderBy('date_debut', 'desc')->get();
+        $preEvenement = $request->filled('evenement_id')
+            ? Evenement::with('billetCategories')->find($request->evenement_id)
+            : null;
+
+        return view('admin.billets.create', compact('evenements', 'preEvenement'));
+    }
+
+    public function store(Request $request)
+    {
+        $evenement = Evenement::findOrFail($request->evenement_id);
+
+        $data = $request->validate([
+            'evenement_id'        => ['required', 'exists:evenements,id'],
+            'billet_categorie_id' => ['nullable', Rule::exists('billet_categories', 'id')->where('evenement_id', $evenement->id)],
+            'nom'                 => ['required', 'string', 'max:100'],
+            'prenom'              => ['required', 'string', 'max:100'],
+            'email'               => ['nullable', 'email', 'max:255'],
+            'telephone'           => ['nullable', 'string', 'max:30'],
+            'nombre_billets'      => ['required', 'integer', 'min:1', 'max:200'],
+            'montant_total'       => ['required', 'numeric', 'min:0'],
+            'statut'              => ['required', 'in:en_attente,confirme,annule'],
+            'methode_paiement'    => ['nullable', 'in:mpesa,airtel,orange,especes'],
+            'reference_paiement'  => ['nullable', 'string', 'max:80'],
+            'paiement_verifie'    => ['boolean'],
+            'notes'               => ['nullable', 'string', 'max:500'],
+        ]);
+
+        Billet::create(array_merge($data, [
+            'reference'        => Billet::genererReference(),
+            'paiement_verifie' => $request->boolean('paiement_verifie'),
+        ]));
+
+        return redirect()->route('admin.billets.index')
+            ->with('success', 'Réservation créée avec succès.');
+    }
+
+    // ── SHOW ──────────────────────────────────────────────────
+
     public function show(Billet $billet)
     {
         $billet->load(['evenement', 'categorie']);
         return view('admin.billets.show', compact('billet'));
     }
+
+    // ── EDIT / UPDATE ─────────────────────────────────────────
+
+    public function edit(Billet $billet)
+    {
+        $billet->load(['evenement.billetCategories', 'categorie']);
+        $evenements = Evenement::orderBy('date_debut', 'desc')->get();
+
+        return view('admin.billets.edit', compact('billet', 'evenements'));
+    }
+
+    public function update(Request $request, Billet $billet)
+    {
+        $evenement = Evenement::findOrFail($request->evenement_id);
+
+        $data = $request->validate([
+            'evenement_id'        => ['required', 'exists:evenements,id'],
+            'billet_categorie_id' => ['nullable', Rule::exists('billet_categories', 'id')->where('evenement_id', $evenement->id)],
+            'nom'                 => ['required', 'string', 'max:100'],
+            'prenom'              => ['required', 'string', 'max:100'],
+            'email'               => ['nullable', 'email', 'max:255'],
+            'telephone'           => ['nullable', 'string', 'max:30'],
+            'nombre_billets'      => ['required', 'integer', 'min:1', 'max:200'],
+            'montant_total'       => ['required', 'numeric', 'min:0'],
+            'statut'              => ['required', 'in:en_attente,confirme,annule'],
+            'methode_paiement'    => ['nullable', 'in:mpesa,airtel,orange,especes'],
+            'reference_paiement'  => ['nullable', 'string', 'max:80'],
+            'paiement_verifie'    => ['boolean'],
+            'notes'               => ['nullable', 'string', 'max:500'],
+        ]);
+
+        $billet->update(array_merge($data, [
+            'paiement_verifie' => $request->boolean('paiement_verifie'),
+        ]));
+
+        return redirect()->route('admin.billets.show', $billet)
+            ->with('success', 'Réservation mise à jour.');
+    }
+
+    // ── ACTIONS RAPIDES ───────────────────────────────────────
 
     public function updateStatut(Request $request, Billet $billet)
     {
@@ -92,7 +178,7 @@ class BilletAdminController extends Controller
 
     public function byEvent(Evenement $evenement)
     {
-        $billets = Billet::with('evenement')
+        $billets = Billet::with(['evenement', 'categorie'])
             ->where('evenement_id', $evenement->id)
             ->latest()
             ->paginate(50);
@@ -113,29 +199,22 @@ class BilletAdminController extends Controller
     {
         $query = Billet::with(['evenement', 'categorie'])->latest();
 
-        if ($request->filled('statut')) {
-            $query->where('statut', $request->statut);
-        }
-        if ($request->filled('evenement_id')) {
-            $query->where('evenement_id', $request->evenement_id);
-        }
-        if ($request->filled('date_debut')) {
-            $query->whereDate('created_at', '>=', $request->date_debut);
-        }
-        if ($request->filled('date_fin')) {
-            $query->whereDate('created_at', '<=', $request->date_fin);
-        }
+        if ($request->filled('statut'))      $query->where('statut', $request->statut);
+        if ($request->filled('evenement_id')) $query->where('evenement_id', $request->evenement_id);
+        if ($request->filled('date_debut'))  $query->whereDate('created_at', '>=', $request->date_debut);
+        if ($request->filled('date_fin'))    $query->whereDate('created_at', '<=', $request->date_fin);
 
         $billets = $query->get();
 
         return response()->streamDownload(function () use ($billets) {
             $handle = fopen('php://output', 'w');
-            fputs($handle, "\xEF\xBB\xBF"); // UTF-8 BOM for Excel
+            fputs($handle, "\xEF\xBB\xBF");
 
             fputcsv($handle, [
                 'Référence', 'Prénom', 'Nom', 'Email', 'Téléphone',
-                'Événement', 'Date événement', 'Nb billets', 'Montant total (FC)',
-                'Statut', 'Date réservation', 'Notes',
+                'Événement', 'Date événement', 'Catégorie', 'Nb billets',
+                'Montant total (FC)', 'Méthode paiement', 'Référence paiement',
+                'Paiement vérifié', 'Statut', 'Date réservation', 'Notes',
             ], ';');
 
             foreach ($billets as $b) {
@@ -143,12 +222,16 @@ class BilletAdminController extends Controller
                     $b->reference,
                     $b->prenom,
                     $b->nom,
-                    $b->email,
+                    $b->email ?? '',
                     $b->telephone ?? '',
                     $b->evenement?->titre ?? '',
                     $b->evenement?->date_debut?->format('d/m/Y H:i') ?? '',
+                    $b->categorie?->nom ?? '',
                     $b->nombre_billets,
                     $b->montant_total,
+                    $b->label_methode,
+                    $b->reference_paiement ?? '',
+                    $b->paiement_verifie ? 'Oui' : 'Non',
                     $b->label_statut,
                     $b->created_at->format('d/m/Y H:i'),
                     $b->notes ?? '',
@@ -171,7 +254,7 @@ class BilletAdminController extends Controller
     public function destroy(Billet $billet)
     {
         if ($billet->preuve_paiement) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($billet->preuve_paiement);
+            Storage::disk('public')->delete($billet->preuve_paiement);
         }
         $billet->delete();
         return redirect()->route('admin.billets.index')->with('success', 'Réservation supprimée.');
