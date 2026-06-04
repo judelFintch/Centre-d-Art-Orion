@@ -35,6 +35,16 @@ class Evenement extends Model
         return $query->where('statut', 'passe')->orderByDesc('date_debut');
     }
 
+    public function billets()
+    {
+        return $this->hasMany(Billet::class);
+    }
+
+    public function billetCategories()
+    {
+        return $this->hasMany(BilletCategorie::class)->orderBy('ordre');
+    }
+
     public function getRouteKeyName(): string
     {
         return 'slug';

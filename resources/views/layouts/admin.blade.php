@@ -38,6 +38,8 @@
             ['route' => 'admin.blog.index',          'icon' => '✎', 'label' => 'Blog',              'color' => '#d4a030'],
             ['route' => 'admin.podcasts.index',      'icon' => '◌', 'label' => 'Podcasts',          'color' => '#4caf7d'],
             ['route' => 'admin.equipe.index',        'icon' => '◈', 'label' => 'Équipe',            'color' => '#d4a030'],
+            ['route' => 'admin.billets.index',       'icon' => '🎟', 'label' => 'Billetterie',       'color' => '#4caf7d'],
+            ['route' => 'admin.paiement.index',      'icon' => '💳', 'label' => 'Config. Paiement',   'color' => '#d4a030'],
             ['route' => 'admin.messages.index',      'icon' => '✉', 'label' => 'Messages',          'color' => '#e07030'],
             ['route' => 'admin.abonnements.index',   'icon' => '◐', 'label' => 'Abonnements',       'color' => '#4caf7d'],
             ['route' => 'admin.mail.index',          'icon' => '✉', 'label' => 'Config. Mail',      'color' => '#4a90e2'],
@@ -51,6 +53,14 @@
             // Contenu Pages : actif pour home ET about
             if ($item['route'] === 'admin.pages.home') {
                 $isActive = request()->routeIs('admin.pages.*');
+            }
+            // Billetterie : actif pour toutes les sous-routes billets
+            if ($item['route'] === 'admin.billets.index') {
+                $isActive = request()->routeIs('admin.billets.*');
+            }
+            // Config paiement
+            if ($item['route'] === 'admin.paiement.index') {
+                $isActive = request()->routeIs('admin.paiement.*');
             }
         @endphp
         <a href="{{ route($item['route']) }}"

@@ -8,7 +8,8 @@ $links = [
     ['url' => route('evenements.index'), 'label' => 'Événements'],
     ['url' => route('podcasts.index'),   'label' => 'Podcasts'],
     ['url' => route('blog.index'),       'label' => 'Blog', 'class' => 'nav-link-blog'],
-    ['url' => route('equipe'),           'label' => 'Équipe'],
+    ['url' => route('equipe'),              'label' => 'Équipe'],
+    ['url' => route('billetterie.index'),   'label' => 'Billetterie', 'class' => 'nav-link-billet'],
 ];
 @endphp
 
@@ -95,6 +96,12 @@ $links = [
 		    opacity: 0.65;
 		}
 		.nav-link-blog:hover { color: #1c1510 !important; }
+		.nav-link-billet {
+		    color: #2d7a52 !important;
+		    background: rgba(76,175,125,0.08);
+		    border-radius: 4px;
+		}
+		.nav-link-billet:hover { background: rgba(76,175,125,0.18) !important; color: #1c1510 !important; }
 		.header-admin-link:hover {
 		    background: rgba(76,175,125,0.08);
 		    border-color: rgba(76,175,125,0.65) !important;

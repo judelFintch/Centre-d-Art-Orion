@@ -22,6 +22,10 @@ use App\Http\Controllers\Admin\EquipeAdminController;
 use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
+use App\Http\Controllers\BilletterieController;
+use App\Http\Controllers\Admin\BilletAdminController;
+use App\Http\Controllers\Admin\BilletCategorieAdminController;
+use App\Http\Controllers\Admin\PaiementSettingAdminController;
 use App\Http\Controllers\AbonnementController;
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\Admin\AbonnementAdminController;
@@ -60,6 +64,14 @@ Route::prefix('contact')->name('contact.')->group(function () {
     Route::post('/', [ContactController::class, 'store'])->name('store')->middleware('throttle:5,1');
 });
 
+// ─── Billetterie ───────────────────────────────────────────────
+Route::prefix('billetterie')->name('billetterie.')->group(function () {
+    Route::get('/', [BilletterieController::class, 'index'])->name('index');
+    Route::get('/confirmation/{reference}', [BilletterieController::class, 'confirmation'])->name('confirmation');
+    Route::get('/{evenement:slug}', [BilletterieController::class, 'show'])->name('show');
+    Route::post('/{evenement:slug}/reserver', [BilletterieController::class, 'store'])->name('store')->middleware('throttle:10,1');
+});
+
 // ─── Abonnements ───────────────────────────────────────────────
 // Limite : 5 soumissions par minute par IP
 Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store')->middleware('throttle:5,1');
@@ -94,6 +106,27 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('equipe', EquipeAdminController::class);
     Route::patch('equipe/{equipe}/toggle', [EquipeAdminController::class, 'toggleActif'])->name('equipe.toggle');
     Route::post('equipe/reorder', [EquipeAdminController::class, 'reorder'])->name('equipe.reorder');
+
+    // Billetterie
+    // Catégories de billets
+    Route::post('billets/categories/{evenement}',              [BilletCategorieAdminController::class, 'store'])->name('billets.categories.store');
+    Route::patch('billets/categories/{categorie}/update',      [BilletCategorieAdminController::class, 'update'])->name('billets.categories.update');
+    Route::patch('billets/categories/{categorie}/toggle',      [BilletCategorieAdminController::class, 'toggle'])->name('billets.categories.toggle');
+    Route::delete('billets/categories/{categorie}',            [BilletCategorieAdminController::class, 'destroy'])->name('billets.categories.destroy');
+    Route::post('billets/categories/reorder',                  [BilletCategorieAdminController::class, 'reorder'])->name('billets.categories.reorder');
+
+    Route::get('billets',                          [BilletAdminController::class, 'index'])->name('billets.index');
+    Route::get('billets/export',                   [BilletAdminController::class, 'export'])->name('billets.export');
+    Route::post('billets/bulk',                    [BilletAdminController::class, 'bulkUpdate'])->name('billets.bulk');
+    Route::get('billets/evenement/{evenement}',    [BilletAdminController::class, 'byEvent'])->name('billets.by-event');
+    Route::get('billets/{billet}',                 [BilletAdminController::class, 'show'])->name('billets.show');
+    Route::patch('billets/{billet}/statut',         [BilletAdminController::class, 'updateStatut'])->name('billets.statut');
+    Route::patch('billets/{billet}/verifier',       [BilletAdminController::class, 'verifierPaiement'])->name('billets.verifier');
+    Route::delete('billets/{billet}',               [BilletAdminController::class, 'destroy'])->name('billets.destroy');
+
+    // Paramètres paiement
+    Route::get('paiement/settings',  [PaiementSettingAdminController::class, 'index'])->name('paiement.index');
+    Route::put('paiement/settings',  [PaiementSettingAdminController::class, 'update'])->name('paiement.update');
 
     // Contenu des pages (Home / À propos)
     Route::get('pages/home',   [PageSettingAdminController::class, 'home'])->name('pages.home');
