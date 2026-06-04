@@ -93,20 +93,8 @@ class PageSettingAdminController extends Controller
         // Sauvegarder les champs texte
         PageSetting::saveMany($this->flatten($this->stripFiles($data)));
 
-        // Sauvegarder les images uploadées
-        $imageKeys = [
-            'home.ni.img1_file',
-            'home.ni.img2_file',
-            'home.ni.img3_file',
-            'home.podcasts.img_file',
-            'home.services.item1_img',
-            'home.services.item2_img',
-            'home.services.item3_img',
-            'home.services.item4_img',
-            'home.services.item5_img',
-            'home.services.item6_img',
-        ];
-        foreach ($imageKeys as $key) {
+        // Dériver automatiquement les clés images depuis les règles de validation
+        foreach ($this->imageKeysFrom($data) as $key) {
             $this->handleImageUpload($request, $key);
         }
 
@@ -182,8 +170,9 @@ class PageSettingAdminController extends Controller
         PageSetting::saveMany($this->flatten($this->stripFiles($data)));
 
         // Photos direction
-        $this->handleImageUpload($request, 'about.direction.ceo_photo');
-        $this->handleImageUpload($request, 'about.direction.chef_photo');
+        foreach ($this->imageKeysFrom($data) as $key) {
+            $this->handleImageUpload($request, $key);
+        }
 
         PageSetting::clearCache();
 
@@ -191,6 +180,28 @@ class PageSettingAdminController extends Controller
     }
 
     /* ────────────────────────────────── HELPERS ── */
+
+    /**
+     * Extrait les clés dot-notation correspondant à des fichiers image
+     * depuis le tableau de données validé (valeurs UploadedFile ou null).
+     * Évite de maintenir une liste séparée en parallèle des règles de validation.
+     */
+    private function imageKeysFrom(array $data, string $prefix = ''): array
+    {
+        $keys = [];
+        foreach ($data as $key => $value) {
+            $dotKey = $prefix !== '' ? $prefix . '.' . $key : $key;
+            if (is_array($value)) {
+                $keys = array_merge($keys, $this->imageKeysFrom($value, $dotKey));
+            } elseif ($value instanceof \Illuminate\Http\UploadedFile || $value === null) {
+                // On ne retient que les clés dont le nom finit par _file, _img ou _photo
+                if (preg_match('/(_file|_img|_photo)$/', $dotKey)) {
+                    $keys[] = $dotKey;
+                }
+            }
+        }
+        return $keys;
+    }
 
     /**
      * Stocke un fichier image uploadé, supprime l'ancien, enregistre le chemin.

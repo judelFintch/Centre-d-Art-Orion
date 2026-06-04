@@ -323,7 +323,7 @@
             <svg style="vertical-align:middle;margin-right:4px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
             Les modifications sont immédiatement visibles sur le site.
         </p>
-        <button type="submit"
+        <button type="submit" id="save-btn"
             style="display:inline-flex;align-items:center;gap:8px;padding:11px 28px;background:linear-gradient(135deg,#4caf7d,#2d7a52);border:none;border-radius:6px;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;cursor:pointer;transition:opacity 0.2s;"
             onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
@@ -333,15 +333,74 @@
 
 </form>
 
+@push('scripts')
 <script>
+// ── Navigation par onglets ────────────────────────────────────
+const TABS = ['identite', 'services', 'podcasts', 'cta'];
+
 function scrollSection(id) {
     const el = document.getElementById('section-' + id);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setActiveTab(id);
 }
-</script>
 
-@push('scripts')
-<script>
+function setActiveTab(id) {
+    TABS.forEach(t => {
+        const tab = document.getElementById('tab-' + t);
+        if (!tab) return;
+        const isActive = t === id;
+        tab.style.color       = isActive ? '#4caf7d' : '#666';
+        tab.style.borderBottom = isActive ? '2px solid #4caf7d' : '2px solid transparent';
+    });
+}
+
+// Scroll-spy : met à jour l'onglet actif pendant le défilement
+(function initScrollSpy() {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id.replace('section-', '');
+                setActiveTab(id);
+            }
+        });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+
+    TABS.forEach(t => {
+        const el = document.getElementById('section-' + t);
+        if (el) observer.observe(el);
+    });
+
+    // Activer le premier onglet au chargement
+    setActiveTab(TABS[0]);
+})();
+
+// ── Avertissement modifications non sauvegardées ─────────────
+let _formModifie = false;
+
+document.querySelector('form').addEventListener('change', () => { _formModifie = true; });
+document.querySelector('form').addEventListener('input',  () => { _formModifie = true; });
+
+document.getElementById('save-btn').addEventListener('click', () => { _formModifie = false; });
+
+window.addEventListener('beforeunload', e => {
+    if (!_formModifie) return;
+    e.preventDefault();
+    e.returnValue = ''; // Déclenche la boîte de dialogue native du navigateur
+});
+
+// Intercepter les liens de navigation interne (ex : "Aller à À propos")
+document.querySelectorAll('a[href]').forEach(link => {
+    link.addEventListener('click', e => {
+        if (!_formModifie) return;
+        if (!confirm('Vous avez des modifications non sauvegardées. Quitter quand même ?')) {
+            e.preventDefault();
+        } else {
+            _formModifie = false;
+        }
+    });
+});
+
+// ── Drag-and-drop (SortableJS) ────────────────────────────────
 function makeSortable(containerId, hiddenInputId) {
     const el = document.getElementById(containerId);
     if (!el) return;
@@ -349,21 +408,21 @@ function makeSortable(containerId, hiddenInputId) {
         handle: '.drag-handle',
         animation: 150,
         ghostClass: 'sortable-ghost',
-        onEnd: function () {
+        onEnd() {
             const items = [...el.querySelectorAll('.sort-item')];
-            // Mettre à jour la valeur de l'input caché
             document.getElementById(hiddenInputId).value = items.map(i => i.dataset.id).join(',');
-            // Mettre à jour les badges de position
-            items.forEach(function (item, idx) {
+            items.forEach((item, idx) => {
                 const badge = item.querySelector('.pos-badge');
                 if (badge) badge.textContent = idx + 1;
             });
+            _formModifie = true; // Réordonnement = modification
         }
     });
 }
-makeSortable('sortable-ni-stats',  'ni-stats-order');
-makeSortable('sortable-ni-feats',  'ni-feats-order');
-makeSortable('sortable-services',  'services-order');
+
+makeSortable('sortable-ni-stats', 'ni-stats-order');
+makeSortable('sortable-ni-feats', 'ni-feats-order');
+makeSortable('sortable-services', 'services-order');
 </script>
 @endpush
 
