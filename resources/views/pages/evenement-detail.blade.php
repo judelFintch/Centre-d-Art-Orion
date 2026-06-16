@@ -2,8 +2,25 @@
 
 @section('title', $evenement->titre . ' — Centre d\'Art Orion')
 @section('meta_description', Str::limit($evenement->description, 160))
+@section('og_title', $evenement->titre . ' — Centre d\'Art Orion')
+@section('og_description', Str::limit($evenement->description, 160))
+@section('og_image', $evenement->image_url ?: asset('images/og-orion.jpg'))
+@section('og_type', 'article')
+
+@push('head')
+<meta property="og:url" content="{{ route('evenements.show', $evenement) }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $evenement->titre }} — Centre d'Art Orion">
+<meta name="twitter:description" content="{{ Str::limit($evenement->description, 160) }}">
+<meta name="twitter:image" content="{{ $evenement->image_url ?: asset('images/og-orion.jpg') }}">
+@endpush
 
 @section('content')
+
+@php
+    $shareUrl = route('evenements.show', $evenement);
+    $shareText = 'Découvrez ' . $evenement->titre . ' au Centre d\'Art Orion';
+@endphp
 
 <section style="padding:80px 0 60px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
@@ -107,6 +124,43 @@
                         </div>
                     </div>
 
+                    <div style="margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid #1a1a1a;">
+                        <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;color:#f5f5f0;margin:0 0 14px;">Partager l'événement</h4>
+
+                        <div style="display:flex;gap:8px;margin-bottom:12px;">
+                            <input id="event-share-url" type="text" readonly value="{{ $shareUrl }}"
+                                   style="flex:1;min-width:0;padding:9px 10px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.75rem;outline:none;"
+                                   onclick="this.select()">
+                            <button type="button" id="event-share-copy" onclick="copyEventShareUrl()"
+                                    style="padding:9px 12px;background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.25);border-radius:6px;color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;cursor:pointer;">
+                                Copier
+                            </button>
+                        </div>
+
+                        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;">
+                            <a href="https://wa.me/?text={{ urlencode($shareText . ' : ' . $shareUrl) }}" target="_blank" rel="noopener"
+                               aria-label="Partager sur WhatsApp"
+                               style="height:38px;display:flex;align-items:center;justify-content:center;background:rgba(37,211,102,0.08);border:1px solid rgba(37,211,102,0.22);border-radius:6px;color:#25d366;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;">
+                                WA
+                            </a>
+                            <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode($shareUrl) }}" target="_blank" rel="noopener"
+                               aria-label="Partager sur Facebook"
+                               style="height:38px;display:flex;align-items:center;justify-content:center;background:rgba(24,119,242,0.08);border:1px solid rgba(24,119,242,0.22);border-radius:6px;color:#1877f2;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;">
+                                FB
+                            </a>
+                            <a href="https://twitter.com/intent/tweet?text={{ urlencode($shareText) }}&url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener"
+                               aria-label="Partager sur X"
+                               style="height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);border:1px solid #222;border-radius:6px;color:#aaa;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;">
+                                X
+                            </a>
+                            <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ urlencode($shareUrl) }}" target="_blank" rel="noopener"
+                               aria-label="Partager sur LinkedIn"
+                               style="height:38px;display:flex;align-items:center;justify-content:center;background:rgba(10,102,194,0.08);border:1px solid rgba(10,102,194,0.22);border-radius:6px;color:#0a66c2;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;">
+                                IN
+                            </a>
+                        </div>
+                    </div>
+
                     @if($evenement->statut === 'a_venir')
                     @if($evenement->lien_inscription)
                     <a href="{{ $evenement->lien_inscription }}" target="_blank" class="btn-gold" style="width:100%;justify-content:center;">
@@ -137,5 +191,36 @@
     }
 }
 </style>
+
+@push('scripts')
+<script>
+function copyEventShareUrl() {
+    var input = document.getElementById('event-share-url');
+    var btn = document.getElementById('event-share-copy');
+    if (!input) return;
+
+    input.select();
+    input.setSelectionRange(0, 99999);
+
+    var done = function () {
+        if (!btn) return;
+        var old = btn.textContent;
+        btn.textContent = 'Copié';
+        setTimeout(function () { btn.textContent = old; }, 1600);
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(input.value).then(done).catch(function () {
+            document.execCommand('copy');
+            done();
+        });
+        return;
+    }
+
+    document.execCommand('copy');
+    done();
+}
+</script>
+@endpush
 
 @endsection
