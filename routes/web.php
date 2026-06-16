@@ -58,6 +58,7 @@ Route::prefix('evenements')->name('evenements.')->group(function () {
 });
 
 Route::get('/equipe', [EquipeController::class, 'index'])->name('equipe');
+Route::get('/equipe/{equipe}', [EquipeController::class, 'show'])->name('equipe.show');
 
 Route::prefix('contact')->name('contact.')->group(function () {
     Route::get('/', [ContactController::class, 'index'])->name('index');

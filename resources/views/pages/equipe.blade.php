@@ -95,6 +95,13 @@ foreach($membres as $role => $group) {
                 </div>
                 @endif
 
+                <a href="{{ route('equipe.show', $membre) }}"
+                   style="display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:9px 18px;border:1px solid {{ $color }}55;border-radius:6px;color:{{ $color }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.2s;"
+                   onmouseover="this.style.background='{{ $color }}18';this.style.borderColor='{{ $color }}'"
+                   onmouseout="this.style.background='transparent';this.style.borderColor='{{ $color }}55'">
+                    Détails
+                </a>
+
             </div>
             @endforeach
         </div>
