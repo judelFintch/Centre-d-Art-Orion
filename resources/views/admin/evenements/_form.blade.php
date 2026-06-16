@@ -153,7 +153,7 @@
 
             @if($edit && $evenement->image)
             <div style="margin-bottom:12px;border-radius:6px;overflow:hidden;height:130px;background:#0d0d0d;position:relative;">
-                <img src="{{ Storage::url($evenement->image) }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
+                <img src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <label style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#0d0d0d;border:1px solid #222;border-radius:6px;cursor:pointer;margin-bottom:10px;">
                 <input type="checkbox" name="remove_image" value="1"

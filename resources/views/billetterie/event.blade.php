@@ -80,9 +80,9 @@
 
         {{-- Description --}}
         <div>
-            @if($evenement->image)
+            @if($evenement->image_url)
             <div style="border-radius:10px;overflow:hidden;margin-bottom:28px;max-height:360px;">
-                <img src="{{ asset('storage/'.$evenement->image) }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
+                <img src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
             </div>
             @endif
             <h2 style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#1c1510;margin:0 0 12px;">À propos</h2>

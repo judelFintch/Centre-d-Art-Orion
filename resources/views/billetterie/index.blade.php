@@ -34,9 +34,9 @@
                      onmouseout="this.style.boxShadow='';this.style.transform=''">
 
                 {{-- Image --}}
-                @if($evt->image)
+                @if($evt->image_url)
                 <div style="height:200px;overflow:hidden;flex-shrink:0;">
-                    <img src="{{ asset('storage/'.$evt->image) }}" alt="{{ $evt->titre }}"
+                    <img src="{{ $evt->image_url }}" alt="{{ $evt->titre }}"
                          style="width:100%;height:100%;object-fit:cover;transition:transform 0.4s;"
                          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform=''">
                 </div>

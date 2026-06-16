@@ -39,14 +39,17 @@
         @else
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px;">
             @foreach($aVenir as $ev)
+            @php
+                $eventImage = $ev->image_url;
+            @endphp
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:10px;overflow:hidden;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='#e0703033'" onmouseout="this.style.borderColor='#1a1a1a'">
 
                 {{-- Image / Date banner --}}
                 <div style="position:relative;height:200px;background:linear-gradient(135deg,#1a1a1a,#111);display:flex;align-items:center;justify-content:center;overflow:hidden;">
-                    @if($ev->image && file_exists(public_path('storage/'.$ev->image)))
-                        <img src="{{ asset('storage/'.$ev->image) }}" alt="{{ $ev->titre }}" style="width:100%;height:100%;object-fit:cover;">
+                    @if($eventImage)
+                        <img src="{{ $eventImage }}" alt="{{ $ev->titre }}" style="width:100%;height:100%;object-fit:cover;">
                     @else
                         @php $evPhotos = ['11.jpg','22.jpg','5.jpg','7.jpg','3.jpg','6.jpg','9.jpg','2.jpg']; @endphp
                         <img src="{{ asset('images/' . $evPhotos[$loop->index % count($evPhotos)]) }}"

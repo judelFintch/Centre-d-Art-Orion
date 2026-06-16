@@ -664,6 +664,9 @@
         {{-- Cards --}}
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;">
             @foreach($evenements as $ei => $ev)
+            @php
+                $eventImage = $ev->image_url ?: asset('images/' . $evPhotos[$ei % count($evPhotos)]);
+            @endphp
             <a href="{{ route('evenements.show', $ev) }}"
                class="reveal"
                style="display:block;text-decoration:none;border-radius:12px;overflow:hidden;position:relative;height:420px;background:#111;transition:transform 0.35s,box-shadow 0.35s;"
@@ -672,7 +675,7 @@
 
                 {{-- Photo --}}
                 <img class="ev-img"
-                     src="{{ asset('images/' . $evPhotos[$ei % count($evPhotos)]) }}"
+                     src="{{ $eventImage }}"
                      alt="{{ $ev->titre }}"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.6s ease;">
 

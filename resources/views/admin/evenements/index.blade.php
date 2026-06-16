@@ -56,7 +56,7 @@
                     <td style="padding:12px 14px;width:72px;">
                         <div style="width:60px;height:42px;border-radius:4px;overflow:hidden;background:#1a1a1a;flex-shrink:0;">
                             @if($ev->image)
-                            <img src="{{ Storage::url($ev->image) }}" alt="{{ $ev->titre }}" style="width:100%;height:100%;object-fit:cover;">
+                            <img src="{{ $ev->image_url }}" alt="{{ $ev->titre }}" style="width:100%;height:100%;object-fit:cover;">
                             @else
                             <div style="height:100%;display:flex;align-items:center;justify-content:center;color:#333;font-size:1.1rem;">◎</div>
                             @endif

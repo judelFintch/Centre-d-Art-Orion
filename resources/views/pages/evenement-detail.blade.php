@@ -29,6 +29,12 @@
         <div style="display:grid;grid-template-columns:1fr 320px;gap:48px;align-items:start;">
 
             <div>
+                @if($evenement->image_url)
+                <div style="border-radius:10px;overflow:hidden;margin-bottom:28px;height:360px;background:#111;border:1px solid #1a1a1a;">
+                    <img src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                @endif
+
                 @if($evenement->contenu)
                 <div style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;margin-bottom:28px;">
                     <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.08em;text-transform:uppercase;color:#f5f5f0;margin:0 0 20px;">À propos de cet événement</h2>
