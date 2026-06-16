@@ -66,7 +66,7 @@
                 <td style="padding:12px 16px;">
                     <div style="width:48px;height:48px;border-radius:50%;overflow:hidden;background:#1a1a1a;flex-shrink:0;border:2px solid #222;">
                         @if($membre->photo)
-                        <img src="{{ Storage::url($membre->photo) }}" alt="{{ $membre->nom_complet }}" style="width:100%;height:100%;object-fit:cover;">
+                        <img src="{{ $membre->photo_url }}" alt="{{ $membre->nom_complet }}" style="width:100%;height:100%;object-fit:cover;">
                         @else
                         <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.1rem;color:#555;font-weight:700;">
                             {{ strtoupper(substr($membre->prenom, 0, 1)) }}{{ strtoupper(substr($membre->nom, 0, 1)) }}

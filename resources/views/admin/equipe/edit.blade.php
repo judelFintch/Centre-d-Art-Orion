@@ -24,15 +24,12 @@
     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;padding-top:24px;border-top:1px solid #1a1a1a;flex-wrap:wrap;">
 
         {{-- Supprimer --}}
-        <form action="{{ route('admin.equipe.destroy', $equipe) }}" method="POST"
-              onsubmit="return confirm('Supprimer définitivement {{ addslashes($equipe->nom_complet) }} ?')" style="margin:0;">
-            @csrf @method('DELETE')
-            <button type="submit"
-                    style="padding:10px 18px;background:rgba(224,112,48,0.08);border:1px solid rgba(224,112,48,0.2);color:#e07030;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;border-radius:6px;transition:all 0.2s;"
-                    onmouseover="this.style.background='rgba(224,112,48,0.16)'" onmouseout="this.style.background='rgba(224,112,48,0.08)'">
-                Supprimer ce membre
-            </button>
-        </form>
+        <button type="submit"
+                form="delete-equipe-form"
+                style="padding:10px 18px;background:rgba(224,112,48,0.08);border:1px solid rgba(224,112,48,0.2);color:#e07030;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;cursor:pointer;border-radius:6px;transition:all 0.2s;"
+                onmouseover="this.style.background='rgba(224,112,48,0.16)'" onmouseout="this.style.background='rgba(224,112,48,0.08)'">
+            Supprimer ce membre
+        </button>
 
         <div style="display:flex;gap:12px;">
             <a href="{{ route('admin.equipe.index') }}"
@@ -48,6 +45,12 @@
         </div>
 
     </div>
+</form>
+
+<form id="delete-equipe-form" action="{{ route('admin.equipe.destroy', $equipe) }}" method="POST"
+      onsubmit="return confirm('Supprimer définitivement {{ addslashes($equipe->nom_complet) }} ?')" style="display:none;">
+    @csrf
+    @method('DELETE')
 </form>
 
 @endsection

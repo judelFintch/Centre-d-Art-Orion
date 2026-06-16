@@ -156,19 +156,43 @@
             <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:12px;">Photo</label>
 
             @if($edit && $equipe->photo)
-            <div style="margin-bottom:12px;border-radius:50%;overflow:hidden;width:100px;height:100px;border:2px solid #2a2a2a;background:#0d0d0d;">
-                <img src="{{ Storage::url($equipe->photo) }}" alt="{{ $equipe->nom_complet }}" style="width:100%;height:100%;object-fit:cover;">
+            <div id="photo-preview-wrap" style="margin-bottom:12px;border-radius:50%;overflow:hidden;width:100px;height:100px;border:2px solid #2a2a2a;background:#0d0d0d;">
+                <img src="{{ $equipe->photo_url }}" alt="{{ $equipe->nom_complet }}" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <label style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#0d0d0d;border:1px solid #222;border-radius:6px;cursor:pointer;margin-bottom:10px;">
                 <input type="checkbox" name="remove_photo" value="1" style="width:14px;height:14px;accent-color:#e07030;cursor:pointer;">
                 <span style="color:#e07030;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;">Supprimer la photo actuelle</span>
             </label>
+            @else
+            <div id="photo-preview-wrap" style="display:none;margin-bottom:12px;border-radius:50%;overflow:hidden;width:100px;height:100px;border:2px solid #2a2a2a;background:#0d0d0d;">
+                <img id="photo-preview" src="" alt="Aperçu de la photo" style="width:100%;height:100%;object-fit:cover;">
+            </div>
             @endif
 
-            <input type="file" name="photo" accept="image/jpg,image/jpeg,image/png,image/webp" style="{{ $fs }}padding:9px;">
+            <input id="photo-input" type="file" name="photo" accept="image/jpg,image/jpeg,image/png,image/webp" style="{{ $fs }}padding:9px;">
             <p style="color:#555;font-size:0.74rem;margin:6px 0 0;font-family:'Space Grotesk',sans-serif;">JPG, PNG ou WebP — 4 Mo max. Portrait recommandé.</p>
             @error('photo')<p style="color:#e07030;font-size:0.75rem;margin:4px 0 0;">{{ $message }}</p>@enderror
         </div>
 
     </div>
 </div>
+
+@push('scripts')
+<script>
+(function () {
+    var input = document.getElementById('photo-input');
+    var wrap = document.getElementById('photo-preview-wrap');
+    if (!input || !wrap) return;
+
+    var img = wrap.querySelector('img');
+
+    input.addEventListener('change', function () {
+        var file = input.files && input.files[0];
+        if (!file || !img) return;
+
+        img.src = URL.createObjectURL(file);
+        wrap.style.display = 'block';
+    });
+})();
+</script>
+@endpush

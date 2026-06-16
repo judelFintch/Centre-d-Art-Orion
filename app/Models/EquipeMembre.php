@@ -27,4 +27,21 @@ class EquipeMembre extends Model
     {
         return "{$this->prenom} {$this->nom}";
     }
+
+    public function getPhotoUrlAttribute(): ?string
+    {
+        if (! $this->photo) {
+            return null;
+        }
+
+        if (
+            str_starts_with($this->photo, 'http://')
+            || str_starts_with($this->photo, 'https://')
+            || str_starts_with($this->photo, '/')
+        ) {
+            return $this->photo;
+        }
+
+        return asset('storage/'.$this->photo);
+    }
 }

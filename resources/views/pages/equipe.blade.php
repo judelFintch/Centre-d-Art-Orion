@@ -55,6 +55,7 @@ foreach($membres as $role => $group) {
                 $color = $roleColor[$membre->role] ?? '#4caf7d';
                 $badge = $roleBadge[$membre->role] ?? 'tag-green';
                 $initials = strtoupper(substr($membre->prenom, 0, 1) . substr($membre->nom, 0, 1));
+                $photoUrl = $membre->photo_url;
             @endphp
             <div class="reveal hover-lift"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:12px;padding:36px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden;"
@@ -63,15 +64,15 @@ foreach($membres as $role => $group) {
                 <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,{{ $color }},transparent);"></div>
 
                 {{-- Avatar --}}
-                @if($membre->photo && file_exists(public_path('storage/'.$membre->photo)))
-                <img src="{{ asset('storage/'.$membre->photo) }}"
+                @if($photoUrl)
+                <img src="{{ $photoUrl }}"
                      alt="{{ $membre->nom_complet }}"
                      style="width:88px;height:88px;border-radius:50%;object-fit:cover;margin:0 auto 20px;display:block;border:3px solid {{ $color }}44;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
                 @else
-                @php $mPhotos = ['4.jpg','9.jpg','5.jpg','7.jpg','3.jpg','6.jpg','2.jpg','1.png']; @endphp
-                <img src="{{ asset('images/' . $mPhotos[$loop->index % count($mPhotos)]) }}"
-                     alt="{{ $membre->nom_complet }}"
-                     style="width:88px;height:88px;border-radius:50%;object-fit:cover;margin:0 auto 20px;display:block;border:3px solid {{ $color }}44;box-shadow:0 8px 30px {{ $color }}44;">
+                <div aria-label="{{ $membre->nom_complet }}"
+                     style="width:88px;height:88px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;border:3px solid {{ $color }}44;background:rgba(255,255,255,0.04);box-shadow:0 8px 30px {{ $color }}22;color:{{ $color }};font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:1rem;">
+                    {{ $initials }}
+                </div>
                 @endif
 
                 <span class="tag {{ $badge }}" style="margin-bottom:12px;display:inline-block;">{{ $membre->poste }}</span>
