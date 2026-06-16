@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\EvenementAdminController;
 use App\Http\Controllers\Admin\GalerieAdminController;
 use App\Http\Controllers\Admin\MessageAdminController;
 use App\Http\Controllers\Admin\EquipeAdminController;
+use App\Http\Controllers\Admin\EquipeRoleAdminController;
 use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
@@ -110,6 +111,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('equipe', EquipeAdminController::class);
     Route::patch('equipe/{equipe}/toggle', [EquipeAdminController::class, 'toggleActif'])->name('equipe.toggle');
     Route::post('equipe/reorder', [EquipeAdminController::class, 'reorder'])->name('equipe.reorder');
+    Route::get('equipe-roles', [EquipeRoleAdminController::class, 'index'])->name('equipe-roles.index');
+    Route::post('equipe-roles', [EquipeRoleAdminController::class, 'store'])->name('equipe-roles.store');
+    Route::put('equipe-roles/{role}', [EquipeRoleAdminController::class, 'update'])->name('equipe-roles.update');
+    Route::patch('equipe-roles/{role}/toggle', [EquipeRoleAdminController::class, 'toggle'])->name('equipe-roles.toggle');
+    Route::delete('equipe-roles/{role}', [EquipeRoleAdminController::class, 'destroy'])->name('equipe-roles.destroy');
 
     // Billetterie
     // Catégories de billets

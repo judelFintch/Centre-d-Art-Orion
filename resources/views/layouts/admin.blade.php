@@ -38,6 +38,7 @@
             ['route' => 'admin.blog.index',          'icon' => '✎', 'label' => 'Blog',              'color' => '#d4a030'],
             ['route' => 'admin.podcasts.index',      'icon' => '◌', 'label' => 'Podcasts',          'color' => '#4caf7d'],
             ['route' => 'admin.equipe.index',        'icon' => '◈', 'label' => 'Équipe',            'color' => '#d4a030'],
+            ['route' => 'admin.equipe-roles.index',  'icon' => '◆', 'label' => 'Rôles équipe',      'color' => '#d4a030'],
             ['route' => 'admin.billets.index',       'icon' => '🎟', 'label' => 'Billetterie',       'color' => '#4caf7d'],
             ['route' => 'admin.paiement.index',      'icon' => '💳', 'label' => 'Config. Paiement',   'color' => '#d4a030'],
             ['route' => 'admin.messages.index',      'icon' => '✉', 'label' => 'Messages',          'color' => '#e07030'],
@@ -61,6 +62,9 @@
             // Config paiement
             if ($item['route'] === 'admin.paiement.index') {
                 $isActive = request()->routeIs('admin.paiement.*');
+            }
+            if ($item['route'] === 'admin.equipe-roles.index') {
+                $isActive = request()->routeIs('admin.equipe-roles.*');
             }
         @endphp
         <a href="{{ route($item['route']) }}"

@@ -33,17 +33,6 @@
 </div>
 @else
 
-{{-- Légende des rôles --}}
-@php
-    $roleLabels = [
-        'ceo'         => ['label' => 'PDG / CEO',       'color' => '#d4a030'],
-        'chef_centre' => ['label' => 'Chef de centre',  'color' => '#e07030'],
-        'formateur'   => ['label' => 'Formateur',       'color' => '#4caf7d'],
-        'artiste'     => ['label' => 'Artiste',         'color' => '#7c6af7'],
-        'membre'      => ['label' => 'Membre',          'color' => '#888'],
-    ];
-@endphp
-
 <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;" id="equipe-list">
     <table style="width:100%;border-collapse:collapse;">
         <thead>
@@ -83,8 +72,7 @@
 
                 {{-- Rôle / Poste --}}
                 <td style="padding:12px 16px;">
-                    @php $r = $roleLabels[$membre->role] ?? ['label' => $membre->role, 'color' => '#888']; @endphp
-                    <span style="display:inline-block;padding:3px 10px;border-radius:99px;border:1px solid {{ $r['color'] }}44;color:{{ $r['color'] }};font-family:'Space Grotesk',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">{{ $r['label'] }}</span>
+                    <span style="display:inline-block;padding:3px 10px;border-radius:99px;border:1px solid {{ $membre->role_color }}44;color:{{ $membre->role_color }};font-family:'Space Grotesk',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">{{ $membre->role_label }}</span>
                     <p style="color:#666;font-size:0.78rem;margin:0;max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $membre->poste }}</p>
                 </td>
 

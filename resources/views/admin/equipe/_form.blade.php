@@ -1,13 +1,7 @@
 @php
     $edit = isset($equipe);
     $fs   = "width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;box-sizing:border-box;";
-    $roles = [
-        'ceo'         => 'PDG / CEO',
-        'chef_centre' => 'Chef de centre',
-        'formateur'   => 'Formateur(trice)',
-        'artiste'     => 'Artiste',
-        'membre'      => 'Membre',
-    ];
+    $roles = $roles ?? collect();
     $rs = $edit ? ($equipe->reseaux_sociaux ?? []) : [];
     $competencesRaw = $edit ? implode(', ', $equipe->competences ?? []) : '';
 @endphp
@@ -106,10 +100,15 @@
             <div>
                 <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Rôle <span style="color:#e07030;">*</span></label>
                 <select name="role" required style="{{ $fs }}cursor:pointer;appearance:auto;">
-                    @foreach($roles as $val => $label)
-                    <option value="{{ $val }}" {{ old('role', $edit ? $equipe->role : 'membre') === $val ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach($roles as $role)
+                    <option value="{{ $role->slug }}" {{ old('role', $edit ? $equipe->role : 'membre') === $role->slug ? 'selected' : '' }}>
+                        {{ $role->nom }}{{ $role->actif ? '' : ' (inactif)' }}
+                    </option>
                     @endforeach
                 </select>
+                @if($roles->isEmpty())
+                <p style="color:#e07030;font-size:0.75rem;margin:5px 0 0;">Aucun rôle disponible. Ajoutez d'abord un rôle dans “Rôles équipe”.</p>
+                @endif
                 @error('role')<p style="color:#e07030;font-size:0.75rem;margin:4px 0 0;">{{ $message }}</p>@enderror
             </div>
 

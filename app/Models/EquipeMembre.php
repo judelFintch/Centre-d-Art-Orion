@@ -28,6 +28,21 @@ class EquipeMembre extends Model
         return "{$this->prenom} {$this->nom}";
     }
 
+    public function roleOption()
+    {
+        return $this->belongsTo(EquipeRole::class, 'role', 'slug');
+    }
+
+    public function getRoleLabelAttribute(): string
+    {
+        return $this->roleOption?->nom ?: ucfirst(str_replace('_', ' ', $this->role));
+    }
+
+    public function getRoleColorAttribute(): string
+    {
+        return $this->roleOption?->couleur ?: '#4caf7d';
+    }
+
     public function getPhotoUrlAttribute(): ?string
     {
         if (! $this->photo) {

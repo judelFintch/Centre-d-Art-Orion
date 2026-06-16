@@ -6,21 +6,8 @@
 @section('content')
 
 @php
-    $roleLabels = [
-        'ceo' => 'PDG / CEO',
-        'chef_centre' => 'Chef de centre',
-        'formateur' => 'Formateur(trice)',
-        'artiste' => 'Artiste',
-        'membre' => 'Membre',
-    ];
-    $roleColors = [
-        'ceo' => '#d4a030',
-        'chef_centre' => '#d4a030',
-        'formateur' => '#4caf7d',
-        'artiste' => '#e07030',
-        'membre' => '#4caf7d',
-    ];
-    $color = $roleColors[$equipe->role] ?? '#4caf7d';
+    $color = $equipe->role_color;
+    $roleLabel = $equipe->role_label;
     $initials = strtoupper(substr($equipe->prenom, 0, 1) . substr($equipe->nom, 0, 1));
 @endphp
 
@@ -44,7 +31,7 @@
             </div>
 
             <div>
-                <span class="tag" style="background:{{ $color }}22;color:{{ $color }};margin-bottom:16px;">{{ $roleLabels[$equipe->role] ?? $equipe->role }}</span>
+                <span class="tag" style="background:{{ $color }}22;color:{{ $color }};margin-bottom:16px;">{{ $roleLabel }}</span>
                 <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.3rem,5vw,4.4rem);font-weight:900;color:#f5f5f0;line-height:1.05;margin:0 0 16px;">
                     {{ $equipe->prenom }}<br>{{ $equipe->nom }}
                 </h1>
@@ -64,7 +51,7 @@
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;">
                 @foreach([
-                    ['Rôle', $roleLabels[$equipe->role] ?? $equipe->role],
+                    ['Rôle', $roleLabel],
                     ['Poste', $equipe->poste],
                     ['Email', $equipe->email],
                     ['Téléphone', $equipe->telephone],

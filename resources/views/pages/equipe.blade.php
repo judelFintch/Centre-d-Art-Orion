@@ -18,32 +18,17 @@
     </div>
 </section>
 
+@foreach($sections as $section)
 @php
-$roleOrder  = ['ceo' => 0, 'chef_centre' => 1, 'formateur' => 2, 'artiste' => 3];
-$roleLabels = ['ceo' => 'Direction', 'chef_centre' => 'Direction', 'formateur' => 'Formateurs', 'artiste' => 'Artistes Associés'];
-$roleBadge  = ['ceo' => 'tag-gold', 'chef_centre' => 'tag-gold', 'formateur' => 'tag-green', 'artiste' => 'tag-orange'];
-$roleColor  = ['ceo' => '#d4a030', 'chef_centre' => '#d4a030', 'formateur' => '#4caf7d', 'artiste' => '#e07030'];
-
-$sections = [
-    'Direction'          => collect(),
-    'Formateurs'         => collect(),
-    'Artistes Associés'  => collect(),
-    'Autres membres'     => collect(),
-];
-
-foreach($membres as $role => $group) {
-    $label = $roleLabels[$role] ?? 'Autres membres';
-    $sections[$label] = $sections[$label]->merge($group);
-}
+    $label = $section['label'];
+    $sectionColor = $section['color'];
+    $group = $section['membres'];
 @endphp
-
-@foreach($sections as $label => $group)
-@if($group->isNotEmpty())
 <section style="padding:80px 0;background:{{ $loop->index % 2 === 0 ? '#0d0d0d' : '#0a0a0a' }};border-top:1px solid #161616;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="margin-bottom:48px;">
-            <div class="tag tag-{{ $label === 'Direction' ? 'gold' : ($label === 'Formateurs' ? 'green' : 'orange') }}" style="margin-bottom:16px;">{{ $label }}</div>
+            <div class="tag" style="margin-bottom:16px;background:{{ $sectionColor }}22;color:{{ $sectionColor }};">{{ $label }}</div>
             <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line">
                 {{ $label }}
             </h2>
@@ -52,8 +37,7 @@ foreach($membres as $role => $group) {
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:28px;">
             @foreach($group as $membre)
             @php
-                $color = $roleColor[$membre->role] ?? '#4caf7d';
-                $badge = $roleBadge[$membre->role] ?? 'tag-green';
+                $color = $membre->role_color;
                 $initials = strtoupper(substr($membre->prenom, 0, 1) . substr($membre->nom, 0, 1));
                 $photoUrl = $membre->photo_url;
             @endphp
@@ -75,7 +59,7 @@ foreach($membres as $role => $group) {
                 </div>
                 @endif
 
-                <span class="tag {{ $badge }}" style="margin-bottom:12px;display:inline-block;">{{ $membre->poste }}</span>
+                <span class="tag" style="margin-bottom:12px;display:inline-block;background:{{ $color }}22;color:{{ $color }};">{{ $membre->poste }}</span>
                 <h3 style="font-family:'Playfair Display',Georgia,serif;font-weight:700;font-size:1.2rem;color:#f5f5f0;margin:0 0 4px;">{{ $membre->prenom }} {{ $membre->nom }}</h3>
 
                 @if($membre->bio)
@@ -108,7 +92,6 @@ foreach($membres as $role => $group) {
 
     </div>
 </section>
-@endif
 @endforeach
 
 {{-- Rejoindre l'équipe --}}

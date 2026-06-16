@@ -4,21 +4,25 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\EquipeMembre;
+use App\Models\EquipeRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rule;
 
 class EquipeAdminController extends Controller
 {
     public function index()
     {
-        $membres = EquipeMembre::orderBy('ordre')->orderBy('nom')->get();
+        $membres = EquipeMembre::with('roleOption')->orderBy('ordre')->orderBy('nom')->get();
 
         return view('admin.equipe.index', compact('membres'));
     }
 
     public function create()
     {
-        return view('admin.equipe.create');
+        $roles = EquipeRole::actif()->get();
+
+        return view('admin.equipe.create', compact('roles'));
     }
 
     public function store(Request $request)
@@ -46,7 +50,9 @@ class EquipeAdminController extends Controller
 
     public function edit(EquipeMembre $equipe)
     {
-        return view('admin.equipe.edit', compact('equipe'));
+        $roles = EquipeRole::ordered()->get();
+
+        return view('admin.equipe.edit', compact('equipe', 'roles'));
     }
 
     public function update(Request $request, EquipeMembre $equipe)
@@ -107,7 +113,7 @@ class EquipeAdminController extends Controller
             'nom'       => ['required', 'string', 'max:100'],
             'prenom'    => ['required', 'string', 'max:100'],
             'poste'     => ['required', 'string', 'max:160'],
-            'role'      => ['required', 'in:ceo,chef_centre,formateur,artiste,membre'],
+            'role'      => ['required', Rule::exists('equipe_roles', 'slug')],
             'bio'       => ['nullable', 'string', 'max:2000'],
             'email'     => ['nullable', 'email', 'max:200'],
             'telephone' => ['nullable', 'string', 'max:40'],
