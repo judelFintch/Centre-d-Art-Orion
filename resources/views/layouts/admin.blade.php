@@ -74,13 +74,30 @@
     </nav>
 
     {{-- Bottom --}}
-    <div style="padding:16px 12px;border-top:1px solid #1a1a1a;">
+    <div style="padding:16px 12px;border-top:1px solid #1a1a1a;display:flex;flex-direction:column;gap:6px;">
+        <a href="{{ route('admin.profile.edit') }}"
+           style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:6px;color:{{ request()->routeIs('admin.profile.*') ? '#4caf7d' : '#555' }};font-size:0.8rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:color 0.2s,background 0.2s;{{ request()->routeIs('admin.profile.*') ? 'background:rgba(76,175,125,0.08);' : '' }}"
+           onmouseover="this.style.color='#4caf7d';this.style.background='rgba(255,255,255,0.04)'"
+           onmouseout="this.style.color='{{ request()->routeIs('admin.profile.*') ? '#4caf7d' : '#555' }}';this.style.background='{{ request()->routeIs('admin.profile.*') ? 'rgba(76,175,125,0.08)' : '' }}'">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21a8 8 0 0 0-16 0"/><circle cx="12" cy="7" r="4"/></svg>
+            Mon profil
+        </a>
         <a href="{{ route('home') }}" target="_blank"
            style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:6px;color:#555;font-size:0.8rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;transition:color 0.2s;"
            onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#555'">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
             Voir le site
         </a>
+        <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+            @csrf
+            <button type="submit"
+                    style="width:100%;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:6px;color:#e07030;background:transparent;border:0;font-size:0.8rem;text-decoration:none;font-family:'Space Grotesk',sans-serif;cursor:pointer;transition:background 0.2s;"
+                    onmouseover="this.style.background='rgba(224,112,48,0.1)'"
+                    onmouseout="this.style.background='transparent'">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Déconnexion
+            </button>
+        </form>
     </div>
 </aside>
 
@@ -91,8 +108,28 @@
     <header style="background:#0d0d0d;border-bottom:1px solid #1a1a1a;padding:0 28px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:30;">
         <h1 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.95rem;color:#f5f5f0;margin:0;">@yield('title', 'Tableau de bord')</h1>
         <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#0a0a0a;">A</div>
-            <span style="color:#888;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;">Admin Orion</span>
+            @php
+                $adminUser = auth()->user();
+                $adminName = $adminUser?->name ?: 'Admin Orion';
+                $adminInitial = mb_strtoupper(mb_substr($adminName, 0, 1));
+            @endphp
+            <a href="{{ route('admin.profile.edit') }}"
+               style="display:flex;align-items:center;gap:10px;text-decoration:none;padding:6px 8px;border-radius:6px;transition:background 0.2s;"
+               onmouseover="this.style.background='rgba(255,255,255,0.04)'"
+               onmouseout="this.style.background='transparent'">
+                <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#0a0a0a;">{{ $adminInitial }}</div>
+                <span style="color:#888;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;">{{ $adminName }}</span>
+            </a>
+            <form method="POST" action="{{ route('logout') }}" style="margin:0;">
+                @csrf
+                <button type="submit"
+                        title="Déconnexion"
+                        style="width:34px;height:34px;border-radius:6px;background:#111;border:1px solid #222;color:#e07030;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s;"
+                        onmouseover="this.style.borderColor='#e07030';this.style.background='rgba(224,112,48,0.1)'"
+                        onmouseout="this.style.borderColor='#222';this.style.background='#111'">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                </button>
+            </form>
         </div>
     </header>
 

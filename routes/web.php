@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\AbonnementAdminController;
 use App\Http\Controllers\Admin\AnalyticsAdminController;
 use App\Http\Controllers\Admin\MailSettingAdminController;
 use App\Http\Controllers\Admin\PageSettingAdminController;
+use App\Http\Controllers\Admin\ProfileAdminController;
 
 // ─── Site Public ───────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -86,6 +87,8 @@ Route::prefix('analytics')->name('analytics.')->middleware('throttle:60,1')->gro
 // ─── Back-office Admin ─────────────────────────────────────────
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('profile', [ProfileAdminController::class, 'edit'])->name('profile.edit');
+    Route::put('profile', [ProfileAdminController::class, 'update'])->name('profile.update');
     Route::resource('formations', FormationAdminController::class);
     Route::resource('evenements', EvenementAdminController::class);
     Route::patch('evenements/{evenement}/toggle', [EvenementAdminController::class, 'toggleActif'])->name('evenements.toggle');
