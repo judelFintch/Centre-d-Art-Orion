@@ -30,6 +30,23 @@
     </div>
 </section>
 
+{{-- Image de la formation --}}
+@if($formation->image && file_exists(public_path('storage/'.$formation->image)))
+<div style="max-width:1280px;margin:0 auto;padding:0 24px;">
+    <div style="height:380px;border-radius:12px;overflow:hidden;margin-top:-1px;position:relative;">
+        <img src="{{ asset('storage/'.$formation->image) }}"
+             alt="{{ $formation->titre }}"
+             style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,10,0.5),transparent 50%);"></div>
+        @if($formation->niveau)
+        <div style="position:absolute;bottom:20px;left:20px;">
+            <span class="tag tag-orange">{{ $formation->niveau }}</span>
+        </div>
+        @endif
+    </div>
+</div>
+@endif
+
 {{-- Contenu principal --}}
 <section style="padding:80px 0;background:#0d0d0d;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
@@ -44,18 +61,65 @@
                 </div>
                 @endif
 
-                {{-- Points clés --}}
+                {{-- Informations complémentaires --}}
                 <div style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;">
-                    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.08em;text-transform:uppercase;color:#f5f5f0;margin:0 0 24px;">Ce que vous apprendrez</h2>
-                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                        @foreach(['Techniques fondamentales de la discipline','Pratique intensive en ateliers','Expression et créativité personnelle','Professionnalisme et standards du métier','Collaboration et projets de groupe','Présentation et mise en valeur de son travail'] as $pt)
-                        <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;background:#0d0d0d;border-radius:6px;">
-                            <div style="width:20px;height:20px;background:rgba(76,175,125,0.15);border:1px solid rgba(76,175,125,0.25);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
-                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                    <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;letter-spacing:0.08em;text-transform:uppercase;color:#f5f5f0;margin:0 0 24px;">Informations pratiques</h2>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        @if($formation->duree)
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#0d0d0d;border-radius:6px;">
+                            <div style="width:36px;height:36px;background:rgba(76,175,125,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                             </div>
-                            <span style="color:#888;font-size:0.85rem;line-height:1.5;">{{ $pt }}</span>
+                            <div>
+                                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:2px;">Durée</div>
+                                <div style="color:#f5f5f0;font-size:0.9rem;">{{ $formation->duree }}</div>
+                            </div>
                         </div>
-                        @endforeach
+                        @endif
+                        @if($formation->niveau)
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#0d0d0d;border-radius:6px;">
+                            <div style="width:36px;height:36px;background:rgba(212,160,48,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:2px;">Niveau</div>
+                                <div style="color:#f5f5f0;font-size:0.9rem;">{{ $formation->niveau }}</div>
+                            </div>
+                        </div>
+                        @endif
+                        @if($formation->public_cible)
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#0d0d0d;border-radius:6px;">
+                            <div style="width:36px;height:36px;background:rgba(224,112,48,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e07030" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8z"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:2px;">Public cible</div>
+                                <div style="color:#f5f5f0;font-size:0.9rem;">{{ $formation->public_cible }}</div>
+                            </div>
+                        </div>
+                        @endif
+                        @if($formation->categorie)
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#0d0d0d;border-radius:6px;">
+                            <div style="width:36px;height:36px;background:rgba(76,175,125,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:2px;">Catégorie</div>
+                                <div style="color:#f5f5f0;font-size:0.9rem;">{{ $formation->categorie }}</div>
+                            </div>
+                        </div>
+                        @endif
+                        @if($formation->prix)
+                        <div style="display:flex;align-items:center;gap:14px;padding:14px;background:#0d0d0d;border-radius:6px;">
+                            <div style="width:36px;height:36px;background:rgba(212,160,48,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+                            </div>
+                            <div>
+                                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:2px;">Prix</div>
+                                <div style="color:#d4a030;font-size:0.9rem;font-weight:700;">${{ number_format($formation->prix, 0) }}</div>
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

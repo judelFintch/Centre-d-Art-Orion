@@ -8,11 +8,44 @@
 @section('og_type', 'article')
 
 @push('head')
+<link rel="canonical" href="{{ route('evenements.show', $evenement) }}">
 <meta property="og:url" content="{{ route('evenements.show', $evenement) }}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $evenement->titre }} — Centre d'Art Orion">
 <meta name="twitter:description" content="{{ Str::limit($evenement->description, 160) }}">
 <meta name="twitter:image" content="{{ $evenement->image_url ?: asset('images/og-orion.jpg') }}">
+@php
+    $eventSchema = array_filter([
+        '@context' => 'https://schema.org',
+        '@type' => 'Event',
+        'name' => $evenement->titre,
+        'description' => $evenement->description,
+        'startDate' => $evenement->date_debut?->toIso8601String(),
+        'endDate' => $evenement->date_fin?->toIso8601String(),
+        'eventStatus' => 'https://schema.org/EventScheduled',
+        'eventAttendanceMode' => 'https://schema.org/OfflineEventAttendanceMode',
+        'image' => $evenement->image_url ? [$evenement->image_url] : null,
+        'url' => route('evenements.show', $evenement),
+        'location' => $evenement->lieu ? [
+            '@type' => 'Place',
+            'name' => $evenement->lieu,
+            'address' => $evenement->lieu,
+        ] : null,
+        'offers' => [
+            '@type' => 'Offer',
+            'url' => $evenement->lien_inscription ?: route('evenements.show', $evenement),
+            'price' => $evenement->gratuit ? 0 : (float) ($evenement->prix ?: 0),
+            'priceCurrency' => 'CDF',
+            'availability' => 'https://schema.org/InStock',
+        ],
+        'organizer' => [
+            '@type' => 'Organization',
+            'name' => 'Centre d\'Art Orion',
+            'url' => route('home'),
+        ],
+    ]);
+@endphp
+<script type="application/ld+json">{!! json_encode($eventSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush
 
 @section('content')

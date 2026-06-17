@@ -553,7 +553,7 @@
             </a>
         </div>
 
-        @php $fPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg','13','11.jpg']; @endphp
+        @php $fPhotos = ['10.jpg','5.jpg','13.jpg','11.jpg','10.jpg','5.jpg','13.jpg','11.jpg']; @endphp
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
             @foreach($formations as $f)
             <div class="reveal hover-lift"
@@ -561,10 +561,17 @@
 
                 {{-- Photo --}}
                 <div style="height:180px;overflow:hidden;position:relative;background:#f0eeec;">
+                    @if($f->image && file_exists(public_path('storage/'.$f->image)))
+                    <img src="{{ asset('storage/'.$f->image) }}"
+                         alt="{{ $f->titre }}"
+                         style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;"
+                         onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+                    @else
                     <img src="{{ asset('images/' . $fPhotos[$loop->index % count($fPhotos)]) }}"
                          alt="{{ $f->titre }}"
                          style="width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s;"
                          onmouseover="this.style.transform='scale(1.06)'" onmouseout="this.style.transform='scale(1)'">
+                    @endif
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.35) 0%,transparent 55%);"></div>
                     @if($f->categorie)
                     <div style="position:absolute;top:12px;left:12px;">

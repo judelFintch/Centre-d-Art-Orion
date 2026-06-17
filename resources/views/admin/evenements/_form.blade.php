@@ -152,17 +152,21 @@
             <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:12px;">Image principale</label>
 
             @if($edit && $evenement->image)
-            <div style="margin-bottom:12px;border-radius:6px;overflow:hidden;height:130px;background:#0d0d0d;position:relative;">
-                <img src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
+            <div id="event-image-preview-wrap" style="margin-bottom:12px;border-radius:6px;overflow:hidden;height:130px;background:#0d0d0d;position:relative;">
+                <img id="event-image-preview" src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
             </div>
             <label style="display:flex;align-items:center;gap:10px;padding:8px 12px;background:#0d0d0d;border:1px solid #222;border-radius:6px;cursor:pointer;margin-bottom:10px;">
                 <input type="checkbox" name="remove_image" value="1"
                        style="width:14px;height:14px;accent-color:#e07030;cursor:pointer;">
                 <span style="color:#e07030;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;">Supprimer l'image actuelle</span>
             </label>
+            @else
+            <div id="event-image-preview-wrap" style="display:none;margin-bottom:12px;border-radius:6px;overflow:hidden;height:130px;background:#0d0d0d;position:relative;">
+                <img id="event-image-preview" src="" alt="Aperçu de l'image" style="width:100%;height:100%;object-fit:cover;">
+            </div>
             @endif
 
-            <input type="file" name="image" accept="image/jpg,image/jpeg,image/png,image/webp" style="{{ $fs }}padding:9px;">
+            <input id="event-image-input" type="file" name="image" accept="image/jpg,image/jpeg,image/png,image/webp" style="{{ $fs }}padding:9px;">
             <p style="color:#555;font-size:0.74rem;margin:6px 0 0;font-family:'Space Grotesk',sans-serif;">JPG, PNG ou WebP — 4 Mo max. Recommandé : 1200×800px.</p>
             @error('image')<p style="color:#e07030;font-size:0.75rem;margin:4px 0 0;">{{ $message }}</p>@enderror
         </div>
@@ -183,5 +187,19 @@
 
     slug.addEventListener('input', function () { slugTouched = true; slug.value = makeSlug(slug.value); });
     titre.addEventListener('input', function () { if (!slugTouched) slug.value = makeSlug(titre.value); });
+
+    var imageInput = document.getElementById('event-image-input');
+    var imagePreviewWrap = document.getElementById('event-image-preview-wrap');
+    var imagePreview = document.getElementById('event-image-preview');
+
+    if (imageInput && imagePreviewWrap && imagePreview) {
+        imageInput.addEventListener('change', function () {
+            var file = imageInput.files && imageInput.files[0];
+            if (!file) return;
+
+            imagePreview.src = URL.createObjectURL(file);
+            imagePreviewWrap.style.display = 'block';
+        });
+    }
 })();
 </script>
