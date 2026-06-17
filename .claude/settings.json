@@ -43,7 +43,18 @@
       "Bash(sed -i '' 's/psImg\\(/\\\\$psImg\\(/g' /Users/fintch/Desktop/projet/Centre-d-Art-Orion/resources/views/pages/home.blade.php)",
       "Bash(sed -i '' 's/psImgAbout\\(/\\\\$psImgA\\(/g' /Users/fintch/Desktop/projet/Centre-d-Art-Orion/resources/views/pages/about.blade.php)",
       "Bash(php -r \"echo 'PHP OK';\")",
-      "Bash(git commit -m 'feat\\(admin\\): drag-and-drop reordering for all CMS sections *)"
+      "Bash(git commit -m 'feat\\(admin\\): drag-and-drop reordering for all CMS sections *)",
+      "Bash(php -l /Users/fintch/Desktop/projet/Centre-d-Art-Orion/app/Http/Controllers/BilletterieController.php)",
+      "Bash(php -l /Users/fintch/Desktop/projet/Centre-d-Art-Orion/app/Http/Controllers/Admin/BilletAdminController.php)",
+      "Bash(php -l /Users/fintch/Desktop/projet/Centre-d-Art-Orion/app/Http/Controllers/Admin/BilletCategorieAdminController.php)",
+      "Bash(php -l /Users/fintch/Desktop/projet/Centre-d-Art-Orion/app/Http/Controllers/Admin/PaiementSettingAdminController.php)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion log --oneline -3)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add app/Http/Controllers/Admin/BilletAdminController.php app/Http/Controllers/Admin/BilletCategorieAdminController.php app/Http/Controllers/Admin/PaiementSettingAdminController.php app/Http/Controllers/BilletterieController.php app/Models/Billet.php app/Models/BilletCategorie.php app/Models/Evenement.php database/migrations/2026_06_04_070441_create_billets_table.php database/migrations/2026_06_04_071957_add_billet_categorie_id_to_billets_table.php database/migrations/2026_06_04_071957_create_billet_categories_table.php database/migrations/2026_06_04_073140_add_paiement_columns_to_billets_table.php resources/views/admin/billets/ resources/views/admin/paiement/ resources/views/billetterie/ resources/views/components/navbar.blade.php resources/views/layouts/admin.blade.php routes/web.php)",
+      "Bash(php -l /Users/fintch/Desktop/projet/Centre-d-Art-Orion/app/Http/Controllers/Admin/PageSettingAdminController.php)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion diff --stat HEAD)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add app/Http/Controllers/Admin/PageSettingAdminController.php resources/views/admin/pages/home.blade.php)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion status)",
+      "Bash(git -C /Users/fintch/Desktop/projet/Centre-d-Art-Orion add app/Http/Controllers/Admin/BilletAdminController.php resources/views/admin/billets/_form.blade.php resources/views/admin/billets/create.blade.php resources/views/admin/billets/edit.blade.php resources/views/admin/billets/by-event.blade.php resources/views/admin/billets/index.blade.php resources/views/admin/billets/show.blade.php resources/views/admin/pages/_field.blade.php resources/views/admin/pages/_image.blade.php resources/views/admin/pages/_textarea.blade.php resources/views/admin/pages/home.blade.php routes/web.php)"
     ]
   }
 }
