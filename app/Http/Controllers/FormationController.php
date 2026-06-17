@@ -8,8 +8,9 @@ class FormationController extends Controller
 {
     public function index()
     {
-        $formations = Formation::actif()->get()->groupBy('categorie');
-        return view('pages.formations', compact('formations'));
+        $paginator  = Formation::actif()->paginate(9);
+        $formations = $paginator->getCollection()->groupBy('categorie');
+        return view('pages.formations', compact('formations', 'paginator'));
     }
 
     public function show(Formation $formation)

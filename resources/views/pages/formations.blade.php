@@ -24,6 +24,20 @@
 <section style="padding:80px 0;background:#0d0d0d;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
+        {{-- Compteur & info de page --}}
+        @if($paginator->total() > 0)
+        <div class="reveal" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:40px;">
+            <p style="color:#555;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;margin:0;">
+                {{ $paginator->firstItem() }}–{{ $paginator->lastItem() }} sur <strong style="color:#f5f5f0;">{{ $paginator->total() }}</strong> formation{{ $paginator->total() > 1 ? 's' : '' }}
+            </p>
+            @if($paginator->lastPage() > 1)
+            <p style="color:#555;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;margin:0;">
+                Page {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}
+            </p>
+            @endif
+        </div>
+        @endif
+
         @if($formations->isEmpty())
         <div class="reveal" style="text-align:center;padding:80px 24px;">
             <div style="font-size:3rem;margin-bottom:16px;">📚</div>
@@ -33,6 +47,7 @@
         </div>
         @else
 
+        @php $fPhotos = ['4.jpg','5.jpg','6.jpg','7.jpg','9.jpg','1.png','2.jpg','3.jpg']; $photoIndex = 0; @endphp
         @foreach($formations as $categorie => $items)
         <div style="margin-bottom:64px;">
             <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:32px;">
@@ -53,11 +68,11 @@
                         @if($f->image && file_exists(public_path('storage/'.$f->image)))
                             <img src="{{ asset('storage/'.$f->image) }}" alt="{{ $f->titre }}" style="width:100%;height:100%;object-fit:cover;">
                         @else
-                            @php $fPhotos = ['4.jpg','5.jpg','6.jpg','7.jpg','9.jpg','1.png','2.jpg','3.jpg']; @endphp
-                            <img src="{{ asset('images/' . $fPhotos[$loop->index % count($fPhotos)]) }}"
+                            <img src="{{ asset('images/' . $fPhotos[$photoIndex % count($fPhotos)]) }}"
                                  alt="{{ $f->titre }}"
                                  style="width:100%;height:100%;object-fit:cover;">
                         @endif
+                        @php $photoIndex++; @endphp
                         @if($f->niveau)
                         <div style="position:absolute;bottom:12px;left:12px;">
                             <span class="tag tag-orange">{{ $f->niveau }}</span>
@@ -104,6 +119,54 @@
             </div>
         </div>
         @endforeach
+
+        {{-- Pagination --}}
+        @if($paginator->hasPages())
+        <div class="reveal" style="display:flex;align-items:center;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap;">
+            {{-- Précédent --}}
+            @if($paginator->onFirstPage())
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;border:1px solid #1a1a1a;color:#333;cursor:default;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </span>
+            @else
+            <a href="{{ $paginator->previousPageUrl() }}"
+               style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;border:1px solid #222;color:#aaa;text-decoration:none;transition:all 0.2s;"
+               onmouseover="this.style.borderColor='#e07030';this.style.color='#e07030'" onmouseout="this.style.borderColor='#222';this.style.color='#aaa'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </a>
+            @endif
+
+            {{-- Numéros --}}
+            @foreach($paginator->getUrlRange(1, $paginator->lastPage()) as $page => $url)
+            @if($page == $paginator->currentPage())
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;background:linear-gradient(135deg,#e07030,#b65320);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;">
+                {{ $page }}
+            </span>
+            @elseif($page == 1 || $page == $paginator->lastPage() || abs($page - $paginator->currentPage()) <= 2)
+            <a href="{{ $url }}"
+               style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;border:1px solid #222;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;text-decoration:none;transition:all 0.2s;"
+               onmouseover="this.style.borderColor='#e07030';this.style.color='#e07030'" onmouseout="this.style.borderColor='#222';this.style.color='#aaa'">
+                {{ $page }}
+            </a>
+            @elseif(abs($page - $paginator->currentPage()) == 3)
+            <span style="color:#444;padding:0 4px;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;">…</span>
+            @endif
+            @endforeach
+
+            {{-- Suivant --}}
+            @if($paginator->hasMorePages())
+            <a href="{{ $paginator->nextPageUrl() }}"
+               style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;border:1px solid #222;color:#aaa;text-decoration:none;transition:all 0.2s;"
+               onmouseover="this.style.borderColor='#e07030';this.style.color='#e07030'" onmouseout="this.style.borderColor='#222';this.style.color='#aaa'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            @else
+            <span style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:6px;border:1px solid #1a1a1a;color:#333;cursor:default;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+            </span>
+            @endif
+        </div>
+        @endif
 
         @endif
 
