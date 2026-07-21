@@ -21,6 +21,19 @@
     };
 @endphp
 
+@push('head')
+<style>
+@media (max-width: 768px) {
+    .about-histoire-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    .about-vmv-grid,
+    .about-direction-grid { grid-template-columns: 1fr !important; }
+}
+@media (max-width: 560px) {
+    .about-histoire-items { grid-template-columns: 1fr !important; }
+}
+</style>
+@endpush
+
 @section('content')
 
 {{-- Page Hero --}}
@@ -41,7 +54,7 @@
 {{-- Histoire --}}
 <section style="padding:100px 0;background:#0d0d0d;">
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
+        <div class="about-histoire-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;">
 
             <div class="reveal">
                 <div class="tag tag-gold" style="margin-bottom:20px;">{{ PS::get('about.histoire.kicker','Notre genèse') }}</div>
@@ -68,7 +81,7 @@
             </div>
 
             <div class="reveal">
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+                <div class="about-histoire-items" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
                     @php
                     $histItemsDefaults = [
                         ['📅','Fondation','Une vision née de la passion pour l\'art et les artistes congolais'],
@@ -113,7 +126,7 @@
             </h2>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+        <div class="about-vmv-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
 
             {{-- Vision --}}
             <div class="reveal" style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:40px;position:relative;overflow:hidden;">
@@ -180,7 +193,7 @@
             </h2>
         </div>
 
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;max-width:800px;margin:0 auto;">
+        <div class="about-direction-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;max-width:800px;margin:0 auto;">
 
             {{-- CEO --}}
             <div class="reveal hover-lift"

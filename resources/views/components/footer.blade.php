@@ -158,7 +158,7 @@
             <p style="color:#444;font-size:0.8rem;margin:0;">
                 &copy; {{ date('Y') }} <span style="color:#4caf7d;">Centre d'Art Orion</span>. Tous droits réservés.
             </p>
-            <div style="display:flex;gap:20px;align-items:center;">
+            <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;">
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
                    onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Mentions légales</a>
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"

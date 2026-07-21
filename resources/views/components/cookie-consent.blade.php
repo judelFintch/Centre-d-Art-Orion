@@ -49,7 +49,7 @@
         </div>
 
         {{-- Boutons --}}
-        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;flex-shrink:0;">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
             <button id="cookie-customize"
                     style="background:transparent;border:1px solid #333;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:9px 18px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap;"
                     onmouseover="this.style.borderColor='#555';this.style.color='#f5f5f0'"

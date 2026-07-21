@@ -3,6 +3,16 @@
 @section('title', $equipe->nom_complet . ' — Équipe Orion')
 @section('meta_description', Str::limit($equipe->bio ?: $equipe->poste . ' au Centre d\'Art Orion.', 155))
 
+@push('head')
+<style>
+@media (max-width: 768px) {
+    .equipe-show-hero-grid { grid-template-columns:1fr !important; gap:32px !important; text-align:center; }
+    .equipe-show-hero-grid p { max-width:100% !important; }
+    .equipe-show-content-grid { grid-template-columns:1fr !important; }
+}
+</style>
+@endpush
+
 @section('content')
 
 @php
@@ -19,7 +29,7 @@
             ← Retour à l'équipe
         </a>
 
-        <div style="display:grid;grid-template-columns:minmax(260px,0.72fr) minmax(0,1.28fr);gap:44px;align-items:center;">
+        <div class="equipe-show-hero-grid" style="display:grid;grid-template-columns:minmax(260px,0.72fr) minmax(0,1.28fr);gap:44px;align-items:center;">
             <div style="display:flex;justify-content:center;">
                 @if($equipe->photo_url)
                 <img src="{{ $equipe->photo_url }}" alt="{{ $equipe->nom_complet }}" style="width:min(320px,100%);aspect-ratio:1/1;border-radius:12px;object-fit:cover;border:1px solid {{ $color }}55;box-shadow:0 20px 70px rgba(0,0,0,0.45);">
@@ -45,7 +55,7 @@
 </section>
 
 <section style="padding:70px 0;background:#0d0d0d;">
-    <div style="max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,0.45fr);gap:28px;align-items:start;">
+    <div class="equipe-show-content-grid" style="max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,0.45fr);gap:28px;align-items:start;">
         <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:28px;">
             <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin:0 0 20px;">Détails</h2>
 
