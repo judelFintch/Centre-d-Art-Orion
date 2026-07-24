@@ -24,6 +24,7 @@ return [
         'contact_us' => 'Contact us',
         'open_menu' => 'Open menu',
         'close_menu' => 'Close menu',
+        'more' => 'More',
     ],
 
     'buttons' => [

@@ -51,6 +51,36 @@ function initNav() {
     document.querySelectorAll('.mobile-nav-link').forEach((l) => l.addEventListener('click', close));
 }
 
+// ─── Dropdown nav "Plus" ────────────────────────────────────────
+function initNavDropdown() {
+    const dropdown = document.getElementById('nav-more');
+    if (!dropdown) return;
+    const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+    if (!trigger) return;
+
+    function close() {
+        dropdown.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+    }
+    function toggle() {
+        const willOpen = !dropdown.classList.contains('open');
+        dropdown.classList.toggle('open', willOpen);
+        trigger.setAttribute('aria-expanded', String(willOpen));
+    }
+
+    trigger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggle();
+    });
+    dropdown.querySelectorAll('.nav-dropdown-panel .nav-link').forEach((l) => l.addEventListener('click', close));
+    document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) close();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') close();
+    });
+}
+
 // ─── Sticky Header ─────────────────────────────────────────────
 function initStickyHeader() {
     const header = document.getElementById('main-header');
@@ -209,6 +239,8 @@ function initActiveNav() {
         const href = link.getAttribute('href');
         if (href && (path === href || (href !== '/' && path.startsWith(href)))) {
             link.classList.add('active');
+            const trigger = link.closest('.nav-dropdown')?.querySelector('.nav-dropdown-trigger');
+            trigger?.classList.add('active');
         }
     });
 }
@@ -454,6 +486,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.add('js-ready');
     initReveal();
     initNav();
+    initNavDropdown();
     initStickyHeader();
     initCounters();
     initHeroSlider();

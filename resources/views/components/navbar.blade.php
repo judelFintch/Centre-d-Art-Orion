@@ -6,10 +6,12 @@ $links = [
     ['url' => route('formations.index'), 'label' => __('common.nav.formations')],
     ['url' => route('galerie.index'),    'label' => __('common.nav.gallery')],
     ['url' => route('evenements.index'), 'label' => __('common.nav.events')],
-    ['url' => route('podcasts.index'),   'label' => __('common.nav.podcasts')],
     ['url' => route('blog.index'),       'label' => __('common.nav.blog'), 'class' => 'nav-link-blog'],
     ['url' => route('equipe'),              'label' => __('common.nav.team')],
-    ['url' => route('billetterie.index'),   'label' => __('common.nav.ticketing'), 'class' => 'nav-link-billet'],
+];
+$moreLinks = [
+    ['url' => route('podcasts.index'),    'label' => __('common.nav.podcasts')],
+    ['url' => route('billetterie.index'), 'label' => __('common.nav.ticketing'), 'class' => 'nav-link-billet'],
 ];
 @endphp
 
@@ -36,6 +38,26 @@ $links = [
                     {{ $link['label'] }}
                 </a>
             @endforeach
+
+            {{-- Dropdown "Plus" : regroupe les rubriques secondaires pour éviter le débordement --}}
+            <div class="nav-dropdown" id="nav-more">
+                <button type="button"
+                        class="nav-link nav-dropdown-trigger"
+                        style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;"
+                        aria-haspopup="true" aria-expanded="false">
+                    {{ __('common.nav.more') }}
+                    <svg class="nav-dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="nav-dropdown-panel">
+                    @foreach($moreLinks as $link)
+                        <a href="{{ $link['url'] }}"
+                           class="nav-link {{ $link['class'] ?? '' }}"
+                           style="padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;border-radius:6px;">
+                            {{ $link['label'] }}
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         </nav>
 
         {{-- CTA + Burger --}}
