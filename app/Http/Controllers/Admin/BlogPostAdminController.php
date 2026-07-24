@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
@@ -11,6 +12,10 @@ use Illuminate\Validation\Rule;
 
 class BlogPostAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['title', 'category', 'read_time', 'excerpt', 'content', 'quote'];
+
     public function index()
     {
         $posts = BlogPost::query()
@@ -42,7 +47,8 @@ class BlogPostAdminController extends Controller
 
         $data['gallery'] = $this->storeGallery($request);
 
-        BlogPost::create($data);
+        $blog = BlogPost::create($data);
+        $this->applyEnglishTranslations($blog, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.blog.index')
             ->with('success', 'Publication créée avec succès.');
@@ -82,6 +88,7 @@ class BlogPostAdminController extends Controller
             ->all();
 
         $blog->update($data);
+        $this->applyEnglishTranslations($blog, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.blog.index')
             ->with('success', 'Publication mise à jour.');

@@ -20,7 +20,7 @@ class ContactController extends Controller
     {
         // ── Protection anti-bot (honeypot + délai) ──────────────────
         if ($this->isBot($request)) {
-            return $this->fakeSuccess($request, 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.');
+            return $this->fakeSuccess($request, __('pages.contact.messages.fake_success'));
         }
 
         // ── Validation ──────────────────────────────────────────────
@@ -36,12 +36,12 @@ class ContactController extends Controller
             'sujet'     => 'required|string|max:200',
             'message'   => 'required|string|min:10|max:3000',
         ], [
-            'nom.required'     => 'Votre nom est obligatoire.',
-            'email.required'   => 'Votre adresse e-mail est obligatoire.',
-            'email.email'      => 'L\'adresse e-mail n\'est pas valide (domaine inexistant ou incorrect).',
-            'sujet.required'   => 'Le sujet est obligatoire.',
-            'message.required' => 'Le message est obligatoire.',
-            'message.min'      => 'Le message doit comporter au moins 10 caractères.',
+            'nom.required'     => __('pages.contact.messages.name_required'),
+            'email.required'   => __('pages.contact.messages.email_required'),
+            'email.email'      => __('pages.contact.messages.email_invalid'),
+            'sujet.required'   => __('pages.contact.messages.subject_required'),
+            'message.required' => __('pages.contact.messages.message_required'),
+            'message.min'      => __('pages.contact.messages.message_min'),
         ]);
 
         // Exclure les champs de sécurité avant de persister
@@ -50,9 +50,9 @@ class ContactController extends Controller
         Message::create($data);
 
         if ($request->expectsJson()) {
-            return response()->json(['message' => 'Votre message a bien été envoyé. Nous vous répondrons dans les plus brefs délais.']);
+            return response()->json(['message' => __('pages.contact.messages.fake_success')]);
         }
 
-        return back()->with('success', 'Votre message a bien été envoyé !');
+        return back()->with('success', __('pages.contact.messages.sent'));
     }
 }

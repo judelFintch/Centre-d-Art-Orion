@@ -21,7 +21,7 @@ class BilletterieController extends Controller
         return view('billetterie.index', compact('evenements'));
     }
 
-    public function show(Evenement $evenement)
+    public function show(string $locale, Evenement $evenement)
     {
         abort_if(!$evenement->actif, 404);
 
@@ -32,7 +32,7 @@ class BilletterieController extends Controller
         return view('billetterie.event', compact('evenement', 'categories', 'methodesActives', 'toutesMethodes'));
     }
 
-    public function store(Request $request, Evenement $evenement)
+    public function store(string $locale, Request $request, Evenement $evenement)
     {
         abort_if(!$evenement->actif || $evenement->statut === 'passe', 404);
 
@@ -105,7 +105,7 @@ class BilletterieController extends Controller
         return redirect()->route('billetterie.confirmation', $billet->reference);
     }
 
-    public function confirmation(string $reference)
+    public function confirmation(string $locale, string $reference)
     {
         $billet          = Billet::with(['evenement', 'categorie'])->where('reference', $reference)->firstOrFail();
         $methodesActives = $this->methodesActives();

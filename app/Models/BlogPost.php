@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Translatable\HasTranslations;
 
 class BlogPost extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title', 'slug', 'category', 'author', 'read_time',
         'excerpt', 'content', 'quote', 'image', 'gallery',
         'featured', 'actif', 'published_at', 'ordre', 'views',
+    ];
+
+    public array $translatable = [
+        'title', 'category', 'read_time', 'excerpt', 'content', 'quote',
     ];
 
     protected $casts = [

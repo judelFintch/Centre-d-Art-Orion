@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\Evenement;
 use Illuminate\Http\Request;
@@ -11,6 +12,10 @@ use Illuminate\Validation\Rule;
 
 class EvenementAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['titre', 'description', 'contenu', 'lieu', 'type'];
+
     public function index()
     {
         $this->syncStatuts();
@@ -42,7 +47,8 @@ class EvenementAdminController extends Controller
 
         $data['statut'] = $this->computeStatut($data['date_debut'], $data['date_fin'] ?? null);
 
-        Evenement::create($data);
+        $evenement = Evenement::create($data);
+        $this->applyEnglishTranslations($evenement, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.evenements.index')
             ->with('success', 'Événement créé avec succès.');
@@ -78,6 +84,7 @@ class EvenementAdminController extends Controller
         $data['statut'] = $this->computeStatut($data['date_debut'], $data['date_fin'] ?? null);
 
         $evenement->update($data);
+        $this->applyEnglishTranslations($evenement, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.evenements.index')
             ->with('success', 'Événement mis à jour.');

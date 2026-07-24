@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Galerie — Centre d\'Art Orion')
-@section('meta_description', 'Découvrez la galerie photo et vidéo du Centre d\'Art Orion — événements, productions artistiques, ateliers et réalisations de nos artistes.')
+@section('title', __('pages.gallery.title'))
+@section('meta_description', __('pages.gallery.meta_description'))
 
 @section('content')
 
@@ -9,12 +9,12 @@
 <section style="padding:100px 0 80px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 70%,rgba(76,175,125,0.06),transparent 60%);pointer-events:none;"></div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
-        <div class="tag tag-green" style="margin-bottom:16px;">Nos réalisations</div>
+        <div class="tag tag-green" style="margin-bottom:16px;">{{ __('pages.gallery.hero_tag') }}</div>
         <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.1;margin:0 0 20px;">
-            Galerie<br>
-            <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Artistique</span>
+            {{ __('pages.gallery.hero_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.gallery.hero_title_2') }}</span>
         </h1>
-        <p style="color:#777;font-size:1rem;max-width:500px;line-height:1.8;">Photos et vidéos de nos productions, événements, ateliers et réalisations d'artistes.</p>
+        <p style="color:#777;font-size:1rem;max-width:500px;line-height:1.8;">{{ __('pages.gallery.hero_desc') }}</p>
     </div>
 </section>
 
@@ -25,17 +25,17 @@
             <button class="galerie-filter active"
                     data-filter="all"
                     style="padding:8px 20px;background:rgba(76,175,125,0.15);border:1px solid rgba(76,175,125,0.4);color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all 0.2s;">
-                Tout voir
+                {{ __('pages.gallery.filter_all') }}
             </button>
             <button class="galerie-filter"
                     data-filter="photo"
                     style="padding:8px 20px;background:rgba(255,255,255,0.04);border:1px solid #222;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all 0.2s;">
-                Photos
+                {{ __('pages.gallery.filter_photos') }}
             </button>
             <button class="galerie-filter"
                     data-filter="video"
                     style="padding:8px 20px;background:rgba(255,255,255,0.04);border:1px solid #222;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;cursor:pointer;transition:all 0.2s;">
-                Vidéos
+                {{ __('pages.gallery.filter_videos') }}
             </button>
             @foreach($categories as $cat)
             <button class="galerie-filter"
@@ -55,8 +55,8 @@
         @if($items->isEmpty())
         <div style="text-align:center;padding:80px 24px;">
             <div style="font-size:3rem;margin-bottom:16px;">🖼</div>
-            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#f5f5f0;margin:0 0 12px;">Galerie en préparation</h3>
-            <p style="color:#666;font-size:0.9rem;">Les photos et vidéos seront bientôt disponibles.</p>
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#f5f5f0;margin:0 0 12px;">{{ __('pages.gallery.empty_title') }}</h3>
+            <p style="color:#666;font-size:0.9rem;">{{ __('pages.gallery.empty_desc') }}</p>
         </div>
         @else
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;" id="galerie-grid">
@@ -98,7 +98,7 @@
                     <span class="tag tag-green">{{ $item->categorie }}</span>
                     @endif
                     @if($item->type === 'video')
-                    <span class="tag tag-gold" style="margin-top:4px;display:inline-block;">Vidéo</span>
+                    <span class="tag tag-gold" style="margin-top:4px;display:inline-block;">{{ __('pages.gallery.video_tag') }}</span>
                     @endif
                 </div>
             </div>
@@ -113,12 +113,12 @@
 <section style="padding:80px 0;background:#0a0a0a;border-top:1px solid #161616;">
     <div style="max-width:700px;margin:0 auto;padding:0 24px;text-align:center;" class="reveal">
         <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:900;color:#f5f5f0;margin:0 0 16px;">
-            Vous souhaitez participer ?
+            {{ __('pages.gallery.cta_title') }}
         </h2>
-        <p style="color:#777;font-size:0.95rem;line-height:1.8;margin:0 0 32px;">Rejoignez nos programmes et voyez votre travail figurer dans notre galerie.</p>
+        <p style="color:#777;font-size:0.95rem;line-height:1.8;margin:0 0 32px;">{{ __('pages.gallery.cta_desc') }}</p>
         <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;">
-            <a href="{{ route('formations.index') }}" class="btn-primary">Voir les formations</a>
-            <a href="{{ route('evenements.index') }}" class="btn-outline">Nos événements</a>
+            <a href="{{ route('formations.index') }}" class="btn-primary">{{ __('pages.about.cta_view_formations') }}</a>
+            <a href="{{ route('evenements.index') }}" class="btn-outline">{{ __('pages.gallery.cta_events') }}</a>
         </div>
     </div>
 </section>

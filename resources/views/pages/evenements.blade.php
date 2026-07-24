@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Événements — Centre d\'Art Orion')
-@section('meta_description', 'Concerts, expositions, ateliers, galas — découvrez tous les événements à venir et passés du Centre d\'Art Orion.')
+@section('title', __('pages.events.title'))
+@section('meta_description', __('pages.events.meta_description'))
 
 @section('content')
 
@@ -9,12 +9,12 @@
 <section style="padding:100px 0 80px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(224,112,48,0.07),transparent 60%);pointer-events:none;"></div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
-        <div class="tag tag-orange" style="margin-bottom:16px;">Agenda culturel</div>
+        <div class="tag tag-orange" style="margin-bottom:16px;">{{ __('pages.events.hero_tag') }}</div>
         <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.1;margin:0 0 20px;">
-            Événements<br>
-            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">& Agenda</span>
+            {{ __('pages.events.hero_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.events.hero_title_2') }}</span>
         </h1>
-        <p style="color:#777;font-size:1rem;max-width:500px;line-height:1.8;">Concerts, expositions, ateliers ouverts et galas culturels — vivez l'art avec Orion.</p>
+        <p style="color:#777;font-size:1rem;max-width:500px;line-height:1.8;">{{ __('pages.events.hero_desc') }}</p>
     </div>
 </section>
 
@@ -23,18 +23,18 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="margin-bottom:48px;">
-            <div class="tag tag-orange" style="margin-bottom:16px;">Prochainement</div>
+            <div class="tag tag-orange" style="margin-bottom:16px;">{{ __('pages.events.upcoming_tag') }}</div>
             <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line">
-                Événements à Venir
+                {{ __('pages.events.upcoming_title') }}
             </h2>
         </div>
 
         @if($aVenir->isEmpty())
         <div style="background:#111;border:1px solid #1a1a1a;border-radius:10px;padding:60px;text-align:center;" class="reveal">
             <div style="font-size:2.5rem;margin-bottom:16px;">📅</div>
-            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:#f5f5f0;margin:0 0 10px;">Nouveaux événements bientôt</h3>
-            <p style="color:#666;font-size:0.88rem;margin:0 0 24px;">Revenez bientôt ou contactez-nous pour être tenu informé.</p>
-            <a href="{{ route('contact.index') }}" class="btn-primary" style="display:inline-flex;">Être notifié</a>
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:#f5f5f0;margin:0 0 10px;">{{ __('pages.events.empty_title') }}</h3>
+            <p style="color:#666;font-size:0.88rem;margin:0 0 24px;">{{ __('pages.events.empty_desc') }}</p>
+            <a href="{{ route('contact.index') }}" class="btn-primary" style="display:inline-flex;">{{ __('pages.events.empty_cta') }}</a>
         </div>
         @else
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:28px;">
@@ -65,7 +65,7 @@
 
                     @if($ev->gratuit)
                     <div style="position:absolute;top:16px;right:16px;">
-                        <span class="tag tag-green">Gratuit</span>
+                        <span class="tag tag-green">{{ __('pages.events.free') }}</span>
                     </div>
                     @elseif($ev->prix)
                     <div style="position:absolute;top:16px;right:16px;">
@@ -84,7 +84,7 @@
                     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
                         <div style="display:flex;align-items:center;gap:8px;color:#777;font-size:0.82rem;">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#e07030" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-                            {{ $ev->date_debut->format('d/m/Y à H:i') }}
+                            {{ $ev->date_debut->format(app()->getLocale() === 'en' ? 'd/m/Y \a\t H:i' : 'd/m/Y à H:i') }}
                         </div>
                         @if($ev->lieu)
                         <div style="display:flex;align-items:center;gap:8px;color:#777;font-size:0.82rem;">
@@ -95,7 +95,7 @@
                     </div>
 
                     <a href="{{ route('evenements.show', $ev) }}" class="btn-primary" style="width:100%;justify-content:center;">
-                        Voir les détails
+                        {{ __('pages.events.view_details') }}
                     </a>
                 </div>
             </div>
@@ -112,9 +112,9 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="margin-bottom:48px;">
-            <div class="tag tag-white" style="margin-bottom:16px;">Rétrospective</div>
+            <div class="tag tag-white" style="margin-bottom:16px;">{{ __('pages.events.past_tag') }}</div>
             <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line">
-                Événements Passés
+                {{ __('pages.events.past_title') }}
             </h2>
         </div>
 
@@ -145,7 +145,7 @@
 
                 {{-- Badge passé --}}
                 <div style="flex-shrink:0;">
-                    <span class="tag tag-white" style="opacity:0.5;">Terminé</span>
+                    <span class="tag tag-white" style="opacity:0.5;">{{ __('pages.events.finished') }}</span>
                 </div>
             </a>
             @endforeach

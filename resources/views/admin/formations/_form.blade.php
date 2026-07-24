@@ -110,6 +110,43 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise de la formation (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title (EN)</label>
+            <input type="text" name="titre_en" value="{{ old('titre_en', $edit ? $formation->getTranslation('titre', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="e.g. Visual Arts & Painting">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Short description (EN)</label>
+            <textarea name="description_en" rows="4" style="{{ $fieldStyle }}resize:vertical;">{{ old('description_en', $edit ? $formation->getTranslation('description', 'en', false) : '') }}</textarea>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Detailed program (EN)</label>
+            <textarea name="contenu_en" rows="8" style="{{ $fieldStyle }}resize:vertical;line-height:1.6;">{{ old('contenu_en', $edit ? $formation->getTranslation('contenu', 'en', false) : '') }}</textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Category (EN)</label>
+                <input type="text" name="categorie_en" value="{{ old('categorie_en', $edit ? $formation->getTranslation('categorie', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="Visual Arts">
+            </div>
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Level (EN)</label>
+                <input type="text" name="niveau_en" value="{{ old('niveau_en', $edit ? $formation->getTranslation('niveau', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="Beginner">
+            </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Duration (EN)</label>
+                <input type="text" name="duree_en" value="{{ old('duree_en', $edit ? $formation->getTranslation('duree', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="3 months">
+            </div>
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Target audience (EN)</label>
+                <input type="text" name="public_cible_en" value="{{ old('public_cible_en', $edit ? $formation->getTranslation('public_cible', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="Teenagers and adults">
+            </div>
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 <script>
 function previewFormationImage(input) {
     if (!input.files[0]) return;

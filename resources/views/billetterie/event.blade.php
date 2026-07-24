@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Réserver — ' . $evenement->titre)
+@section('title', __('pages.ticketing.detail.reserve_verb') . ' — ' . $evenement->titre)
 @section('meta_description', 'Réservez vos billets pour « ' . $evenement->titre . ' » au Centre d\'Art Orion.')
 
 @section('content')
@@ -15,16 +15,16 @@
                style="display:inline-flex;align-items:center;gap:5px;color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;text-decoration:none;opacity:0.8;transition:opacity 0.2s;"
                onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.8">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-                Billetterie
+                {{ __('pages.ticketing.detail.breadcrumb_ticketing') }}
             </a>
             {{-- Icônes de partage (compactes) --}}
             <div style="display:flex;align-items:center;gap:6px;">
-                <button id="btn-copy-link" onclick="copierLien()" title="Copier le lien"
+                <button id="btn-copy-link" onclick="copierLien()" title="{{ __('pages.ticketing.detail.copy_link') }}"
                         style="display:inline-flex;align-items:center;gap:5px;padding:5px 10px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:#888;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:600;border-radius:5px;cursor:pointer;transition:all 0.2s;"
                         onmouseover="this.style.color='#f5f5f0';this.style.borderColor='rgba(255,255,255,0.2)'"
                         onmouseout="this.style.color='#888';this.style.borderColor='rgba(255,255,255,0.1)'">
                     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-                    <span id="copy-label">Lien</span>
+                    <span id="copy-label">{{ __('pages.ticketing.detail.link') }}</span>
                 </button>
                 @foreach([
                     ['href' => 'https://wa.me/?text='.urlencode('🎭 '.$evenement->titre.' : '.route('billetterie.show',$evenement->slug)), 'title' => 'WhatsApp', 'color' => '#25d166', 'bg' => 'rgba(37,211,102,0.1)', 'svg' => '<svg width="14" height="14" viewBox="0 0 24 24" fill="#25d166"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.989.518 3.86 1.426 5.486L2 22l4.656-1.397A9.956 9.956 0 0012 22c5.523 0 10-4.477 10-10S17.522 2 12 2z" fill-rule="evenodd"/></svg>'],
@@ -62,12 +62,12 @@
             </div>
             <div style="text-align:right;flex-shrink:0;">
                 @if($evenement->gratuit || ($categories->isEmpty() && (!$evenement->prix || $evenement->prix == 0)))
-                <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#4caf7d;">Gratuit</div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#4caf7d;">{{ __('pages.ticketing.free') }}</div>
                 @elseif($categories->isEmpty())
-                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:2px;">/ billet</div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#666;margin-bottom:2px;">{{ __('pages.ticketing.detail.per_ticket') }}</div>
                 <div style="font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:#d4a030;line-height:1;">{{ number_format($evenement->prix, 0, ',', ' ') }}<span style="font-size:1rem;"> FC</span></div>
                 @else
-                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.7rem;font-weight:600;color:#888;">{{ $categories->count() }} catégorie{{ $categories->count() > 1 ? 's' : '' }}</div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:0.7rem;font-weight:600;color:#888;">{{ trans_choice('pages.ticketing.detail.category_count', $categories->count(), ['count' => $categories->count()]) }}</div>
                 @endif
             </div>
         </div>
@@ -85,7 +85,7 @@
                 <img src="{{ $evenement->image_url }}" alt="{{ $evenement->titre }}" style="width:100%;height:100%;object-fit:cover;">
             </div>
             @endif
-            <h2 style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#1c1510;margin:0 0 12px;">À propos</h2>
+            <h2 style="font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:#1c1510;margin:0 0 12px;">{{ __('pages.ticketing.detail.about_title') }}</h2>
             <p style="color:#555;font-size:0.92rem;line-height:1.75;margin:0 0 16px;">{{ $evenement->description }}</p>
             @if($evenement->contenu)
             <div style="color:#555;font-size:0.92rem;line-height:1.75;border-top:1px solid #ede8e0;padding-top:16px;">
@@ -100,7 +100,7 @@
 
                 {{-- En-tête formulaire --}}
                 <div style="padding:18px 22px;border-bottom:1px solid #f0ebe3;background:linear-gradient(135deg,#faf8f5,#f5f0e8);">
-                    <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#1c1510;margin:0;">Réserver ma place</h3>
+                    <h3 style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#1c1510;margin:0;">{{ __('pages.ticketing.book_place') }}</h3>
                 </div>
 
                 <div style="padding:18px 22px;">
@@ -119,7 +119,7 @@
                     {{-- ── 1. Catégorie ── --}}
                     @if($categories->isNotEmpty())
                     <div style="margin-bottom:16px;">
-                        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:8px;">Catégorie *</div>
+                        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:8px;">{{ __('pages.ticketing.detail.category_label') }}</div>
                         <div style="display:flex;flex-direction:column;gap:6px;" id="categorie-list">
                             @foreach($categories as $cat)
                             <label id="cat-label-{{ $cat->id }}"
@@ -135,7 +135,7 @@
                                     </div>
                                 </div>
                                 <span style="font-family:'{{ $cat->prix > 0 ? 'Playfair Display' : 'Space Grotesk' }}',serif;font-size:{{ $cat->prix > 0 ? '0.95rem' : '0.8rem' }};font-weight:700;color:{{ $cat->prix > 0 ? '#d4a030' : '#4caf7d' }};flex-shrink:0;margin-left:8px;">
-                                    {{ $cat->prix > 0 ? number_format($cat->prix, 0, ',', ' ').' FC' : 'Gratuit' }}
+                                    {{ $cat->prix > 0 ? number_format($cat->prix, 0, ',', ' ').' FC' : __('pages.ticketing.free') }}
                                 </span>
                             </label>
                             @endforeach
@@ -146,13 +146,13 @@
                     {{-- ── 2. Identité (2 colonnes) ── --}}
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
                         <div>
-                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">Prénom *</label>
+                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">{{ __('pages.ticketing.detail.label_firstname') }}</label>
                             <input type="text" name="prenom" value="{{ old('prenom') }}" required autocomplete="given-name"
                                    style="width:100%;padding:8px 10px;border:1.5px solid #e2dcd4;border-radius:7px;font-size:0.88rem;font-family:'Inter',sans-serif;color:#1c1510;background:#fafaf8;box-sizing:border-box;outline:none;transition:border 0.15s;"
                                    onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#e2dcd4'">
                         </div>
                         <div>
-                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">Nom *</label>
+                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">{{ __('pages.ticketing.detail.label_lastname') }}</label>
                             <input type="text" name="nom" value="{{ old('nom') }}" required autocomplete="family-name"
                                    style="width:100%;padding:8px 10px;border:1.5px solid #e2dcd4;border-radius:7px;font-size:0.88rem;font-family:'Inter',sans-serif;color:#1c1510;background:#fafaf8;box-sizing:border-box;outline:none;transition:border 0.15s;"
                                    onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#e2dcd4'">
@@ -162,13 +162,13 @@
                     {{-- Email + Téléphone sur une ligne --}}
                     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;">
                         <div>
-                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">Email</label>
+                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">{{ __('pages.ticketing.detail.label_email') }}</label>
                             <input type="email" name="email" value="{{ old('email') }}" autocomplete="email"
                                    style="width:100%;padding:8px 10px;border:1.5px solid #e2dcd4;border-radius:7px;font-size:0.88rem;font-family:'Inter',sans-serif;color:#1c1510;background:#fafaf8;box-sizing:border-box;outline:none;transition:border 0.15s;"
                                    onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#e2dcd4'">
                         </div>
                         <div>
-                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">Téléphone</label>
+                            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:4px;">{{ __('pages.ticketing.detail.label_phone') }}</label>
                             <input type="tel" name="telephone" value="{{ old('telephone') }}" autocomplete="tel"
                                    style="width:100%;padding:8px 10px;border:1.5px solid #e2dcd4;border-radius:7px;font-size:0.88rem;font-family:'Inter',sans-serif;color:#1c1510;background:#fafaf8;box-sizing:border-box;outline:none;transition:border 0.15s;"
                                    onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#e2dcd4'">
@@ -177,7 +177,7 @@
 
                     {{-- ── 3. Quantité (stepper) + Total ── --}}
                     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#faf8f4;border:1.5px solid #e8e2da;border-radius:8px;margin-bottom:14px;">
-                        <span style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;color:#444;">Billets</span>
+                        <span style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;color:#444;">{{ __('pages.ticketing.detail.tickets_label') }}</span>
                         <div style="display:flex;align-items:center;gap:0;">
                             <button type="button" onclick="changerQte(-1)"
                                     style="width:28px;height:28px;border:1px solid #ddd;border-radius:5px 0 0 5px;background:#fff;color:#444;font-size:1rem;cursor:pointer;line-height:1;transition:background 0.15s;"
@@ -190,10 +190,10 @@
                         </div>
                         <div style="text-align:right;">
                             <div id="total-display" style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:#d4a030;">
-                                @if($categories->isNotEmpty()) — @elseif($evenement->gratuit) Gratuit @else {{ number_format($evenement->prix, 0, ',', ' ') }} FC @endif
+                                @if($categories->isNotEmpty()) — @elseif($evenement->gratuit) {{ __('pages.ticketing.free') }} @else {{ number_format($evenement->prix, 0, ',', ' ') }} FC @endif
                             </div>
                             @if($categories->isNotEmpty())
-                            <div id="recap-categorie" style="font-size:0.68rem;color:#bbb;">choisir catégorie</div>
+                            <div id="recap-categorie" style="font-size:0.68rem;color:#bbb;">{{ __('pages.ticketing.detail.choose_category') }}</div>
                             @endif
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                     {{-- ── 4. Paiement (si montant > 0) ── --}}
                     @if($categories->isNotEmpty() || (!$evenement->gratuit && $evenement->prix > 0))
                     <div id="section-paiement" style="margin-bottom:14px;display:none;">
-                        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:8px;">Mode de paiement</div>
+                        <div style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:8px;">{{ __('pages.ticketing.detail.payment_method_title') }}</div>
 
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:0;" id="methodes-list">
                             @foreach($toutesMethodes as $cle => $methode)
@@ -221,7 +221,7 @@
                                         <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#1c1510;line-height:1.2;">{{ $methode['label'] }}</span>
                                     </div>
                                     @if($cle === 'especes')
-                                    <div style="font-size:0.67rem;color:#4caf7d;margin-top:2px;font-weight:600;">Disponible</div>
+                                    <div style="font-size:0.67rem;color:#4caf7d;margin-top:2px;font-weight:600;">{{ __('pages.ticketing.detail.available') }}</div>
                                     @elseif(!empty($methode['numero']))
                                     <div style="font-size:0.67rem;color:#888;margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ $methode['numero'] }}</div>
                                     @endif
@@ -237,7 +237,7 @@
                                         <div style="width:6px;height:6px;border-radius:50%;background:{{ $methode['couleur'] }};flex-shrink:0;"></div>
                                         <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.78rem;color:#888;line-height:1.2;">{{ $methode['label'] }}</span>
                                     </div>
-                                    <div style="font-size:0.65rem;color:#bbb;margin-top:2px;font-weight:600;letter-spacing:0.03em;">Bientôt disponible</div>
+                                    <div style="font-size:0.65rem;color:#bbb;margin-top:2px;font-weight:600;letter-spacing:0.03em;">{{ __('pages.ticketing.detail.coming_soon') }}</div>
                                 </div>
                             </div>
                             @endif
@@ -252,7 +252,7 @@
                         <div style="margin-top:8px;display:flex;align-items:center;gap:7px;padding:9px 12px;background:rgba(76,175,125,0.05);border:1.5px solid rgba(76,175,125,0.18);border-radius:7px;">
                             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#4caf7d" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
                             <span style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;color:#2d7a52;font-weight:500;">
-                                {{ !empty($toutesMethodes['especes']['note']) ? $toutesMethodes['especes']['note'] : 'Présentez votre référence à la caisse à l\'entrée.' }}
+                                {{ !empty($toutesMethodes['especes']['note']) ? $toutesMethodes['especes']['note'] : __('pages.ticketing.detail.cash_note_fallback') }}
                             </span>
                         </div>
                         @endif
@@ -260,12 +260,12 @@
                         {{-- Bloc référence (Mobile Money actif sélectionné) --}}
                         <div id="bloc-reference" style="margin-top:10px;display:none;">
                             <div style="padding:10px 12px;background:#faf8f4;border:1.5px solid #e8e2da;border-radius:8px;">
-                                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:5px;">Référence de transaction *</label>
+                                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#999;margin-bottom:5px;">{{ __('pages.ticketing.detail.payment_reference_label') }}</label>
                                 <input type="text" name="reference_paiement" id="reference_paiement"
-                                       value="{{ old('reference_paiement') }}" placeholder="Ex : TX123456789"
+                                       value="{{ old('reference_paiement') }}" placeholder="{{ __('pages.ticketing.detail.reference_placeholder') }}"
                                        style="width:100%;padding:7px 10px;border:1.5px solid #e2dcd4;border-radius:6px;font-size:0.88rem;font-family:'Inter',sans-serif;color:#1c1510;background:#fff;box-sizing:border-box;outline:none;transition:border 0.15s;margin-bottom:8px;"
                                        onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#e2dcd4'">
-                                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#bbb;margin-bottom:4px;">Preuve (optionnel)</label>
+                                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:#bbb;margin-bottom:4px;">{{ __('pages.ticketing.detail.proof_label') }}</label>
                                 <input type="file" name="preuve_paiement" accept="image/*,.pdf"
                                        style="width:100%;font-size:0.8rem;font-family:'Inter',sans-serif;color:#888;cursor:pointer;">
                             </div>
@@ -279,11 +279,11 @@
                             style="width:100%;padding:11px 16px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;border:none;border-radius:8px;cursor:pointer;transition:box-shadow 0.2s;"
                             onmouseover="this.style.boxShadow='0 6px 20px rgba(76,175,125,0.4)'"
                             onmouseout="this.style.boxShadow=''">
-                        Confirmer ma réservation
+                        {{ __('pages.ticketing.detail.submit_button') }}
                     </button>
 
                     <p style="text-align:center;font-family:'Space Grotesk',sans-serif;font-size:0.7rem;color:#bbb;margin:10px 0 0;">
-                        * champs obligatoires
+                        {{ __('pages.ticketing.detail.required_fields_note') }}
                     </p>
 
                     </form>
@@ -328,7 +328,7 @@ function majTotal(nb) {
 function afficherTotal(montant) {
     const el = document.getElementById('total-display');
     if (!el) return;
-    el.textContent = montant === 0 ? 'Gratuit' : montant.toLocaleString('fr-FR') + ' FC';
+    el.textContent = montant === 0 ? @json(__('pages.ticketing.free')) : montant.toLocaleString('fr-FR') + ' FC';
     el.style.color = montant === 0 ? '#4caf7d' : '#d4a030';
     afficherSectionPaiement(montant);
 }
@@ -373,8 +373,8 @@ function copierLien() {
     navigator.clipboard.writeText('{{ route('billetterie.show', $evenement->slug) }}').then(() => {
         const l = document.getElementById('copy-label');
         const b = document.getElementById('btn-copy-link');
-        l.textContent = '✓ Copié'; b.style.color='#4caf7d'; b.style.borderColor='rgba(76,175,125,0.4)';
-        setTimeout(() => { l.textContent='Lien'; b.style.color='#888'; b.style.borderColor='rgba(255,255,255,0.1)'; }, 2200);
+        l.textContent = @json(__('pages.ticketing.detail.copied')); b.style.color='#4caf7d'; b.style.borderColor='rgba(76,175,125,0.4)';
+        setTimeout(() => { l.textContent=@json(__('pages.ticketing.detail.link')); b.style.color='#888'; b.style.borderColor='rgba(255,255,255,0.1)'; }, 2200);
     });
 }
 </script>

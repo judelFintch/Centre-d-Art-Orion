@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\BilletCategorie;
 use App\Models\Evenement;
@@ -9,6 +10,10 @@ use Illuminate\Http\Request;
 
 class BilletCategorieAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['nom', 'description'];
+
     public function store(Request $request, Evenement $evenement)
     {
         $data = $request->validate([
@@ -19,13 +24,14 @@ class BilletCategorieAdminController extends Controller
 
         $ordre = $evenement->billetCategories()->max('ordre') + 1;
 
-        $evenement->billetCategories()->create([
+        $categorie = $evenement->billetCategories()->create([
             'nom'         => $data['nom'],
             'description' => $data['description'] ?? null,
             'prix'        => $data['prix'],
             'actif'       => true,
             'ordre'       => $ordre,
         ]);
+        $this->applyEnglishTranslations($categorie, $request, self::TRANSLATABLE);
 
         return back()->with('success', 'Catégorie « '.$data['nom'].' » ajoutée.');
     }
@@ -40,6 +46,7 @@ class BilletCategorieAdminController extends Controller
         ]);
 
         $categorie->update($data);
+        $this->applyEnglishTranslations($categorie, $request, self::TRANSLATABLE);
 
         return back()->with('success', 'Catégorie mise à jour.');
     }

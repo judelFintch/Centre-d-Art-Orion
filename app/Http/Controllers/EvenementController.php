@@ -13,7 +13,7 @@ class EvenementController extends Controller
         return view('pages.evenements', compact('aVenir', 'passes'));
     }
 
-    public function show(Evenement $evenement)
+    public function show(string $locale, Evenement $evenement)
     {
         $autres = Evenement::actif()
             ->where('id', '!=', $evenement->id)

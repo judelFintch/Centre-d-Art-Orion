@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\GalerieItem;
 use Illuminate\Http\Request;
@@ -10,6 +11,10 @@ use Illuminate\Validation\Rule;
 
 class GalerieAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['titre', 'description', 'categorie'];
+
     public function index()
     {
         $items = GalerieItem::query()
@@ -43,7 +48,8 @@ class GalerieAdminController extends Controller
             $data['fichier'] = $data['fichier'] ?? $data['miniature'] ?? 'galerie/video-externe';
         }
 
-        GalerieItem::create($data);
+        $item = GalerieItem::create($data);
+        $this->applyEnglishTranslations($item, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.galerie.index')
             ->with('success', 'Élément ajouté à la galerie.');
@@ -79,6 +85,7 @@ class GalerieAdminController extends Controller
         }
 
         $galerie->update($data);
+        $this->applyEnglishTranslations($galerie, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.galerie.index')
             ->with('success', 'Élément de galerie mis à jour.');

@@ -137,6 +137,15 @@
                 Ajouter
             </button>
         </div>
+        <div style="grid-column:1/3;">
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4caf7d;margin-bottom:5px;">Name / Description (EN) — optionnel</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <input type="text" name="nom_en" placeholder="VIP, Standard, Student…"
+                       style="width:100%;padding:8px 12px;background:#111;border:1px solid #1a1a1a;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;outline:none;box-sizing:border-box;">
+                <input type="text" name="description_en" placeholder="VIP lounge access, free drink…"
+                       style="width:100%;padding:8px 12px;background:#111;border:1px solid #1a1a1a;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;outline:none;box-sizing:border-box;">
+            </div>
+        </div>
     </form>
 
     {{-- Liste des catégories --}}
@@ -230,6 +239,15 @@
             <div style="display:flex;gap:6px;">
                 <button type="submit" style="padding:7px 14px;background:rgba(74,144,226,0.12);border:1px solid rgba(74,144,226,0.3);color:#4a90e2;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;border-radius:5px;cursor:pointer;white-space:nowrap;">Enregistrer</button>
                 <button type="button" onclick="toggleEditCat({{ $cat->id }})" style="padding:7px 10px;background:transparent;border:1px solid #1a1a1a;color:#555;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;border-radius:5px;cursor:pointer;">✕</button>
+            </div>
+            <div style="grid-column:1/3;">
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.66rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4caf7d;margin-bottom:4px;">Name / Description (EN)</label>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <input type="text" name="nom_en" value="{{ $cat->getTranslation('nom', 'en', false) }}"
+                           style="width:100%;padding:7px 10px;background:#111;border:1px solid #1a1a1a;border-radius:5px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.83rem;outline:none;box-sizing:border-box;">
+                    <input type="text" name="description_en" value="{{ $cat->getTranslation('description', 'en', false) }}"
+                           style="width:100%;padding:7px 10px;background:#111;border:1px solid #1a1a1a;border-radius:5px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.83rem;outline:none;box-sizing:border-box;">
+                </div>
             </div>
         </form>
         @endforeach

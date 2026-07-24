@@ -23,7 +23,7 @@ class EquipeController extends Controller
 
         if ($autres->isNotEmpty()) {
             $sections->push([
-                'label' => 'Autres membres',
+                'label' => __('pages.team.other_members'),
                 'color' => '#4caf7d',
                 'membres' => $autres,
             ]);
@@ -32,7 +32,7 @@ class EquipeController extends Controller
         return view('pages.equipe', compact('sections'));
     }
 
-    public function show(EquipeMembre $equipe)
+    public function show(string $locale, EquipeMembre $equipe)
     {
         abort_unless($equipe->actif, 404);
 

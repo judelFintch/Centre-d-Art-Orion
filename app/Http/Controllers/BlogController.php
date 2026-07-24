@@ -19,7 +19,7 @@ class BlogController extends Controller
         return view('pages.blog', compact('articles', 'featured', 'categories', 'activeCategory'));
     }
 
-    public function category(string $category)
+    public function category(string $locale, string $category)
     {
         $allArticles = $this->articles();
         $categories = $this->categories($allArticles);
@@ -36,7 +36,7 @@ class BlogController extends Controller
         return view('pages.blog', compact('articles', 'featured', 'categories', 'activeCategory'));
     }
 
-    public function show(string $slug)
+    public function show(string $locale, string $slug)
     {
         if (Schema::hasTable('blog_posts')) {
             $post = BlogPost::published()->where('slug', $slug)->first();

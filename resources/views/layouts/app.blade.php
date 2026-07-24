@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', config('locales.html')[app()->getLocale()] ?? app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     {{-- SEO --}}
-    <title>@yield('title', 'Centre d\'Art Orion') — Excellence Artistique</title>
-    <meta name="description" content="@yield('meta_description', 'Le Centre d\'Art Orion — Production, Création, Formation artistique. Découvrez nos programmes, ateliers et événements culturels.')">
-    <meta name="keywords" content="@yield('meta_keywords', 'centre art, formation artistique, production musicale, danse, peinture, théâtre, Orion')">
-    <meta name="author" content="Centre d\'Art Orion">
+    <title>@yield('title', __('common.site_name')) — @yield('title_suffix', __('common.site_tagline'))</title>
+    <meta name="description" content="@yield('meta_description', __('common.meta_description'))">
+    <meta name="keywords" content="@yield('meta_keywords', __('common.meta_keywords'))">
+    <meta name="author" content="Centre d'Art Orion">
     <meta name="robots" content="index, follow">
 
+    {{-- Hreflang : versions linguistiques de la page courante --}}
+    @if(Route::current()?->getName())
+        @foreach(config('locales.supported') as $loc)
+            <link rel="alternate" hreflang="{{ $loc }}" href="{{ route(Route::currentRouteName(), array_merge(Route::current()->parameters(), ['locale' => $loc])) }}">
+        @endforeach
+        <link rel="alternate" hreflang="x-default" href="{{ route(Route::currentRouteName(), array_merge(Route::current()->parameters(), ['locale' => config('locales.default')])) }}">
+    @endif
+
     {{-- Open Graph --}}
-    <meta property="og:title" content="@yield('og_title', 'Centre d\'Art Orion')">
-    <meta property="og:description" content="@yield('og_description', 'Production · Création · Formation — L\'excellence artistique au cœur de votre communauté.')">
+    <meta property="og:title" content="@yield('og_title', __('common.site_name'))">
+    <meta property="og:description" content="@yield('og_description', __('common.og_description'))">
     <meta property="og:image" content="@yield('og_image', asset('images/og-orion.jpg'))">
     <meta property="og:type" content="@yield('og_type', 'website')">
-    <meta property="og:locale" content="fr_FR">
+    <meta property="og:locale" content="{{ config('locales.html')[app()->getLocale()] ?? 'fr_FR' }}">
 
     {{-- Favicon --}}
     <link rel="icon" type="image/svg+xml" href="{{ asset('images/favicon.svg') }}">

@@ -3,11 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Temoignage extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'auteur', 'poste', 'photo', 'contenu', 'note', 'actif', 'ordre',
+    ];
+
+    public array $translatable = [
+        'poste', 'contenu',
     ];
 
     protected $casts = [

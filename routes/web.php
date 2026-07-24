@@ -35,50 +35,63 @@ use App\Http\Controllers\Admin\MailSettingAdminController;
 use App\Http\Controllers\Admin\PageSettingAdminController;
 use App\Http\Controllers\Admin\ProfileAdminController;
 
-// ─── Site Public ───────────────────────────────────────────────
-Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
-Route::get('/services', [ServiceController::class, 'index'])->name('services');
-Route::get('/podcasts', [PodcastController::class, 'index'])->name('podcasts.index');
-Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
-Route::get('/blog/categorie/{category}', [BlogController::class, 'category'])->name('blog.category');
-Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
+// ─── Site Public (bilingue, préfixé par la langue : /fr/..., /en/...) ──
+Route::get('/', function (Request $request) {
+    $locale = session('locale')
+        ?? $request->getPreferredLanguage(config('locales.supported'))
+        ?? config('locales.default');
 
-Route::prefix('formations')->name('formations.')->group(function () {
-    Route::get('/', [FormationController::class, 'index'])->name('index');
-    Route::get('/{formation:slug}', [FormationController::class, 'show'])->name('show');
+    return redirect('/'.$locale.'/');
 });
 
-Route::prefix('galerie')->name('galerie.')->group(function () {
-    Route::get('/', [GalerieController::class, 'index'])->name('index');
-});
+Route::prefix('{locale}')
+    ->where(['locale' => implode('|', config('locales.supported'))])
+    ->middleware('locale')
+    ->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('home');
+        Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
+        Route::get('/services', [ServiceController::class, 'index'])->name('services');
+        Route::get('/podcasts', [PodcastController::class, 'index'])->name('podcasts.index');
+        Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+        Route::get('/blog/categorie/{category}', [BlogController::class, 'category'])->name('blog.category');
+        Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
 
-Route::prefix('evenements')->name('evenements.')->group(function () {
-    Route::get('/', [EvenementController::class, 'index'])->name('index');
-    Route::get('/{evenement:slug}', [EvenementController::class, 'show'])->name('show');
-});
+        Route::prefix('formations')->name('formations.')->group(function () {
+            Route::get('/', [FormationController::class, 'index'])->name('index');
+            Route::get('/{formation:slug}', [FormationController::class, 'show'])->name('show');
+        });
 
-Route::get('/equipe', [EquipeController::class, 'index'])->name('equipe');
-Route::get('/equipe/{equipe}', [EquipeController::class, 'show'])->name('equipe.show');
+        Route::prefix('galerie')->name('galerie.')->group(function () {
+            Route::get('/', [GalerieController::class, 'index'])->name('index');
+        });
 
-Route::prefix('contact')->name('contact.')->group(function () {
-    Route::get('/', [ContactController::class, 'index'])->name('index');
-    // Limite : 5 soumissions par minute par IP, puis 30 s de blocage
-    Route::post('/', [ContactController::class, 'store'])->name('store')->middleware('throttle:5,1');
-});
+        Route::prefix('evenements')->name('evenements.')->group(function () {
+            Route::get('/', [EvenementController::class, 'index'])->name('index');
+            Route::get('/{evenement:slug}', [EvenementController::class, 'show'])->name('show');
+        });
 
-// ─── Billetterie ───────────────────────────────────────────────
-Route::prefix('billetterie')->name('billetterie.')->group(function () {
-    Route::get('/', [BilletterieController::class, 'index'])->name('index');
-    Route::get('/confirmation/{reference}', [BilletterieController::class, 'confirmation'])->name('confirmation');
-    Route::get('/{evenement:slug}', [BilletterieController::class, 'show'])->name('show');
-    Route::post('/{evenement:slug}/reserver', [BilletterieController::class, 'store'])->name('store')->middleware('throttle:10,1');
-});
+        Route::get('/equipe', [EquipeController::class, 'index'])->name('equipe');
+        Route::get('/equipe/{equipe}', [EquipeController::class, 'show'])->name('equipe.show');
 
-// ─── Abonnements ───────────────────────────────────────────────
-// Limite : 5 soumissions par minute par IP
-Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store')->middleware('throttle:5,1');
-Route::get('/abonnement/desinscription/{token}', [AbonnementController::class, 'unsubscribe'])->name('abonnement.unsubscribe');
+        Route::prefix('contact')->name('contact.')->group(function () {
+            Route::get('/', [ContactController::class, 'index'])->name('index');
+            // Limite : 5 soumissions par minute par IP, puis 30 s de blocage
+            Route::post('/', [ContactController::class, 'store'])->name('store')->middleware('throttle:5,1');
+        });
+
+        // ─── Billetterie ─────────────────────────────────────────
+        Route::prefix('billetterie')->name('billetterie.')->group(function () {
+            Route::get('/', [BilletterieController::class, 'index'])->name('index');
+            Route::get('/confirmation/{reference}', [BilletterieController::class, 'confirmation'])->name('confirmation');
+            Route::get('/{evenement:slug}', [BilletterieController::class, 'show'])->name('show');
+            Route::post('/{evenement:slug}/reserver', [BilletterieController::class, 'store'])->name('store')->middleware('throttle:10,1');
+        });
+
+        Route::get('/abonnement/desinscription/{token}', [AbonnementController::class, 'unsubscribe'])->name('abonnement.unsubscribe');
+
+        // Limite : 5 soumissions par minute par IP
+        Route::post('/abonnement', [AbonnementController::class, 'store'])->name('abonnement.store')->middleware('throttle:5,1');
+    });
 
 // ─── Analytics (tracking côté client) ─────────────────────────
 Route::prefix('analytics')->name('analytics.')->middleware('throttle:60,1')->group(function () {

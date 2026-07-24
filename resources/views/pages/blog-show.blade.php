@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', $article['title'] . ' — Blog Orion')
+@section('title', $article['title'] . ' — ' . __('common.nav.blog') . ' Orion')
 @section('meta_description', Str::limit($article['excerpt'], 160))
-@section('og_title', $article['title'] . ' — Blog Orion')
+@section('og_title', $article['title'] . ' — ' . __('common.nav.blog') . ' Orion')
 @section('og_description', Str::limit($article['excerpt'], 160))
 @section('og_image', asset($article['image']))
 @section('og_type', 'article')
@@ -14,7 +14,7 @@
 @section('content')
 @php
     $shareUrl = route('blog.show', $article['slug']);
-    $shareText = $article['title'] . ' — Centre d\'Art Orion';
+    $shareText = $article['title'] . ' — ' . __('common.site_name');
 @endphp
 
 <article>
@@ -23,9 +23,9 @@
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,10,0.58),#0a0a0a 82%);"></div>
         <div style="max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
             <nav style="display:flex;align-items:center;gap:8px;margin-bottom:34px;font-size:0.8rem;color:#555;font-family:'Space Grotesk',sans-serif;">
-                <a href="{{ route('home') }}" style="color:#555;text-decoration:none;">Accueil</a>
+                <a href="{{ route('home') }}" style="color:#555;text-decoration:none;">{{ __('pages.blog.detail.breadcrumb_home') }}</a>
                 <span>›</span>
-                <a href="{{ route('blog.index') }}" style="color:#555;text-decoration:none;">Blog</a>
+                <a href="{{ route('blog.index') }}" style="color:#555;text-decoration:none;">{{ __('pages.blog.detail.breadcrumb_blog') }}</a>
                 <span>›</span>
                 <span style="color:#f5f5f0;">{{ $article['category'] }}</span>
             </nav>
@@ -40,11 +40,11 @@
                 <span style="color:#333;">•</span>
                 <span>{{ $article['date'] }}</span>
                 <span style="color:#333;">•</span>
-                <span>{{ $article['read_time'] }} de lecture</span>
+                <span>{{ $article['read_time'] }} {{ __('pages.blog.detail.read_time_suffix') }}</span>
                 <span style="color:#333;">•</span>
                 <span style="display:inline-flex;align-items:center;gap:5px;">
                     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                    {{ number_format($article['views'] ?? 0) }} {{ ($article['views'] ?? 0) <= 1 ? 'vue' : 'vues' }}
+                    {{ trans_choice('pages.blog.detail.views', $article['views'] ?? 0, ['count' => number_format($article['views'] ?? 0)]) }}
                 </span>
             </div>
             <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;">
@@ -54,13 +54,13 @@
                         data-share-text="{{ e($article['excerpt']) }}"
                         data-share-url="{{ $shareUrl }}"
                         style="display:inline-flex;align-items:center;gap:8px;padding:11px 16px;background:linear-gradient(135deg,#4caf7d,#2d7a52);border:0;border-radius:4px;color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">
-                    Partager l'article
+                    {{ __('pages.blog.detail.share_article') }}
                 </button>
                 <button type="button"
                         class="blog-copy-link"
                         data-copy-url="{{ $shareUrl }}"
                         style="display:inline-flex;align-items:center;gap:8px;padding:10px 15px;background:rgba(245,245,240,0.04);border:1px solid rgba(245,245,240,0.16);border-radius:4px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;cursor:pointer;">
-                    Copier le lien
+                    {{ __('pages.blog.detail.copy_link') }}
                 </button>
             </div>
         </div>
@@ -94,7 +94,7 @@
 
                     @if(!empty($article['gallery']))
                     <div style="margin-top:48px;">
-                        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 22px;">Images correspondantes</h2>
+                        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 22px;">{{ __('pages.blog.detail.related_images_title') }}</h2>
                         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
                             @foreach($article['gallery'] as $image)
                             <div style="aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#111;border:1px solid #1a1a1a;">
@@ -110,21 +110,21 @@
                     @auth
                     @if(!empty($article['admin_id']))
                     <div style="background:#111;border:1px solid rgba(212,160,48,0.28);border-radius:8px;padding:20px;margin-bottom:18px;">
-                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;color:#d4a030;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 14px;">Administration</h3>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:700;color:#d4a030;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 14px;">{{ __('pages.blog.detail.admin_title') }}</h3>
                         <a href="{{ route('admin.blog.edit', $article['admin_id']) }}"
                            style="display:flex;align-items:center;justify-content:center;width:100%;padding:10px 14px;background:rgba(212,160,48,0.12);border:1px solid rgba(212,160,48,0.28);border-radius:6px;color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;">
-                            Modifier l'article
+                            {{ __('pages.blog.detail.edit_article') }}
                         </a>
                         <a href="{{ route('admin.blog.index') }}"
                            style="display:block;margin-top:10px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;text-align:center;text-decoration:none;">
-                            Gérer les publications
+                            {{ __('pages.blog.detail.manage_posts') }}
                         </a>
                     </div>
                     @endif
                     @endauth
 
                     <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
-                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">Partager</h3>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">{{ __('pages.blog.detail.share_title') }}</h3>
                         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
                             <a href="https://wa.me/?text={{ urlencode($shareText . ' ' . $shareUrl) }}"
                                target="_blank"
@@ -157,21 +157,21 @@
                                 class="blog-copy-link"
                                 data-copy-url="{{ $shareUrl }}"
                                 style="width:100%;margin-top:10px;display:flex;align-items:center;justify-content:center;padding:10px 12px;background:transparent;border:1px solid #242424;border-radius:4px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.76rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;">
-                            Copier le lien
+                            {{ __('pages.blog.detail.copy_link') }}
                         </button>
                     </div>
 
 	                    <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:24px;margin-bottom:18px;">
-                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">Dans cet article</h3>
+                        <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.09em;margin:0 0 16px;">{{ __('pages.blog.detail.in_this_article_title') }}</h3>
                         <div style="display:flex;flex-direction:column;gap:12px;color:#777;font-size:0.86rem;line-height:1.55;">
-                            <span>Processus créatif</span>
-                            <span>Transmission artistique</span>
-                            <span>Vie du centre</span>
+                            @foreach(__('pages.blog.detail.in_this_article_tags') as $tag)
+                            <span>{{ $tag }}</span>
+                            @endforeach
                         </div>
                     </div>
                     <a href="{{ route('contact.index') }}" style="display:block;background:linear-gradient(135deg,#4caf7d,#2d7a52);border-radius:8px;padding:24px;text-decoration:none;color:#fff;">
-                        <span style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">Participer</span>
-                        <span style="display:block;font-size:0.9rem;line-height:1.55;">Échangez avec nous pour rejoindre un atelier ou proposer un projet.</span>
+                        <span style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">{{ __('pages.blog.detail.participate_title') }}</span>
+                        <span style="display:block;font-size:0.9rem;line-height:1.55;">{{ __('pages.blog.detail.participate_desc') }}</span>
                     </a>
                 </aside>
             </div>
@@ -182,7 +182,7 @@
 @if($related->count())
 <section style="padding:72px 0 96px;background:#0a0a0a;border-top:1px solid #161616;">
     <div style="max-width:1120px;margin:0 auto;padding:0 24px;">
-        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 28px;">À lire aussi</h2>
+        <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.95rem;font-weight:700;color:#f5f5f0;text-transform:uppercase;letter-spacing:0.1em;margin:0 0 28px;">{{ __('pages.blog.detail.also_read_title') }}</h2>
         <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
             @foreach($related as $item)
             <a href="{{ route('blog.show', $item['slug']) }}" style="background:#111;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;text-decoration:none;display:grid;grid-template-columns:140px 1fr;">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\EquipeRole;
 use Illuminate\Http\RedirectResponse;
@@ -10,6 +11,10 @@ use Illuminate\View\View;
 
 class EquipeRoleAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['nom'];
+
     public function index(): View
     {
         $roles = EquipeRole::withCount('membres')->ordered()->get();
@@ -24,7 +29,8 @@ class EquipeRoleAdminController extends Controller
         $data['actif'] = $request->boolean('actif', true);
         $data['ordre'] = $data['ordre'] ?? ((EquipeRole::max('ordre') ?? 0) + 1);
 
-        EquipeRole::create($data);
+        $role = EquipeRole::create($data);
+        $this->applyEnglishTranslations($role, $request, self::TRANSLATABLE);
 
         return back()->with('success', 'Rôle ajouté avec succès.');
     }
@@ -35,6 +41,7 @@ class EquipeRoleAdminController extends Controller
         $data['actif'] = $request->boolean('actif');
 
         $role->update($data);
+        $this->applyEnglishTranslations($role, $request, self::TRANSLATABLE);
 
         return back()->with('success', 'Rôle mis à jour.');
     }

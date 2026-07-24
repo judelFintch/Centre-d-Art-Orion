@@ -2,6 +2,8 @@
     use App\Models\PageSetting;
     $current  = PageSetting::get($key, $default ?? '');
     $hasError = $errors->has($key);
+    $enRow    = PageSetting::where('key', $key)->first();
+    $enCurrent = $enRow ? $enRow->getTranslation('value', 'en', false) : '';
 @endphp
 <div data-field-key="{{ $key }}">
     <label style="display:block;color:{{ $hasError ? '#e07030' : '#888' }};font-size:0.75rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px;">
@@ -19,4 +21,10 @@
         {{ $errors->first($key) }}
     </p>
     @endif
+    <input type="text"
+           name="en_fields[{{ $key }}]"
+           value="{{ old('en_fields.'.$key, $enCurrent) }}"
+           @isset($max) maxlength="{{ $max }}" @endisset
+           placeholder="EN"
+           style="width:100%;margin-top:5px;background:#0d130f;border:1px solid rgba(76,175,125,0.25);border-radius:6px;padding:7px 12px;color:#cdeedb;font-size:0.8rem;font-family:'Space Grotesk',sans-serif;box-sizing:border-box;outline:none;">
 </div>

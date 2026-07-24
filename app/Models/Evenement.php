@@ -3,13 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class Evenement extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'titre', 'slug', 'description', 'contenu', 'date_debut', 'date_fin',
         'lieu', 'image', 'statut', 'type', 'prix', 'gratuit',
         'lien_inscription', 'actif',
+    ];
+
+    public array $translatable = [
+        'titre', 'description', 'contenu', 'lieu', 'type',
     ];
 
     protected $casts = [

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Formations — Centre d\'Art Orion')
-@section('meta_description', 'Découvrez nos formations artistiques : arts plastiques, musique, danse, théâtre, photographie, production musicale. Inscrivez-vous au Centre d\'Art Orion.')
+@section('title', __('pages.formations.title'))
+@section('meta_description', __('pages.formations.meta_description'))
 
 @section('content')
 
@@ -9,13 +9,13 @@
 <section style="padding:100px 0 80px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 70% 30%,rgba(224,112,48,0.07),transparent 60%);pointer-events:none;"></div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
-        <div class="tag tag-orange" style="margin-bottom:16px;">Programmes de formation</div>
+        <div class="tag tag-orange" style="margin-bottom:16px;">{{ __('pages.formations.hero_tag') }}</div>
         <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.1;margin:0 0 20px;">
-            Formations<br>
-            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Artistiques</span>
+            {{ __('pages.formations.hero_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.formations.hero_title_2') }}</span>
         </h1>
         <p style="color:#777;font-size:1rem;max-width:560px;line-height:1.8;">
-            Des programmes structurés et progressifs pour développer vos compétences artistiques sous la direction d'experts passionnés.
+            {{ __('pages.formations.hero_desc') }}
         </p>
     </div>
 </section>
@@ -28,11 +28,11 @@
         @if($paginator->total() > 0)
         <div class="reveal" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:40px;">
             <p style="color:#555;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;margin:0;">
-                {{ $paginator->firstItem() }}–{{ $paginator->lastItem() }} sur <strong style="color:#f5f5f0;">{{ $paginator->total() }}</strong> formation{{ $paginator->total() > 1 ? 's' : '' }}
+                {{ $paginator->firstItem() }}–{{ $paginator->lastItem() }} {{ __('pages.formations.of') }} <strong style="color:#f5f5f0;">{{ $paginator->total() }}</strong> {{ trans_choice('pages.formations.count_label', $paginator->total()) }}
             </p>
             @if($paginator->lastPage() > 1)
             <p style="color:#555;font-size:0.82rem;font-family:'Space Grotesk',sans-serif;margin:0;">
-                Page {{ $paginator->currentPage() }} / {{ $paginator->lastPage() }}
+                {{ __('pages.formations.page_of', ['current' => $paginator->currentPage(), 'last' => $paginator->lastPage()]) }}
             </p>
             @endif
         </div>
@@ -41,9 +41,9 @@
         @if($formations->isEmpty())
         <div class="reveal" style="text-align:center;padding:80px 24px;">
             <div style="font-size:3rem;margin-bottom:16px;">📚</div>
-            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#f5f5f0;margin:0 0 12px;">Formations à venir</h3>
-            <p style="color:#666;font-size:0.9rem;">Nos programmes sont en cours de préparation. Contactez-nous pour être informé en priorité.</p>
-            <a href="{{ route('contact.index') }}" class="btn-primary" style="margin-top:24px;display:inline-flex;">Être notifié</a>
+            <h3 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;color:#f5f5f0;margin:0 0 12px;">{{ __('pages.formations.empty_title') }}</h3>
+            <p style="color:#666;font-size:0.9rem;">{{ __('pages.formations.empty_desc') }}</p>
+            <a href="{{ route('contact.index') }}" class="btn-primary" style="margin-top:24px;display:inline-flex;">{{ __('pages.formations.empty_cta') }}</a>
         </div>
         @else
 
@@ -52,10 +52,10 @@
         <div style="margin-bottom:64px;">
             <div class="reveal" style="display:flex;align-items:center;gap:16px;margin-bottom:32px;">
                 <h2 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;color:#f5f5f0;letter-spacing:0.08em;text-transform:uppercase;margin:0;">
-                    {{ $categorie ?: 'Autres formations' }}
+                    {{ $categorie ?: __('pages.formations.other_category') }}
                 </h2>
                 <div style="flex:1;height:1px;background:linear-gradient(90deg,#222,transparent);"></div>
-                <span style="font-size:0.78rem;color:#555;font-family:'Space Grotesk',sans-serif;">{{ $items->count() }} {{ Str::plural('formation', $items->count()) }}</span>
+                <span style="font-size:0.78rem;color:#555;font-family:'Space Grotesk',sans-serif;">{{ $items->count() }} {{ trans_choice('pages.formations.count_label', $items->count()) }}</span>
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
@@ -104,13 +104,13 @@
                             @if($f->prix)
                             <div>
                                 <span style="font-family:'Space Grotesk',sans-serif;font-size:1.1rem;font-weight:700;color:#d4a030;">${{ number_format($f->prix, 0) }}</span>
-                                <span style="color:#555;font-size:0.75rem;margin-left:4px;">/ formation</span>
+                                <span style="color:#555;font-size:0.75rem;margin-left:4px;">{{ __('pages.formations.price_suffix') }}</span>
                             </div>
                             @else
-                            <span style="color:#4caf7d;font-weight:600;font-size:0.9rem;">Sur devis</span>
+                            <span style="color:#4caf7d;font-weight:600;font-size:0.9rem;">{{ __('pages.formations.on_request') }}</span>
                             @endif
                             <a href="{{ route('formations.show', $f->slug) }}" class="btn-primary" style="padding:9px 18px;font-size:0.78rem;">
-                                Détails & inscription
+                                {{ __('pages.formations.details_cta') }}
                             </a>
                         </div>
                     </div>
@@ -178,19 +178,20 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 56px;">
-            <div class="tag tag-green" style="margin-bottom:20px;">Nos avantages</div>
+            <div class="tag tag-green" style="margin-bottom:20px;">{{ __('pages.formations.advantages_tag') }}</div>
             <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:900;color:#f5f5f0;line-height:1.15;margin:0;" class="accent-line accent-line-center">
-                Pourquoi nous choisir ?
+                {{ __('pages.formations.advantages_title') }}
             </h2>
         </div>
 
+        @php
+            $advColors = [1 => '#4caf7d', 2 => '#d4a030', 3 => '#e07030', 4 => '#4caf7d'];
+            $advantages = collect(__('pages.formations.advantages'))
+                ->map(fn ($a, $n) => [$a['emoji'], $a['titre'], $a['desc'], $advColors[$n]])
+                ->values();
+        @endphp
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;">
-            @foreach([
-                ['🏆','Formateurs experts','Tous nos formateurs sont des professionnels reconnus dans leur discipline.','#4caf7d'],
-                ['🎯','Approche pratique','80% pratique, 20% théorie pour un apprentissage concret et efficace.','#d4a030'],
-                ['👥','Petits groupes','Maximum 12 élèves par groupe pour un suivi personnalisé de qualité.','#e07030'],
-                ['📜','Certification','Obtenez un certificat Orion reconnu par les partenaires artistiques.','#4caf7d'],
-            ] as $av)
+            @foreach($advantages as $av)
             <div class="reveal"
                  style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:32px;text-align:center;transition:all 0.3s;"
                  onmouseover="this.style.borderColor='{{ $av[3] }}33';this.style.background='#141414'"
@@ -210,11 +211,11 @@
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(224,112,48,0.06),transparent 70%);pointer-events:none;"></div>
     <div style="max-width:700px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="reveal">
         <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#f5f5f0;margin:0 0 16px;">
-            Prêt à commencer votre<br>
-            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">parcours artistique ?</span>
+            {{ __('pages.formations.cta_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#e07030,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.formations.cta_title_2') }}</span>
         </h2>
-        <p style="color:#777;font-size:0.95rem;margin:0 0 36px;line-height:1.8;">Contactez-nous pour vous inscrire ou obtenir plus d'informations sur nos formations.</p>
-        <a href="{{ route('contact.index') }}" class="btn-gold">S'inscrire maintenant</a>
+        <p style="color:#777;font-size:0.95rem;margin:0 0 36px;line-height:1.8;">{{ __('pages.formations.cta_desc') }}</p>
+        <a href="{{ route('contact.index') }}" class="btn-gold">{{ __('pages.formations.cta_button') }}</a>
     </div>
 </section>
 

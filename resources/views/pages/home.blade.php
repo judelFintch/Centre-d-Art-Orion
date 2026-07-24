@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Centre d\'Art Orion — Production, Création, Formation')
-@section('meta_description', 'Le Centre d\'Art Orion : votre espace de production artistique, création, formation et accompagnement des talents. Découvrez nos programmes et événements.')
+@section('title', __('pages.home.title'))
+@section('meta_description', __('pages.home.meta_description'))
 
 @php
     use App\Models\PageSetting as PS;
@@ -113,16 +113,16 @@
             {{-- Kicker symétrique ──── label ──── --}}
             <div class="hc-kicker">
                 <span class="hc-kicker-line"></span>
-                <span class="hc-kicker-label">Arts Visuels</span>
+                <span class="hc-kicker-label">{{ __('pages.home.hero_kicker') }}</span>
                 <span class="hc-kicker-line"></span>
             </div>
             <h1 class="hc-title">
-                <span class="hc-title-wrap"><span class="hc-title-line">{{ $firstHeroSlide->title_one ?? "CENTRE D'ART" }}</span></span>
-                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $firstHeroSlide->title_two ?? 'ORION' }}</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line">{{ $firstHeroSlide->title_one ?? __('pages.home.hero_title_one_fallback') }}</span></span>
+                <span class="hc-title-wrap"><span class="hc-title-line hc-title-accent">{{ $firstHeroSlide->title_two ?? __('pages.home.hero_title_two_fallback') }}</span></span>
             </h1>
-            <p class="hc-lead">{{ $firstHeroSlide->lead ?? 'Production · Création · Formation.' }}</p>
-            <a href="{{ $firstHeroSlide->cta_url ?? route('about') }}" class="hc-cta">
-                <span class="hc-cta-text">{{ $firstHeroSlide->cta_label ?? 'Découvrir' }}</span>
+            <p class="hc-lead">{{ $firstHeroSlide->lead ?? __('pages.home.hero_lead_fallback') }}</p>
+            <a href="{{ $firstHeroSlide->cta_url ? '/'.app()->getLocale().$firstHeroSlide->cta_url : route('about') }}" class="hc-cta">
+                <span class="hc-cta-text">{{ $firstHeroSlide->cta_label ?? __('pages.home.hero_cta_fallback') }}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </a>
         </div>
@@ -131,7 +131,7 @@
     {{-- ─── Barre inférieure : stats + dots ─── --}}
     <div class="hc-bottom-bar">
         <div class="hc-stats">
-            @foreach([['100+','Artistes accompagnés'],['50+','Événements'],['6','Disciplines']] as $st)
+            @foreach([['100+',__('pages.home.stat_artists')],['50+',__('pages.home.stat_events')],['6',__('pages.home.stat_disciplines')]] as $st)
             <div class="hc-stat">
                 <div class="hc-stat-val">{{ $st[0] }}</div>
                 <div class="hc-stat-lbl">{{ $st[1] }}</div>
@@ -139,9 +139,9 @@
             @if(!$loop->last)<span class="hc-stat-sep"></span>@endif
             @endforeach
         </div>
-        <div class="hc-dots" role="tablist" aria-label="Navigation slides">
+        <div class="hc-dots" role="tablist" aria-label="{{ __('pages.home.slides_nav') }}">
             @foreach($heroSlides as $slide)
-            <button class="hc-dot {{ $loop->first ? 'active' : '' }}" data-i="{{ $loop->index }}" aria-label="Slide {{ $loop->iteration }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}"></button>
+            <button class="hc-dot {{ $loop->first ? 'active' : '' }}" data-i="{{ $loop->index }}" aria-label="{{ __('pages.home.slide') }} {{ $loop->iteration }}" role="tab" aria-selected="{{ $loop->first ? 'true' : 'false' }}"></button>
             @endforeach
         </div>
     </div>
@@ -318,7 +318,7 @@
             <div class="ni-img-main">
                 <div class="ni-img-frame"></div>
                 <div class="ni-img-clip">
-                    <img src="{{ $psImg('home.ni.img1_file', asset('images/10.jpg')) }}" alt="Production — Centre d'Art Orion" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img1_file', asset('images/10.jpg')) }}" alt="{{ __('pages.home.production_img_alt') }}" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#4caf7d">{{ PS::get('home.ni.img1_label','Arts Visuels') }}</span>
                 </div>
@@ -327,12 +327,12 @@
             {{-- Deux petites images --}}
             <div class="ni-img-row">
                 <div class="ni-img-sm">
-                    <img src="{{ $psImg('home.ni.img2_file', asset('images/5.jpg')) }}" alt="Formation" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img2_file', asset('images/5.jpg')) }}" alt="{{ __('pages.home.formation_duration_img_alt') }}" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#d4a030">{{ PS::get('home.ni.img2_label','Musique') }}</span>
                 </div>
                 <div class="ni-img-sm">
-                    <img src="{{ $psImg('home.ni.img3_file', asset('images/11.jpg')) }}" alt="Inspiration" class="ni-img-photo">
+                    <img src="{{ $psImg('home.ni.img3_file', asset('images/11.jpg')) }}" alt="{{ __('pages.home.inspiration_img_alt') }}" class="ni-img-photo">
                     <div class="ni-img-gradient"></div>
                     <span class="ni-img-label" style="color:#e07030">{{ PS::get('home.ni.img3_label','Danse') }}</span>
                 </div>
@@ -385,21 +385,18 @@
                 <p style="color:#8a7e74;font-size:0.92rem;line-height:1.8;margin:0;max-width:360px;text-align:right;">
                     {{ PS::get('home.services.desc',"De la création à la scène — un écosystème complet pour chaque artiste, à chaque étape.") }}
                 </p>
-                <a href="{{ route('services') }}" class="btn-outline">Voir tous les services →</a>
+                <a href="{{ route('services') }}" class="btn-outline">{{ __('pages.home.services_cta') }}</a>
             </div>
         </div>
 
         {{-- Grille cards --}}
         @php
         $hSPhotos = ['10.jpg','5.jpg','13','11.jpg','10.jpg','5.jpg'];
-        $hServicesDefaults = [
-            ['🎬','Production Artistique','Studios, accompagnement technique et distribution des œuvres.','10.jpg'],
-            ['✨','Création Artistique','Résidences, ateliers ouverts et collaborations inter-disciplines.','5.jpg'],
-            ['🎓','Formation Artistique','6 disciplines, de débutant à avancé, avec certification.','10.jpg'],
-            ['🤝','Accompagnement','Mentorat, développement de carrière et mise en réseau.','11.jpg'],
-            ['🎪','Événements Culturels','Concerts, expositions et galas qui valorisent les talents.','10.jpg'],
-            ['🏛','Ateliers & Programmes',"Programmes ouverts à tous, toute l'année.",'5.jpg'],
-        ];
+        $hServicesImages = ['10.jpg','5.jpg','10.jpg','11.jpg','10.jpg','5.jpg'];
+        $hServicesDefaults = collect(__('pages.home.services_defaults'))
+            ->values()
+            ->map(fn ($sd, $i) => [$sd['icon'], $sd['titre'], $sd['desc'], $hServicesImages[$i]])
+            ->all();
         $hServicesLinks = [route('services'),route('services'),route('formations.index'),route('services'),route('evenements.index'),route('services')];
         $hServicesColors = ['#4caf7d','#d4a030','#e07030','#4caf7d','#d4a030','#e07030'];
         $hServicesAll = [];
@@ -476,8 +473,8 @@
                     {!! nl2br(e(PS::get('home.podcasts.desc',"Conversations avec artistes, formateurs et créateurs du centre : coulisses d'ateliers, parcours, résidences et réflexions sur les métiers de l'art."))) !!}
                 </p>
                 <div style="display:flex;gap:14px;flex-wrap:wrap;">
-                    <a href="{{ route('podcasts.index') }}" class="btn-gold">Découvrir les podcasts</a>
-                    <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-outline" style="color:#f5f5f0;border-color:rgba(255,255,255,0.28);">Proposer un invité</a>
+                    <a href="{{ route('podcasts.index') }}" class="btn-gold">{{ __('pages.home.podcasts_discover') }}</a>
+                    <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-outline" style="color:#f5f5f0;border-color:rgba(255,255,255,0.28);">{{ __('pages.home.podcasts_propose_guest') }}</a>
                 </div>
             </div>
 
@@ -488,7 +485,7 @@
                     <svg width="34" height="34" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>
                 </div>
                 <div style="position:absolute;left:28px;right:28px;bottom:26px;">
-                    <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">Série audio</div>
+                    <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:8px;">{{ __('pages.home.podcasts_series_tag') }}</div>
                     <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:2rem;line-height:1.05;margin:0 0 8px;">{{ PS::get('home.podcasts.serie_titre',"Dans l'atelier") }}</h3>
                     <p style="color:rgba(245,245,240,0.72);font-size:0.88rem;line-height:1.65;margin:0;">{{ PS::get('home.podcasts.serie_desc',"Une immersion dans les gestes, les voix et les idées qui précèdent l'oeuvre.") }}</p>
                 </div>
@@ -543,13 +540,13 @@
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
             <div>
-                <div class="tag tag-green" style="margin-bottom:20px;">Programmes disponibles</div>
+                <div class="tag tag-green" style="margin-bottom:20px;">{{ __('pages.home.formations_available') }}</div>
                 <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:#1c1510;line-height:1.15;margin:0;" class="accent-line">
-                    Nos Formations
+                    {{ __('pages.home.formations_title') }}
                 </h2>
             </div>
             <a href="{{ route('formations.index') }}" class="btn-outline">
-                Voir toutes les formations →
+                {{ __('pages.home.formations_cta') }}
             </a>
         </div>
 
@@ -605,7 +602,7 @@
                         @endif
                         <a href="{{ route('formations.show', $f) }}"
                            style="display:inline-flex;align-items:center;gap:6px;color:#4caf7d;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;text-decoration:none;">
-                            Détails →
+                            {{ __('pages.home.details_link') }}
                         </a>
                     </div>
                 </div>
@@ -658,13 +655,13 @@
         {{-- Header --}}
         <div class="reveal" style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:56px;">
             <div>
-                <div class="tag tag-orange" style="margin-bottom:16px;">À venir</div>
+                <div class="tag tag-orange" style="margin-bottom:16px;">{{ __('pages.home.events_upcoming_tag') }}</div>
                 <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#1c1510;line-height:1.08;margin:0;" class="accent-line">
-                    Prochains<br>Événements
+                    {!! __('pages.home.events_title') !!}
                 </h2>
             </div>
             <a href="{{ route('evenements.index') }}" class="btn-outline">
-                Voir tous les événements →
+                {{ __('pages.home.events_cta') }}
             </a>
         </div>
 
@@ -698,7 +695,7 @@
                 {{-- Prix / Gratuit --}}
                 @if($ev->gratuit)
                 <div style="position:absolute;top:20px;right:20px;">
-                    <span class="tag tag-green">Gratuit</span>
+                    <span class="tag tag-green">{{ __('pages.home.free') }}</span>
                 </div>
                 @elseif($ev->prix)
                 <div style="position:absolute;top:20px;right:20px;">
@@ -755,9 +752,9 @@
     <div style="max-width:1440px;margin:0 auto;padding:0 24px;">
 
         <div class="reveal" style="text-align:center;max-width:540px;margin:0 auto 64px;">
-            <div class="tag tag-gold" style="margin-bottom:20px;">Témoignages</div>
+            <div class="tag tag-gold" style="margin-bottom:20px;">{{ __('pages.home.testimonials_tag') }}</div>
             <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:#1c1510;line-height:1.15;margin:0;" class="accent-line accent-line-center">
-                Ce qu'ils disent
+                {{ __('pages.home.testimonials_title') }}
             </h2>
         </div>
 
@@ -825,12 +822,12 @@
 
         <div style="display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:20px;margin-bottom:64px;" class="reveal">
             <div>
-                <div class="tag tag-green" style="margin-bottom:20px;">Nos réalisations</div>
+                <div class="tag tag-green" style="margin-bottom:20px;">{{ __('pages.home.gallery_tag') }}</div>
                 <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:900;color:#1c1510;line-height:1.15;margin:0;" class="accent-line">
-                    Galerie
+                    {{ __('common.nav.gallery') }}
                 </h2>
             </div>
-            <a href="{{ route('galerie.index') }}" class="btn-outline">Voir la galerie complète →</a>
+            <a href="{{ route('galerie.index') }}" class="btn-outline">{{ __('pages.home.gallery_cta') }}</a>
         </div>
 
         {{--
@@ -980,8 +977,8 @@
 
         {{-- Boutons --}}
         <div class="rj-actions">
-            <a href="{{ route('formations.index') }}" class="btn-gold">S'inscrire à une formation</a>
-            <a href="{{ route('contact.index') }}" class="btn-outline">Nous contacter</a>
+            <a href="{{ route('formations.index') }}" class="btn-gold">{{ __('pages.home.cta_enroll') }}</a>
+            <a href="{{ route('contact.index') }}" class="btn-outline">{{ __('common.nav.contact_us') }}</a>
         </div>
 
     </div>

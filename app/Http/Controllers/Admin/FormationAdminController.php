@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\Formation;
 use Illuminate\Http\Request;
@@ -11,6 +12,10 @@ use Illuminate\Validation\Rule;
 
 class FormationAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['titre', 'description', 'contenu', 'duree', 'niveau', 'public_cible', 'categorie'];
+
     public function index()
     {
         $formations = Formation::query()
@@ -37,7 +42,8 @@ class FormationAdminController extends Controller
             $data['image'] = $request->file('image')->store('formations', 'public');
         }
 
-        Formation::create($data);
+        $formation = Formation::create($data);
+        $this->applyEnglishTranslations($formation, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.formations.index')
             ->with('success', 'Formation créée avec succès.');
@@ -68,6 +74,7 @@ class FormationAdminController extends Controller
         }
 
         $formation->update($data);
+        $this->applyEnglishTranslations($formation, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.formations.index')
             ->with('success', 'Formation mise à jour.');

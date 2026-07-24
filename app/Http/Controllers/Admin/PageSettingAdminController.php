@@ -98,6 +98,8 @@ class PageSettingAdminController extends Controller
             $this->handleImageUpload($request, $key);
         }
 
+        $this->saveEnglishFields($request);
+
         PageSetting::clearCache();
 
         return back()->with('success', 'Page d\'accueil mise à jour avec succès.');
@@ -174,12 +176,28 @@ class PageSettingAdminController extends Controller
             $this->handleImageUpload($request, $key);
         }
 
+        $this->saveEnglishFields($request);
+
         PageSetting::clearCache();
 
         return back()->with('success', 'Page "À propos" mise à jour avec succès.');
     }
 
     /* ────────────────────────────────── HELPERS ── */
+
+    /**
+     * Enregistre les traductions anglaises soumises via les champs `en_fields[clé.pointée]`
+     * générés par les partiels _field / _textarea, sans passer par la validation stricte
+     * (champs optionnels, non contraints en longueur côté anglais).
+     */
+    private function saveEnglishFields(Request $request): void
+    {
+        foreach ($request->input('en_fields', []) as $key => $value) {
+            if (is_string($key) && is_string($value)) {
+                PageSetting::set($key, ['en' => $value]);
+            }
+        }
+    }
 
     /**
      * Extrait les clés dot-notation correspondant à des fichiers image

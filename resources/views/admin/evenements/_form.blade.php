@@ -174,6 +174,33 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise de l'événement (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title (EN)</label>
+            <input type="text" name="titre_en" value="{{ old('titre_en', $edit ? $evenement->getTranslation('titre', 'en', false) : '') }}" style="{{ $fs }}" placeholder="Event name">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Short description (EN)</label>
+            <textarea name="description_en" rows="4" style="{{ $fs }}resize:vertical;line-height:1.6;">{{ old('description_en', $edit ? $evenement->getTranslation('description', 'en', false) : '') }}</textarea>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Full description (EN)</label>
+            <textarea name="contenu_en" rows="8" style="{{ $fs }}resize:vertical;line-height:1.8;">{{ old('contenu_en', $edit ? $evenement->getTranslation('contenu', 'en', false) : '') }}</textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Venue (EN)</label>
+                <input type="text" name="lieu_en" value="{{ old('lieu_en', $edit ? $evenement->getTranslation('lieu', 'en', false) : '') }}" style="{{ $fs }}" placeholder="Venue, address, online…">
+            </div>
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Type (EN)</label>
+                <input type="text" name="type_en" value="{{ old('type_en', $edit ? $evenement->getTranslation('type', 'en', false) : '') }}" style="{{ $fs }}" placeholder="Concert">
+            </div>
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 <script>
 (function () {
     var titre = document.getElementById('ev-titre');

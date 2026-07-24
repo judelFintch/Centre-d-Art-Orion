@@ -102,6 +102,23 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title (EN)</label>
+            <input type="text" name="titre_en" value="{{ old('titre_en', $edit ? $galerie->getTranslation('titre', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="e.g. Painting workshop">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Category (EN)</label>
+            <input type="text" name="categorie_en" value="{{ old('categorie_en', $edit ? $galerie->getTranslation('categorie', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="workshop, event, production">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Description (EN)</label>
+            <textarea name="description_en" rows="4" style="{{ $fieldStyle }}resize:vertical;line-height:1.6;">{{ old('description_en', $edit ? $galerie->getTranslation('description', 'en', false) : '') }}</textarea>
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 <script>
 function previewGalerieImage(input, nameId, previewId, imageId) {
     if (!input.files[0]) return;

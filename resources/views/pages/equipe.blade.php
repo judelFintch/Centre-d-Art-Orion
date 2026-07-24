@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Notre Équipe — Centre d\'Art Orion')
-@section('meta_description', 'Découvrez l\'équipe du Centre d\'Art Orion : direction, formateurs et artistes associés qui donnent vie à notre vision artistique.')
+@section('title', __('pages.team.title'))
+@section('meta_description', __('pages.team.meta_description'))
 
 @section('content')
 
@@ -9,12 +9,12 @@
 <section style="padding:100px 0 80px;background:#0a0a0a;border-bottom:1px solid #1a1a1a;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 60% 40%,rgba(212,160,48,0.06),transparent 60%);pointer-events:none;"></div>
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
-        <div class="tag tag-gold" style="margin-bottom:16px;">Les visages d'Orion</div>
+        <div class="tag tag-gold" style="margin-bottom:16px;">{{ __('pages.team.hero_tag') }}</div>
         <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.5rem,5vw,4rem);font-weight:900;color:#f5f5f0;line-height:1.1;margin:0 0 20px;">
-            Notre<br>
-            <span style="background:linear-gradient(135deg,#d4a030,#e07030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Équipe</span>
+            {{ __('pages.team.hero_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#d4a030,#e07030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.team.hero_title_2') }}</span>
         </h1>
-        <p style="color:#777;font-size:1rem;max-width:520px;line-height:1.8;">Une équipe de passionnés au service de l'excellence artistique et du développement des talents.</p>
+        <p style="color:#777;font-size:1rem;max-width:520px;line-height:1.8;">{{ __('pages.team.hero_desc') }}</p>
     </div>
 </section>
 
@@ -83,7 +83,7 @@
                    style="display:inline-flex;align-items:center;justify-content:center;margin-top:22px;padding:9px 18px;border:1px solid {{ $color }}55;border-radius:6px;color:{{ $color }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;text-decoration:none;letter-spacing:0.04em;text-transform:uppercase;transition:all 0.2s;"
                    onmouseover="this.style.background='{{ $color }}18';this.style.borderColor='{{ $color }}'"
                    onmouseout="this.style.background='transparent';this.style.borderColor='{{ $color }}55'">
-                    Détails
+                    {{ __('pages.team.details') }}
                 </a>
 
             </div>
@@ -98,13 +98,13 @@
 <section style="padding:100px 0;background:#0a0a0a;border-top:1px solid #161616;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(76,175,125,0.06),transparent 70%);pointer-events:none;"></div>
     <div style="max-width:700px;margin:0 auto;padding:0 24px;text-align:center;position:relative;z-index:1;" class="reveal">
-        <div class="tag tag-green" style="margin-bottom:20px;">Rejoignez-nous</div>
+        <div class="tag tag-green" style="margin-bottom:20px;">{{ __('pages.team.join_tag') }}</div>
         <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#f5f5f0;margin:0 0 20px;">
-            Vous êtes artiste ou formateur ?<br>
-            <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Rejoignez Orion.</span>
+            {{ __('pages.team.join_title_1') }}<br>
+            <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.team.join_title_2') }}</span>
         </h2>
-        <p style="color:#777;font-size:0.95rem;line-height:1.8;margin:0 0 36px;">Nous recherchons des talents passionnés pour renforcer notre équipe de formateurs et artistes associés.</p>
-        <a href="{{ route('contact.index') }}?sujet=Candidature+équipe+Orion" class="btn-gold">Candidater</a>
+        <p style="color:#777;font-size:0.95rem;line-height:1.8;margin:0 0 36px;">{{ __('pages.team.join_desc') }}</p>
+        <a href="{{ route('contact.index') }}?sujet=Candidature+équipe+Orion" class="btn-gold">{{ __('pages.team.apply') }}</a>
     </div>
 </section>
 

@@ -4,13 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Spatie\Translatable\HasTranslations;
 
 class PodcastEpisode extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'title', 'slug', 'series', 'episode_number', 'guest', 'duration',
         'excerpt', 'description', 'transcript', 'audio_url', 'audio_file',
         'cover_image', 'accent', 'featured', 'actif', 'published_at', 'ordre',
+    ];
+
+    public array $translatable = [
+        'title', 'series', 'excerpt', 'description', 'transcript',
     ];
 
     protected $casts = [

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\EquipeMembre;
 use App\Models\EquipeRole;
@@ -11,6 +12,10 @@ use Illuminate\Validation\Rule;
 
 class EquipeAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['poste', 'bio'];
+
     public function index()
     {
         $membres = EquipeMembre::with('roleOption')->orderBy('ordre')->orderBy('nom')->get();
@@ -37,7 +42,8 @@ class EquipeAdminController extends Controller
             $data['photo'] = $request->file('photo')->store('equipe', 'public');
         }
 
-        EquipeMembre::create($data);
+        $membre = EquipeMembre::create($data);
+        $this->applyEnglishTranslations($membre, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.equipe.index')
             ->with('success', 'Membre ajouté avec succès.');
@@ -73,6 +79,7 @@ class EquipeAdminController extends Controller
         }
 
         $equipe->update($data);
+        $this->applyEnglishTranslations($equipe, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.equipe.index')
             ->with('success', 'Membre mis à jour.');

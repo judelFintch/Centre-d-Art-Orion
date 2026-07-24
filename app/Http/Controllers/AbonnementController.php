@@ -16,7 +16,7 @@ class AbonnementController extends Controller
     {
         // ── Protection anti-bot (honeypot + délai) ──────────────────
         if ($this->isBot($request)) {
-            return $this->fakeSuccess($request, "Merci ! Vous êtes désormais abonné(e) à notre newsletter.");
+            return $this->fakeSuccess($request, __('common.newsletter.bot_fake_success'));
         }
 
         // ── Validation ──────────────────────────────────────────────
@@ -30,11 +30,11 @@ class AbonnementController extends Controller
             'nom'  => ['nullable', 'string', 'max:100'],
             'type' => ['required', 'in:newsletter,blog'],
         ], [
-            'email.required'  => 'L\'adresse e-mail est obligatoire.',
-            'email.email'     => 'L\'adresse e-mail n\'est pas valide.',
-            'email.max'       => 'L\'adresse e-mail est trop longue.',
-            'type.required'   => 'Le type d\'abonnement est obligatoire.',
-            'type.in'         => 'Type d\'abonnement invalide.',
+            'email.required'  => __('common.newsletter.email_required'),
+            'email.email'     => __('common.newsletter.email_invalid'),
+            'email.max'       => __('common.newsletter.email_max'),
+            'type.required'   => __('common.newsletter.type_required'),
+            'type.in'         => __('common.newsletter.type_invalid'),
         ]);
 
         if ($validator->fails()) {
@@ -54,13 +54,13 @@ class AbonnementController extends Controller
                 $existing->update(['unsubscribed_at' => null, 'nom' => $request->nom]);
                 return response()->json([
                     'success' => true,
-                    'message' => 'Votre abonnement a été réactivé avec succès.',
+                    'message' => __('common.newsletter.reactivated'),
                 ]);
             }
 
             return response()->json([
                 'success' => false,
-                'message' => 'Cette adresse e-mail est déjà abonnée.',
+                'message' => __('common.newsletter.already_subscribed'),
             ], 409);
         }
 
@@ -71,15 +71,15 @@ class AbonnementController extends Controller
             'type'  => $request->type,
         ]);
 
-        $label = $request->type === 'blog' ? 'aux articles du blog' : 'à notre newsletter';
-
         return response()->json([
             'success' => true,
-            'message' => "Merci ! Vous êtes désormais abonné(e) {$label}.",
+            'message' => $request->type === 'blog'
+                ? __('common.newsletter.subscribed_blog')
+                : __('common.newsletter.subscribed_newsletter'),
         ]);
     }
 
-    public function unsubscribe(string $token)
+    public function unsubscribe(string $locale, string $token)
     {
         $abonnement = Abonnement::where('token', $token)->first();
 

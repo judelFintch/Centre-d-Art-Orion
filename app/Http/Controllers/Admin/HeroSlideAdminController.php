@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\HeroSlide;
 use Illuminate\Http\Request;
@@ -9,6 +10,10 @@ use Illuminate\Support\Facades\Storage;
 
 class HeroSlideAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['label', 'title_one', 'title_two', 'lead', 'cta_label'];
+
     public function index()
     {
         $slides = HeroSlide::ordonne()->get();
@@ -42,7 +47,8 @@ class HeroSlideAdminController extends Controller
         $data['actif'] = $request->boolean('actif', true);
         $data['ordre'] = $data['ordre'] ?? HeroSlide::max('ordre') + 1;
 
-        HeroSlide::create($data);
+        $slide = HeroSlide::create($data);
+        $this->applyEnglishTranslations($slide, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.hero.index')
             ->with('success', 'Slide créé avec succès.');
@@ -86,6 +92,7 @@ class HeroSlideAdminController extends Controller
         $data['actif'] = $request->boolean('actif');
 
         $hero->update($data);
+        $this->applyEnglishTranslations($hero, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.hero.index')
             ->with('success', 'Slide mis à jour.');

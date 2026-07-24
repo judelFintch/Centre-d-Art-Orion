@@ -4,9 +4,9 @@
     <div style="background:linear-gradient(135deg,#0d1a12 0%,#0a1510 100%);border-bottom:1px solid #1a2e20;padding:60px 0;">
         <div style="max-width:1280px;margin:0 auto;padding:0 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:32px;">
             <div style="flex:1;min-width:260px;">
-                <p style="font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#4caf7d;margin:0 0 10px;">Newsletter</p>
-                <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:700;color:#f5f5f0;margin:0 0 10px;line-height:1.25;">Restez dans l'univers Orion</h3>
-                <p style="color:#666;font-size:0.88rem;line-height:1.7;margin:0;max-width:440px;">Actualités, événements, nouvelles formations — recevez l'essentiel directement dans votre boîte mail.</p>
+                <p style="font-family:'Space Grotesk',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:#4caf7d;margin:0 0 10px;">{{ __('common.newsletter.label') }}</p>
+                <h3 style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:700;color:#f5f5f0;margin:0 0 10px;line-height:1.25;">{{ __('common.newsletter.title') }}</h3>
+                <p style="color:#666;font-size:0.88rem;line-height:1.7;margin:0;max-width:440px;">{{ __('common.newsletter.text') }}</p>
             </div>
             <div style="flex:1;min-width:280px;max-width:480px;">
                 <form id="newsletter-footer-form" style="display:flex;gap:10px;flex-wrap:wrap;">
@@ -20,12 +20,12 @@
                     </div>
                     {{-- Timestamp de chargement du formulaire (détection bot trop rapide) --}}
                     <input type="hidden" name="_form_loaded_at" value="{{ base64_encode((string) time()) }}">
-                    <input type="email" name="email" placeholder="Votre adresse e-mail" required
+                    <input type="email" name="email" placeholder="{{ __('common.newsletter.placeholder') }}" required
                            style="flex:1;min-width:200px;background:#111;border:1px solid #2a2a2a;border-radius:4px;padding:12px 16px;color:#f5f5f0;font-size:0.88rem;font-family:'Space Grotesk',sans-serif;outline:none;transition:border-color 0.2s;"
                            onfocus="this.style.borderColor='#4caf7d'" onblur="this.style.borderColor='#2a2a2a'">
                     <button type="submit"
                             style="background:#4caf7d;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.82rem;letter-spacing:0.08em;text-transform:uppercase;border:none;border-radius:4px;padding:12px 22px;cursor:pointer;white-space:nowrap;transition:background 0.2s;"
-                            onmouseover="this.style.background='#3d9e6a'" onmouseout="this.style.background='#4caf7d'">S'abonner</button>
+                            onmouseover="this.style.background='#3d9e6a'" onmouseout="this.style.background='#4caf7d'">{{ __('common.buttons.subscribe') }}</button>
                 </form>
                 <div id="newsletter-footer-msg" style="display:none;margin-top:12px;font-size:0.85rem;font-family:'Space Grotesk',sans-serif;"></div>
             </div>
@@ -43,8 +43,7 @@
                     <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:44px;width:auto;object-fit:contain;display:block;filter:brightness(0) invert(1);opacity:0.85;">
                 </div>
                 <p style="color:#666;font-size:0.88rem;line-height:1.8;margin-bottom:24px;">
-                    Production · Création · Formation.<br>
-                    L'excellence artistique au cœur de votre communauté.
+                    {!! __('common.footer.brand_text') !!}
                 </p>
                 {{-- Réseaux sociaux --}}
                 <div style="display:flex;gap:10px;">
@@ -89,15 +88,15 @@
 
             {{-- Navigation --}}
             <div>
-                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">Navigation</h4>
+                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">{{ __('common.footer.navigation') }}</h4>
                 <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
                     @foreach([
-                        [route('home'),'Accueil'],
-                        [route('about'),'À Propos'],
-                        [route('services'),'Services'],
-                        [route('formations.index'),'Formations'],
-                        [route('galerie.index'),'Galerie'],
-                        [route('evenements.index'),'Événements'],
+                        [route('home'),__('common.nav.home')],
+                        [route('about'),__('common.nav.about')],
+                        [route('services'),__('common.nav.services')],
+                        [route('formations.index'),__('common.nav.formations')],
+                        [route('galerie.index'),__('common.nav.gallery')],
+                        [route('evenements.index'),__('common.nav.events')],
                     ] as $l)
                     <li>
                         <a href="{{ $l[0] }}" style="color:#666;font-size:0.88rem;text-decoration:none;transition:color 0.2s;display:flex;align-items:center;gap:8px;"
@@ -111,9 +110,9 @@
 
             {{-- Services --}}
             <div>
-                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">Nos Services</h4>
+                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">{{ __('common.footer.our_services') }}</h4>
                 <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">
-                    @foreach(['Production Artistique','Création Artistique','Formation','Accompagnement','Événements','Ateliers Culturels'] as $s)
+                    @foreach(__('common.footer.services_list') as $s)
                     <li style="color:#666;font-size:0.88rem;display:flex;align-items:center;gap:8px;">
                         <span style="color:#d4a030;font-size:0.6rem;">◆</span> {{ $s }}
                     </li>
@@ -123,11 +122,11 @@
 
             {{-- Contact --}}
             <div>
-                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">Contact</h4>
+                <h4 style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.8rem;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin-bottom:20px;">{{ __('common.footer.contact') }}</h4>
                 <div style="display:flex;flex-direction:column;gap:14px;">
                     <div style="display:flex;gap:12px;align-items:flex-start;">
                         <span style="color:#4caf7d;font-size:0.9rem;margin-top:2px;flex-shrink:0;">📍</span>
-                        <p style="color:#666;font-size:0.85rem;line-height:1.6;margin:0;">380, Av. Changalele, Q. Gambela<br><span style="color:#555;">Derrière le bâtiment INPP</span></p>
+                        <p style="color:#666;font-size:0.85rem;line-height:1.6;margin:0;">380, Av. Changalele, Q. Gambela<br><span style="color:#555;">{{ __('common.footer.behind_building') }}</span></p>
                     </div>
                     <div style="display:flex;gap:12px;align-items:flex-start;">
                         <span style="color:#d4a030;font-size:0.9rem;flex-shrink:0;margin-top:2px;">📞</span>
@@ -146,8 +145,8 @@
                 </div>
 
                 <div style="margin-top:24px;padding:16px;background:#111;border:1px solid #1a1a1a;border-radius:6px;">
-                    <p style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;color:#f5f5f0;margin:0 0 6px;">Heures d'ouverture</p>
-                    <p style="color:#666;font-size:0.82rem;margin:0;line-height:1.6;">Lun – Sam : 08h00 – 18h00<br>Dim : Sur rendez-vous</p>
+                    <p style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;color:#f5f5f0;margin:0 0 6px;">{{ __('common.footer.opening_hours') }}</p>
+                    <p style="color:#666;font-size:0.82rem;margin:0;line-height:1.6;">{!! __('common.footer.hours_value') !!}</p>
                 </div>
             </div>
 
@@ -156,23 +155,23 @@
         {{-- Bottom bar --}}
         <div style="padding:24px 0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;">
             <p style="color:#444;font-size:0.8rem;margin:0;">
-                &copy; {{ date('Y') }} <span style="color:#4caf7d;">Centre d'Art Orion</span>. Tous droits réservés.
+                &copy; {{ date('Y') }} <span style="color:#4caf7d;">Centre d'Art Orion</span>. {{ __('common.footer.rights_reserved') }}
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;">
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Mentions légales</a>
+                   onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">{{ __('common.footer.legal_notice') }}</a>
                 <a href="#" style="color:#444;font-size:0.78rem;text-decoration:none;transition:color 0.2s;"
-                   onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">Politique de confidentialité</a>
+                   onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#444'">{{ __('common.footer.privacy_policy') }}</a>
                 <button onclick="window.OrionCookies && window.OrionCookies.openPanel()"
                         style="background:none;border:none;padding:0;color:#444;font-size:0.78rem;cursor:pointer;text-decoration:none;transition:color 0.2s;font-family:'Space Grotesk',sans-serif;"
                         onmouseover="this.style.color='#4caf7d'" onmouseout="this.style.color='#444'">
-                    🍪 Gestion des cookies
+                    🍪 {{ __('common.footer.cookie_management') }}
                 </button>
                 <span style="color:#2a2a2a;font-size:0.68rem;">|</span>
                 <a href="https://fintchweb.com/" target="_blank" rel="noopener noreferrer"
                    style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;opacity:0.5;transition:opacity 0.25s;"
                    onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.5'">
-                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;letter-spacing:0.06em;color:#888;">Conçu par</span>
+                    <span style="font-family:'Space Grotesk',sans-serif;font-size:0.68rem;letter-spacing:0.06em;color:#888;">{{ __('common.footer.designed_by') }}</span>
                     <span style="font-family:'Playfair Display',Georgia,serif;font-size:0.75rem;font-style:italic;color:#b6afa7;letter-spacing:0.02em;">Fintch</span>
                     <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
                 </a>
@@ -192,6 +191,7 @@
             e.preventDefault();
             var data = new FormData(form);
             var btn = form.querySelector('button[type="submit"]');
+            var originalLabel = btn.textContent;
             btn.disabled = true;
             btn.textContent = '…';
 
@@ -210,11 +210,11 @@
             .catch(function () {
                 msg.style.display = 'block';
                 msg.style.color = '#e07030';
-                msg.textContent = 'Une erreur est survenue. Veuillez réessayer.';
+                msg.textContent = @json(__('common.newsletter.error'));
             })
             .finally(function () {
                 btn.disabled = false;
-                btn.textContent = "S'abonner";
+                btn.textContent = originalLabel;
             });
         });
     }

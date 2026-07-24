@@ -4,10 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use Spatie\Translatable\HasTranslations;
 
 class EquipeRole extends Model
 {
+    use HasTranslations;
+
     protected $fillable = ['nom', 'slug', 'couleur', 'actif', 'ordre'];
+
+    public array $translatable = [
+        'nom',
+    ];
 
     protected $casts = [
         'actif' => 'boolean',

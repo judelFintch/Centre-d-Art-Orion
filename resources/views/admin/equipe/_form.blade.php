@@ -176,6 +176,19 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Position / Title (EN)</label>
+            <input type="text" name="poste_en" value="{{ old('poste_en', $edit ? $equipe->getTranslation('poste', 'en', false) : '') }}" style="{{ $fs }}" placeholder="e.g. Artistic Director, Music Instructor…">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Biography (EN)</label>
+            <textarea name="bio_en" rows="6" style="{{ $fs }}resize:vertical;line-height:1.7;">{{ old('bio_en', $edit ? $equipe->getTranslation('bio', 'en', false) : '') }}</textarea>
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 @push('scripts')
 <script>
 (function () {

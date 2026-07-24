@@ -152,6 +152,37 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise de l'article (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title (EN)</label>
+            <input type="text" name="title_en" value="{{ old('title_en', $edit ? $blog->getTranslation('title', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="Article title">
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Excerpt (EN)</label>
+            <textarea name="excerpt_en" rows="4" style="{{ $fieldStyle }}resize:vertical;line-height:1.6;">{{ old('excerpt_en', $edit ? $blog->getTranslation('excerpt', 'en', false) : '') }}</textarea>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Content (EN)</label>
+            <textarea name="content_en" rows="12" style="{{ $fieldStyle }}resize:vertical;line-height:1.7;" placeholder="Plain text (blank line = new paragraph) or HTML">{{ old('content_en', $edit ? $blog->getTranslation('content', 'en', false) : '') }}</textarea>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Quote (EN)</label>
+            <textarea name="quote_en" rows="3" style="{{ $fieldStyle }}resize:vertical;line-height:1.6;">{{ old('quote_en', $edit ? $blog->getTranslation('quote', 'en', false) : '') }}</textarea>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Category (EN)</label>
+                <input type="text" name="category_en" value="{{ old('category_en', $edit ? $blog->getTranslation('category', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="Behind the scenes">
+            </div>
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Read time (EN)</label>
+                <input type="text" name="read_time_en" value="{{ old('read_time_en', $edit ? $blog->getTranslation('read_time', 'en', false) : '') }}" style="{{ $fieldStyle }}" placeholder="4 min">
+            </div>
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 <style>
 #blog-editor p { margin: 0 0 18px; }
 #blog-editor h2,

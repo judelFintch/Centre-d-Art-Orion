@@ -1,15 +1,15 @@
 @php
 $links = [
-    ['url' => route('home'),             'label' => 'Accueil'],
-    ['url' => route('about'),            'label' => 'À Propos'],
-    ['url' => route('services'),         'label' => 'Services'],
-    ['url' => route('formations.index'), 'label' => 'Formations'],
-    ['url' => route('galerie.index'),    'label' => 'Galerie'],
-    ['url' => route('evenements.index'), 'label' => 'Événements'],
-    ['url' => route('podcasts.index'),   'label' => 'Podcasts'],
-    ['url' => route('blog.index'),       'label' => 'Blog', 'class' => 'nav-link-blog'],
-    ['url' => route('equipe'),              'label' => 'Équipe'],
-    ['url' => route('billetterie.index'),   'label' => 'Billetterie', 'class' => 'nav-link-billet'],
+    ['url' => route('home'),             'label' => __('common.nav.home')],
+    ['url' => route('about'),            'label' => __('common.nav.about')],
+    ['url' => route('services'),         'label' => __('common.nav.services')],
+    ['url' => route('formations.index'), 'label' => __('common.nav.formations')],
+    ['url' => route('galerie.index'),    'label' => __('common.nav.gallery')],
+    ['url' => route('evenements.index'), 'label' => __('common.nav.events')],
+    ['url' => route('podcasts.index'),   'label' => __('common.nav.podcasts')],
+    ['url' => route('blog.index'),       'label' => __('common.nav.blog'), 'class' => 'nav-link-blog'],
+    ['url' => route('equipe'),              'label' => __('common.nav.team')],
+    ['url' => route('billetterie.index'),   'label' => __('common.nav.ticketing'), 'class' => 'nav-link-billet'],
 ];
 @endphp
 
@@ -40,11 +40,15 @@ $links = [
 
         {{-- CTA + Burger --}}
         <div style="display:flex;align-items:center;gap:12px;">
+            <div style="display:none;" class="lg:inline-flex">
+                <x-language-switcher />
+            </div>
+
             @auth
             <a href="{{ route('admin.dashboard') }}"
                style="display:none;padding:9px 16px;border:1px solid rgba(76,175,125,0.35);color:#2d7a52;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;"
                class="header-admin-link lg:inline-flex">
-                Admin
+                {{ __('common.nav.admin') }}
             </a>
             @endauth
 
@@ -53,12 +57,12 @@ $links = [
                class="header-cta lg:inline-flex"
                onmouseover="this.style.boxShadow='0 6px 20px rgba(76,175,125,0.35)'"
                onmouseout="this.style.boxShadow='0 4px 14px rgba(76,175,125,0.20)'">
-                Nous contacter
+                {{ __('common.nav.contact_us') }}
             </a>
 
             {{-- Burger --}}
             <button id="burger-btn"
-                    aria-label="Ouvrir le menu"
+                    aria-label="{{ __('common.nav.open_menu') }}"
                     aria-expanded="false"
                     style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;background:transparent;border:1px solid rgba(28,21,16,0.15);border-radius:4px;cursor:pointer;padding:8px;"
                     class="lg:hidden">

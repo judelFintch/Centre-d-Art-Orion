@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $equipe->nom_complet . ' — Équipe Orion')
+@section('title', $equipe->nom_complet . ' — ' . __('common.nav.team') . ' Orion')
 @section('meta_description', Str::limit($equipe->bio ?: $equipe->poste . ' au Centre d\'Art Orion.', 155))
 
 @push('head')
@@ -26,7 +26,7 @@
     <div style="max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
         <a href="{{ route('equipe') }}" style="display:inline-flex;align-items:center;margin-bottom:28px;color:#777;font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:600;text-decoration:none;transition:color 0.2s;"
            onmouseover="this.style.color='#f5f5f0'" onmouseout="this.style.color='#777'">
-            ← Retour à l'équipe
+            {{ __('pages.team.detail.back_to_team') }}
         </a>
 
         <div class="equipe-show-hero-grid" style="display:grid;grid-template-columns:minmax(260px,0.72fr) minmax(0,1.28fr);gap:44px;align-items:center;">
@@ -57,14 +57,14 @@
 <section style="padding:70px 0;background:#0d0d0d;">
     <div class="equipe-show-content-grid" style="max-width:1180px;margin:0 auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,0.45fr);gap:28px;align-items:start;">
         <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:28px;">
-            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin:0 0 20px;">Détails</h2>
+            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin:0 0 20px;">{{ __('pages.team.details') }}</h2>
 
             <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;">
                 @foreach([
-                    ['Rôle', $roleLabel],
-                    ['Poste', $equipe->poste],
+                    [__('pages.team.detail.role_label'), $roleLabel],
+                    [__('pages.team.detail.poste_label'), $equipe->poste],
                     ['Email', $equipe->email],
-                    ['Téléphone', $equipe->telephone],
+                    [__('pages.team.detail.phone_label'), $equipe->telephone],
                 ] as [$label, $value])
                 @if($value)
                 <div style="padding:16px;background:#0d0d0d;border:1px solid #1a1a1a;border-radius:6px;">
@@ -77,7 +77,7 @@
 
             @if($equipe->competences)
             <div style="margin-top:26px;">
-                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin:0 0 14px;">Compétences</h3>
+                <h3 style="font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin:0 0 14px;">{{ __('pages.team.detail.skills_title') }}</h3>
                 <div style="display:flex;gap:10px;flex-wrap:wrap;">
                     @foreach($equipe->competences as $competence)
                     <span style="display:inline-block;padding:7px 12px;background:{{ $color }}18;border:1px solid {{ $color }}44;border-radius:4px;color:{{ $color }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;">{{ $competence }}</span>
@@ -88,7 +88,7 @@
         </div>
 
         <aside style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:28px;">
-            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin:0 0 18px;">Contact</h2>
+            <h2 style="font-family:'Space Grotesk',sans-serif;font-size:0.82rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:#f5f5f0;margin:0 0 18px;">{{ __('pages.team.detail.contact_title') }}</h2>
 
             @if($equipe->email)
             <a href="mailto:{{ $equipe->email }}" style="display:flex;align-items:center;gap:10px;padding:12px 0;color:#888;text-decoration:none;border-bottom:1px solid #1a1a1a;font-size:0.88rem;overflow-wrap:anywhere;">
@@ -113,7 +113,7 @@
             @endif
 
             @if(!$equipe->email && !$equipe->telephone && !$equipe->reseaux_sociaux)
-            <p style="color:#555;font-size:0.86rem;line-height:1.6;margin:0;">Aucune information de contact publique pour ce membre.</p>
+            <p style="color:#555;font-size:0.86rem;line-height:1.6;margin:0;">{{ __('pages.team.detail.no_contact_info') }}</p>
             @endif
         </aside>
     </div>

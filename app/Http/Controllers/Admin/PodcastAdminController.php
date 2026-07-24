@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Concerns\HandlesTranslations;
 use App\Http\Controllers\Controller;
 use App\Models\PodcastEpisode;
 use Illuminate\Http\Request;
@@ -11,6 +12,10 @@ use Illuminate\Validation\Rule;
 
 class PodcastAdminController extends Controller
 {
+    use HandlesTranslations;
+
+    private const TRANSLATABLE = ['title', 'series', 'excerpt', 'description', 'transcript'];
+
     public function index()
     {
         $episodes = PodcastEpisode::query()
@@ -44,7 +49,8 @@ class PodcastAdminController extends Controller
             $data['audio_file'] = $request->file('audio_file')->store('podcasts/audio', 'public');
         }
 
-        PodcastEpisode::create($data);
+        $podcast = PodcastEpisode::create($data);
+        $this->applyEnglishTranslations($podcast, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.podcasts.index')
             ->with('success', 'Épisode podcast créé avec succès.');
@@ -78,6 +84,7 @@ class PodcastAdminController extends Controller
         }
 
         $podcast->update($data);
+        $this->applyEnglishTranslations($podcast, $request, self::TRANSLATABLE);
 
         return redirect()->route('admin.podcasts.index')
             ->with('success', 'Épisode podcast mis à jour.');

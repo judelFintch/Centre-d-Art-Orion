@@ -75,11 +75,15 @@
                 </tr>
                 <tr id="role-edit-{{ $role->id }}" style="display:none;border-bottom:1px solid #161616;background:#0d0d0d;">
                     <td colspan="6" style="padding:16px;">
-                        <form action="{{ route('admin.equipe-roles.update', $role) }}" method="POST" style="display:grid;grid-template-columns:1fr 120px 90px auto;gap:12px;align-items:end;">
+                        <form action="{{ route('admin.equipe-roles.update', $role) }}" method="POST" style="display:grid;grid-template-columns:1fr 1fr 120px 90px auto;gap:12px;align-items:end;">
                             @csrf @method('PUT')
                             <div>
                                 <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:6px;">Nom</label>
                                 <input type="text" name="nom" value="{{ $role->nom }}" required style="{{ $fs }}">
+                            </div>
+                            <div>
+                                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4caf7d;margin-bottom:6px;">Name (EN)</label>
+                                <input type="text" name="nom_en" value="{{ $role->getTranslation('nom', 'en', false) }}" style="{{ $fs }}">
                             </div>
                             <div>
                                 <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#555;margin-bottom:6px;">Couleur</label>
@@ -117,6 +121,11 @@
         <div>
             <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Nom <span style="color:#e07030;">*</span></label>
             <input type="text" name="nom" value="{{ old('nom') }}" required style="{{ $fs }}" placeholder="Directeur artistique">
+        </div>
+
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#4caf7d;margin-bottom:8px;">Name (EN) <span style="color:#555;text-transform:none;">optionnel</span></label>
+            <input type="text" name="nom_en" value="{{ old('nom_en') }}" style="{{ $fs }}" placeholder="Artistic Director">
         </div>
 
         <div style="display:grid;grid-template-columns:1fr 90px;gap:12px;">

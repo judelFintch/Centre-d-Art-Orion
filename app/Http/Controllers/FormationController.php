@@ -13,7 +13,7 @@ class FormationController extends Controller
         return view('pages.formations', compact('formations', 'paginator'));
     }
 
-    public function show(Formation $formation)
+    public function show(string $locale, Formation $formation)
     {
         $autres = Formation::actif()
             ->where('id', '!=', $formation->id)

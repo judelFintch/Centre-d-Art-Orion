@@ -1,15 +1,15 @@
 @php
 $links = [
-    ['url' => route('home'),             'label' => 'Accueil',    'icon' => '🏠'],
-    ['url' => route('about'),            'label' => 'À Propos',   'icon' => '✦'],
-    ['url' => route('services'),         'label' => 'Services',   'icon' => '◈'],
-    ['url' => route('formations.index'), 'label' => 'Formations', 'icon' => '◉'],
-    ['url' => route('galerie.index'),    'label' => 'Galerie',    'icon' => '◧'],
-    ['url' => route('evenements.index'), 'label' => 'Événements', 'icon' => '◎'],
-    ['url' => route('podcasts.index'),   'label' => 'Podcasts',   'icon' => '◌'],
-    ['url' => route('blog.index'),       'label' => 'Blog',       'icon' => '✎'],
-    ['url' => route('equipe'),           'label' => 'Équipe',     'icon' => '◈'],
-    ['url' => route('contact.index'),    'label' => 'Contact',    'icon' => '◉'],
+    ['url' => route('home'),             'label' => __('common.nav.home'),       'icon' => '🏠'],
+    ['url' => route('about'),            'label' => __('common.nav.about'),      'icon' => '✦'],
+    ['url' => route('services'),         'label' => __('common.nav.services'),   'icon' => '◈'],
+    ['url' => route('formations.index'), 'label' => __('common.nav.formations'), 'icon' => '◉'],
+    ['url' => route('galerie.index'),    'label' => __('common.nav.gallery'),    'icon' => '◧'],
+    ['url' => route('evenements.index'), 'label' => __('common.nav.events'),     'icon' => '◎'],
+    ['url' => route('podcasts.index'),   'label' => __('common.nav.podcasts'),   'icon' => '◌'],
+    ['url' => route('blog.index'),       'label' => __('common.nav.blog'),       'icon' => '✎'],
+    ['url' => route('equipe'),           'label' => __('common.nav.team'),       'icon' => '◈'],
+    ['url' => route('contact.index'),    'label' => __('common.nav.contact'),    'icon' => '◉'],
 ];
 @endphp
 
@@ -22,7 +22,7 @@ $links = [
         <div>
             <img src="{{ asset('images/logo.png') }}" alt="Centre d'Art Orion" style="height:32px;width:auto;object-fit:contain;display:block;">
         </div>
-        <button id="mobile-close" type="button" aria-label="Fermer le menu"
+        <button id="mobile-close" type="button" aria-label="{{ __('common.nav.close_menu') }}"
                 style="width:32px;height:32px;background:rgba(30,20,10,0.06);border:1px solid #e0d8cc;border-radius:4px;color:#1c1510;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;">✕</button>
     </div>
 
@@ -38,20 +38,22 @@ $links = [
         @endforeach
     </nav>
 
+    <x-language-switcher variant="mobile" />
+
     {{-- Bottom CTA --}}
     <div style="padding:20px 24px;border-top:1px solid #e0d8cc;margin-top:auto;">
         @auth
         <a href="{{ route('admin.dashboard') }}"
            class="mobile-nav-link"
            style="display:flex;align-items:center;justify-content:center;width:100%;margin-bottom:12px;padding:12px 16px;border:1px solid rgba(76,175,125,0.35);border-radius:4px;color:#2d7a52;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">
-            Admin
+            {{ __('common.nav.admin') }}
         </a>
         @endauth
 
         <a href="{{ route('contact.index') }}"
            class="mobile-nav-link btn-primary"
            style="width:100%;justify-content:center;">
-            Nous contacter
+            {{ __('common.nav.contact_us') }}
         </a>
         <div style="margin-top:20px;text-align:center;">
             <p style="font-size:0.75rem;color:#a89a8e;font-family:'Space Grotesk',sans-serif;">380, Av. Changalele — Q. Gambela</p>

@@ -12,7 +12,7 @@
 <div id="cookie-banner"
      role="dialog"
      aria-live="polite"
-     aria-label="Gestion des cookies"
+     aria-label="{{ __('common.footer.cookie_management') }}"
      style="
         display:none;
         position:fixed;
@@ -36,15 +36,14 @@
             <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
                 <span style="font-size:1.1rem;">🍪</span>
                 <p style="font-weight:700;font-size:0.9rem;color:#f5f5f0;margin:0;letter-spacing:0.02em;">
-                    Nous utilisons des cookies
+                    {{ __('common.cookies.banner_title') }}
                 </p>
             </div>
             <p style="color:#777;font-size:0.8rem;line-height:1.6;margin:0;max-width:640px;">
-                Ce site utilise des cookies pour améliorer votre expérience, analyser notre trafic et intégrer
-                des fonctionnalités de réseaux sociaux. Vous pouvez choisir quels cookies accepter.
+                {{ __('common.cookies.banner_text') }}
                 <a href="#" id="cookie-learn-more"
                    style="color:#4caf7d;text-decoration:underline;text-underline-offset:2px;font-size:0.78rem;white-space:nowrap;"
-                   onclick="return false;">En savoir plus</a>
+                   onclick="return false;">{{ __('common.cookies.learn_more') }}</a>
             </p>
         </div>
 
@@ -54,19 +53,19 @@
                     style="background:transparent;border:1px solid #333;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:9px 18px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap;"
                     onmouseover="this.style.borderColor='#555';this.style.color='#f5f5f0'"
                     onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">
-                Personnaliser
+                {{ __('common.cookies.customize') }}
             </button>
             <button id="cookie-reject-all"
                     style="background:transparent;border:1px solid #333;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:9px 18px;border-radius:4px;cursor:pointer;transition:all 0.2s;white-space:nowrap;"
                     onmouseover="this.style.borderColor='#e07030';this.style.color='#e07030'"
                     onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">
-                Tout refuser
+                {{ __('common.cookies.reject_all') }}
             </button>
             <button id="cookie-accept-all"
                     style="background:#4caf7d;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:9px 20px;border-radius:4px;border:none;cursor:pointer;transition:background 0.2s;white-space:nowrap;"
                     onmouseover="this.style.background='#3d9e6a'"
                     onmouseout="this.style.background='#4caf7d'">
-                Tout accepter
+                {{ __('common.cookies.accept_all') }}
             </button>
         </div>
 
@@ -79,7 +78,7 @@
 <div id="cookie-panel"
      role="dialog"
      aria-modal="true"
-     aria-label="Personnaliser les cookies"
+     aria-label="{{ __('common.cookies.panel_title') }}"
      style="
         display:none;
         position:fixed;
@@ -114,11 +113,11 @@
         {{-- En-tête --}}
         <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
             <div>
-                <p style="font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;font-weight:700;color:#f5f5f0;margin:0 0 4px;">Paramètres des cookies</p>
-                <p style="color:#555;font-size:0.78rem;margin:0;">Choisissez les cookies que vous autorisez.</p>
+                <p style="font-family:'Playfair Display',Georgia,serif;font-size:1.15rem;font-weight:700;color:#f5f5f0;margin:0 0 4px;">{{ __('common.cookies.panel_title') }}</p>
+                <p style="color:#555;font-size:0.78rem;margin:0;">{{ __('common.cookies.panel_subtitle') }}</p>
             </div>
             <button id="cookie-panel-close"
-                    aria-label="Fermer"
+                    aria-label="{{ __('common.buttons.close') }}"
                     style="width:32px;height:32px;background:rgba(255,255,255,0.06);border:1px solid #222;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#777;font-size:1.1rem;flex-shrink:0;transition:all 0.2s;"
                     onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.color='#f5f5f0'"
                     onmouseout="this.style.background='rgba(255,255,255,0.06)';this.style.color='#777'">
@@ -133,13 +132,12 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                     <span style="width:8px;height:8px;border-radius:50%;background:#4caf7d;display:inline-block;flex-shrink:0;"></span>
-                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">Cookies nécessaires</span>
+                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">{{ __('common.cookies.necessary_title') }}</span>
                 </div>
-                <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4caf7d;background:rgba(76,175,125,0.12);padding:3px 10px;border-radius:20px;">Toujours actif</span>
+                <span style="font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#4caf7d;background:rgba(76,175,125,0.12);padding:3px 10px;border-radius:20px;">{{ __('common.cookies.necessary_badge') }}</span>
             </div>
             <p style="color:#666;font-size:0.78rem;line-height:1.6;margin:0;">
-                Indispensables au fonctionnement du site : session, sécurité CSRF, authentification.
-                Ils ne peuvent pas être désactivés.
+                {{ __('common.cookies.necessary_text') }}
             </p>
         </div>
 
@@ -148,13 +146,13 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                     <span style="width:8px;height:8px;border-radius:50%;background:#d4a030;display:inline-block;flex-shrink:0;"></span>
-                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">Cookies analytiques</span>
+                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">{{ __('common.cookies.analytics_title') }}</span>
                 </div>
                 {{-- Toggle --}}
                 <label style="position:relative;display:inline-flex;align-items:center;cursor:pointer;">
                     <input type="checkbox" id="cookie-toggle-analytics"
                            style="position:absolute;opacity:0;width:0;height:0;"
-                           aria-label="Activer les cookies analytiques">
+                           aria-label="{{ __('common.cookies.analytics_title') }}">
                     <span class="cookie-toggle-track"
                           data-for="cookie-toggle-analytics"
                           style="
@@ -174,8 +172,7 @@
                 </label>
             </div>
             <p style="color:#666;font-size:0.78rem;line-height:1.6;margin:0;">
-                Nous aident à comprendre comment les visiteurs utilisent le site (pages vues, temps passé).
-                Ces données sont anonymes et servent uniquement à améliorer le contenu.
+                {{ __('common.cookies.analytics_text') }}
             </p>
         </div>
 
@@ -184,12 +181,12 @@
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                 <div style="display:flex;align-items:center;gap:10px;">
                     <span style="width:8px;height:8px;border-radius:50%;background:#e07030;display:inline-block;flex-shrink:0;"></span>
-                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">Cookies réseaux sociaux</span>
+                    <span style="font-weight:700;font-size:0.88rem;color:#f5f5f0;">{{ __('common.cookies.social_title') }}</span>
                 </div>
                 <label style="position:relative;display:inline-flex;align-items:center;cursor:pointer;">
                     <input type="checkbox" id="cookie-toggle-social"
                            style="position:absolute;opacity:0;width:0;height:0;"
-                           aria-label="Activer les cookies réseaux sociaux">
+                           aria-label="{{ __('common.cookies.social_title') }}">
                     <span class="cookie-toggle-track"
                           data-for="cookie-toggle-social"
                           style="
@@ -209,8 +206,7 @@
                 </label>
             </div>
             <p style="color:#666;font-size:0.78rem;line-height:1.6;margin:0;">
-                Permettent l'intégration des boutons de partage Facebook, Instagram, TikTok et YouTube.
-                Ces plateformes peuvent déposer leurs propres cookies lors de l'utilisation.
+                {{ __('common.cookies.social_text') }}
             </p>
         </div>
 
@@ -220,30 +216,25 @@
                     style="flex:1;background:transparent;border:1px solid #333;color:#aaa;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:11px;border-radius:6px;cursor:pointer;transition:all 0.2s;min-width:120px;"
                     onmouseover="this.style.borderColor='#555';this.style.color='#f5f5f0'"
                     onmouseout="this.style.borderColor='#333';this.style.color='#aaa'">
-                Tout refuser
+                {{ __('common.cookies.reject_all') }}
             </button>
             <button id="cookie-save-panel"
                     style="flex:2;background:#4caf7d;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:11px;border-radius:6px;border:none;cursor:pointer;transition:background 0.2s;min-width:160px;"
                     onmouseover="this.style.background='#3d9e6a'"
                     onmouseout="this.style.background='#4caf7d'">
-                Enregistrer mes choix
+                {{ __('common.cookies.save_choices') }}
             </button>
             <button id="cookie-accept-panel"
                     style="flex:2;background:#d4a030;color:#0a0a0a;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:11px;border-radius:6px;border:none;cursor:pointer;transition:background 0.2s;min-width:160px;"
                     onmouseover="this.style.background='#c49020'"
                     onmouseout="this.style.background='#d4a030'">
-                Tout accepter
+                {{ __('common.cookies.accept_all') }}
             </button>
         </div>
 
         {{-- Note légale --}}
         <p style="margin:18px 0 0;color:#444;font-size:0.72rem;line-height:1.6;text-align:center;">
-            Vous pouvez modifier vos préférences à tout moment depuis le lien
-            <button id="cookie-reopen-link"
-                    style="background:none;border:none;padding:0;color:#4caf7d;font-size:0.72rem;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:'Space Grotesk',sans-serif;">
-                Gestion des cookies
-            </button>
-            en bas de page.
+            {!! __('common.cookies.legal_note', ['link' => '<button id="cookie-reopen-link" style="background:none;border:none;padding:0;color:#4caf7d;font-size:0.72rem;cursor:pointer;text-decoration:underline;text-underline-offset:2px;font-family:\'Space Grotesk\',sans-serif;">'.__('common.footer.cookie_management').'</button>']) !!}
         </p>
 
     </div>

@@ -3,13 +3,20 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class EquipeMembre extends Model
 {
+    use HasTranslations;
+
     protected $fillable = [
         'nom', 'prenom', 'poste', 'role', 'bio', 'photo',
         'email', 'telephone', 'reseaux_sociaux', 'competences',
         'actif', 'ordre',
+    ];
+
+    public array $translatable = [
+        'poste', 'bio',
     ];
 
     protected $casts = [

@@ -155,6 +155,33 @@
     </div>
 </div>
 
+<div style="margin-top:24px;">
+    <x-admin.translation-panel label="Version anglaise du slide (optionnel)">
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Label (EN)</label>
+            <input type="text" name="label_en" value="{{ old('label_en', $edit ? $hero->getTranslation('label', 'en', false) : '') }}" style="width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;" placeholder="e.g. Production">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title line 1 (EN)</label>
+                <input type="text" name="title_one_en" value="{{ old('title_one_en', $edit ? $hero->getTranslation('title_one', 'en', false) : '') }}" style="width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;" placeholder="e.g. BRING TO LIFE">
+            </div>
+            <div>
+                <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Title line 2 (EN)</label>
+                <input type="text" name="title_two_en" value="{{ old('title_two_en', $edit ? $hero->getTranslation('title_two', 'en', false) : '') }}" style="width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;" placeholder="e.g. THE ARTWORK">
+            </div>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Description (EN)</label>
+            <textarea name="lead_en" rows="3" style="width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;resize:vertical;">{{ old('lead_en', $edit ? $hero->getTranslation('lead', 'en', false) : '') }}</textarea>
+        </div>
+        <div>
+            <label style="display:block;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#777;margin-bottom:8px;">Button text (EN)</label>
+            <input type="text" name="cta_label_en" value="{{ old('cta_label_en', $edit ? $hero->getTranslation('cta_label', 'en', false) : '') }}" style="width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;border-radius:6px;color:#f5f5f0;font-family:'Space Grotesk',sans-serif;font-size:0.88rem;outline:none;" placeholder="e.g. See our services">
+        </div>
+    </x-admin.translation-panel>
+</div>
+
 <script>
 document.getElementById('accent-picker').addEventListener('input', function() {
     document.getElementById('accent-text').value = this.value;
