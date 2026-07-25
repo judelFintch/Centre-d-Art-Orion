@@ -471,11 +471,13 @@ return [
 
     'donate' => [
         'title' => "Faire un don — Centre d'Art Orion",
-        'meta_description' => "Soutenez le Centre d'Art Orion et aidez à former la prochaine génération d'artistes congolais. Don sécurisé par carte Visa.",
+        'meta_description' => "Présentation illustrative de la future page de don du Centre d'Art Orion, actuellement en cours de conception.",
         'hero_tag' => 'Soutenez-nous',
         'hero_title_1' => 'Faire un',
         'hero_title_2' => 'Don',
         'hero_desc' => "Chaque contribution aide à former, équiper et faire rayonner les artistes de demain. Votre don, quel que soit son montant, a un impact réel.",
+        'demo_notice_title' => 'Page illustrative — en cours de conception',
+        'demo_notice_text' => "Cette page présente uniquement une maquette de la future fonctionnalité de don. Le paiement en ligne n'est pas encore actif : aucune transaction réelle ne peut être effectuée ici.",
 
         'why_tag' => 'Votre impact',
         'why_title' => 'Où va votre don ?',

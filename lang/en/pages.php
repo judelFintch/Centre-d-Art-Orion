@@ -471,11 +471,13 @@ return [
 
     'donate' => [
         'title' => 'Donate — Orion Art Centre',
-        'meta_description' => 'Support Orion Art Centre and help train the next generation of Congolese artists. Secure donation by Visa card.',
+        'meta_description' => 'Illustrative preview of Orion Art Centre’s future donation page, currently under development.',
         'hero_tag' => 'Support us',
         'hero_title_1' => 'Make a',
         'hero_title_2' => 'Donation',
         'hero_desc' => "Every contribution helps train, equip and showcase the artists of tomorrow. Your donation, whatever the amount, makes a real difference.",
+        'demo_notice_title' => 'Illustrative page — under development',
+        'demo_notice_text' => 'This page is only a preview of the future donation feature. Online payment is not active yet: no real transaction can be completed here.',
 
         'why_tag' => 'Your impact',
         'why_title' => 'Where does your donation go?',

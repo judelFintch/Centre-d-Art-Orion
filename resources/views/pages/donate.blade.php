@@ -18,6 +18,21 @@
     </div>
 </section>
 
+{{-- Avertissement : page de démonstration --}}
+<section role="status" aria-label="{{ __('pages.donate.demo_notice_title') }}" style="background:#fff3cd;border-top:1px solid #e6c75a;border-bottom:1px solid #e6c75a;">
+    <div style="max-width:1200px;margin:0 auto;padding:18px 24px;display:flex;align-items:flex-start;justify-content:center;gap:14px;">
+        <span aria-hidden="true" style="font-size:1.35rem;line-height:1;">⚠️</span>
+        <div>
+            <strong style="display:block;color:#6b4d00;font-family:'Space Grotesk',sans-serif;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">
+                {{ __('pages.donate.demo_notice_title') }}
+            </strong>
+            <p style="color:#705a20;font-size:0.86rem;line-height:1.6;margin:0;">
+                {{ __('pages.donate.demo_notice_text') }}
+            </p>
+        </div>
+    </div>
+</section>
+
 {{-- Pourquoi donner --}}
 <section style="padding:88px 0;background:#ffffff;">
     <div style="max-width:1200px;margin:0 auto;padding:0 24px;">
