@@ -21,7 +21,7 @@ class PageSetting extends Model
      */
     public static function get(string $key, string $default = ''): string
     {
-        $sharedImage = static::isSharedHomeImage($key);
+        $sharedImage = static::isSharedImage($key);
         $cacheKey = $key.'|'.($sharedImage ? 'shared-image' : app()->getLocale());
 
         if (!array_key_exists($cacheKey, static::$cache)) {
@@ -48,7 +48,7 @@ class PageSetting extends Model
     {
         $setting = static::firstOrNew(['key' => $key]);
 
-        if (static::isSharedHomeImage($key) && is_string($value)) {
+        if (static::isSharedImage($key) && is_string($value)) {
             // Les médias sont communs aux versions française et anglaise.
             $setting->setTranslations('value', ['fr' => $value, 'en' => $value]);
         } elseif (is_array($value)) {
@@ -106,9 +106,9 @@ class PageSetting extends Model
      * Les images administrables de la page d'accueil sont des médias partagés :
      * seule leur légende éventuelle varie selon la langue.
      */
-    private static function isSharedHomeImage(string $key): bool
+    private static function isSharedImage(string $key): bool
     {
-        return str_starts_with($key, 'home.')
-            && preg_match('/(?:_file|_img|_photo)$/', $key) === 1;
+        return (str_starts_with($key, 'home.') || str_starts_with($key, 'podcasts.'))
+            && preg_match('/(?:_file|_img|_image|_photo)$/', $key) === 1;
     }
 }

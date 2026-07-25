@@ -5,7 +5,10 @@
 
 @php
     use App\Models\PageSetting;
+    use Illuminate\Support\Facades\Storage;
     $podcastText = fn (string $key, string $fallback): string => PageSetting::get('podcasts.'.$key, $fallback);
+    $fallbackCoverPath = PageSetting::get('podcasts.hero.fallback_image');
+    $fallbackCover = $fallbackCoverPath ? Storage::url($fallbackCoverPath) : null;
     $participationSteps = collect(__('pages.podcasts.steps'))->map(function ($step, $index) use ($podcastText) {
         $number = $index + 1;
         return [
@@ -54,7 +57,7 @@
                     <p style="color:#777;font-size:0.82rem;line-height:1.55;margin:8px 0 0;">{{ $featured->description ?? __('pages.podcasts.flagship_desc_fallback') }}</p>
                 </div>
                 @else
-                <div style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,rgba(76,175,125,0.12),rgba(212,160,48,0.08));border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;box-shadow:0 30px 100px rgba(0,0,0,0.35);">
+                <div style="aspect-ratio:1;border-radius:50%;background:{{ $fallbackCover ? "linear-gradient(rgba(0,0,0,0.42),rgba(0,0,0,0.72)),url('{$fallbackCover}') center/cover" : 'linear-gradient(135deg,rgba(76,175,125,0.12),rgba(212,160,48,0.08))' }};border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;box-shadow:0 30px 100px rgba(0,0,0,0.35);">
                     <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="1.4" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M18 19v-5a2 2 0 0 1 2-2h1v7h-3ZM6 19v-5a2 2 0 0 0-2-2H3v7h3Z"/></svg>
                     <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.2;margin:20px 0 8px;">{{ $podcastText('empty.title', __('pages.podcasts.empty_title')) }}</p>
                     <p style="color:#777;font-size:0.84rem;line-height:1.6;margin:0;">{{ $podcastText('empty.description', __('pages.podcasts.empty_desc')) }}</p>

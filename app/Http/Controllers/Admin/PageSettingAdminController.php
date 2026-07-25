@@ -199,6 +199,7 @@ class PageSettingAdminController extends Controller
             'podcasts.hero.description'            => 'nullable|string|max:600',
             'podcasts.hero.listen_label'           => 'nullable|string|max:80',
             'podcasts.hero.propose_label'          => 'nullable|string|max:80',
+            'podcasts.hero.fallback_image'         => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'podcasts.featured.label'              => 'nullable|string|max:80',
             'podcasts.latest.tag'                  => 'nullable|string|max:80',
             'podcasts.latest.title'                => 'nullable|string|max:120',
@@ -217,7 +218,10 @@ class PageSettingAdminController extends Controller
             'podcasts.participate.button_label'    => 'nullable|string|max:100',
         ]);
 
-        PageSetting::saveMany($this->flatten($data));
+        PageSetting::saveMany($this->flatten($this->stripFiles($data)));
+        foreach ($this->imageKeysFrom($data) as $key) {
+            $this->handleImageUpload($request, $key);
+        }
         $this->saveEnglishFields($request);
         PageSetting::clearCache();
 
@@ -253,8 +257,8 @@ class PageSettingAdminController extends Controller
             if (is_array($value)) {
                 $keys = array_merge($keys, $this->imageKeysFrom($value, $dotKey));
             } elseif ($value instanceof \Illuminate\Http\UploadedFile || $value === null) {
-                // On ne retient que les clés dont le nom finit par _file, _img ou _photo
-                if (preg_match('/(_file|_img|_photo)$/', $dotKey)) {
+                // On ne retient que les clés dont le nom finit par un suffixe de média.
+                if (preg_match('/(_file|_img|_image|_photo)$/', $dotKey)) {
                     $keys[] = $dotKey;
                 }
             }
@@ -291,16 +295,17 @@ class PageSettingAdminController extends Controller
         PageSetting::set($key, $path);
     }
 
-    /**
-     * Retire les valeurs UploadedFile du tableau validé (elles sont gérées séparément).
-     */
+    /** Retire les fichiers du tableau de textes ; ils sont gérés séparément. */
     private function stripFiles(array $data): array
     {
-        array_walk_recursive($data, function (&$value) {
+        foreach ($data as $key => $value) {
             if ($value instanceof \Illuminate\Http\UploadedFile) {
-                $value = null;
+                unset($data[$key]);
+            } elseif (is_array($value)) {
+                $data[$key] = $this->stripFiles($value);
             }
-        });
+        }
+
         return $data;
     }
 

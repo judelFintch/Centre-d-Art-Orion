@@ -20,7 +20,7 @@
 </div>
 @endif
 
-<form method="POST" action="{{ route('admin.pages.podcasts.update') }}">
+<form method="POST" action="{{ route('admin.pages.podcasts.update') }}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -39,6 +39,16 @@
             <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px;">
                 @include('admin.pages._field', ['name' => 'podcasts[hero][listen_label]', 'key' => 'podcasts.hero.listen_label', 'label' => 'Bouton écouter', 'default' => __('pages.podcasts.listen_episodes')])
                 @include('admin.pages._field', ['name' => 'podcasts[hero][propose_label]', 'key' => 'podcasts.hero.propose_label', 'label' => 'Bouton proposer', 'default' => __('pages.podcasts.propose_guest')])
+            </div>
+            <div style="margin-top:20px;padding-top:20px;border-top:1px solid #1a1a1a;">
+                @include('admin.pages._image', [
+                    'name' => 'podcasts[hero][fallback_image]',
+                    'key' => 'podcasts.hero.fallback_image',
+                    'label' => 'Image de présentation si aucun épisode',
+                    'width' => '150px',
+                    'height' => '110px',
+                ])
+                <p style="color:#555;font-size:0.74rem;line-height:1.6;margin:10px 0 0;">Cette image est commune aux versions française et anglaise. La couverture d’un épisode « À la une » reste prioritaire.</p>
             </div>
         </section>
 
