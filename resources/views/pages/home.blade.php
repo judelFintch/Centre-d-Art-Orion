@@ -776,8 +776,12 @@
                 <p style="color:rgba(28,21,16,0.65);font-size:0.9rem;line-height:1.8;margin:0 0 24px;font-style:italic;">"{{ $t->contenu }}"</p>
 
                 <div style="display:flex;align-items:center;gap:12px;">
-                    <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;color:#0a0a0a;flex-shrink:0;">
+                    <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#4caf7d,#d4a030);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9rem;color:#0a0a0a;flex-shrink:0;overflow:hidden;">
+                        @if($t->photo_url)
+                        <img src="{{ $t->photo_url }}" alt="{{ $t->auteur }}" style="width:100%;height:100%;object-fit:cover;">
+                        @else
                         {{ strtoupper(substr($t->auteur, 0, 1)) }}
+                        @endif
                     </div>
                     <div>
                         <div style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.9rem;color:#1c1510;">{{ $t->auteur }}</div>
