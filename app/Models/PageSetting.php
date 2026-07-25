@@ -21,11 +21,20 @@ class PageSetting extends Model
      */
     public static function get(string $key, string $default = ''): string
     {
-        $cacheKey = $key.'|'.app()->getLocale();
+        $sharedImage = static::isSharedHomeImage($key);
+        $cacheKey = $key.'|'.($sharedImage ? 'shared-image' : app()->getLocale());
 
         if (!array_key_exists($cacheKey, static::$cache)) {
             $row = static::where('key', $key)->first();
-            static::$cache[$cacheKey] = $row ? $row->value : null;
+
+            if ($row && $sharedImage) {
+                $translations = $row->getTranslations('value');
+                static::$cache[$cacheKey] = $translations['fr']
+                    ?? $translations['en']
+                    ?? collect($translations)->first(fn ($value) => filled($value));
+            } else {
+                static::$cache[$cacheKey] = $row ? $row->value : null;
+            }
         }
 
         return static::$cache[$cacheKey] ?: $default;
@@ -39,7 +48,10 @@ class PageSetting extends Model
     {
         $setting = static::firstOrNew(['key' => $key]);
 
-        if (is_array($value)) {
+        if (static::isSharedHomeImage($key) && is_string($value)) {
+            // Les médias sont communs aux versions française et anglaise.
+            $setting->setTranslations('value', ['fr' => $value, 'en' => $value]);
+        } elseif (is_array($value)) {
             $setting->setTranslations('value', array_merge($setting->getTranslations('value'), $value));
         } else {
             $setting->setTranslation('value', app()->getLocale(), $value);
@@ -88,5 +100,15 @@ class PageSetting extends Model
     public static function clearCache(): void
     {
         static::$cache = [];
+    }
+
+    /**
+     * Les images administrables de la page d'accueil sont des médias partagés :
+     * seule leur légende éventuelle varie selon la langue.
+     */
+    private static function isSharedHomeImage(string $key): bool
+    {
+        return str_starts_with($key, 'home.')
+            && preg_match('/(?:_file|_img|_photo)$/', $key) === 1;
     }
 }
