@@ -60,7 +60,7 @@ $input = "width:100%;padding:11px 14px;background:#0d0d0d;border:1px solid #222;
             <option value="{{ $value }}" @selected(old('status',PS::get('donation.status','draft'))===$value)>{{ $label }}</option>
             @endforeach
         </select>
-        <div style="padding:14px;background:#19140b;border:1px solid #493a18;border-radius:6px;color:#b99a4a;font-size:.78rem;line-height:1.6;">La publication est bloquée tant que FlexPaie n’est pas validé pour la production.</div>
+        <div style="padding:14px;background:#19140b;border:1px solid #493a18;border-radius:6px;color:#b99a4a;font-size:.78rem;line-height:1.6;">Si la campagne est publiée avant la validation FlexPaie, elle reste en mode aperçu : l’avertissement de démonstration demeure visible et aucun paiement réel n’est transmis.</div>
         <button type="submit" style="width:100%;padding:12px;border:0;border-radius:6px;background:#4caf7d;color:#07110b;font-weight:800;cursor:pointer;">Enregistrer la configuration</button>
     </section>
 </div>

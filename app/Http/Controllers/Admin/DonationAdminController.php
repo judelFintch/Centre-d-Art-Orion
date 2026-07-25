@@ -36,12 +36,6 @@ class DonationAdminController extends Controller
             'methods.*' => ['nullable', 'boolean'],
         ]);
 
-        if ($data['status'] === 'published' && $data['integration_status'] !== 'ready') {
-            return back()->withErrors([
-                'status' => "La campagne ne peut pas être publiée avant la validation technique de l'intégration FlexPaie.",
-            ])->withInput();
-        }
-
         PageSetting::set('donation.campaign_name', [
             'fr' => $data['campaign_name'],
             'en' => $data['campaign_name_en'] ?: $data['campaign_name'],
