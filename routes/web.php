@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\HeroSlideAdminController;
 use App\Http\Controllers\Admin\BlogPostAdminController;
 use App\Http\Controllers\Admin\PodcastAdminController;
 use App\Http\Controllers\Admin\TemoignageAdminController;
+use App\Http\Controllers\Admin\DonationAdminController;
 use App\Http\Controllers\BilletterieController;
 use App\Http\Controllers\Admin\BilletAdminController;
 use App\Http\Controllers\Admin\BilletCategorieAdminController;
@@ -116,6 +117,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::resource('podcasts', PodcastAdminController::class);
     Route::resource('temoignages', TemoignageAdminController::class)->except(['show']);
     Route::patch('temoignages/{temoignage}/toggle', [TemoignageAdminController::class, 'toggle'])->name('temoignages.toggle');
+    Route::get('donations', [DonationAdminController::class, 'index'])->name('donations.index');
+    Route::put('donations', [DonationAdminController::class, 'update'])->name('donations.update');
     Route::resource('messages', MessageAdminController::class)->only(['index', 'show', 'destroy']);
     Route::get('abonnements', [AbonnementAdminController::class, 'index'])->name('abonnements.index');
     Route::delete('abonnements/{abonnement}', [AbonnementAdminController::class, 'destroy'])->name('abonnements.destroy');

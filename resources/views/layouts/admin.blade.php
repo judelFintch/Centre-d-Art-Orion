@@ -38,6 +38,7 @@
             ['route' => 'admin.blog.index',          'icon' => '✎', 'label' => 'Blog',              'color' => '#d4a030'],
             ['route' => 'admin.podcasts.index',      'icon' => '◌', 'label' => 'Podcasts',          'color' => '#4caf7d'],
             ['route' => 'admin.temoignages.index',   'active_pattern' => 'admin.temoignages.*', 'icon' => '❝', 'label' => 'Témoignages', 'color' => '#b07aff'],
+            ['route' => 'admin.donations.index',     'active_pattern' => 'admin.donations.*', 'icon' => '♥', 'label' => 'Campagnes de dons', 'color' => '#e07030'],
             ['route' => 'admin.equipe.index',        'icon' => '◈', 'label' => 'Équipe',            'color' => '#d4a030'],
             ['route' => 'admin.equipe-roles.index',  'icon' => '◆', 'label' => 'Rôles équipe',      'color' => '#d4a030'],
             ['route' => 'admin.billets.index',       'icon' => '🎟', 'label' => 'Billetterie',       'color' => '#4caf7d'],
