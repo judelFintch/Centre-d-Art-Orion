@@ -381,6 +381,8 @@ return [
         'latest_tag' => 'Derniers épisodes',
         'latest_title' => 'À écouter',
         'latest_desc' => 'Les épisodes sont préparés comme des archives vivantes : un invité, une pratique, une question de création.',
+        'empty_title' => 'Les premiers épisodes arrivent bientôt',
+        'empty_desc' => 'Aucun épisode n’est encore publié. Revenez prochainement pour découvrir les voix d’Orion.',
         'coming_soon' => 'À venir',
         'react' => 'Réagir →',
         'get_notified' => 'Être notifié →',

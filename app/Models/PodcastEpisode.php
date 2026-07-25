@@ -42,8 +42,8 @@ class PodcastEpisode extends Model
         return $this->audio_file ? Storage::url($this->audio_file) : $this->audio_url;
     }
 
-    public function getCoverSourceAttribute(): string
+    public function getCoverSourceAttribute(): ?string
     {
-        return $this->cover_image ? Storage::url($this->cover_image) : asset('images/11.jpg');
+        return $this->cover_image ? Storage::url($this->cover_image) : null;
     }
 }

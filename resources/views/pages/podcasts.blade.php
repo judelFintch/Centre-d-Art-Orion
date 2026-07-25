@@ -27,8 +27,9 @@
             </div>
 
             <div style="position:relative;">
+                @if($featured)
                 <div style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,rgba(76,175,125,0.22),rgba(212,160,48,0.16));border:1px solid rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;box-shadow:0 30px 100px rgba(0,0,0,0.45);">
-                    <div style="width:74%;height:74%;border-radius:50%;background:url('{{ $featured ? $featured->cover_source : asset('images/11.jpg') }}') center/cover;border:1px solid rgba(255,255,255,0.18);position:relative;overflow:hidden;">
+                    <div style="width:74%;height:74%;border-radius:50%;{{ $featured->cover_source ? "background:url('{$featured->cover_source}') center/cover;" : 'background:linear-gradient(135deg,#16241d,#2b2417);' }}border:1px solid rgba(255,255,255,0.18);position:relative;overflow:hidden;">
                         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82),rgba(0,0,0,0.08));"></div>
                         <div style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:rgba(212,160,48,0.22);border:2px solid rgba(212,160,48,0.55);display:flex;align-items:center;justify-content:center;">
                             <svg width="30" height="30" viewBox="0 0 24 24" fill="#d4a030"><polygon points="7 4 19 12 7 20 7 4"/></svg>
@@ -40,6 +41,13 @@
                     <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.1;margin:0;">{{ $featured->series ?? __('pages.podcasts.flagship_series_fallback') }}</p>
                     <p style="color:#777;font-size:0.82rem;line-height:1.55;margin:8px 0 0;">{{ $featured->description ?? __('pages.podcasts.flagship_desc_fallback') }}</p>
                 </div>
+                @else
+                <div style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,rgba(76,175,125,0.12),rgba(212,160,48,0.08));border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;box-shadow:0 30px 100px rgba(0,0,0,0.35);">
+                    <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="1.4" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M18 19v-5a2 2 0 0 1 2-2h1v7h-3ZM6 19v-5a2 2 0 0 0-2-2H3v7h3Z"/></svg>
+                    <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.2;margin:20px 0 8px;">{{ __('pages.podcasts.empty_title') }}</p>
+                    <p style="color:#777;font-size:0.84rem;line-height:1.6;margin:0;">{{ __('pages.podcasts.empty_desc') }}</p>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -56,10 +64,16 @@
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
-            @foreach($episodes as $episode)
+            @forelse($episodes as $episode)
             <article style="background:#111;border:1px solid #1a1a1a;border-radius:8px;overflow:hidden;">
                 <div style="height:190px;position:relative;background:#161616;">
+                    @if($episode->cover_source)
                     <img src="{{ $episode->cover_source }}" alt="{{ $episode->title }}" style="width:100%;height:100%;object-fit:cover;">
+                    @else
+                    <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#16241d,#2b2417);">
+                        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="{{ $episode->accent }}" stroke-width="1.4" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M18 19v-5a2 2 0 0 1 2-2h1v7h-3ZM6 19v-5a2 2 0 0 0-2-2H3v7h3Z"/></svg>
+                    </div>
+                    @endif
                     <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.82),transparent);"></div>
                     <div style="position:absolute;left:18px;bottom:16px;color:{{ $episode->accent }};font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:800;letter-spacing:0.1em;">EP. {{ $episode->episode_number ?: $loop->iteration }}</div>
                 </div>
@@ -75,7 +89,12 @@
                     </div>
                 </div>
             </article>
-            @endforeach
+            @empty
+            <div style="grid-column:1/-1;background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:48px 24px;text-align:center;">
+                <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:1.6rem;margin:0 0 10px;">{{ __('pages.podcasts.empty_title') }}</h3>
+                <p style="color:#777;line-height:1.7;margin:0;">{{ __('pages.podcasts.empty_desc') }}</p>
+            </div>
+            @endforelse
         </div>
     </div>
 </section>

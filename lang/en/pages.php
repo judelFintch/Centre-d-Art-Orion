@@ -381,6 +381,8 @@ return [
         'latest_tag' => 'Latest episodes',
         'latest_title' => 'Listen now',
         'latest_desc' => 'Episodes are crafted as living archives: a guest, a practice, a question about creation.',
+        'empty_title' => 'The first episodes are coming soon',
+        'empty_desc' => 'No episode has been published yet. Check back soon to discover the voices of Orion.',
         'coming_soon' => 'Coming soon',
         'react' => 'React →',
         'get_notified' => 'Get notified →',
