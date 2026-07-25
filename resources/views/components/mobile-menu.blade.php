@@ -50,6 +50,13 @@ $links = [
         </a>
         @endauth
 
+        <a href="{{ route('donate.index') }}"
+           class="mobile-nav-link mobile-donate-link"
+           style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;margin-bottom:10px;padding:12px 16px;background:linear-gradient(135deg,#d4a030,#e07030);border-radius:4px;color:#fff;text-decoration:none;font-family:'Space Grotesk',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M12 21s-6.7-4.35-9.3-8.2C.6 9.7 1.5 6 4.8 4.9c2-.66 3.9.1 5.2 1.9 1.3-1.8 3.2-2.56 5.2-1.9 3.3 1.1 4.2 4.8 2.1 7.9C18.7 16.65 12 21 12 21z"/></svg>
+            {{ __('common.nav.donate') }}
+        </a>
+
         <a href="{{ route('contact.index') }}"
            class="mobile-nav-link btn-primary"
            style="width:100%;justify-content:center;">
@@ -66,5 +73,9 @@ $links = [
     color: #2a7a50 !important;
     border-left-color: #4caf7d !important;
     background: rgba(76,175,125,0.07);
+}
+.mobile-donate-link:hover {
+    color: #fff !important;
+    background: linear-gradient(135deg,#c49020,#c05f20) !important;
 }
 </style>

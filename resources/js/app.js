@@ -51,33 +51,71 @@ function initNav() {
     document.querySelectorAll('.mobile-nav-link').forEach((l) => l.addEventListener('click', close));
 }
 
-// ─── Dropdown nav "Plus" ────────────────────────────────────────
+// ─── Sous-menus de navigation ───────────────────────────────────
 function initNavDropdown() {
-    const dropdown = document.getElementById('nav-more');
-    if (!dropdown) return;
-    const trigger = dropdown.querySelector('.nav-dropdown-trigger');
-    if (!trigger) return;
+    const dropdowns = [...document.querySelectorAll('#main-header .nav-dropdown')];
+    if (!dropdowns.length) return;
 
-    function close() {
+    function close(dropdown, { restoreFocus = false } = {}) {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
         dropdown.classList.remove('open');
-        trigger.setAttribute('aria-expanded', 'false');
-    }
-    function toggle() {
-        const willOpen = !dropdown.classList.contains('open');
-        dropdown.classList.toggle('open', willOpen);
-        trigger.setAttribute('aria-expanded', String(willOpen));
+        trigger?.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) trigger?.focus();
     }
 
-    trigger.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggle();
+    function toggle(dropdown) {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+        const willOpen = !dropdown.classList.contains('open');
+        dropdowns.forEach((item) => {
+            if (item !== dropdown) close(item);
+        });
+        dropdown.classList.toggle('open', willOpen);
+        trigger?.setAttribute('aria-expanded', String(willOpen));
+    }
+
+    dropdowns.forEach((dropdown) => {
+        const trigger = dropdown.querySelector('.nav-dropdown-trigger');
+        const panel = dropdown.querySelector('.nav-dropdown-panel');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggle(dropdown);
+        });
+        panel?.querySelectorAll('.nav-link').forEach((link) => {
+            link.addEventListener('click', () => close(dropdown));
+        });
+        panel?.addEventListener('keydown', (e) => {
+            if (e.key !== 'Tab') return;
+
+            const links = [...panel.querySelectorAll('a[href]')];
+            if (!links.length) return;
+
+            const first = links[0];
+            const last = links[links.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                trigger.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                close(dropdown);
+            }
+        });
     });
-    dropdown.querySelectorAll('.nav-dropdown-panel .nav-link').forEach((l) => l.addEventListener('click', close));
+
     document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) close();
+        dropdowns.forEach((dropdown) => {
+            if (!dropdown.contains(e.target)) close(dropdown);
+        });
     });
     document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') close();
+        if (e.key === 'Escape') {
+            dropdowns.forEach((dropdown) => {
+                if (dropdown.classList.contains('open')) close(dropdown, { restoreFocus: true });
+            });
+        }
+    });
+    window.addEventListener('resize', () => {
+        if (window.innerWidth < 1280) dropdowns.forEach((dropdown) => close(dropdown));
     });
 }
 
@@ -85,13 +123,13 @@ function initNavDropdown() {
 function initStickyHeader() {
     const header = document.getElementById('main-header');
     if (!header) return;
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 60) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
-        }
-    });
+
+    const update = () => {
+        header.classList.toggle('scrolled', window.scrollY > 60);
+    };
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
 }
 
 // ─── Counter Animation ─────────────────────────────────────────

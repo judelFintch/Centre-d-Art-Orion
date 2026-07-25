@@ -5,13 +5,25 @@ $links = [
     ['url' => route('services'),         'label' => __('common.nav.services')],
     ['url' => route('formations.index'), 'label' => __('common.nav.formations')],
     ['url' => route('galerie.index'),    'label' => __('common.nav.gallery')],
-    ['url' => route('evenements.index'), 'label' => __('common.nav.events')],
-    ['url' => route('blog.index'),       'label' => __('common.nav.blog'), 'class' => 'nav-link-blog'],
+    [
+        'id'       => 'events',
+        'label'    => __('common.nav.events'),
+        'dropdown' => true,
+        'children' => [
+            ['url' => route('evenements.index'),  'label' => __('common.nav.events_all')],
+            ['url' => route('billetterie.index'), 'label' => __('common.nav.ticketing'), 'class' => 'nav-link-billet'],
+        ],
+    ],
+    [
+        'id'       => 'blog',
+        'label'    => __('common.nav.blog'),
+        'dropdown' => true,
+        'children' => [
+            ['url' => route('blog.index'),     'label' => __('common.nav.blog_all'), 'class' => 'nav-link-blog'],
+            ['url' => route('podcasts.index'), 'label' => __('common.nav.podcasts')],
+        ],
+    ],
     ['url' => route('equipe'),              'label' => __('common.nav.team')],
-];
-$moreLinks = [
-    ['url' => route('podcasts.index'),    'label' => __('common.nav.podcasts')],
-    ['url' => route('billetterie.index'), 'label' => __('common.nav.ticketing'), 'class' => 'nav-link-billet'],
 ];
 @endphp
 
@@ -30,53 +42,64 @@ $moreLinks = [
         </a>
 
         {{-- Desktop nav --}}
-        <nav style="display:none;" class="lg:block lg:flex lg:items-center lg:gap-1">
+        <nav class="desktop-nav" aria-label="{{ __('common.nav.main_menu') }}">
             @foreach($links as $link)
-                <a href="{{ $link['url'] }}"
-                   class="nav-link {{ $link['class'] ?? '' }}"
-                   style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;">
-                    {{ $link['label'] }}
-                </a>
-            @endforeach
-
-            {{-- Dropdown "Plus" : regroupe les rubriques secondaires pour éviter le débordement --}}
-            <div class="nav-dropdown" id="nav-more">
-                <button type="button"
-                        class="nav-link nav-dropdown-trigger"
-                        style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;"
-                        aria-haspopup="true" aria-expanded="false">
-                    {{ __('common.nav.more') }}
-                    <svg class="nav-dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div class="nav-dropdown-panel">
-                    @foreach($moreLinks as $link)
-                        <a href="{{ $link['url'] }}"
-                           class="nav-link {{ $link['class'] ?? '' }}"
-                           style="padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;border-radius:6px;">
+                @if($link['dropdown'] ?? false)
+                    {{-- Dropdown "Événements" : regroupe les rubriques liées (podcasts, billetterie) --}}
+                    <div class="nav-dropdown" id="nav-{{ $link['id'] }}">
+                        <button type="button"
+                                class="nav-link nav-dropdown-trigger"
+                                style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;"
+                                aria-haspopup="true" aria-expanded="false" aria-controls="nav-{{ $link['id'] }}-panel">
                             {{ $link['label'] }}
-                        </a>
-                    @endforeach
-                </div>
-            </div>
+                            <svg class="nav-dropdown-chevron" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+                        </button>
+                        <div class="nav-dropdown-panel" id="nav-{{ $link['id'] }}-panel">
+                            @foreach($link['children'] as $child)
+                                <a href="{{ $child['url'] }}"
+                                   class="nav-link {{ $child['class'] ?? '' }}"
+                                   style="padding:10px 14px;font-family:'Space Grotesk',sans-serif;font-size:0.78rem;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;text-decoration:none;border-radius:6px;">
+                                    {{ $child['label'] }}
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ $link['url'] }}"
+                       class="nav-link {{ $link['class'] ?? '' }}"
+                       style="padding:8px 12px;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(28,21,16,0.65);text-decoration:none;border-radius:4px;transition:color 0.2s;">
+                        {{ $link['label'] }}
+                    </a>
+                @endif
+            @endforeach
         </nav>
 
         {{-- CTA + Burger --}}
-        <div style="display:flex;align-items:center;gap:12px;">
-            <div style="display:none;" class="lg:inline-flex">
+        <div class="header-actions" style="display:flex;align-items:center;gap:12px;">
+            <div class="desktop-header-action">
                 <x-language-switcher />
             </div>
 
             @auth
             <a href="{{ route('admin.dashboard') }}"
                style="display:none;padding:9px 16px;border:1px solid rgba(76,175,125,0.35);color:#2d7a52;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;"
-               class="header-admin-link lg:inline-flex">
+               class="header-admin-link desktop-header-action">
                 {{ __('common.nav.admin') }}
             </a>
             @endauth
 
+            <a href="{{ route('donate.index') }}"
+               style="display:none;align-items:center;gap:7px;padding:9px 18px;background:linear-gradient(135deg,#d4a030,#e07030);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 14px rgba(212,160,48,0.25);"
+               class="header-donate-cta desktop-header-action"
+               onmouseover="this.style.boxShadow='0 6px 20px rgba(212,160,48,0.4)'"
+               onmouseout="this.style.boxShadow='0 4px 14px rgba(212,160,48,0.25)'">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M12 21s-6.7-4.35-9.3-8.2C.6 9.7 1.5 6 4.8 4.9c2-.66 3.9.1 5.2 1.9 1.3-1.8 3.2-2.56 5.2-1.9 3.3 1.1 4.2 4.8 2.1 7.9C18.7 16.65 12 21 12 21z"/></svg>
+                {{ __('common.nav.donate') }}
+            </a>
+
             <a href="{{ route('contact.index') }}"
                style="display:none;padding:9px 20px;background:linear-gradient(135deg,#4caf7d,#2d7a52);color:#fff;font-family:'Space Grotesk',sans-serif;font-size:0.8rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;border-radius:4px;text-decoration:none;transition:all 0.3s;box-shadow:0 4px 14px rgba(76,175,125,0.20);"
-               class="header-cta lg:inline-flex"
+               class="header-cta desktop-header-action"
                onmouseover="this.style.boxShadow='0 6px 20px rgba(76,175,125,0.35)'"
                onmouseout="this.style.boxShadow='0 4px 14px rgba(76,175,125,0.20)'">
                 {{ __('common.nav.contact_us') }}
@@ -87,7 +110,7 @@ $moreLinks = [
                     aria-label="{{ __('common.nav.open_menu') }}"
                     aria-expanded="false"
                     style="display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:40px;height:40px;background:transparent;border:1px solid rgba(28,21,16,0.15);border-radius:4px;cursor:pointer;padding:8px;"
-                    class="lg:hidden">
+                    class="header-burger">
                 <span style="display:block;width:20px;height:1.5px;background:#1c1510;transition:all 0.3s;"></span>
                 <span style="display:block;width:14px;height:1.5px;background:#4caf7d;transition:all 0.3s;margin-left:auto;"></span>
                 <span style="display:block;width:20px;height:1.5px;background:#1c1510;transition:all 0.3s;"></span>
@@ -99,14 +122,23 @@ $moreLinks = [
 
 
 <style>
-@media(min-width:1024px){
-	    #main-header nav          { display:flex !important; }
-	    #main-header .lg\:block   { display:block !important; }
-	    #main-header .lg\:inline-flex { display:inline-flex !important; }
-	    #burger-btn               { display:none !important; }
-	}
-		.nav-link:hover { color: #1c1510 !important; }
-		.nav-link.active { color: #4caf7d !important; }
+    #main-header .desktop-nav,
+    #main-header .desktop-header-action {
+        display: none !important;
+    }
+
+    @media(min-width:1280px){
+        #main-header .desktop-nav {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+            white-space: nowrap;
+            min-width: 0;
+        }
+        #main-header .desktop-header-action { display: inline-flex !important; }
+        #burger-btn { display: none !important; }
+    }
 		.nav-link-blog {
 		    position: relative;
 		    color: #9a6a1d !important;
@@ -131,5 +163,26 @@ $moreLinks = [
 		.header-admin-link:hover {
 		    background: rgba(76,175,125,0.08);
 		    border-color: rgba(76,175,125,0.65) !important;
+	}
+
+	/* Resserre la largeur des CTA sur les écrans desktop moyens pour éviter le débordement */
+	@media(min-width:1280px) and (max-width:1500px){
+        #main-header .header-inner {
+            padding-right: 16px !important;
+        }
+	    #main-header .header-donate-cta,
+	    #main-header .header-cta {
+	        padding-left: 12px !important;
+	        padding-right: 12px !important;
+	        font-size: 0.72rem !important;
+	    }
+        #main-header .header-actions { gap: 8px !important; }
+	    #main-header nav { gap: 0 !important; }
+	    #main-header .nav-link {
+            padding-left: 7px !important;
+            padding-right: 7px !important;
+            font-size: 0.68rem !important;
+            letter-spacing: 0.075em !important;
+        }
 	}
 	</style>

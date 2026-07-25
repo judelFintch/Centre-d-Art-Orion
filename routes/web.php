@@ -34,6 +34,7 @@ use App\Http\Controllers\Admin\AnalyticsAdminController;
 use App\Http\Controllers\Admin\MailSettingAdminController;
 use App\Http\Controllers\Admin\PageSettingAdminController;
 use App\Http\Controllers\Admin\ProfileAdminController;
+use App\Http\Controllers\DonationController;
 
 // ─── Site Public (bilingue, préfixé par la langue : /fr/..., /en/...) ──
 Route::get('/', function (Request $request) {
@@ -72,6 +73,8 @@ Route::prefix('{locale}')
 
         Route::get('/equipe', [EquipeController::class, 'index'])->name('equipe');
         Route::get('/equipe/{equipe}', [EquipeController::class, 'show'])->name('equipe.show');
+
+        Route::get('/faire-un-don', [DonationController::class, 'index'])->name('donate.index');
 
         Route::prefix('contact')->name('contact.')->group(function () {
             Route::get('/', [ContactController::class, 'index'])->name('index');

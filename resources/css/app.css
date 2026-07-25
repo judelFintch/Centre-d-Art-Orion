@@ -208,7 +208,9 @@ body, body * {
     background: transparent !important;
     border-bottom: none !important;
     backdrop-filter: none !important;
-    overflow: hidden;
+    /* Le panneau "Plus" sort de la hauteur du header. Le masquer ici
+       rendait le dropdown cliquable mais invisible. */
+    overflow: visible;
     transition: background 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease !important;
 }
 #main-header::after {
@@ -307,7 +309,7 @@ body, body * {
     color: #1c1510 !important;
 }
 
-/* ── Dropdown "Plus" (Podcasts, Billetterie) ── */
+/* ── Dropdown "Événements" (Événements, Podcasts, Billetterie) ── */
 .nav-dropdown { position: relative; }
 .nav-dropdown-trigger {
     display: inline-flex !important;
@@ -326,7 +328,7 @@ body, body * {
     left: 50%;
     transform: translateX(-50%) translateY(-6px);
     min-width: 190px;
-    background: rgba(255,255,255,0.98);
+    background: #fffdf9;
     backdrop-filter: blur(14px);
     border: 1px solid rgba(28,21,16,0.08);
     border-radius: 10px;
@@ -341,22 +343,43 @@ body, body * {
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     z-index: 60;
 }
+.nav-dropdown-panel::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -14px;
+    height: 14px;
+}
 .nav-dropdown.open .nav-dropdown-panel {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transform: translateX(-50%) translateY(0);
 }
-.nav-dropdown-panel .nav-link {
+#main-header .nav-dropdown-panel .nav-link {
     display: block !important;
-    color: rgba(28,21,16,0.7) !important;
+    color: #33271f !important;
     text-align: left;
+    text-shadow: none;
 }
-.nav-dropdown-panel .nav-link::before,
-.nav-dropdown-panel .nav-link::after { display: none !important; }
-.nav-dropdown-panel .nav-link:hover { background: rgba(28,21,16,0.05); color: #1c1510 !important; }
-.nav-dropdown-panel .nav-link.active { background: rgba(76,175,125,0.08); }
-.nav-dropdown-panel .nav-link-billet:hover { background: rgba(76,175,125,0.14) !important; }
+#main-header .nav-dropdown-panel .nav-link::before,
+#main-header .nav-dropdown-panel .nav-link::after { display: none !important; }
+#main-header .nav-dropdown-panel .nav-link:hover {
+    background: rgba(76,175,125,0.12);
+    color: #174b32 !important;
+}
+#main-header .nav-dropdown-panel .nav-link.active {
+    background: rgba(76,175,125,0.14);
+    color: #174b32 !important;
+}
+#main-header .nav-dropdown-panel .nav-link-billet {
+    color: #246344 !important;
+}
+#main-header .nav-dropdown-panel .nav-link-billet:hover {
+    background: rgba(76,175,125,0.18) !important;
+    color: #174b32 !important;
+}
 
 /* ── État scrollé : fond beige ── */
 #main-header.scrolled {
