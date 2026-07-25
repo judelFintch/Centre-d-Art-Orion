@@ -3,6 +3,18 @@
 @section('title', __('pages.podcasts.title'))
 @section('meta_description', __('pages.podcasts.meta_description'))
 
+@php
+    use App\Models\PageSetting;
+    $podcastText = fn (string $key, string $fallback): string => PageSetting::get('podcasts.'.$key, $fallback);
+    $participationSteps = collect(__('pages.podcasts.steps'))->map(function ($step, $index) use ($podcastText) {
+        $number = $index + 1;
+        return [
+            'title' => $podcastText("participate.step{$number}_title", $step['title']),
+            'desc' => $podcastText("participate.step{$number}_desc", $step['desc']),
+        ];
+    });
+@endphp
+
 @section('content')
 
 <section style="min-height:92vh;background:#0a0a0a;position:relative;overflow:hidden;padding:120px 0 80px;border-bottom:1px solid #1a1a1a;">
@@ -12,17 +24,17 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;position:relative;z-index:1;">
         <div style="display:grid;grid-template-columns:minmax(0,0.95fr) minmax(360px,0.85fr);gap:56px;align-items:center;">
             <div>
-                <div class="tag tag-green" style="margin-bottom:18px;">{{ __('pages.podcasts.hero_tag') }}</div>
+                <div class="tag tag-green" style="margin-bottom:18px;">{{ $podcastText('hero.tag', __('pages.podcasts.hero_tag')) }}</div>
                 <h1 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2.8rem,7vw,6rem);font-weight:900;color:#f5f5f0;line-height:0.96;margin:0 0 24px;">
-                    {{ __('pages.podcasts.hero_title_1') }}<br>
-                    <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ __('pages.podcasts.hero_title_2') }}</span>
+                    {{ $podcastText('hero.title_1', __('pages.podcasts.hero_title_1')) }}<br>
+                    <span style="background:linear-gradient(135deg,#4caf7d,#d4a030);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">{{ $podcastText('hero.title_2', __('pages.podcasts.hero_title_2')) }}</span>
                 </h1>
                 <p style="color:#aaa19a;font-size:1.05rem;line-height:1.9;max-width:640px;margin:0 0 32px;">
-                    {{ __('pages.podcasts.hero_desc') }}
+                    {{ $podcastText('hero.description', __('pages.podcasts.hero_desc')) }}
                 </p>
                 <div style="display:flex;gap:14px;flex-wrap:wrap;">
-                    <a href="#episodes" class="btn-primary">{{ __('pages.podcasts.listen_episodes') }}</a>
-                    <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-outline">{{ __('pages.podcasts.propose_guest') }}</a>
+                    <a href="#episodes" class="btn-primary">{{ $podcastText('hero.listen_label', __('pages.podcasts.listen_episodes')) }}</a>
+                    <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-outline">{{ $podcastText('hero.propose_label', __('pages.podcasts.propose_guest')) }}</a>
                 </div>
             </div>
 
@@ -37,15 +49,15 @@
                     </div>
                 </div>
                 <div style="position:absolute;right:0;bottom:24px;background:#111;border:1px solid #242018;border-radius:8px;padding:18px 20px;max-width:260px;">
-                    <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">{{ __('pages.podcasts.flagship_series') }}</div>
+                    <div style="color:#d4a030;font-family:'Space Grotesk',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;">{{ $podcastText('featured.label', __('pages.podcasts.flagship_series')) }}</div>
                     <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.1;margin:0;">{{ $featured->series ?? __('pages.podcasts.flagship_series_fallback') }}</p>
                     <p style="color:#777;font-size:0.82rem;line-height:1.55;margin:8px 0 0;">{{ $featured->description ?? __('pages.podcasts.flagship_desc_fallback') }}</p>
                 </div>
                 @else
                 <div style="aspect-ratio:1;border-radius:50%;background:linear-gradient(135deg,rgba(76,175,125,0.12),rgba(212,160,48,0.08));border:1px solid rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;box-shadow:0 30px 100px rgba(0,0,0,0.35);">
                     <svg width="62" height="62" viewBox="0 0 24 24" fill="none" stroke="#d4a030" stroke-width="1.4" aria-hidden="true"><path d="M4 14a8 8 0 0 1 16 0"/><path d="M18 19v-5a2 2 0 0 1 2-2h1v7h-3ZM6 19v-5a2 2 0 0 0-2-2H3v7h3Z"/></svg>
-                    <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.2;margin:20px 0 8px;">{{ __('pages.podcasts.empty_title') }}</p>
-                    <p style="color:#777;font-size:0.84rem;line-height:1.6;margin:0;">{{ __('pages.podcasts.empty_desc') }}</p>
+                    <p style="color:#f5f5f0;font-family:'Playfair Display',Georgia,serif;font-size:1.35rem;line-height:1.2;margin:20px 0 8px;">{{ $podcastText('empty.title', __('pages.podcasts.empty_title')) }}</p>
+                    <p style="color:#777;font-size:0.84rem;line-height:1.6;margin:0;">{{ $podcastText('empty.description', __('pages.podcasts.empty_desc')) }}</p>
                 </div>
                 @endif
             </div>
@@ -57,10 +69,10 @@
     <div style="max-width:1280px;margin:0 auto;padding:0 24px;">
         <div style="display:flex;align-items:end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:34px;">
             <div>
-                <div class="tag tag-gold" style="margin-bottom:14px;">{{ __('pages.podcasts.latest_tag') }}</div>
-                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.08;color:#f5f5f0;margin:0;">{{ __('pages.podcasts.latest_title') }}</h2>
+                <div class="tag tag-gold" style="margin-bottom:14px;">{{ $podcastText('latest.tag', __('pages.podcasts.latest_tag')) }}</div>
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.08;color:#f5f5f0;margin:0;">{{ $podcastText('latest.title', __('pages.podcasts.latest_title')) }}</h2>
             </div>
-            <p style="color:#777;max-width:420px;line-height:1.75;margin:0;">{{ __('pages.podcasts.latest_desc') }}</p>
+            <p style="color:#777;max-width:420px;line-height:1.75;margin:0;">{{ $podcastText('latest.description', __('pages.podcasts.latest_desc')) }}</p>
         </div>
 
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
@@ -91,8 +103,8 @@
             </article>
             @empty
             <div style="grid-column:1/-1;background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:48px 24px;text-align:center;">
-                <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:1.6rem;margin:0 0 10px;">{{ __('pages.podcasts.empty_title') }}</h3>
-                <p style="color:#777;line-height:1.7;margin:0;">{{ __('pages.podcasts.empty_desc') }}</p>
+                <h3 style="font-family:'Playfair Display',Georgia,serif;color:#f5f5f0;font-size:1.6rem;margin:0 0 10px;">{{ $podcastText('empty.title', __('pages.podcasts.empty_title')) }}</h3>
+                <p style="color:#777;line-height:1.7;margin:0;">{{ $podcastText('empty.description', __('pages.podcasts.empty_desc')) }}</p>
             </div>
             @endforelse
         </div>
@@ -103,18 +115,18 @@
     <div style="max-width:1120px;margin:0 auto;padding:0 24px;">
         <div style="display:grid;grid-template-columns:0.9fr 1.1fr;gap:48px;align-items:start;">
             <div>
-                <div class="tag tag-green" style="margin-bottom:14px;">{{ __('pages.podcasts.participate_tag') }}</div>
-                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.08;color:#f5f5f0;margin:0 0 18px;">{{ __('pages.podcasts.participate_title') }}</h2>
-                <p style="color:#888;line-height:1.85;margin:0;">{{ __('pages.podcasts.participate_desc') }}</p>
+                <div class="tag tag-green" style="margin-bottom:14px;">{{ $podcastText('participate.tag', __('pages.podcasts.participate_tag')) }}</div>
+                <h2 style="font-family:'Playfair Display',Georgia,serif;font-size:clamp(2rem,4vw,3rem);line-height:1.08;color:#f5f5f0;margin:0 0 18px;">{{ $podcastText('participate.title', __('pages.podcasts.participate_title')) }}</h2>
+                <p style="color:#888;line-height:1.85;margin:0;">{{ $podcastText('participate.description', __('pages.podcasts.participate_desc')) }}</p>
             </div>
             <div style="display:grid;gap:14px;">
-                @foreach(__('pages.podcasts.steps') as $step)
+                @foreach($participationSteps as $step)
                 <div style="background:#111;border:1px solid #1a1a1a;border-radius:8px;padding:22px;">
                     <h3 style="font-family:'Space Grotesk',sans-serif;color:#f5f5f0;font-size:0.95rem;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 8px;">{{ $step['title'] }}</h3>
                     <p style="color:#777;font-size:0.9rem;line-height:1.7;margin:0;">{{ $step['desc'] }}</p>
                 </div>
                 @endforeach
-                <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-gold" style="justify-content:center;margin-top:8px;">{{ __('pages.podcasts.propose_participation') }}</a>
+                <a href="{{ route('contact.index') }}?sujet=Proposition+Podcast" class="btn-gold" style="justify-content:center;margin-top:8px;">{{ $podcastText('participate.button_label', __('pages.podcasts.propose_participation')) }}</a>
             </div>
         </div>
     </div>

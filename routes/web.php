@@ -163,6 +163,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::put('pages/home',   [PageSettingAdminController::class, 'updateHome'])->name('pages.home.update');
     Route::get('pages/about',  [PageSettingAdminController::class, 'about'])->name('pages.about');
     Route::put('pages/about',  [PageSettingAdminController::class, 'updateAbout'])->name('pages.about.update');
+    Route::get('pages/podcasts', [PageSettingAdminController::class, 'podcasts'])->name('pages.podcasts');
+    Route::put('pages/podcasts', [PageSettingAdminController::class, 'updatePodcasts'])->name('pages.podcasts.update');
 
     // Hero Slides
     Route::resource('hero', HeroSlideAdminController::class)->except(['show']);

@@ -183,6 +183,47 @@ class PageSettingAdminController extends Controller
         return back()->with('success', 'Page "À propos" mise à jour avec succès.');
     }
 
+    /* ────────────────────────────────── PODCASTS ── */
+
+    public function podcasts()
+    {
+        return view('admin.pages.podcasts');
+    }
+
+    public function updatePodcasts(Request $request)
+    {
+        $data = $request->validate([
+            'podcasts.hero.tag'                    => 'nullable|string|max:80',
+            'podcasts.hero.title_1'                => 'nullable|string|max:100',
+            'podcasts.hero.title_2'                => 'nullable|string|max:100',
+            'podcasts.hero.description'            => 'nullable|string|max:600',
+            'podcasts.hero.listen_label'           => 'nullable|string|max:80',
+            'podcasts.hero.propose_label'          => 'nullable|string|max:80',
+            'podcasts.featured.label'              => 'nullable|string|max:80',
+            'podcasts.latest.tag'                  => 'nullable|string|max:80',
+            'podcasts.latest.title'                => 'nullable|string|max:120',
+            'podcasts.latest.description'          => 'nullable|string|max:500',
+            'podcasts.empty.title'                 => 'nullable|string|max:160',
+            'podcasts.empty.description'           => 'nullable|string|max:500',
+            'podcasts.participate.tag'             => 'nullable|string|max:80',
+            'podcasts.participate.title'           => 'nullable|string|max:160',
+            'podcasts.participate.description'     => 'nullable|string|max:800',
+            'podcasts.participate.step1_title'     => 'nullable|string|max:120',
+            'podcasts.participate.step1_desc'      => 'nullable|string|max:400',
+            'podcasts.participate.step2_title'     => 'nullable|string|max:120',
+            'podcasts.participate.step2_desc'      => 'nullable|string|max:400',
+            'podcasts.participate.step3_title'     => 'nullable|string|max:120',
+            'podcasts.participate.step3_desc'      => 'nullable|string|max:400',
+            'podcasts.participate.button_label'    => 'nullable|string|max:100',
+        ]);
+
+        PageSetting::saveMany($this->flatten($data));
+        $this->saveEnglishFields($request);
+        PageSetting::clearCache();
+
+        return back()->with('success', 'Contenu de la page Podcasts mis à jour avec succès.');
+    }
+
     /* ────────────────────────────────── HELPERS ── */
 
     /**
